@@ -12,7 +12,9 @@
   :root {
     --bg: #f7f6f3; --surface: #ffffff; --border: #e0ddd7;
     --text-primary: #1a1a1a; --text-secondary: #6b6b6b; --text-muted: #a0a0a0;
-    --accent-silicon: #e85d26; --accent-military: #2a4a7f;
+    --accent-silicon: #e85d26;
+    --accent-military: #2a4a7f;
+    --accent-projects: #2a7f5a;
   }
 
   body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
@@ -26,31 +28,32 @@
   }
   .logo { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--text-primary); text-decoration: none; }
   .logo span { color: var(--accent-silicon); }
-  nav { display: flex; gap: 28px; }
+  nav { display: flex; gap: 24px; }
   nav a { font-size: 13px; color: var(--text-secondary); text-decoration: none; cursor: pointer; transition: color .2s; }
   nav a:hover { color: var(--text-primary); }
   nav a.active { color: var(--text-primary); font-weight: 500; }
 
-  .hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 48px; }
+  .hero { max-width: 960px; margin: 0 auto; padding: 72px 40px 48px; }
   .hero-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
   .hero h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
   .hero h1 em { font-style: normal; color: var(--accent-silicon); }
   .hero p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; max-width: 560px; }
 
-  .tabs-wrapper { max-width: 900px; margin: 0 auto; padding: 0 40px; }
-  .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 40px; }
+  .tabs-wrapper { max-width: 960px; margin: 0 auto; padding: 0 40px; }
+  .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 40px; overflow-x: auto; }
   .tab-btn {
-    padding: 12px 24px; font-size: 14px; font-weight: 500;
+    padding: 12px 20px; font-size: 14px; font-weight: 500;
     color: var(--text-muted); background: none; border: none;
     border-bottom: 2px solid transparent; margin-bottom: -2px;
     cursor: pointer; transition: all .2s; font-family: 'Noto Sans TC', sans-serif;
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 8px; white-space: nowrap;
   }
   .tab-btn:hover { color: var(--text-primary); }
   .tab-btn.active { color: var(--text-primary); border-bottom-color: var(--text-primary); }
   .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-  #tab-silicon .dot { background: var(--accent-silicon); }
+  #tab-silicon .dot  { background: var(--accent-silicon); }
   #tab-military .dot { background: var(--accent-military); }
+  #tab-projects .dot { background: var(--accent-projects); }
 
   .panel { display: none; }
   .panel.active { display: block; }
@@ -79,12 +82,22 @@
   .card-thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
   .card-thumb.military { background: linear-gradient(135deg, #1a2a4a 0%, #2a4a7f 100%); color: rgba(255,255,255,0.18); }
   .card-thumb.silicon  { background: linear-gradient(135deg, #2d1a0e 0%, #8b3a12 100%); color: rgba(255,255,255,0.15); }
+  .card-thumb.projects { background: linear-gradient(135deg, #0d2a1e 0%, #1a5c3a 100%); color: rgba(255,255,255,0.15); font-family: 'Space Mono', monospace; font-size: 28px; }
 
   .card-body { padding: 16px 18px 18px; }
   .card-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
   .card-title { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
   .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-  .card-meta { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; }
+  .card-meta { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
+
+  /* STATUS BADGE */
+  .badge {
+    font-family: 'Space Mono', monospace; font-size: 10px; padding: 2px 8px;
+    border-radius: 20px; font-weight: 700; letter-spacing: 0.05em;
+  }
+  .badge-active   { background: #e6f4ee; color: #1a5c3a; }
+  .badge-done     { background: #e8eaf6; color: #2a3a7f; }
+  .badge-paused   { background: #fef3e2; color: #8b5a00; }
 
   .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 14px; }
   .empty-state .icon { font-size: 36px; margin-bottom: 12px; }
@@ -112,9 +125,8 @@
   .detail-cover { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; margin-bottom: 24px; display: block; }
   .detail-tag { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
   .detail-title { font-family: 'Noto Serif TC', serif; font-size: 24px; font-weight: 900; margin-bottom: 8px; line-height: 1.3; }
-  .detail-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .detail-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 
-  /* MARKDOWN */
   .md-body { font-size: 14px; color: var(--text-secondary); line-height: 1.85; }
   .md-body h1, .md-body h2 { font-family: 'Noto Serif TC', serif; color: var(--text-primary); margin: 24px 0 12px; font-weight: 700; }
   .md-body h1 { font-size: 20px; }
@@ -133,7 +145,6 @@
   .md-body table th { background: #f0ede8; font-weight: 600; text-align: left; padding: 8px 12px; border: 1px solid var(--border); }
   .md-body table td { padding: 8px 12px; border: 1px solid var(--border); }
 
-  /* JSON TABLE */
   .detail-table-section { margin-top: 24px; }
   .detail-table-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
   .detail-table-wrap { overflow-x: auto; }
@@ -160,13 +171,14 @@
   <nav>
     <a onclick="switchTab('silicon')" id="nav-silicon" class="active">矽谷觀察</a>
     <a onclick="switchTab('military')" id="nav-military">台海軍事</a>
+    <a onclick="switchTab('projects')" id="nav-projects">AI 專案</a>
   </nav>
 </header>
 
 <section class="hero">
   <div class="hero-label">// Strategic Intelligence Room</div>
   <h1>SiliconCore<br><em>戰略情報室</em></h1>
-  <p>矽谷科技動態 × 台海軍事情勢。個人觀察筆記與資料彙整。</p>
+  <p>矽谷科技動態 × 台海軍事情勢 × AI 專案紀錄。個人觀察筆記與研究彙整。</p>
 </section>
 
 <main class="tabs-wrapper">
@@ -176,6 +188,9 @@
     </button>
     <button class="tab-btn" id="tab-military" onclick="switchTab('military')">
       <span class="dot"></span>台海軍事情報
+    </button>
+    <button class="tab-btn" id="tab-projects" onclick="switchTab('projects')">
+      <span class="dot"></span>AI 專案紀錄
     </button>
   </div>
 
@@ -188,13 +203,17 @@
     <div class="section-label">情報資料庫</div>
     <div class="card-grid" id="grid-military"><div class="loading">載入中...</div></div>
   </div>
+
+  <div class="panel" id="panel-projects">
+    <div class="section-label">專案紀錄</div>
+    <div class="card-grid" id="grid-projects"><div class="loading">載入中...</div></div>
+  </div>
 </main>
 
 <footer>
   SiliconCore｜戰略情報室 &nbsp;·&nbsp; 個人研究筆記 &nbsp;·&nbsp; 內容不構成任何投資或軍事建議
 </footer>
 
-<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="modal-detail" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -208,9 +227,19 @@
 </div>
 
 <script>
-  const siliconGlyphs  = ['⬡','◈','◎','⬢','◉','⬟'];
-  const militaryGlyphs = ['艦','空','陸','彈','密','情'];
-  let allData = { silicon: [], military: [] };
+  const config = {
+    silicon:  { glyphs: ['⬡','◈','◎','⬢','◉','⬟'], cls: 'silicon' },
+    military: { glyphs: ['艦','空','陸','彈','密','情'], cls: 'military' },
+    projects: { glyphs: ['</>', 'AI', '⚙', '🤖', '⬡', '◈'], cls: 'projects' }
+  };
+
+  const statusMap = {
+    '進行中': 'badge-active',
+    '已完成': 'badge-done',
+    '暫停':   'badge-paused'
+  };
+
+  let allData = { silicon: [], military: [], projects: [] };
 
   async function loadData() {
     try {
@@ -218,21 +247,21 @@
       if (!res.ok) throw new Error();
       allData = await res.json();
     } catch(e) {
-      allData = { silicon: [], military: [] };
+      allData = { silicon: [], military: [], projects: [] };
     }
     renderGrid('silicon');
     renderGrid('military');
+    renderGrid('projects');
   }
 
   function renderGrid(panel) {
     const grid = document.getElementById('grid-' + panel);
     const entries = allData[panel] || [];
-    const isM = panel === 'military';
-    const glyphs = isM ? militaryGlyphs : siliconGlyphs;
-    const cls = isM ? 'military' : 'silicon';
+    const { glyphs, cls } = config[panel];
+    const icons = { silicon: '💡', military: '🛡️', projects: '⚙️' };
 
     if (entries.length === 0) {
-      grid.innerHTML = `<div class="empty-state"><div class="icon">${isM ? '🛡️' : '💡'}</div>尚無資料，請上傳 JSON 至 data/${panel}/</div>`;
+      grid.innerHTML = `<div class="empty-state"><div class="icon">${icons[panel]}</div>尚無資料，請上傳 JSON 至 data/${panel}/</div>`;
       return;
     }
 
@@ -240,6 +269,13 @@
       const thumb = e.image
         ? `<img src="${esc(e.image)}" alt="${esc(e.title)}" loading="lazy">`
         : glyphs[i % glyphs.length];
+
+      let metaRight = esc(e.date || '');
+      if (panel === 'projects' && e.status) {
+        const badgeCls = statusMap[e.status] || 'badge-paused';
+        metaRight = `<span class="badge ${badgeCls}">${esc(e.status)}</span>`;
+      }
+
       return `
         <a class="card" href="#" onclick="openDetail(event,${i},'${panel}')">
           <div class="card-thumb ${cls}">${thumb}</div>
@@ -247,7 +283,7 @@
             <div class="card-tag">${esc(e.tag || '')}</div>
             <div class="card-title">${esc(e.title || '（無標題）')}</div>
             <div class="card-desc">${esc(e.desc || '')}</div>
-            <div class="card-meta"><span>${esc(e.tag || '')}</span><span>${esc(e.date || '')}</span></div>
+            <div class="card-meta"><span>${esc(e.date || '')}</span>${metaRight}</div>
           </div>
         </a>`;
     }).join('');
@@ -267,41 +303,32 @@
     if (!entry) return;
 
     const cover = document.getElementById('d-cover');
-    if (entry.image) {
-      cover.src = entry.image;
-      cover.style.display = 'block';
-    } else {
-      cover.style.display = 'none';
-    }
+    if (entry.image) { cover.src = entry.image; cover.style.display = 'block'; }
+    else { cover.style.display = 'none'; }
 
     document.getElementById('d-tag').textContent = entry.tag || '';
     document.getElementById('d-title').textContent = entry.title || '';
-    document.getElementById('d-meta').textContent = entry.date ? '日期：' + entry.date : '';
 
-    // markdown
-    const dc = document.getElementById('d-content');
-    dc.innerHTML = entry.content ? marked.parse(entry.content) : '';
+    // meta
+    const meta = document.getElementById('d-meta');
+    let metaHtml = entry.date ? `<span>日期：${esc(entry.date)}</span>` : '';
+    if (entry.status) {
+      const badgeCls = statusMap[entry.status] || 'badge-paused';
+      metaHtml += `<span class="badge ${badgeCls}">${esc(entry.status)}</span>`;
+    }
+    if (entry.tech) metaHtml += `<span>技術：${esc(entry.tech)}</span>`;
+    meta.innerHTML = metaHtml;
 
-    // table
+    document.getElementById('d-content').innerHTML = entry.content ? marked.parse(entry.content) : '';
+
     const ts = document.getElementById('d-table-section');
     if (entry.table && entry.table.headers && entry.table.rows) {
       const headers = entry.table.headers.map(h => `<th>${esc(h)}</th>`).join('');
       const rows = entry.table.rows.map(r =>
         '<tr>' + r.map(c => `<td>${esc(c)}</td>`).join('') + '</tr>'
       ).join('');
-      ts.innerHTML = `
-        <div class="detail-table-section">
-          <div class="detail-table-label">資料表格</div>
-          <div class="detail-table-wrap">
-            <table class="detail-table">
-              <thead><tr>${headers}</tr></thead>
-              <tbody>${rows}</tbody>
-            </table>
-          </div>
-        </div>`;
-    } else {
-      ts.innerHTML = '';
-    }
+      ts.innerHTML = `<div class="detail-table-section"><div class="detail-table-label">資料表格</div><div class="detail-table-wrap"><table class="detail-table"><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    } else { ts.innerHTML = ''; }
 
     document.getElementById('modal-detail').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -316,9 +343,7 @@
     if (e.target === document.getElementById('modal-detail')) closeModal();
   }
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   function esc(s) {
     return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
