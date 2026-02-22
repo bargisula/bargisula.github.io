@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SiliconCore｜戰略情報室</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700;900&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -62,7 +63,6 @@
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 48px; }
-
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
     overflow: hidden; cursor: pointer;
@@ -72,9 +72,11 @@
   .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
 
   .card-thumb {
-    height: 120px; display: flex; align-items: center; justify-content: center;
+    height: 160px; display: flex; align-items: center; justify-content: center;
     font-size: 56px; font-family: 'Noto Serif TC', serif; font-weight: 900;
+    overflow: hidden; position: relative;
   }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
   .card-thumb.military { background: linear-gradient(135deg, #1a2a4a 0%, #2a4a7f 100%); color: rgba(255,255,255,0.18); }
   .card-thumb.silicon  { background: linear-gradient(135deg, #2d1a0e 0%, #8b3a12 100%); color: rgba(255,255,255,0.15); }
 
@@ -86,24 +88,57 @@
 
   .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 14px; }
   .empty-state .icon { font-size: 36px; margin-bottom: 12px; }
-
   .loading { text-align: center; padding: 60px; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 12px; }
 
   /* MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border-radius: 12px; width: 100%; max-width: 680px; max-height: 85vh; overflow-y: auto; padding: 32px; position: relative; }
-  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--border); border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; }
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+    z-index: 200; overflow-y: auto; padding: 40px 20px;
+  }
+  .modal-overlay.open { display: block; }
+  .modal {
+    background: var(--surface); border-radius: 12px;
+    width: 100%; max-width: 720px; padding: 36px;
+    position: relative; margin: 0 auto;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: 1px solid var(--border); border-radius: 50%;
+    width: 32px; height: 32px; font-size: 16px; cursor: pointer;
+    color: var(--text-secondary); display: flex; align-items: center; justify-content: center;
+  }
 
+  .detail-cover { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; margin-bottom: 24px; display: block; }
   .detail-tag { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-  .detail-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; margin-bottom: 20px; }
-  .detail-content { font-size: 14px; color: var(--text-secondary); line-height: 1.8; white-space: pre-wrap; background: var(--bg); padding: 16px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 16px; }
-  .detail-meta { font-size: 12px; color: var(--text-muted); }
+  .detail-title { font-family: 'Noto Serif TC', serif; font-size: 24px; font-weight: 900; margin-bottom: 8px; line-height: 1.3; }
+  .detail-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
 
-  /* TABLE */
-  .detail-table-wrap { overflow-x: auto; margin-bottom: 16px; }
+  /* MARKDOWN */
+  .md-body { font-size: 14px; color: var(--text-secondary); line-height: 1.85; }
+  .md-body h1, .md-body h2 { font-family: 'Noto Serif TC', serif; color: var(--text-primary); margin: 24px 0 12px; font-weight: 700; }
+  .md-body h1 { font-size: 20px; }
+  .md-body h2 { font-size: 17px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .md-body h3 { font-size: 15px; color: var(--text-primary); font-weight: 600; margin: 18px 0 8px; }
+  .md-body p { margin-bottom: 14px; }
+  .md-body ul, .md-body ol { margin: 0 0 14px 20px; }
+  .md-body li { margin-bottom: 6px; }
+  .md-body strong { color: var(--text-primary); font-weight: 600; }
+  .md-body blockquote { border-left: 3px solid var(--accent-military); padding: 8px 16px; margin: 16px 0; background: #f0ede8; border-radius: 0 6px 6px 0; }
+  .md-body code { background: #f0ede8; padding: 2px 6px; border-radius: 3px; font-family: 'Space Mono', monospace; font-size: 12px; }
+  .md-body pre { background: #1a1a1a; color: #a8d08d; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 14px; }
+  .md-body pre code { background: none; color: inherit; padding: 0; }
+  .md-body hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+  .md-body table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+  .md-body table th { background: #f0ede8; font-weight: 600; text-align: left; padding: 8px 12px; border: 1px solid var(--border); }
+  .md-body table td { padding: 8px 12px; border: 1px solid var(--border); }
+
+  /* JSON TABLE */
+  .detail-table-section { margin-top: 24px; }
+  .detail-table-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .detail-table-wrap { overflow-x: auto; }
   .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .detail-table th { background: #f0ede8; font-weight: 600; text-align: left; padding: 8px 12px; border: 1px solid var(--border); }
+  .detail-table th { background: #f0ede8; font-weight: 600; text-align: left; padding: 9px 12px; border: 1px solid var(--border); white-space: nowrap; }
   .detail-table td { padding: 8px 12px; border: 1px solid var(--border); color: var(--text-secondary); }
   .detail-table tr:hover td { background: #faf9f7; }
 
@@ -113,6 +148,8 @@
     header { padding: 0 16px; }
     .hero { padding: 40px 16px 32px; }
     .tabs-wrapper { padding: 0 16px; }
+    .modal { padding: 24px 16px; }
+    .modal-overlay { padding: 16px; }
   }
 </style>
 </head>
@@ -158,14 +195,15 @@
 </footer>
 
 <!-- DETAIL MODAL -->
-<div class="modal-overlay" id="modal-detail">
+<div class="modal-overlay" id="modal-detail" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
+    <img id="d-cover" class="detail-cover" src="" alt="" style="display:none">
     <div class="detail-tag" id="d-tag"></div>
     <div class="detail-title" id="d-title"></div>
-    <div id="d-content-wrap"></div>
-    <div id="d-table-wrap"></div>
     <div class="detail-meta" id="d-meta"></div>
+    <div class="md-body" id="d-content"></div>
+    <div id="d-table-section"></div>
   </div>
 </div>
 
@@ -174,11 +212,10 @@
   const militaryGlyphs = ['艦','空','陸','彈','密','情'];
   let allData = { silicon: [], military: [] };
 
-  // ── FETCH DATA ──
   async function loadData() {
     try {
       const res = await fetch('data/index.json?t=' + Date.now());
-      if (!res.ok) throw new Error('not found');
+      if (!res.ok) throw new Error();
       allData = await res.json();
     } catch(e) {
       allData = { silicon: [], military: [] };
@@ -187,7 +224,6 @@
     renderGrid('military');
   }
 
-  // ── RENDER ──
   function renderGrid(panel) {
     const grid = document.getElementById('grid-' + panel);
     const entries = allData[panel] || [];
@@ -200,19 +236,23 @@
       return;
     }
 
-    grid.innerHTML = entries.map((e, i) => `
-      <a class="card" href="#" onclick="openDetail(event,${i},'${panel}')">
-        <div class="card-thumb ${cls}">${glyphs[i % glyphs.length]}</div>
-        <div class="card-body">
-          <div class="card-tag">${esc(e.tag || '')}</div>
-          <div class="card-title">${esc(e.title || '（無標題）')}</div>
-          <div class="card-desc">${esc(e.desc || '')}</div>
-          <div class="card-meta"><span>${esc(e.tag || '')}</span><span>${esc(e.date || '')}</span></div>
-        </div>
-      </a>`).join('');
+    grid.innerHTML = entries.map((e, i) => {
+      const thumb = e.image
+        ? `<img src="${esc(e.image)}" alt="${esc(e.title)}" loading="lazy">`
+        : glyphs[i % glyphs.length];
+      return `
+        <a class="card" href="#" onclick="openDetail(event,${i},'${panel}')">
+          <div class="card-thumb ${cls}">${thumb}</div>
+          <div class="card-body">
+            <div class="card-tag">${esc(e.tag || '')}</div>
+            <div class="card-title">${esc(e.title || '（無標題）')}</div>
+            <div class="card-desc">${esc(e.desc || '')}</div>
+            <div class="card-meta"><span>${esc(e.tag || '')}</span><span>${esc(e.date || '')}</span></div>
+          </div>
+        </a>`;
+    }).join('');
   }
 
-  // ── TAB ──
   function switchTab(panel) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn, nav a').forEach(b => b.classList.remove('active'));
@@ -221,54 +261,71 @@
     document.getElementById('nav-' + panel).classList.add('active');
   }
 
-  // ── DETAIL ──
   function openDetail(e, idx, panel) {
     e.preventDefault();
     const entry = allData[panel][idx];
     if (!entry) return;
 
+    const cover = document.getElementById('d-cover');
+    if (entry.image) {
+      cover.src = entry.image;
+      cover.style.display = 'block';
+    } else {
+      cover.style.display = 'none';
+    }
+
     document.getElementById('d-tag').textContent = entry.tag || '';
     document.getElementById('d-title').textContent = entry.title || '';
     document.getElementById('d-meta').textContent = entry.date ? '日期：' + entry.date : '';
 
-    // content
-    const cw = document.getElementById('d-content-wrap');
-    cw.innerHTML = entry.content
-      ? `<div class="detail-content">${esc(entry.content)}</div>`
-      : '';
+    // markdown
+    const dc = document.getElementById('d-content');
+    dc.innerHTML = entry.content ? marked.parse(entry.content) : '';
 
     // table
-    const tw = document.getElementById('d-table-wrap');
+    const ts = document.getElementById('d-table-section');
     if (entry.table && entry.table.headers && entry.table.rows) {
       const headers = entry.table.headers.map(h => `<th>${esc(h)}</th>`).join('');
       const rows = entry.table.rows.map(r =>
         '<tr>' + r.map(c => `<td>${esc(c)}</td>`).join('') + '</tr>'
       ).join('');
-      tw.innerHTML = `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      ts.innerHTML = `
+        <div class="detail-table-section">
+          <div class="detail-table-label">資料表格</div>
+          <div class="detail-table-wrap">
+            <table class="detail-table">
+              <thead><tr>${headers}</tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>`;
     } else {
-      tw.innerHTML = '';
+      ts.innerHTML = '';
     }
 
     document.getElementById('modal-detail').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     document.getElementById('modal-detail').classList.remove('open');
+    document.body.style.overflow = '';
   }
 
-  document.getElementById('modal-detail').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal-detail')) closeModal();
+  }
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeModal();
   });
 
   function esc(s) {
-    return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   loadData();
 </script>
 </body>
 </html>
+
