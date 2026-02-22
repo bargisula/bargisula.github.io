@@ -1,0 +1,41 @@
+name: Build Index
+
+on:
+  push:
+    paths:
+      - 'data/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate index.json
+        run: |
+          python3 -c "
+          import json, os, glob
+
+          result = {'silicon': [], 'military': []}
+
+          for panel in ['silicon', 'military']:
+              files = sorted(glob.glob(f'data/{panel}/*.json'), reverse=True)
+              for f in files:
+                  with open(f) as fp:
+                      data = json.load(fp)
+                      data['_file'] = os.path.basename(f)
+                      result[panel].append(data)
+
+          with open('data/index.json', 'w', encoding='utf-8') as fp:
+              json.dump(result, fp, ensure_ascii=False, indent=2)
+          "
+
+      - name: Commit index.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/index.json
+          git diff --staged --quiet || git commit -m "auto: update index.json"
+          git push
