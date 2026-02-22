@@ -9,246 +9,105 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #f7f6f3;
-    --surface: #ffffff;
-    --border: #e0ddd7;
-    --text-primary: #1a1a1a;
-    --text-secondary: #6b6b6b;
-    --text-muted: #a0a0a0;
-    --accent-silicon: #e85d26;
-    --accent-military: #2a4a7f;
-    --tag-bg: #f0ede8;
+    --bg: #f7f6f3; --surface: #ffffff; --border: #e0ddd7;
+    --text-primary: #1a1a1a; --text-secondary: #6b6b6b; --text-muted: #a0a0a0;
+    --accent-silicon: #e85d26; --accent-military: #2a4a7f;
   }
 
-  body {
-    font-family: 'Noto Sans TC', sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-  }
+  body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
 
   header {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(247,246,243,0.92);
-    backdrop-filter: blur(8px);
+    background: rgba(247,246,243,0.92); backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
     padding: 0 40px; height: 52px;
     display: flex; align-items: center; justify-content: space-between;
   }
-
-  .logo {
-    font-family: 'Space Mono', monospace;
-    font-size: 14px; font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--text-primary); text-decoration: none;
-  }
+  .logo { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--text-primary); text-decoration: none; }
   .logo span { color: var(--accent-silicon); }
-
-  nav { display: flex; gap: 28px; align-items: center; }
-  nav a {
-    font-size: 13px; color: var(--text-secondary);
-    text-decoration: none; transition: color .2s; cursor: pointer;
-  }
+  nav { display: flex; gap: 28px; }
+  nav a { font-size: 13px; color: var(--text-secondary); text-decoration: none; cursor: pointer; transition: color .2s; }
   nav a:hover { color: var(--text-primary); }
   nav a.active { color: var(--text-primary); font-weight: 500; }
 
-  .hero {
-    max-width: 900px; margin: 0 auto;
-    padding: 72px 40px 48px;
-  }
-  .hero-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 900; line-height: 1.15; margin-bottom: 16px;
-  }
+  .hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 48px; }
+  .hero-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+  .hero h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
   .hero h1 em { font-style: normal; color: var(--accent-silicon); }
-  .hero p {
-    font-size: 15px; color: var(--text-secondary);
-    line-height: 1.7; max-width: 560px;
-  }
+  .hero p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; max-width: 560px; }
 
   .tabs-wrapper { max-width: 900px; margin: 0 auto; padding: 0 40px; }
-
-  .tabs {
-    display: flex; gap: 0;
-    border-bottom: 2px solid var(--border); margin-bottom: 40px;
-  }
+  .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 40px; }
   .tab-btn {
     padding: 12px 24px; font-size: 14px; font-weight: 500;
     color: var(--text-muted); background: none; border: none;
     border-bottom: 2px solid transparent; margin-bottom: -2px;
-    cursor: pointer; transition: all .2s;
+    cursor: pointer; transition: all .2s; font-family: 'Noto Sans TC', sans-serif;
     display: flex; align-items: center; gap: 8px;
-    font-family: 'Noto Sans TC', sans-serif;
   }
   .tab-btn:hover { color: var(--text-primary); }
   .tab-btn.active { color: var(--text-primary); border-bottom-color: var(--text-primary); }
-  .tab-btn .dot {
-    width: 7px; height: 7px; border-radius: 50%; display: inline-block;
-  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
   #tab-silicon .dot { background: var(--accent-silicon); }
   #tab-military .dot { background: var(--accent-military); }
 
   .panel { display: none; }
   .panel.active { display: block; }
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px; margin-bottom: 48px;
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
   }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 48px; }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
     overflow: hidden; cursor: pointer;
     transition: box-shadow .2s, transform .15s;
     text-decoration: none; color: inherit; display: block;
   }
-  .card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
-  }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
 
   .card-thumb {
-    height: 140px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 64px; position: relative; overflow: hidden;
+    height: 120px; display: flex; align-items: center; justify-content: center;
+    font-size: 56px; font-family: 'Noto Serif TC', serif; font-weight: 900;
   }
-  .card-thumb.military {
-    background: linear-gradient(135deg, #1a2a4a 0%, #2a4a7f 100%);
-    color: rgba(255,255,255,0.18);
-    font-family: 'Noto Serif TC', serif; font-weight: 900;
-  }
-  .card-thumb.silicon {
-    background: linear-gradient(135deg, #2d1a0e 0%, #8b3a12 100%);
-    color: rgba(255,255,255,0.15); font-size: 64px;
-  }
+  .card-thumb.military { background: linear-gradient(135deg, #1a2a4a 0%, #2a4a7f 100%); color: rgba(255,255,255,0.18); }
+  .card-thumb.silicon  { background: linear-gradient(135deg, #2d1a0e 0%, #8b3a12 100%); color: rgba(255,255,255,0.15); }
 
   .card-body { padding: 16px 18px 18px; }
-  .card-tag {
-    font-family: 'Space Mono', monospace; font-size: 10px;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 8px;
-  }
-  .card-title {
-    font-family: 'Noto Serif TC', serif; font-size: 16px;
-    font-weight: 700; line-height: 1.4; margin-bottom: 8px;
-  }
+  .card-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .card-title { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
   .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-  .card-meta {
-    margin-top: 12px; padding-top: 12px;
-    border-top: 1px solid var(--border);
-    font-size: 12px; color: var(--text-muted);
-    display: flex; justify-content: space-between;
-  }
+  .card-meta { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; }
 
-  .add-card {
-    background: none; border: 2px dashed var(--border);
-    border-radius: 8px; cursor: pointer;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 8px; min-height: 200px;
-    color: var(--text-muted); font-size: 13px;
-    transition: all .2s; font-family: 'Noto Sans TC', sans-serif;
-  }
-  .add-card:hover {
-    border-color: var(--text-muted); color: var(--text-secondary);
-    background: rgba(0,0,0,0.02);
-  }
-  .add-card .plus { font-size: 28px; line-height: 1; }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 14px; }
+  .empty-state .icon { font-size: 36px; margin-bottom: 12px; }
 
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px); z-index: 200;
-    align-items: center; justify-content: center; padding: 20px;
-  }
+  .loading { text-align: center; padding: 60px; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 12px; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); border-radius: 12px; width: 100%; max-width: 680px; max-height: 85vh; overflow-y: auto; padding: 32px; position: relative; }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--border); border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; }
 
-  .modal {
-    background: var(--surface); border-radius: 12px;
-    width: 100%; max-width: 560px; max-height: 85vh;
-    overflow-y: auto; padding: 32px; position: relative;
-  }
-  .modal-close {
-    position: absolute; top: 16px; right: 16px;
-    background: none; border: 1px solid var(--border);
-    border-radius: 50%; width: 32px; height: 32px;
-    font-size: 16px; cursor: pointer;
-    color: var(--text-secondary);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .modal h2 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 20px; font-weight: 700; margin-bottom: 24px;
-  }
+  .detail-tag { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .detail-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; margin-bottom: 20px; }
+  .detail-content { font-size: 14px; color: var(--text-secondary); line-height: 1.8; white-space: pre-wrap; background: var(--bg); padding: 16px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .detail-meta { font-size: 12px; color: var(--text-muted); }
 
-  .form-group { margin-bottom: 16px; }
-  .form-group label {
-    display: block; font-size: 12px; font-weight: 500;
-    color: var(--text-secondary); margin-bottom: 6px;
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .form-group input,
-  .form-group textarea {
-    width: 100%; padding: 10px 14px;
-    border: 1px solid var(--border); border-radius: 6px;
-    font-size: 14px; font-family: 'Noto Sans TC', sans-serif;
-    background: var(--bg); color: var(--text-primary);
-    outline: none; transition: border-color .2s;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus { border-color: #999; }
-  .form-group textarea { min-height: 120px; resize: vertical; }
+  /* TABLE */
+  .detail-table-wrap { overflow-x: auto; margin-bottom: 16px; }
+  .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .detail-table th { background: #f0ede8; font-weight: 600; text-align: left; padding: 8px 12px; border: 1px solid var(--border); }
+  .detail-table td { padding: 8px 12px; border: 1px solid var(--border); color: var(--text-secondary); }
+  .detail-table tr:hover td { background: #faf9f7; }
 
-  .btn-submit {
-    width: 100%; padding: 12px;
-    background: var(--text-primary); color: #fff;
-    border: none; border-radius: 6px;
-    font-size: 14px; font-weight: 500;
-    cursor: pointer; transition: opacity .2s;
-    margin-top: 8px; font-family: 'Noto Sans TC', sans-serif;
-  }
-  .btn-submit:hover { opacity: 0.85; }
-
-  .detail-header { margin-bottom: 20px; }
-  .detail-header .dtag {
-    font-family: 'Space Mono', monospace; font-size: 11px;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 10px;
-  }
-  .detail-header h2 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 22px; font-weight: 900;
-  }
-  .detail-body {
-    font-size: 14px; color: var(--text-secondary);
-    line-height: 1.8; white-space: pre-wrap;
-    background: var(--bg); padding: 16px;
-    border-radius: 6px; border: 1px solid var(--border);
-  }
-  .detail-meta { margin-top: 16px; font-size: 12px; color: var(--text-muted); }
-
-  .section-label {
-    font-family: 'Space Mono', monospace; font-size: 11px;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 16px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .section-label::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-
-  footer {
-    border-top: 1px solid var(--border); padding: 24px 40px;
-    text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 40px;
-  }
+  footer { border-top: 1px solid var(--border); padding: 24px 40px; text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 40px; }
 
   @media (max-width: 600px) {
     header { padding: 0 16px; }
@@ -270,7 +129,7 @@
 <section class="hero">
   <div class="hero-label">// Strategic Intelligence Room</div>
   <h1>SiliconCore<br><em>戰略情報室</em></h1>
-  <p>矽谷科技動態 × 台海軍事情勢。個人觀察筆記與資料彙整，所有內容僅代表個人研究紀錄。</p>
+  <p>矽谷科技動態 × 台海軍事情勢。個人觀察筆記與資料彙整。</p>
 </section>
 
 <main class="tabs-wrapper">
@@ -285,12 +144,12 @@
 
   <div class="panel active" id="panel-silicon">
     <div class="section-label">最新條目</div>
-    <div class="card-grid" id="grid-silicon"></div>
+    <div class="card-grid" id="grid-silicon"><div class="loading">載入中...</div></div>
   </div>
 
   <div class="panel" id="panel-military">
     <div class="section-label">情報資料庫</div>
-    <div class="card-grid" id="grid-military"></div>
+    <div class="card-grid" id="grid-military"><div class="loading">載入中...</div></div>
   </div>
 </main>
 
@@ -298,180 +157,118 @@
   SiliconCore｜戰略情報室 &nbsp;·&nbsp; 個人研究筆記 &nbsp;·&nbsp; 內容不構成任何投資或軍事建議
 </footer>
 
-<!-- ADD MODAL -->
-<div class="modal-overlay" id="modal-add">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('modal-add')">×</button>
-    <h2 id="add-modal-title">新增條目</h2>
-    <div class="form-group">
-      <label>標題</label>
-      <input type="text" id="add-title" placeholder="輸入標題...">
-    </div>
-    <div class="form-group">
-      <label>分類標籤</label>
-      <input type="text" id="add-tag" placeholder="例：LLM 觀察、台海情勢...">
-    </div>
-    <div class="form-group">
-      <label>摘要（顯示於卡片）</label>
-      <input type="text" id="add-desc" placeholder="一兩句簡介...">
-    </div>
-    <div class="form-group">
-      <label>完整內容</label>
-      <textarea id="add-content" placeholder="貼上你查詢到的資料或觀察筆記..."></textarea>
-    </div>
-    <div class="form-group">
-      <label>日期</label>
-      <input type="date" id="add-date">
-    </div>
-    <button class="btn-submit" onclick="submitEntry()">儲存條目</button>
-  </div>
-</div>
-
 <!-- DETAIL MODAL -->
 <div class="modal-overlay" id="modal-detail">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('modal-detail')">×</button>
-    <div class="detail-header">
-      <div class="dtag" id="detail-tag"></div>
-      <h2 id="detail-title"></h2>
-    </div>
-    <div class="detail-body" id="detail-body"></div>
-    <div class="detail-meta" id="detail-meta"></div>
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="detail-tag" id="d-tag"></div>
+    <div class="detail-title" id="d-title"></div>
+    <div id="d-content-wrap"></div>
+    <div id="d-table-wrap"></div>
+    <div class="detail-meta" id="d-meta"></div>
   </div>
 </div>
 
 <script>
-  const store = {
-    silicon: [
-      {
-        tag: 'LLM 觀察', date: '2025-02-20',
-        title: 'GPT-5 發布後的矽谷反應',
-        desc: '各大科技公司的緊急回應策略，以及開源社群的躁動...',
-        content: '（範例條目，點「新增條目」建立你自己的筆記）\n\n矽谷的反應分為幾個派別：\n1. 跟進派：Google、Meta 加速釋出對應模型\n2. 差異化派：Anthropic 強調安全與可解釋性\n3. 開源派：HuggingFace 社群持續對抗封閉模型'
-      },
-      {
-        tag: '矽谷動態', date: '2025-02-18',
-        title: 'Anthropic 的下一步棋',
-        desc: '從 Claude 的架構設計看 Anthropic 如何差異化競爭...',
-        content: '（範例條目）\n\nAnthropic 競爭策略核心在「可信賴 AI」定位，透過 Constitutional AI 方法論建立護城河，與 OpenAI 的產品導向策略形成明顯區別。'
-      }
-    ],
-    military: [
-      {
-        tag: '中國軍力', date: '2025-02-15',
-        title: '055 型驅逐艦戰力分析',
-        desc: '萬噸大驅的雷達系統、飛彈載量及南海部署現況...',
-        content: '（範例資料，點「新增資料」貼入你查詢到的內容）\n\n055 型基本諸元：\n- 滿載排水量：約 12,000 噸\n- 垂直發射單元：112 個\n- 雷達：346B 型有源相控陣\n- 主要任務：艦隊防空、對地打擊'
-      },
-      {
-        tag: '台海情勢', date: '2025-02-10',
-        title: '台海中線現況與解放軍越線頻率',
-        desc: '2024 年以來解放軍越線次數統計與模式分析...',
-        content: '（範例資料）\n\n請貼入你自己查詢到的資料，支援多段落與條列式內容。'
-      }
-    ]
-  };
-
-  const siliconGlyphs = ['⬡','◈','◎','⬢','◉','⬟'];
+  const siliconGlyphs  = ['⬡','◈','◎','⬢','◉','⬟'];
   const militaryGlyphs = ['艦','空','陸','彈','密','情'];
-  let currentPanel = 'silicon';
-  let detailPanel = 'silicon';
-  let detailIdx = -1;
+  let allData = { silicon: [], military: [] };
 
-  function esc(s) {
-    return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // ── FETCH DATA ──
+  async function loadData() {
+    try {
+      const res = await fetch('data/index.json?t=' + Date.now());
+      if (!res.ok) throw new Error('not found');
+      allData = await res.json();
+    } catch(e) {
+      allData = { silicon: [], military: [] };
+    }
+    renderGrid('silicon');
+    renderGrid('military');
   }
 
+  // ── RENDER ──
   function renderGrid(panel) {
     const grid = document.getElementById('grid-' + panel);
+    const entries = allData[panel] || [];
     const isM = panel === 'military';
     const glyphs = isM ? militaryGlyphs : siliconGlyphs;
     const cls = isM ? 'military' : 'silicon';
-    const addLabel = isM ? '新增資料' : '新增條目';
 
-    let html = store[panel].map((e, i) => `
-      <a class="card" href="#" onclick="openDetail(event,'${panel}',${i})">
+    if (entries.length === 0) {
+      grid.innerHTML = `<div class="empty-state"><div class="icon">${isM ? '🛡️' : '💡'}</div>尚無資料，請上傳 JSON 至 data/${panel}/</div>`;
+      return;
+    }
+
+    grid.innerHTML = entries.map((e, i) => `
+      <a class="card" href="#" onclick="openDetail(event,${i},'${panel}')">
         <div class="card-thumb ${cls}">${glyphs[i % glyphs.length]}</div>
         <div class="card-body">
-          <div class="card-tag">${esc(e.tag)}</div>
-          <div class="card-title">${esc(e.title)}</div>
-          <div class="card-desc">${esc(e.desc)}</div>
-          <div class="card-meta"><span>${esc(e.tag)}</span><span>${esc(e.date)}</span></div>
+          <div class="card-tag">${esc(e.tag || '')}</div>
+          <div class="card-title">${esc(e.title || '（無標題）')}</div>
+          <div class="card-desc">${esc(e.desc || '')}</div>
+          <div class="card-meta"><span>${esc(e.tag || '')}</span><span>${esc(e.date || '')}</span></div>
         </div>
       </a>`).join('');
-
-    html += `<button class="add-card" onclick="openAdd('${panel}')">
-      <span class="plus">+</span><span>${addLabel}</span>
-    </button>`;
-    grid.innerHTML = html;
   }
 
+  // ── TAB ──
   function switchTab(panel) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.tab-btn, nav a').forEach(b => b.classList.remove('active'));
     document.getElementById('panel-' + panel).classList.add('active');
     document.getElementById('tab-' + panel).classList.add('active');
     document.getElementById('nav-' + panel).classList.add('active');
-    currentPanel = panel;
   }
 
-  function openAdd(panel) {
-    currentPanel = panel;
-    const titles = { silicon: '新增矽谷觀察條目', military: '新增軍事情報資料' };
-    document.getElementById('add-modal-title').textContent = titles[panel];
-    document.getElementById('add-date').value = new Date().toISOString().slice(0,10);
-    document.getElementById('modal-add').classList.add('open');
-  }
-
-  function submitEntry() {
-    const title = document.getElementById('add-title').value.trim();
-    if (!title) { alert('請輸入標題'); return; }
-    store[currentPanel].push({
-      tag: document.getElementById('add-tag').value.trim() || '未分類',
-      title,
-      desc: document.getElementById('add-desc').value.trim() || '',
-      content: document.getElementById('add-content').value.trim() || '（無內容）',
-      date: document.getElementById('add-date').value || ''
-    });
-    renderGrid(currentPanel);
-    closeModal('modal-add');
-    ['add-title','add-tag','add-desc','add-content'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-  }
-
-  function openDetail(e, panel, idx) {
+  // ── DETAIL ──
+  function openDetail(e, idx, panel) {
     e.preventDefault();
-    const entry = store[panel][idx];
+    const entry = allData[panel][idx];
     if (!entry) return;
-    detailPanel = panel; detailIdx = idx;
-    document.getElementById('detail-tag').textContent = entry.tag;
-    document.getElementById('detail-title').textContent = entry.title;
-    document.getElementById('detail-body').textContent = entry.content;
-    document.getElementById('detail-meta').textContent = entry.date ? '日期：' + entry.date : '';
+
+    document.getElementById('d-tag').textContent = entry.tag || '';
+    document.getElementById('d-title').textContent = entry.title || '';
+    document.getElementById('d-meta').textContent = entry.date ? '日期：' + entry.date : '';
+
+    // content
+    const cw = document.getElementById('d-content-wrap');
+    cw.innerHTML = entry.content
+      ? `<div class="detail-content">${esc(entry.content)}</div>`
+      : '';
+
+    // table
+    const tw = document.getElementById('d-table-wrap');
+    if (entry.table && entry.table.headers && entry.table.rows) {
+      const headers = entry.table.headers.map(h => `<th>${esc(h)}</th>`).join('');
+      const rows = entry.table.rows.map(r =>
+        '<tr>' + r.map(c => `<td>${esc(c)}</td>`).join('') + '</tr>'
+      ).join('');
+      tw.innerHTML = `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+    } else {
+      tw.innerHTML = '';
+    }
+
     document.getElementById('modal-detail').classList.add('open');
   }
 
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
+  function closeModal() {
+    document.getElementById('modal-detail').classList.remove('open');
   }
 
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === this) closeModal(this.id);
-    });
+  document.getElementById('modal-detail').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
   });
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      ['modal-add','modal-detail'].forEach(closeModal);
-    }
+    if (e.key === 'Escape') closeModal();
   });
 
-  // Init
-  renderGrid('silicon');
-  renderGrid('military');
+  function esc(s) {
+    return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  loadData();
 </script>
 </body>
 </html>
