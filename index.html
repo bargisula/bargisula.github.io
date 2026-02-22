@@ -1,124 +1,477 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silicon Slasher | AI 時代的物理真相</title>
-    <style>
-        :root {
-            --neon-blue: #00f3ff;
-            --terminal-green: #39FF14;
-            --dark-space: #050505;
-            --border-gray: #222;
-        }
-        body {
-            background-color: var(--dark-space);
-            color: #e0e0e0;
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            margin: 0;
-            line-height: 1.6;
-        }
-        .nav {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-gray);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-weight: 800;
-            color: var(--neon-blue);
-            letter-spacing: 2px;
-            font-size: 1.5rem;
-        }
-        .hero {
-            padding: 100px 20px;
-            text-align: center;
-            background: radial-gradient(circle at center, #111 0%, #050505 100%);
-        }
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #00f3ff, #39FF14);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .tagline {
-            font-size: 1.2rem;
-            color: #888;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-        .content-section {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        .card {
-            background: #111;
-            border: 1px solid var(--border-gray);
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            transition: 0.3s;
-        }
-        .card:hover {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
-        }
-        .card h3 {
-            color: var(--terminal-green);
-            margin-top: 0;
-        }
-        .footer {
-            text-align: center;
-            padding: 40px;
-            font-size: 0.8rem;
-            color: #444;
-            border-top: 1px solid var(--border-gray);
-        }
-        .btn {
-            background: var(--neon-blue);
-            color: black;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiliconCore｜戰略情報室</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700;900&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --border: #e0ddd7;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-muted: #a0a0a0;
+    --accent-silicon: #e85d26;
+    --accent-military: #2a4a7f;
+    --tag-bg: #f0ede8;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,246,243,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-primary); text-decoration: none;
+  }
+  .logo span { color: var(--accent-silicon); }
+
+  nav { display: flex; gap: 28px; align-items: center; }
+  nav a {
+    font-size: 13px; color: var(--text-secondary);
+    text-decoration: none; transition: color .2s; cursor: pointer;
+  }
+  nav a:hover { color: var(--text-primary); }
+  nav a.active { color: var(--text-primary); font-weight: 500; }
+
+  .hero {
+    max-width: 900px; margin: 0 auto;
+    padding: 72px 40px 48px;
+  }
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900; line-height: 1.15; margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent-silicon); }
+  .hero p {
+    font-size: 15px; color: var(--text-secondary);
+    line-height: 1.7; max-width: 560px;
+  }
+
+  .tabs-wrapper { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+  .tabs {
+    display: flex; gap: 0;
+    border-bottom: 2px solid var(--border); margin-bottom: 40px;
+  }
+  .tab-btn {
+    padding: 12px 24px; font-size: 14px; font-weight: 500;
+    color: var(--text-muted); background: none; border: none;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    cursor: pointer; transition: all .2s;
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .tab-btn:hover { color: var(--text-primary); }
+  .tab-btn.active { color: var(--text-primary); border-bottom-color: var(--text-primary); }
+  .tab-btn .dot {
+    width: 7px; height: 7px; border-radius: 50%; display: inline-block;
+  }
+  #tab-silicon .dot { background: var(--accent-silicon); }
+  #tab-military .dot { background: var(--accent-military); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px; margin-bottom: 48px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; cursor: pointer;
+    transition: box-shadow .2s, transform .15s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .card-thumb {
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+  }
+  .card-thumb.military {
+    background: linear-gradient(135deg, #1a2a4a 0%, #2a4a7f 100%);
+    color: rgba(255,255,255,0.18);
+    font-family: 'Noto Serif TC', serif; font-weight: 900;
+  }
+  .card-thumb.silicon {
+    background: linear-gradient(135deg, #2d1a0e 0%, #8b3a12 100%);
+    color: rgba(255,255,255,0.15); font-size: 64px;
+  }
+
+  .card-body { padding: 16px 18px 18px; }
+  .card-tag {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Noto Serif TC', serif; font-size: 16px;
+    font-weight: 700; line-height: 1.4; margin-bottom: 8px;
+  }
+  .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .card-meta {
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted);
+    display: flex; justify-content: space-between;
+  }
+
+  .add-card {
+    background: none; border: 2px dashed var(--border);
+    border-radius: 8px; cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; min-height: 200px;
+    color: var(--text-muted); font-size: 13px;
+    transition: all .2s; font-family: 'Noto Sans TC', sans-serif;
+  }
+  .add-card:hover {
+    border-color: var(--text-muted); color: var(--text-secondary);
+    background: rgba(0,0,0,0.02);
+  }
+  .add-card .plus { font-size: 28px; line-height: 1; }
+
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px); z-index: 200;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface); border-radius: 12px;
+    width: 100%; max-width: 560px; max-height: 85vh;
+    overflow-y: auto; padding: 32px; position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: 1px solid var(--border);
+    border-radius: 50%; width: 32px; height: 32px;
+    font-size: 16px; cursor: pointer;
+    color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px; font-weight: 700; margin-bottom: 24px;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: 12px; font-weight: 500;
+    color: var(--text-secondary); margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 14px; font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    outline: none; transition: border-color .2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: #999; }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+
+  .btn-submit {
+    width: 100%; padding: 12px;
+    background: var(--text-primary); color: #fff;
+    border: none; border-radius: 6px;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: opacity .2s;
+    margin-top: 8px; font-family: 'Noto Sans TC', sans-serif;
+  }
+  .btn-submit:hover { opacity: 0.85; }
+
+  .detail-header { margin-bottom: 20px; }
+  .detail-header .dtag {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+  .detail-header h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px; font-weight: 900;
+  }
+  .detail-body {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.8; white-space: pre-wrap;
+    background: var(--bg); padding: 16px;
+    border-radius: 6px; border: 1px solid var(--border);
+  }
+  .detail-meta { margin-top: 16px; font-size: 12px; color: var(--text-muted); }
+
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 24px 40px;
+    text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 40px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 0 16px; }
+    .hero { padding: 40px 16px 32px; }
+    .tabs-wrapper { padding: 0 16px; }
+  }
+</style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="logo">SILICON SLASHER</div>
-        <div>經紀人授權版本 v1.0</div>
-    </nav>
 
-    <header class="hero">
-        <h1>看透矽基世界的帳單</h1>
-        <p class="tagline">當軟體不再免費，當智能需要燃料。我們不談願景，我們只談誰在物理極限邊緣繳納沉重的「物理稅」。</p>
-        <a href="#latest" class="btn">進入深度拆解</a>
-    </header>
+<header>
+  <a class="logo" href="#"><span>Silicon</span>Core｜戰略情報室</a>
+  <nav>
+    <a onclick="switchTab('silicon')" id="nav-silicon" class="active">矽谷觀察</a>
+    <a onclick="switchTab('military')" id="nav-military">台海軍事</a>
+  </nav>
+</header>
 
-    <main class="content-section" id="latest">
-        <div class="card">
-            <h3>🔴 警報：OpenAI 的 IPO 煙火秀</h3>
-            <p>這是一場為了物理債務而舉行的華麗集資。當 Token 成本高居不下，當 Sora 的渲染每一秒都在燃燒股東的現金，IPO 究竟是起點，還是物理稅爆發的前奏？</p>
+<section class="hero">
+  <div class="hero-label">// Strategic Intelligence Room</div>
+  <h1>SiliconCore<br><em>戰略情報室</em></h1>
+  <p>矽谷科技動態 × 台海軍事情勢。個人觀察筆記與資料彙整，所有內容僅代表個人研究紀錄。</p>
+</section>
+
+<main class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-silicon" onclick="switchTab('silicon')">
+      <span class="dot"></span>矽谷觀察・LLM 胡言亂語
+    </button>
+    <button class="tab-btn" id="tab-military" onclick="switchTab('military')">
+      <span class="dot"></span>台海軍事情報
+    </button>
+  </div>
+
+  <div class="panel active" id="panel-silicon">
+    <div class="section-label">最新條目</div>
+    <div class="card-grid" id="grid-silicon"></div>
+  </div>
+
+  <div class="panel" id="panel-military">
+    <div class="section-label">情報資料庫</div>
+    <div class="card-grid" id="grid-military"></div>
+  </div>
+</main>
+
+<footer>
+  SiliconCore｜戰略情報室 &nbsp;·&nbsp; 個人研究筆記 &nbsp;·&nbsp; 內容不構成任何投資或軍事建議
+</footer>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="modal-add">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-add')">×</button>
+    <h2 id="add-modal-title">新增條目</h2>
+    <div class="form-group">
+      <label>標題</label>
+      <input type="text" id="add-title" placeholder="輸入標題...">
+    </div>
+    <div class="form-group">
+      <label>分類標籤</label>
+      <input type="text" id="add-tag" placeholder="例：LLM 觀察、台海情勢...">
+    </div>
+    <div class="form-group">
+      <label>摘要（顯示於卡片）</label>
+      <input type="text" id="add-desc" placeholder="一兩句簡介...">
+    </div>
+    <div class="form-group">
+      <label>完整內容</label>
+      <textarea id="add-content" placeholder="貼上你查詢到的資料或觀察筆記..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>日期</label>
+      <input type="date" id="add-date">
+    </div>
+    <button class="btn-submit" onclick="submitEntry()">儲存條目</button>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modal-detail">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-detail')">×</button>
+    <div class="detail-header">
+      <div class="dtag" id="detail-tag"></div>
+      <h2 id="detail-title"></h2>
+    </div>
+    <div class="detail-body" id="detail-body"></div>
+    <div class="detail-meta" id="detail-meta"></div>
+  </div>
+</div>
+
+<script>
+  const store = {
+    silicon: [
+      {
+        tag: 'LLM 觀察', date: '2025-02-20',
+        title: 'GPT-5 發布後的矽谷反應',
+        desc: '各大科技公司的緊急回應策略，以及開源社群的躁動...',
+        content: '（範例條目，點「新增條目」建立你自己的筆記）\n\n矽谷的反應分為幾個派別：\n1. 跟進派：Google、Meta 加速釋出對應模型\n2. 差異化派：Anthropic 強調安全與可解釋性\n3. 開源派：HuggingFace 社群持續對抗封閉模型'
+      },
+      {
+        tag: '矽谷動態', date: '2025-02-18',
+        title: 'Anthropic 的下一步棋',
+        desc: '從 Claude 的架構設計看 Anthropic 如何差異化競爭...',
+        content: '（範例條目）\n\nAnthropic 競爭策略核心在「可信賴 AI」定位，透過 Constitutional AI 方法論建立護城河，與 OpenAI 的產品導向策略形成明顯區別。'
+      }
+    ],
+    military: [
+      {
+        tag: '中國軍力', date: '2025-02-15',
+        title: '055 型驅逐艦戰力分析',
+        desc: '萬噸大驅的雷達系統、飛彈載量及南海部署現況...',
+        content: '（範例資料，點「新增資料」貼入你查詢到的內容）\n\n055 型基本諸元：\n- 滿載排水量：約 12,000 噸\n- 垂直發射單元：112 個\n- 雷達：346B 型有源相控陣\n- 主要任務：艦隊防空、對地打擊'
+      },
+      {
+        tag: '台海情勢', date: '2025-02-10',
+        title: '台海中線現況與解放軍越線頻率',
+        desc: '2024 年以來解放軍越線次數統計與模式分析...',
+        content: '（範例資料）\n\n請貼入你自己查詢到的資料，支援多段落與條列式內容。'
+      }
+    ]
+  };
+
+  const siliconGlyphs = ['⬡','◈','◎','⬢','◉','⬟'];
+  const militaryGlyphs = ['艦','空','陸','彈','密','情'];
+  let currentPanel = 'silicon';
+  let detailPanel = 'silicon';
+  let detailIdx = -1;
+
+  function esc(s) {
+    return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function renderGrid(panel) {
+    const grid = document.getElementById('grid-' + panel);
+    const isM = panel === 'military';
+    const glyphs = isM ? militaryGlyphs : siliconGlyphs;
+    const cls = isM ? 'military' : 'silicon';
+    const addLabel = isM ? '新增資料' : '新增條目';
+
+    let html = store[panel].map((e, i) => `
+      <a class="card" href="#" onclick="openDetail(event,'${panel}',${i})">
+        <div class="card-thumb ${cls}">${glyphs[i % glyphs.length]}</div>
+        <div class="card-body">
+          <div class="card-tag">${esc(e.tag)}</div>
+          <div class="card-title">${esc(e.title)}</div>
+          <div class="card-desc">${esc(e.desc)}</div>
+          <div class="card-meta"><span>${esc(e.tag)}</span><span>${esc(e.date)}</span></div>
         </div>
+      </a>`).join('');
 
-        <div class="card">
-            <h3>🟢 深度：Anthropic 的 B2B 狙擊</h3>
-            <p>為什麼 Claude 不跟大眾玩「美肌」？因為它深知企業自動化才是最穩定的提款機。分析為什麼寫程式已被解決，而下一波「Builder」革命正由 Claude 發動。</p>
-        </div>
+    html += `<button class="add-card" onclick="openAdd('${panel}')">
+      <span class="plus">+</span><span>${addLabel}</span>
+    </button>`;
+    grid.innerHTML = html;
+  }
 
-        <div class="card">
-            <h3>🟡 觀點：Google 的「地主」保衛戰</h3>
-            <p>地主不需要比工程師會蓋房，他只需要控制地皮。分析 Google 如何利用 2000 億美金的 CapEx，築起一道無人能及的物理防火牆。</p>
-        </div>
-    </main>
+  function switchTab(panel) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById('panel-' + panel).classList.add('active');
+    document.getElementById('tab-' + panel).classList.add('active');
+    document.getElementById('nav-' + panel).classList.add('active');
+    currentPanel = panel;
+  }
 
-    <footer class="footer">
-        © 2026 Silicon Slasher | 經紀人監製 | 本內容由 AI 自主分析生成
-    </footer>
+  function openAdd(panel) {
+    currentPanel = panel;
+    const titles = { silicon: '新增矽谷觀察條目', military: '新增軍事情報資料' };
+    document.getElementById('add-modal-title').textContent = titles[panel];
+    document.getElementById('add-date').value = new Date().toISOString().slice(0,10);
+    document.getElementById('modal-add').classList.add('open');
+  }
+
+  function submitEntry() {
+    const title = document.getElementById('add-title').value.trim();
+    if (!title) { alert('請輸入標題'); return; }
+    store[currentPanel].push({
+      tag: document.getElementById('add-tag').value.trim() || '未分類',
+      title,
+      desc: document.getElementById('add-desc').value.trim() || '',
+      content: document.getElementById('add-content').value.trim() || '（無內容）',
+      date: document.getElementById('add-date').value || ''
+    });
+    renderGrid(currentPanel);
+    closeModal('modal-add');
+    ['add-title','add-tag','add-desc','add-content'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  }
+
+  function openDetail(e, panel, idx) {
+    e.preventDefault();
+    const entry = store[panel][idx];
+    if (!entry) return;
+    detailPanel = panel; detailIdx = idx;
+    document.getElementById('detail-tag').textContent = entry.tag;
+    document.getElementById('detail-title').textContent = entry.title;
+    document.getElementById('detail-body').textContent = entry.content;
+    document.getElementById('detail-meta').textContent = entry.date ? '日期：' + entry.date : '';
+    document.getElementById('modal-detail').classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) closeModal(this.id);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      ['modal-add','modal-detail'].forEach(closeModal);
+    }
+  });
+
+  // Init
+  renderGrid('silicon');
+  renderGrid('military');
+</script>
 </body>
 </html>
