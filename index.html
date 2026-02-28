@@ -212,6 +212,12 @@
     <div class="section-label">專案紀錄</div>
     <div class="card-grid" id="grid-projects"><div class="loading">載入中...</div></div>
   </div>
+
+ <div class="panel" id="panel-finance">
+  <div class="section-label">投資筆記</div>
+  <div class="card-grid" id="grid-finance"><div class="loading">載入中...</div></div>
+ </div>
+ 
 </main>
 
 <footer>
@@ -234,7 +240,8 @@
   const config = {
     silicon:  { glyphs: ['⬡','◈','◎','⬢','◉','⬟'], cls: 'silicon' },
     military: { glyphs: ['艦','空','陸','彈','密','情'], cls: 'military' },
-    projects: { glyphs: ['</>', 'AI', '⚙', '🤖', '⬡', '◈'], cls: 'projects' }
+    projects: { glyphs: ['</>', 'AI', '⚙', '🤖', '⬡', '◈'], cls: 'projects' },
+    finance:  { glyphs: ['$', '₿', '📈', '📉', '💰', '🏦'], cls: 'finance' }
   };
 
   const statusMap = {
@@ -243,7 +250,7 @@
     '暫停':   'badge-paused'
   };
 
-  let allData = { silicon: [], military: [], projects: [] };
+  let allData = { silicon: [], military: [], projects: [], finance: [] };
 
   async function loadData() {
     try {
@@ -256,6 +263,7 @@
     renderGrid('silicon');
     renderGrid('military');
     renderGrid('projects');
+    renderGrid('finance');
   }
 
   function renderGrid(panel) {
@@ -357,5 +365,6 @@
 </script>
 </body>
 </html>
+
 
 
