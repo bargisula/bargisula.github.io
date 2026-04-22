@@ -1,0 +1,168 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: note,
+  }));
+}
+
+const note = Astro.props;
+const { Content } = await render(note);
+const { title, description, pubDate, updatedDate, category, subcategory } = note.data;
+---
+
+<html lang="zh-TW">
+  <head>
+    <BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="note-container">
+        <div class="breadcrumb">
+          <a href="/notes">知識庫</a>
+          <span>›</span>
+          <a href={`/notes#${category}`}>{category}</a>
+          {subcategory && (
+            <>
+              <span>›</span>
+              <a href={`/notes#${category}-${subcategory}`}>{subcategory}</a>
+            </>
+          )}
+        </div>
+
+        <div class="note-header">
+          <h1>{title}</h1>
+          <div class="note-meta">
+            <span class="cat-badge">{category}{subcategory ? ` · ${subcategory}` : ''}</span>
+            <time><FormattedDate date={pubDate} /></time>
+            {updatedDate && (
+              <span class="updated">更新於 <FormattedDate date={updatedDate} /></span>
+            )}
+          </div>
+        </div>
+
+        <div class="prose">
+          <Content />
+        </div>
+
+        <div class="note-footer">
+          <a href="/notes" class="back-link">← 返回知識庫</a>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .note-container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.85em;
+    color: rgb(var(--gray));
+    margin-bottom: 1.5em;
+  }
+
+  .breadcrumb a {
+    color: rgb(var(--gray));
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--accent);
+  }
+
+  .note-header {
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .note-header h1 {
+    font-size: 2em;
+    line-height: 1.25;
+    margin: 0 0 0.6em;
+    letter-spacing: -0.02em;
+  }
+
+  .note-meta {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    font-size: 0.88em;
+    color: rgb(var(--gray));
+    flex-wrap: wrap;
+  }
+
+  .cat-badge {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.2em 0.7em;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85em;
+  }
+
+  .updated {
+    font-style: italic;
+  }
+
+  .prose {
+    line-height: 1.9;
+    font-size: 1.05em;
+  }
+
+  .prose :global(h2) {
+    font-size: 1.4em;
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.3em;
+    border-bottom: 2px solid var(--accent-light);
+  }
+
+  .prose :global(h3) {
+    font-size: 1.15em;
+    margin-top: 1.8em;
+    color: rgb(var(--gray-dark));
+  }
+
+  .prose :global(ul), .prose :global(ol) {
+    padding-left: 1.5em;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.4em;
+  }
+
+  .note-footer {
+    margin-top: 3em;
+    padding-top: 1.5em;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95em;
+  }
+
+  .back-link:hover {
+    color: var(--accent-dark);
+  }
+</style>

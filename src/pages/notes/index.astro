@@ -1,0 +1,294 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const allNotes = (await getCollection('notes'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Build category tree
+const categoryMap: Record<string, Record<string, typeof allNotes>> = {};
+const CATEGORIES = ['經濟', '投資', '軍事', '小說'] as const;
+
+for (const cat of CATEGORIES) {
+  categoryMap[cat] = {};
+}
+
+for (const note of allNotes) {
+  const cat = note.data.category;
+  const sub = note.data.subcategory ?? '一般';
+  if (!categoryMap[cat]) categoryMap[cat] = {};
+  if (!categoryMap[cat][sub]) categoryMap[cat][sub] = [];
+  categoryMap[cat][sub].push(note);
+}
+
+const categoryIcons: Record<string, string> = {
+  經濟: '📈',
+  投資: '💹',
+  軍事: '⚔️',
+  小說: '📖',
+};
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <BaseHead title={`知識庫 | ${SITE_TITLE}`} description="系統性整理的知識筆記" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="page-header">
+        <h1>知識庫</h1>
+        <p>系統性整理，依主題分類</p>
+      </div>
+
+      <div class="notes-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          {CATEGORIES.map((cat) => (
+            <div class="cat-group">
+              <a href={`#${cat}`} class="cat-title">
+                <span>{categoryIcons[cat]}</span>
+                <span>{cat}</span>
+                <span class="cat-count">
+                  {Object.values(categoryMap[cat] ?? {}).flat().length}
+                </span>
+              </a>
+              {Object.keys(categoryMap[cat] ?? {}).map((sub) => (
+                <a href={`#${cat}-${sub}`} class="sub-title">
+                  {sub}
+                  <span class="sub-count">{categoryMap[cat][sub].length}</span>
+                </a>
+              ))}
+            </div>
+          ))}
+        </aside>
+
+        <!-- Content -->
+        <div class="notes-content">
+          {CATEGORIES.map((cat) => (
+            <section id={cat} class="cat-section">
+              <h2 class="cat-heading">
+                <span>{categoryIcons[cat]}</span> {cat}
+              </h2>
+
+              {Object.entries(categoryMap[cat] ?? {}).map(([sub, notes]) => (
+                <div id={`${cat}-${sub}`} class="sub-section">
+                  {sub !== '一般' && <h3 class="sub-heading">{sub}</h3>}
+                  <ul class="note-list">
+                    {notes.map((note) => (
+                      <li class="note-item">
+                        <a href={`/notes/${note.id}/`} class="note-link">
+                          <div class="note-title">{note.data.title}</div>
+                          <div class="note-desc">{note.data.description}</div>
+                        </a>
+                        <time class="note-date">
+                          <FormattedDate date={note.data.pubDate} />
+                        </time>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          ))}
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .page-header {
+    margin-bottom: 2em;
+  }
+
+  .page-header h1 {
+    font-size: 2em;
+    margin: 0 0 0.2em;
+  }
+
+  .page-header p {
+    color: rgb(var(--gray));
+    margin: 0;
+  }
+
+  .notes-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5em;
+    align-items: start;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  .cat-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.4em;
+  }
+
+  .cat-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 0.7em;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95em;
+    color: rgb(var(--black));
+    transition: background 0.15s;
+  }
+
+  .cat-title:hover {
+    background: rgb(var(--gray-light));
+    color: var(--accent);
+  }
+
+  .cat-count {
+    margin-left: auto;
+    background: rgb(var(--gray-light));
+    color: rgb(var(--gray));
+    font-size: 0.75em;
+    padding: 0.1em 0.5em;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+  .sub-title {
+    display: flex;
+    align-items: center;
+    padding: 0.35em 0.7em 0.35em 2em;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.88em;
+    color: rgb(var(--gray));
+    transition: all 0.15s;
+  }
+
+  .sub-title:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .sub-count {
+    margin-left: auto;
+    font-size: 0.8em;
+    color: rgb(var(--gray));
+  }
+
+  /* Content */
+  .cat-section {
+    margin-bottom: 3em;
+  }
+
+  .cat-heading {
+    font-size: 1.4em;
+    padding-bottom: 0.4em;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+
+  .sub-section {
+    margin-bottom: 2em;
+  }
+
+  .sub-heading {
+    font-size: 1em;
+    font-weight: 600;
+    color: rgb(var(--gray));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.8em;
+    padding-left: 0.8em;
+    border-left: 3px solid var(--accent-light);
+  }
+
+  .note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .note-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+    padding: 0.9em 1.2em;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.15s;
+  }
+
+  .note-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+  }
+
+  .note-link {
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .note-title {
+    font-weight: 600;
+    font-size: 0.98em;
+    color: rgb(var(--black));
+    margin-bottom: 0.2em;
+  }
+
+  .note-item:hover .note-title {
+    color: var(--accent);
+  }
+
+  .note-desc {
+    font-size: 0.83em;
+    color: rgb(var(--gray));
+    line-height: 1.4;
+  }
+
+  .note-date {
+    font-size: 0.78em;
+    color: rgb(var(--gray));
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .notes-layout {
+      grid-template-columns: 1fr;
+    }
+    .sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5em;
+    }
+    .cat-group { margin-bottom: 0; }
+  }
+</style>
