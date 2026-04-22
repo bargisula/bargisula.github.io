@@ -2,20 +2,31 @@
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const posts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
+const notes = (await getCollection('notes'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const categoryColors: Record<string, string> = {
-  投資: 'badge-投資',
-  科技: 'badge-科技',
-  生活: 'badge-生活',
-  策略: 'badge-策略',
-};
+const CATEGORIES = [
+  { name: '經濟', icon: '📈', color: '#6366f1', bg: '#eef2ff', border: '#c7d2fe' },
+  { name: '投資', icon: '💹', color: '#059669', bg: '#f0fdf4', border: '#6ee7b7' },
+  { name: '軍事', icon: '🎖️', color: '#dc2626', bg: '#fff1f2', border: '#fca5a5' },
+  { name: '小說', icon: '📚', color: '#d97706', bg: '#fffbeb', border: '#fcd34d' },
+];
+
+const categoryData = CATEGORIES.map(cat => {
+  const catNotes = notes.filter(n => n.data.category === cat.name);
+  const subcats = [...new Set(catNotes.map(n => n.data.subcategory).filter(Boolean))];
+  return {
+    ...cat,
+    count: catNotes.length,
+    latest: catNotes[0],
+    subcats: subcats.slice(0, 5),
+  };
+});
+
+const totalNotes = notes.length;
 ---
 
 <!doctype html>
@@ -29,7 +40,7 @@ const categoryColors: Record<string, string> = {
     <main>
       <!-- Hero -->
       <section class="hero">
-        <div class="hero-badge">個人隨筆</div>
+        <div class="hero-badge">個人知識庫</div>
         <h1>Alpha Notes</h1>
         <p class="hero-desc">關於投資策略、科技觀察與日常生活的記錄。<br />寫下思考，留住當下。</p>
         <div class="hero-actions">
@@ -38,37 +49,49 @@ const categoryColors: Record<string, string> = {
         </div>
       </section>
 
-      <!-- Recent Posts -->
-      <section class="posts-section">
+      <!-- Knowledge Base Categories -->
+      <section class="categories-section">
         <div class="section-header">
-          <h2>最新文章</h2>
-          <a href="/notes" class="view-all">查看全部 →</a>
+          <h2>知識庫</h2>
+          <span class="note-count">共 {totalNotes} 篇筆記</span>
         </div>
 
-        <div class="card-grid">
-          {posts.map((post) => {
-            const category = (post.data as any).category ?? '其他';
-            const badgeClass = categoryColors[category] ?? 'badge-其他';
-            return (
-              <article class="card">
-                <a href={`/blog/${post.id}/`} class="card-link">
-                  {(post.data as any).heroImage && (
-                    <div class="card-image">
-                      <img src={(post.data as any).heroImage.src} alt={post.data.title} loading="lazy" />
-                    </div>
-                  )}
-                  <div class="card-body">
-                    <span class={`badge ${badgeClass}`}>{category}</span>
-                    <h3 class="card-title">{post.data.title}</h3>
-                    <p class="card-desc">{post.data.description}</p>
-                    <time class="card-date">
-                      <FormattedDate date={post.data.pubDate} />
-                    </time>
+        <div class="cat-grid">
+          {categoryData.map(cat => (
+            <a href="/notes" class="cat-card">
+              <div class="cat-accent" style={`background:${cat.color}`}></div>
+              <div class="cat-body" style={`background:${cat.bg};border-color:${cat.border}`}>
+                <div class="cat-header">
+                  <span class="cat-icon">{cat.icon}</span>
+                  <div class="cat-title-wrap">
+                    <span class="cat-name">{cat.name}</span>
+                    <span class="cat-count" style={`color:${cat.color}`}>
+                      {cat.count > 0 ? `${cat.count} 篇` : '尚無筆記'}
+                    </span>
                   </div>
-                </a>
-              </article>
-            );
-          })}
+                </div>
+
+                {cat.subcats.length > 0 && (
+                  <div class="cat-subs">
+                    {cat.subcats.map(s => (
+                      <span class="sub-tag" style={`color:${cat.color};border-color:${cat.border}`}>{s}</span>
+                    ))}
+                  </div>
+                )}
+
+                {cat.latest && (
+                  <p class="cat-latest">
+                    <span class="latest-label">最新</span>
+                    {cat.latest.data.title}
+                  </p>
+                )}
+
+                <div class="cat-footer">
+                  <span class="cat-link" style={`color:${cat.color}`}>查看全部 →</span>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
     </main>
@@ -78,6 +101,7 @@ const categoryColors: Record<string, string> = {
 </html>
 
 <style>
+  /* ── Hero ── */
   .hero {
     text-align: center;
     padding: 4em 1em 3em;
@@ -152,8 +176,9 @@ const categoryColors: Record<string, string> = {
     color: var(--accent);
   }
 
-  .posts-section {
-    padding: 1em 0 2em;
+  /* ── Categories Section ── */
+  .categories-section {
+    padding: 1em 0 3em;
   }
 
   .section-header {
@@ -168,96 +193,126 @@ const categoryColors: Record<string, string> = {
     margin: 0;
   }
 
-  .view-all {
-    font-size: 0.9em;
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
+  .note-count {
+    font-size: 0.88em;
+    color: rgb(var(--gray));
   }
 
-  .view-all:hover {
-    color: var(--accent-dark);
-  }
-
-  .card-grid {
+  /* ── Category Grid ── */
+  .cat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5em;
   }
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.2s;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--box-shadow-hover);
-    border-color: transparent;
-  }
-
-  .card-link {
-    display: block;
+  .cat-card {
     text-decoration: none;
     color: inherit;
-    height: 100%;
-  }
-
-  .card-image img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 0;
     display: block;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .card-body {
-    padding: 1.2em 1.4em 1.4em;
+  .cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   }
 
-  .badge {
-    display: inline-block;
-    padding: 0.2em 0.7em;
-    border-radius: 4px;
-    font-size: 0.75em;
-    font-weight: 600;
-    margin-bottom: 0.7em;
+  .cat-accent {
+    height: 5px;
+    width: 100%;
   }
 
-  .card-title {
-    font-size: 1.05em;
+  .cat-body {
+    border: 1px solid;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    padding: 1.4em 1.6em 1.2em;
+  }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    margin-bottom: 0.9em;
+  }
+
+  .cat-icon {
+    font-size: 2em;
+    line-height: 1;
+  }
+
+  .cat-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+  }
+
+  .cat-name {
+    font-size: 1.25em;
     font-weight: 700;
-    margin: 0 0 0.5em;
-    line-height: 1.4;
     color: rgb(var(--black));
   }
 
-  .card-desc {
-    font-size: 0.88em;
-    color: rgb(var(--gray));
+  .cat-count {
+    font-size: 0.82em;
+    font-weight: 600;
+  }
+
+  .cat-subs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    margin-bottom: 0.9em;
+  }
+
+  .sub-tag {
+    font-size: 0.75em;
+    font-weight: 500;
+    padding: 0.2em 0.6em;
+    border: 1px solid;
+    border-radius: 4px;
+    background: white;
+  }
+
+  .cat-latest {
+    font-size: 0.85em;
+    color: rgb(var(--gray-dark));
     margin: 0 0 1em;
-    line-height: 1.6;
+    line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .card-date {
-    font-size: 0.8em;
+  .latest-label {
+    display: inline-block;
+    font-size: 0.75em;
+    font-weight: 700;
+    background: rgba(0,0,0,0.07);
     color: rgb(var(--gray));
+    padding: 0.1em 0.45em;
+    border-radius: 3px;
+    margin-right: 0.35em;
+    vertical-align: middle;
+    letter-spacing: 0.02em;
   }
 
-  @media (max-width: 900px) {
-    .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat-footer {
+    margin-top: auto;
+  }
+
+  .cat-link {
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .cat-grid { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.2em; }
-  }
-
-  @media (max-width: 560px) {
-    .card-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 1.8em; }
   }
 </style>
