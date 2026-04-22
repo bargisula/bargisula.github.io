@@ -6,31 +6,51 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
+// Static category tree — add subcategories here as needed
+const CATEGORY_TREE = [
+  {
+    name: '經濟',
+    icon: '📈',
+    subs: ['經濟史', '總體經濟', '產業分析', '貨幣政策'],
+  },
+  {
+    name: '投資',
+    icon: '💹',
+    subs: ['美股', '台股', '量化策略', '讀書筆記'],
+  },
+  {
+    name: '軍事',
+    icon: '⚔️',
+    subs: ['台海分析', '解放軍', '美軍動態', '國際局勢'],
+  },
+  {
+    name: '小說',
+    icon: '📖',
+    subs: ['科幻', '歷史小說', '奇幻', '讀後感'],
+  },
+];
+
+// Index notes by category + subcategory
 const allNotes = (await getCollection('notes'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// Build category tree
-const categoryMap: Record<string, Record<string, typeof allNotes>> = {};
-const CATEGORIES = ['經濟', '投資', '軍事', '小說'] as const;
-
-for (const cat of CATEGORIES) {
-  categoryMap[cat] = {};
-}
+type NoteEntry = (typeof allNotes)[number];
+const noteIndex: Record<string, Record<string, NoteEntry[]>> = {};
 
 for (const note of allNotes) {
   const cat = note.data.category;
   const sub = note.data.subcategory ?? '一般';
-  if (!categoryMap[cat]) categoryMap[cat] = {};
-  if (!categoryMap[cat][sub]) categoryMap[cat][sub] = [];
-  categoryMap[cat][sub].push(note);
+  if (!noteIndex[cat]) noteIndex[cat] = {};
+  if (!noteIndex[cat][sub]) noteIndex[cat][sub] = [];
+  noteIndex[cat][sub].push(note);
 }
 
-const categoryIcons: Record<string, string> = {
-  經濟: '📈',
-  投資: '💹',
-  軍事: '⚔️',
-  小說: '📖',
-};
+function countCat(catName: string) {
+  return Object.values(noteIndex[catName] ?? {}).flat().length;
+}
+function getNotes(catName: string, sub: string): NoteEntry[] {
+  return noteIndex[catName]?.[sub] ?? [];
+}
 ---
 
 <!doctype html>
@@ -49,19 +69,17 @@ const categoryIcons: Record<string, string> = {
       <div class="notes-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
-          {CATEGORIES.map((cat) => (
+          {CATEGORY_TREE.map((cat) => (
             <div class="cat-group">
-              <a href={`#${cat}`} class="cat-title">
-                <span>{categoryIcons[cat]}</span>
-                <span>{cat}</span>
-                <span class="cat-count">
-                  {Object.values(categoryMap[cat] ?? {}).flat().length}
-                </span>
+              <a href={`#${cat.name}`} class="cat-title">
+                <span>{cat.icon}</span>
+                <span>{cat.name}</span>
+                <span class="cat-count">{countCat(cat.name)}</span>
               </a>
-              {Object.keys(categoryMap[cat] ?? {}).map((sub) => (
-                <a href={`#${cat}-${sub}`} class="sub-title">
+              {cat.subs.map((sub) => (
+                <a href={`#${cat.name}-${sub}`} class="sub-title">
                   {sub}
-                  <span class="sub-count">{categoryMap[cat][sub].length}</span>
+                  <span class="sub-count">{getNotes(cat.name, sub).length || ''}</span>
                 </a>
               ))}
             </div>
@@ -70,30 +88,37 @@ const categoryIcons: Record<string, string> = {
 
         <!-- Content -->
         <div class="notes-content">
-          {CATEGORIES.map((cat) => (
-            <section id={cat} class="cat-section">
+          {CATEGORY_TREE.map((cat) => (
+            <section id={cat.name} class="cat-section">
               <h2 class="cat-heading">
-                <span>{categoryIcons[cat]}</span> {cat}
+                <span>{cat.icon}</span> {cat.name}
               </h2>
 
-              {Object.entries(categoryMap[cat] ?? {}).map(([sub, notes]) => (
-                <div id={`${cat}-${sub}`} class="sub-section">
-                  {sub !== '一般' && <h3 class="sub-heading">{sub}</h3>}
-                  <ul class="note-list">
-                    {notes.map((note) => (
-                      <li class="note-item">
-                        <a href={`/notes/${note.id}/`} class="note-link">
-                          <div class="note-title">{note.data.title}</div>
-                          <div class="note-desc">{note.data.description}</div>
-                        </a>
-                        <time class="note-date">
-                          <FormattedDate date={note.data.pubDate} />
-                        </time>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              {cat.subs.map((sub) => {
+                const notes = getNotes(cat.name, sub);
+                return (
+                  <div id={`${cat.name}-${sub}`} class="sub-section">
+                    <h3 class="sub-heading">{sub}</h3>
+                    {notes.length > 0 ? (
+                      <ul class="note-list">
+                        {notes.map((note) => (
+                          <li class="note-item">
+                            <a href={`/notes/${note.id}/`} class="note-link">
+                              <div class="note-title">{note.data.title}</div>
+                              <div class="note-desc">{note.data.description}</div>
+                            </a>
+                            <time class="note-date">
+                              <FormattedDate date={note.data.pubDate} />
+                            </time>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p class="empty">尚無筆記</p>
+                    )}
+                  </div>
+                );
+              })}
             </section>
           ))}
         </div>
@@ -125,7 +150,6 @@ const categoryIcons: Record<string, string> = {
     align-items: start;
   }
 
-  /* Sidebar */
   .sidebar {
     position: sticky;
     top: 80px;
@@ -141,7 +165,7 @@ const categoryIcons: Record<string, string> = {
   .cat-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.6em;
   }
 
   .cat-title {
@@ -170,15 +194,17 @@ const categoryIcons: Record<string, string> = {
     padding: 0.1em 0.5em;
     border-radius: 10px;
     font-weight: 500;
+    min-width: 1.4em;
+    text-align: center;
   }
 
   .sub-title {
     display: flex;
     align-items: center;
-    padding: 0.35em 0.7em 0.35em 2em;
+    padding: 0.3em 0.7em 0.3em 2em;
     border-radius: 6px;
     text-decoration: none;
-    font-size: 0.88em;
+    font-size: 0.87em;
     color: rgb(var(--gray));
     transition: all 0.15s;
   }
@@ -194,32 +220,30 @@ const categoryIcons: Record<string, string> = {
     color: rgb(var(--gray));
   }
 
-  /* Content */
   .cat-section {
-    margin-bottom: 3em;
+    margin-bottom: 3.5em;
   }
 
   .cat-heading {
     font-size: 1.4em;
     padding-bottom: 0.4em;
     border-bottom: 2px solid var(--accent);
-    margin-bottom: 1.2em;
+    margin-bottom: 1.5em;
     display: flex;
     align-items: center;
     gap: 0.4em;
   }
 
   .sub-section {
-    margin-bottom: 2em;
+    margin-bottom: 1.8em;
   }
 
   .sub-heading {
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: 600;
     color: rgb(var(--gray));
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0 0 0.8em;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.7em;
     padding-left: 0.8em;
     border-left: 3px solid var(--accent-light);
   }
@@ -277,6 +301,16 @@ const categoryIcons: Record<string, string> = {
     color: rgb(var(--gray));
     white-space: nowrap;
     flex-shrink: 0;
+  }
+
+  .empty {
+    font-size: 0.85em;
+    color: rgb(var(--gray));
+    margin: 0;
+    padding: 0.6em 1em;
+    background: rgb(var(--gray-light));
+    border-radius: 8px;
+    opacity: 0.7;
   }
 
   @media (max-width: 768px) {
