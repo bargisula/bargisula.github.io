@@ -1,0 +1,70 @@
+---
+interface Props {
+  type?: 'insight' | 'warning' | 'data' | 'link' | 'quote';
+  title?: string;
+}
+
+const { type = 'insight', title } = Astro.props;
+
+const config = {
+  insight: { icon: '💡', label: '洞察', bg: '#eef2ff', border: '#6366f1', text: '#3730a3' },
+  warning: { icon: '⚠️', label: '注意', bg: '#fffbeb', border: '#f59e0b', text: '#92400e' },
+  data:    { icon: '📊', label: '數據', bg: '#f0fdf4', border: '#22c55e', text: '#14532d' },
+  link:    { icon: '🔗', label: '關聯', bg: '#f0f9ff', border: '#0ea5e9', text: '#0c4a6e' },
+  quote:   { icon: '💬', label: '原文', bg: '#fdf4ff', border: '#a855f7', text: '#581c87' },
+};
+
+const c = config[type];
+---
+
+<div class="callout" style={`background:${c.bg};border-left-color:${c.border};`}>
+  <div class="callout-header" style={`color:${c.text};`}>
+    <span class="callout-icon">{c.icon}</span>
+    <span class="callout-label">{title ?? c.label}</span>
+  </div>
+  <div class="callout-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .callout {
+    border-left: 4px solid;
+    border-radius: 0 10px 10px 0;
+    padding: 1em 1.4em;
+    margin: 1.6em 0;
+  }
+
+  .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-weight: 700;
+    font-size: 0.88em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5em;
+  }
+
+  .callout-icon {
+    font-size: 1em;
+  }
+
+  .callout-body {
+    font-size: 0.97em;
+    line-height: 1.75;
+    color: rgb(30, 41, 59);
+  }
+
+  .callout-body :global(p) {
+    margin: 0;
+  }
+
+  .callout-body :global(p + p) {
+    margin-top: 0.6em;
+  }
+
+  .callout-body :global(strong) {
+    color: inherit;
+  }
+</style>
