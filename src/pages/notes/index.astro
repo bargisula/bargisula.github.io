@@ -33,6 +33,11 @@ const CATEGORY_TREE = [
     icon: '⚖️',
     subs: ['勞動法規', '薪資制度', '勞工保險', '勞資爭議', '職場平權'],
   },
+  {
+    name: '雜記',
+    icon: '🗒️',
+    subs: [],
+  },
 ];
 
 // Index notes by category + subcategory
@@ -55,6 +60,9 @@ function countCat(catName: string) {
 }
 function getNotes(catName: string, sub: string): NoteEntry[] {
   return noteIndex[catName]?.[sub] ?? [];
+}
+function getAllNotes(catName: string): NoteEntry[] {
+  return Object.values(noteIndex[catName] ?? {}).flat();
 }
 ---
 
@@ -99,31 +107,53 @@ function getNotes(catName: string, sub: string): NoteEntry[] {
                 <span>{cat.icon}</span> {cat.name}
               </h2>
 
-              {cat.subs.map((sub) => {
-                const notes = getNotes(cat.name, sub);
-                return (
-                  <div id={`${cat.name}-${sub}`} class="sub-section">
-                    <h3 class="sub-heading">{sub}</h3>
-                    {notes.length > 0 ? (
-                      <ul class="note-list">
-                        {notes.map((note) => (
-                          <li class="note-item">
-                            <a href={`/notes/${note.id}/`} class="note-link">
-                              <div class="note-title">{note.data.title}</div>
-                              <div class="note-desc">{note.data.description}</div>
-                            </a>
-                            <time class="note-date">
-                              <FormattedDate date={note.data.pubDate} />
-                            </time>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p class="empty">尚無筆記</p>
-                    )}
-                  </div>
-                );
-              })}
+              {cat.subs.length === 0 ? (
+                <div class="sub-section">
+                  {getAllNotes(cat.name).length > 0 ? (
+                    <ul class="note-list">
+                      {getAllNotes(cat.name).map((note) => (
+                        <li class="note-item">
+                          <a href={`/notes/${note.id}/`} class="note-link">
+                            <div class="note-title">{note.data.title}</div>
+                            <div class="note-desc">{note.data.description}</div>
+                          </a>
+                          <time class="note-date">
+                            <FormattedDate date={note.data.pubDate} />
+                          </time>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p class="empty">尚無筆記</p>
+                  )}
+                </div>
+              ) : (
+                cat.subs.map((sub) => {
+                  const notes = getNotes(cat.name, sub);
+                  return (
+                    <div id={`${cat.name}-${sub}`} class="sub-section">
+                      <h3 class="sub-heading">{sub}</h3>
+                      {notes.length > 0 ? (
+                        <ul class="note-list">
+                          {notes.map((note) => (
+                            <li class="note-item">
+                              <a href={`/notes/${note.id}/`} class="note-link">
+                                <div class="note-title">{note.data.title}</div>
+                                <div class="note-desc">{note.data.description}</div>
+                              </a>
+                              <time class="note-date">
+                                <FormattedDate date={note.data.pubDate} />
+                              </time>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p class="empty">尚無筆記</p>
+                      )}
+                    </div>
+                  );
+                })
+              )}
             </section>
           ))}
         </div>
