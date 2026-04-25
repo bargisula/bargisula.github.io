@@ -6,63 +6,107 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
-// Static category tree — add subcategories here as needed
-const CATEGORY_TREE = [
+type SubDef = { name: string; topics: string[] };
+type CatDef = { name: string; icon: string; subs: SubDef[] };
+
+const CATEGORY_TREE: CatDef[] = [
   {
-    name: '經濟',
-    icon: '📈',
-    subs: ['經濟思想史', '商業革命', '總體經濟', '產業分析', '貨幣政策'],
+    name: '經濟', icon: '📈',
+    subs: [
+      { name: '經濟思想史', topics: [] },
+      { name: '商業革命', topics: [] },
+      { name: '總體經濟', topics: [] },
+      { name: '產業分析', topics: [] },
+      { name: '貨幣政策', topics: [] },
+    ],
   },
   {
-    name: '投資',
-    icon: '💹',
-    subs: ['美股', '台股', '量化策略', '讀書筆記'],
+    name: '投資', icon: '💹',
+    subs: [
+      { name: '美股', topics: ['特斯拉'] },
+      { name: '台股', topics: [] },
+      { name: '量化策略', topics: [] },
+      { name: '讀書筆記', topics: [] },
+      { name: '其他', topics: ['黃金', '比特幣'] },
+    ],
   },
   {
-    name: '軍事',
-    icon: '⚔️',
-    subs: ['區域防禦', '武器裝備', '台海分析', '解放軍', '美軍動態', '國際局勢'],
+    name: '軍事', icon: '⚔️',
+    subs: [
+      { name: '區域防禦', topics: [] },
+      { name: '武器裝備', topics: [] },
+      { name: '台海分析', topics: [] },
+      { name: '解放軍', topics: [] },
+      { name: '美軍動態', topics: [] },
+      { name: '國際局勢', topics: [] },
+    ],
   },
   {
-    name: '小說',
-    icon: '📖',
-    subs: ['科幻', '歷史小說', '奇幻', '讀後感'],
+    name: '小說', icon: '📖',
+    subs: [
+      { name: '科幻', topics: [] },
+      { name: '歷史小說', topics: [] },
+      { name: '奇幻', topics: [] },
+      { name: '讀後感', topics: [] },
+    ],
   },
   {
-    name: '勞動',
-    icon: '⚖️',
-    subs: ['勞動法規', '薪資制度', '勞工保險', '勞資爭議', '職場平權'],
+    name: '勞動', icon: '⚖️',
+    subs: [
+      { name: '勞動法規', topics: [] },
+      { name: '薪資制度', topics: [] },
+      { name: '勞工保險', topics: [] },
+      { name: '勞資爭議', topics: [] },
+      { name: '職場平權', topics: [] },
+    ],
   },
   {
-    name: '雜記',
-    icon: '🗒️',
+    name: '雜記', icon: '🗒️',
     subs: [],
   },
 ];
 
-// Index notes by category + subcategory
 const allNotes = (await getCollection('notes'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 type NoteEntry = (typeof allNotes)[number];
-const noteIndex: Record<string, Record<string, NoteEntry[]>> = {};
+const noteIndex: Record<string, Record<string, Record<string, NoteEntry[]>>> = {};
 
 for (const note of allNotes) {
   const cat = note.data.category;
   const sub = note.data.subcategory ?? '一般';
+  const topic = note.data.topic ?? '_';
   if (!noteIndex[cat]) noteIndex[cat] = {};
-  if (!noteIndex[cat][sub]) noteIndex[cat][sub] = [];
-  noteIndex[cat][sub].push(note);
+  if (!noteIndex[cat][sub]) noteIndex[cat][sub] = {};
+  if (!noteIndex[cat][sub][topic]) noteIndex[cat][sub][topic] = [];
+  noteIndex[cat][sub][topic].push(note);
 }
 
-function countCat(catName: string) {
-  return Object.values(noteIndex[catName] ?? {}).flat().length;
+function countCat(cat: string) {
+  return Object.values(noteIndex[cat] ?? {}).flatMap(s => Object.values(s).flat()).length;
 }
-function getNotes(catName: string, sub: string): NoteEntry[] {
-  return noteIndex[catName]?.[sub] ?? [];
+function countSub(cat: string, sub: string) {
+  return Object.values(noteIndex[cat]?.[sub] ?? {}).flat().length;
 }
-function getAllNotes(catName: string): NoteEntry[] {
-  return Object.values(noteIndex[catName] ?? {}).flat();
+function getTopics(cat: string, sub: string): string[] {
+  const staticTopics = CATEGORY_TREE.find(c => c.name === cat)?.subs.find(s => s.name === sub)?.topics ?? [];
+  const dynamicTopics = Object.keys(noteIndex[cat]?.[sub] ?? {}).filter(k => k !== '_');
+  return [...new Set([...staticTopics, ...dynamicTopics])];
+}
+function topicCount(cat: string, sub: string, topic: string) {
+  return (noteIndex[cat]?.[sub]?.[topic] ?? []).length;
+}
+function getTopicNotes(cat: string, sub: string, topic: string): NoteEntry[] {
+  return noteIndex[cat]?.[sub]?.[topic] ?? [];
+}
+function getDirectNotes(cat: string, sub: string): NoteEntry[] {
+  return noteIndex[cat]?.[sub]?.['_'] ?? [];
+}
+function getAllCatNotes(cat: string): NoteEntry[] {
+  return Object.values(noteIndex[cat] ?? {}).flatMap(s => Object.values(s).flat());
+}
+function vid(...parts: string[]) {
+  return 'v__' + parts.join('__');
 }
 ---
 
@@ -80,7 +124,6 @@ function getAllNotes(catName: string): NoteEntry[] {
       </div>
 
       <div class="notes-layout">
-        <!-- Sidebar -->
         <aside class="sidebar">
           {CATEGORY_TREE.map((cat) => (
             <div class="cat-group">
@@ -90,36 +133,133 @@ function getAllNotes(catName: string): NoteEntry[] {
                 <span class="cat-count">{countCat(cat.name)}</span>
               </a>
               {cat.subs.map((sub) => (
-                <a href={`#${cat.name}-${sub}`} class="sub-title">
-                  {sub}
-                  <span class="sub-count">{getNotes(cat.name, sub).length || ''}</span>
+                <a href={`#${cat.name}/${sub.name}`} class="sub-title">
+                  {sub.name}
+                  <span class="sub-count">{countSub(cat.name, sub.name) || ''}</span>
                 </a>
               ))}
             </div>
           ))}
         </aside>
 
-        <!-- Content -->
         <div class="notes-content">
-          {CATEGORY_TREE.map((cat) => (
-            <section id={cat.name} class="cat-section">
-              <h2 class="cat-heading">
-                <span>{cat.icon}</span> {cat.name}
-              </h2>
 
-              {cat.subs.length === 0 ? (
-                <div class="sub-section">
-                  {getAllNotes(cat.name).length > 0 ? (
-                    <ul class="note-list">
-                      {getAllNotes(cat.name).map((note) => (
+          <!-- Root: category cards -->
+          <div class="view active" id="v__root">
+            <div class="card-grid">
+              {CATEGORY_TREE.map((cat) => (
+                <a href={`#${cat.name}`} class="card">
+                  <span class="card-icon">{cat.icon}</span>
+                  <span class="card-name">{cat.name}</span>
+                  <span class="card-count">{countCat(cat.name)} 篇</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Category views -->
+          {CATEGORY_TREE.map((cat) => (
+            <div class="view" id={vid(cat.name)}>
+              <nav class="breadcrumb">
+                <a href="/notes/">知識庫</a>
+                <span>›</span>
+                <span>{cat.icon} {cat.name}</span>
+              </nav>
+              {cat.subs.length > 0 ? (
+                <div class="card-grid">
+                  {cat.subs.map((sub) => (
+                    <a href={`#${cat.name}/${sub.name}`} class="card">
+                      <span class="card-name">{sub.name}</span>
+                      <span class="card-count">{countSub(cat.name, sub.name)} 篇</span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                getAllCatNotes(cat.name).length > 0 ? (
+                  <ul class="note-list">
+                    {getAllCatNotes(cat.name).map((note) => (
+                      <li class="note-item">
+                        <a href={`/notes/${note.id}/`} class="note-link">
+                          <div class="note-title">{note.data.title}</div>
+                          <div class="note-desc">{note.data.description}</div>
+                        </a>
+                        <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
+                      </li>
+                    ))}
+                  </ul>
+                ) : <p class="empty">尚無筆記</p>
+              )}
+            </div>
+          ))}
+
+          <!-- Subcategory views -->
+          {CATEGORY_TREE.map((cat) =>
+            cat.subs.map((sub) => {
+              const topics = getTopics(cat.name, sub.name);
+              const direct = getDirectNotes(cat.name, sub.name);
+              return (
+                <div class="view" id={vid(cat.name, sub.name)}>
+                  <nav class="breadcrumb">
+                    <a href="/notes/">知識庫</a>
+                    <span>›</span>
+                    <a href={`#${cat.name}`}>{cat.icon} {cat.name}</a>
+                    <span>›</span>
+                    <span>{sub.name}</span>
+                  </nav>
+                  {topics.length > 0 && (
+                    <div class="card-grid">
+                      {topics.map((topic) => (
+                        <a href={`#${cat.name}/${sub.name}/${topic}`} class="card">
+                          <span class="card-name">{topic}</span>
+                          <span class="card-count">{topicCount(cat.name, sub.name, topic)} 篇</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {direct.length > 0 && (
+                    <ul class="note-list" style={topics.length > 0 ? 'margin-top:1.5em' : ''}>
+                      {direct.map((note) => (
                         <li class="note-item">
                           <a href={`/notes/${note.id}/`} class="note-link">
                             <div class="note-title">{note.data.title}</div>
                             <div class="note-desc">{note.data.description}</div>
                           </a>
-                          <time class="note-date">
-                            <FormattedDate date={note.data.pubDate} />
-                          </time>
+                          <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {topics.length === 0 && direct.length === 0 && (
+                    <p class="empty">尚無筆記</p>
+                  )}
+                </div>
+              );
+            })
+          )}
+
+          <!-- Topic views -->
+          {CATEGORY_TREE.map((cat) =>
+            cat.subs.map((sub) =>
+              getTopics(cat.name, sub.name).map((topic) => (
+                <div class="view" id={vid(cat.name, sub.name, topic)}>
+                  <nav class="breadcrumb">
+                    <a href="/notes/">知識庫</a>
+                    <span>›</span>
+                    <a href={`#${cat.name}`}>{cat.icon} {cat.name}</a>
+                    <span>›</span>
+                    <a href={`#${cat.name}/${sub.name}`}>{sub.name}</a>
+                    <span>›</span>
+                    <span>{topic}</span>
+                  </nav>
+                  {getTopicNotes(cat.name, sub.name, topic).length > 0 ? (
+                    <ul class="note-list">
+                      {getTopicNotes(cat.name, sub.name, topic).map((note) => (
+                        <li class="note-item">
+                          <a href={`/notes/${note.id}/`} class="note-link">
+                            <div class="note-title">{note.data.title}</div>
+                            <div class="note-desc">{note.data.description}</div>
+                          </a>
+                          <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
                         </li>
                       ))}
                     </ul>
@@ -127,35 +267,10 @@ function getAllNotes(catName: string): NoteEntry[] {
                     <p class="empty">尚無筆記</p>
                   )}
                 </div>
-              ) : (
-                cat.subs.map((sub) => {
-                  const notes = getNotes(cat.name, sub);
-                  return (
-                    <div id={`${cat.name}-${sub}`} class="sub-section">
-                      <h3 class="sub-heading">{sub}</h3>
-                      {notes.length > 0 ? (
-                        <ul class="note-list">
-                          {notes.map((note) => (
-                            <li class="note-item">
-                              <a href={`/notes/${note.id}/`} class="note-link">
-                                <div class="note-title">{note.data.title}</div>
-                                <div class="note-desc">{note.data.description}</div>
-                              </a>
-                              <time class="note-date">
-                                <FormattedDate date={note.data.pubDate} />
-                              </time>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p class="empty">尚無筆記</p>
-                      )}
-                    </div>
-                  );
-                })
-              )}
-            </section>
-          ))}
+              ))
+            )
+          )}
+
         </div>
       </div>
     </main>
@@ -163,20 +278,29 @@ function getAllNotes(catName: string): NoteEntry[] {
   </body>
 </html>
 
+<script>
+  function navigate(hash: string) {
+    document.querySelectorAll<HTMLElement>('.view').forEach(v => v.classList.remove('active'));
+    const raw = decodeURIComponent(hash.replace(/^#/, ''));
+    const parts = raw.split('/').filter(Boolean);
+    const id = parts.length === 0 ? 'v__root' : 'v__' + parts.join('__');
+    (document.getElementById(id) ?? document.getElementById('v__root')!).classList.add('active');
+
+    document.querySelectorAll<HTMLElement>('.cat-title, .sub-title').forEach(el => el.classList.remove('active'));
+    if (parts.length >= 1)
+      document.querySelector<HTMLElement>(`.cat-title[href="#${parts[0]}"]`)?.classList.add('active');
+    if (parts.length >= 2)
+      document.querySelector<HTMLElement>(`.sub-title[href="#${parts[0]}/${parts[1]}"]`)?.classList.add('active');
+  }
+
+  window.addEventListener('hashchange', () => navigate(window.location.hash));
+  navigate(window.location.hash);
+</script>
+
 <style>
-  .page-header {
-    margin-bottom: 2em;
-  }
-
-  .page-header h1 {
-    font-size: 2em;
-    margin: 0 0 0.2em;
-  }
-
-  .page-header p {
-    color: rgb(var(--gray));
-    margin: 0;
-  }
+  .page-header { margin-bottom: 2em; }
+  .page-header h1 { font-size: 2em; margin: 0 0 0.2em; }
+  .page-header p { color: rgb(var(--gray)); margin: 0; }
 
   .notes-layout {
     display: grid;
@@ -197,11 +321,7 @@ function getAllNotes(catName: string): NoteEntry[] {
     gap: 0.3em;
   }
 
-  .cat-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.6em;
-  }
+  .cat-group { display: flex; flex-direction: column; margin-bottom: 0.6em; }
 
   .cat-title {
     display: flex;
@@ -215,11 +335,7 @@ function getAllNotes(catName: string): NoteEntry[] {
     color: rgb(var(--black));
     transition: background 0.15s;
   }
-
-  .cat-title:hover {
-    background: rgb(var(--gray-light));
-    color: var(--accent);
-  }
+  .cat-title:hover, .cat-title.active { background: rgb(var(--gray-light)); color: var(--accent); }
 
   .cat-count {
     margin-left: auto;
@@ -243,54 +359,59 @@ function getAllNotes(catName: string): NoteEntry[] {
     color: rgb(var(--gray));
     transition: all 0.15s;
   }
+  .sub-title:hover, .sub-title.active { background: var(--accent-light); color: var(--accent); }
 
-  .sub-title:hover {
-    background: var(--accent-light);
-    color: var(--accent);
-  }
+  .sub-count { margin-left: auto; font-size: 0.8em; color: rgb(var(--gray)); }
 
-  .sub-count {
-    margin-left: auto;
-    font-size: 0.8em;
-    color: rgb(var(--gray));
-  }
+  /* Views */
+  .view { display: none; }
+  .view.active { display: block; }
 
-  .cat-section {
-    margin-bottom: 3.5em;
-  }
-
-  .cat-heading {
-    font-size: 1.4em;
-    padding-bottom: 0.4em;
-    border-bottom: 2px solid var(--accent);
-    margin-bottom: 1.5em;
+  /* Breadcrumb */
+  .breadcrumb {
     display: flex;
     align-items: center;
-    gap: 0.4em;
-  }
-
-  .sub-section {
-    margin-bottom: 1.8em;
-  }
-
-  .sub-heading {
-    font-size: 0.9em;
-    font-weight: 600;
+    gap: 0.5em;
+    font-size: 0.85em;
     color: rgb(var(--gray));
-    letter-spacing: 0.04em;
-    margin: 0 0 0.7em;
-    padding-left: 0.8em;
-    border-left: 3px solid var(--accent-light);
+    margin-bottom: 1.5em;
+  }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1em;
   }
 
-  .note-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .card {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    align-items: center;
+    gap: 0.4em;
+    padding: 1.2em 1em;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: all 0.15s;
   }
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(99,102,241,0.1);
+    transform: translateY(-1px);
+  }
+  .card-icon { font-size: 1.8em; }
+  .card-name { font-weight: 600; font-size: 0.92em; color: rgb(var(--black)); }
+  .card:hover .card-name { color: var(--accent); }
+  .card-count { font-size: 0.78em; color: rgb(var(--gray)); }
+
+  /* Notes */
+  .note-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5em; }
 
   .note-item {
     display: flex;
@@ -302,41 +423,13 @@ function getAllNotes(catName: string): NoteEntry[] {
     border-radius: 10px;
     transition: all 0.15s;
   }
+  .note-item:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(99,102,241,0.08); }
 
-  .note-item:hover {
-    border-color: var(--accent);
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
-  }
-
-  .note-link {
-    flex: 1;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .note-title {
-    font-weight: 600;
-    font-size: 0.98em;
-    color: rgb(var(--black));
-    margin-bottom: 0.2em;
-  }
-
-  .note-item:hover .note-title {
-    color: var(--accent);
-  }
-
-  .note-desc {
-    font-size: 0.83em;
-    color: rgb(var(--gray));
-    line-height: 1.4;
-  }
-
-  .note-date {
-    font-size: 0.78em;
-    color: rgb(var(--gray));
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
+  .note-link { flex: 1; text-decoration: none; color: inherit; }
+  .note-title { font-weight: 600; font-size: 0.98em; color: rgb(var(--black)); margin-bottom: 0.2em; }
+  .note-item:hover .note-title { color: var(--accent); }
+  .note-desc { font-size: 0.83em; color: rgb(var(--gray)); line-height: 1.4; }
+  .note-date { font-size: 0.78em; color: rgb(var(--gray)); white-space: nowrap; flex-shrink: 0; }
 
   .empty {
     font-size: 0.85em;
@@ -349,9 +442,7 @@ function getAllNotes(catName: string): NoteEntry[] {
   }
 
   @media (max-width: 768px) {
-    .notes-layout {
-      grid-template-columns: 1fr;
-    }
+    .notes-layout { grid-template-columns: 1fr; }
     .sidebar {
       position: static;
       display: grid;
@@ -359,5 +450,6 @@ function getAllNotes(catName: string): NoteEntry[] {
       gap: 0.5em;
     }
     .cat-group { margin-bottom: 0; }
+    .card-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
   }
 </style>

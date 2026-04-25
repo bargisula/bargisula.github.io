@@ -22,6 +22,7 @@ const notes = defineCollection({
     description: z.string(),
     category: z.enum(['經濟', '投資', '軍事', '小說', '勞動', '雜記']),
     subcategory: z.string().optional(),
+    topic: z.string().optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
   }),
