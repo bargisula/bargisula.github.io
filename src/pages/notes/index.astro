@@ -6,7 +6,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
-type SubDef = { name: string; topics: string[] };
+type SubDef = { name: string; topics: string[]; subTopicMap?: Record<string, string[]> };
 type CatDef = { name: string; icon: string; subs: SubDef[] };
 
 const CATEGORY_TREE: CatDef[] = [
@@ -60,7 +60,7 @@ const CATEGORY_TREE: CatDef[] = [
     subs: [
       { name: '天文物理', topics: [] },
       { name: '心理與腦', topics: [] },
-      { name: '歷史', topics: ['東亞海洋史-15至17世紀', '日本戰國專題', '新選組'] },
+      { name: '歷史', topics: ['東亞海洋史-15至17世紀', '日本戰國專題', '日本幕末時代'], subTopicMap: { '日本幕末時代': ['新選組'] } },
       { name: 'GitHub 專案', topics: [] },
     ],
   },
@@ -89,9 +89,14 @@ function countSub(cat: string, sub: string) {
   return Object.values(noteIndex[cat]?.[sub] ?? {}).flat().length;
 }
 function getTopics(cat: string, sub: string): string[] {
-  const staticTopics = CATEGORY_TREE.find(c => c.name === cat)?.subs.find(s => s.name === sub)?.topics ?? [];
-  const dynamicTopics = Object.keys(noteIndex[cat]?.[sub] ?? {}).filter(k => k !== '_');
+  const subDef = CATEGORY_TREE.find(c => c.name === cat)?.subs.find(s => s.name === sub);
+  const staticTopics = subDef?.topics ?? [];
+  const allSubTopics = Object.values(subDef?.subTopicMap ?? {}).flat();
+  const dynamicTopics = Object.keys(noteIndex[cat]?.[sub] ?? {}).filter(k => k !== '_' && !allSubTopics.includes(k));
   return [...new Set([...staticTopics, ...dynamicTopics])];
+}
+function getSubTopics(cat: string, sub: string, topic: string): string[] {
+  return CATEGORY_TREE.find(c => c.name === cat)?.subs.find(s => s.name === sub)?.subTopicMap?.[topic] ?? [];
 }
 function topicCount(cat: string, sub: string, topic: string) {
   return (noteIndex[cat]?.[sub]?.[topic] ?? []).length;
@@ -240,34 +245,86 @@ function vid(...parts: string[]) {
           <!-- Topic views -->
           {CATEGORY_TREE.map((cat) =>
             cat.subs.map((sub) =>
-              getTopics(cat.name, sub.name).map((topic) => (
-                <div class="view" id={vid(cat.name, sub.name, topic)}>
-                  <nav class="breadcrumb">
-                    <a href="/notes/">知識庫</a>
-                    <span>›</span>
-                    <a href={`#${cat.name}`}>{cat.icon} {cat.name}</a>
-                    <span>›</span>
-                    <a href={`#${cat.name}/${sub.name}`}>{sub.name}</a>
-                    <span>›</span>
-                    <span>{topic}</span>
-                  </nav>
-                  {getTopicNotes(cat.name, sub.name, topic).length > 0 ? (
-                    <ul class="note-list">
-                      {getTopicNotes(cat.name, sub.name, topic).map((note) => (
-                        <li class="note-item">
-                          <a href={`/notes/${note.id}/`} class="note-link">
-                            <div class="note-title">{note.data.title}</div>
-                            <div class="note-desc">{note.data.description}</div>
+              getTopics(cat.name, sub.name).map((topic) => {
+                const subTopics = getSubTopics(cat.name, sub.name, topic);
+                const notes = getTopicNotes(cat.name, sub.name, topic);
+                return (
+                  <div class="view" id={vid(cat.name, sub.name, topic)}>
+                    <nav class="breadcrumb">
+                      <a href="/notes/">知識庫</a>
+                      <span>›</span>
+                      <a href={`#${cat.name}`}>{cat.icon} {cat.name}</a>
+                      <span>›</span>
+                      <a href={`#${cat.name}/${sub.name}`}>{sub.name}</a>
+                      <span>›</span>
+                      <span>{topic}</span>
+                    </nav>
+                    {subTopics.length > 0 && (
+                      <div class="card-grid" style={notes.length > 0 ? 'margin-bottom:1.5em' : ''}>
+                        {subTopics.map((st) => (
+                          <a href={`#${cat.name}/${sub.name}/${st}`} class="card">
+                            <span class="card-name">{st}</span>
+                            <span class="card-count">{topicCount(cat.name, sub.name, st)} 篇</span>
                           </a>
-                          <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p class="empty">尚無筆記</p>
-                  )}
-                </div>
-              ))
+                        ))}
+                      </div>
+                    )}
+                    {notes.length > 0 ? (
+                      <ul class="note-list">
+                        {notes.map((note) => (
+                          <li class="note-item">
+                            <a href={`/notes/${note.id}/`} class="note-link">
+                              <div class="note-title">{note.data.title}</div>
+                              <div class="note-desc">{note.data.description}</div>
+                            </a>
+                            <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : subTopics.length === 0 ? (
+                      <p class="empty">尚無筆記</p>
+                    ) : null}
+                  </div>
+                );
+              })
+            )
+          )}
+
+          <!-- Sub-topic views -->
+          {CATEGORY_TREE.map((cat) =>
+            cat.subs.map((sub) =>
+              Object.entries(sub.subTopicMap ?? {}).map(([parentTopic, childTopics]) =>
+                childTopics.map((childTopic) => (
+                  <div class="view" id={vid(cat.name, sub.name, childTopic)}>
+                    <nav class="breadcrumb">
+                      <a href="/notes/">知識庫</a>
+                      <span>›</span>
+                      <a href={`#${cat.name}`}>{cat.icon} {cat.name}</a>
+                      <span>›</span>
+                      <a href={`#${cat.name}/${sub.name}`}>{sub.name}</a>
+                      <span>›</span>
+                      <a href={`#${cat.name}/${sub.name}/${parentTopic}`}>{parentTopic}</a>
+                      <span>›</span>
+                      <span>{childTopic}</span>
+                    </nav>
+                    {getTopicNotes(cat.name, sub.name, childTopic).length > 0 ? (
+                      <ul class="note-list">
+                        {getTopicNotes(cat.name, sub.name, childTopic).map((note) => (
+                          <li class="note-item">
+                            <a href={`/notes/${note.id}/`} class="note-link">
+                              <div class="note-title">{note.data.title}</div>
+                              <div class="note-desc">{note.data.description}</div>
+                            </a>
+                            <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p class="empty">尚無筆記</p>
+                    )}
+                  </div>
+                ))
+              )
             )
           )}
 
