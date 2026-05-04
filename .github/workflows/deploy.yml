@@ -12,14 +12,17 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # Already v4, fine.
+        uses: actions/checkout@v4
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -36,16 +39,14 @@ jobs:
         with:
           node-version: "24"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - name: Setup Pages
-        uses: actions/configure-pages@v4 # Updated to v4
+        uses: actions/configure-pages@v5
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Astro
         run: npm run build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # Already v3, fine.
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -58,4 +59,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # Already v4, fine.
+        uses: actions/deploy-pages@v4
