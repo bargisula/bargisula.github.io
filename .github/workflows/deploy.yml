@@ -32,10 +32,12 @@ jobs:
             exit 1
           fi
       - name: Setup Node
-        uses: actions/setup-node@v4 # Node version 22, this is fine.
+        uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - name: Setup Pages
         uses: actions/configure-pages@v4 # Updated to v4
       - name: Install dependencies
