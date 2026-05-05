@@ -16,7 +16,12 @@ export async function getStaticPaths() {
 
 const note = Astro.props;
 const { Content } = await render(note);
-const { title, description, pubDate, updatedDate, category, subcategory } = note.data;
+const { title, description, pubDate, updatedDate, category, subcategory, series } = note.data;
+
+let volClass = '';
+if (series?.includes('第一卷')) volClass = 'vol-1';
+else if (series?.includes('第二卷')) volClass = 'vol-2';
+else if (series?.includes('第三卷')) volClass = 'vol-3';
 ---
 
 <html lang="zh-TW">
@@ -43,6 +48,7 @@ const { title, description, pubDate, updatedDate, category, subcategory } = note
           <h1>{title}</h1>
           <div class="note-meta">
             <span class="cat-badge">{category}{subcategory ? ` · ${subcategory}` : ''}</span>
+            {series && <span class={`series-badge ${volClass}`}>{series}</span>}
             <time><FormattedDate date={pubDate} /></time>
             {updatedDate && (
               <span class="updated">更新於 <FormattedDate date={updatedDate} /></span>
@@ -50,7 +56,7 @@ const { title, description, pubDate, updatedDate, category, subcategory } = note
           </div>
         </div>
 
-        <div class="prose">
+        <div class={`prose ${volClass}`}>
           <Content />
         </div>
 
@@ -118,6 +124,25 @@ const { title, description, pubDate, updatedDate, category, subcategory } = note
     font-size: 0.85em;
   }
 
+  .series-badge {
+    padding: 0.2em 0.7em;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.82em;
+  }
+  .series-badge.vol-1 {
+    background: #e0e7ff;
+    color: #4338ca;
+  }
+  .series-badge.vol-2 {
+    background: #fff7ed;
+    color: #c2410c;
+  }
+  .series-badge.vol-3 {
+    background: #f0fdf4;
+    color: #15803d;
+  }
+
   .updated {
     font-style: italic;
   }
@@ -147,6 +172,30 @@ const { title, description, pubDate, updatedDate, category, subcategory } = note
 
   .prose :global(li) {
     margin-bottom: 0.4em;
+  }
+
+  /* 第一卷：群狼下剋上 — 靛藍（預設） */
+  .prose.vol-1 :global(blockquote) {
+    border-left-color: #6366f1;
+    background: #e0e7ff;
+  }
+
+  /* 第二卷：魔王的六天 — 琥珀橙 */
+  .prose.vol-2 :global(blockquote) {
+    border-left-color: #d97706;
+    background: #fff7ed;
+  }
+  .prose.vol-2 :global(h2) {
+    border-bottom-color: #fed7aa;
+  }
+
+  /* 第三卷：預留 — 翠綠 */
+  .prose.vol-3 :global(blockquote) {
+    border-left-color: #16a34a;
+    background: #f0fdf4;
+  }
+  .prose.vol-3 :global(h2) {
+    border-bottom-color: #bbf7d0;
   }
 
   .note-footer {
