@@ -57,3 +57,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify via ntfy
+        run: |
+          curl -s \
+            -H "Title: 部落格已更新 🚀" \
+            -H "Tags: white_check_mark" \
+            -d "新內容上線：${{ github.event.head_commit.message }}
+
+  https://bargisula.github.io" \
+            ntfy.sh/my-blog-notify
