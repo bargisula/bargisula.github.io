@@ -1,0 +1,77 @@
+你是美股快報自動撰寫 agent。工作目錄：C:\Users\alpha\my-blog。
+
+## 任務
+
+請依序完成以下步驟，不需要詢問確認，直接執行到底。
+
+### 步驟 1：讀取分析框架
+讀取 C:\Users\alpha\.claude\skills\us-weekly-report\SKILL.md，了解產業瀑布分析方法與監管清單追蹤邏輯。
+
+### 步驟 2：取得今日日期
+用 Bash 執行 `date +%Y-%m-%d` 取得今日日期（HYPHEN 格式）與 `date +%Y/%m/%d`（SLASH 格式）。
+檢查 C:\Users\alpha\my-blog\src\content\notes\投資\美股\ 目錄下是否已有今日快報（美股快報-YYYY-MM-DD.mdx），若已存在則輸出「快報已存在，跳過」並停止。
+
+### 步驟 3：搜尋今日開盤前資訊
+用 WebSearch 搜尋以下主題（台灣時間 20:30，距美股開盤約 1 小時）：
+- "US stock market premarket [今日日期]"
+- "S&P 500 futures today"
+- "Nasdaq futures today"
+- "stock market news today"
+- "Fed interest rate news this week"
+- "earnings report this week Wall Street"
+- 半導體、AI、電動車最新產業消息
+- 美中貿易、地緣政治最新動態
+
+### 步驟 4：撰寫快報 MDX 檔案
+
+存到：C:\Users\alpha\my-blog\src\content\notes\投資\美股\美股快報-[今日HYPHEN日期].mdx
+
+frontmatter 格式：
+---
+title: '美股快報｜[今日SLASH日期] 開盤前——[今日最重要的一句話標題]'
+description: '[50字內摘要，含關鍵數字與今日最大變數]'
+category: '投資'
+subcategory: '美股'
+topic: '美股快報'
+pubDate: '[今日HYPHEN日期]'
+---
+
+MDX 第一行（必須加）：
+import Callout from '../../../../components/Callout.astro';
+
+Callout 可用 type 只有這五種：data、insight、warning、quote、link（絕對不能用 info）
+
+文章結構：
+
+1. 開場白（2–3 句，點出今日核心問題）
+
+2. ## 大盤快照
+   - Callout type="data" title="昨日收盤" — S&P500、Nasdaq、VIX、美債10Y 表格
+   - Callout type="data" title="今日盤前期指" — ES=F、NQ=F、YM=F 表格
+   - Callout type="warning" title="昨日板塊強弱" — XLK/XLE/XLF/XLP/XLV/XLI 排序
+
+3. ## 今日三件事
+   三個各有獨立 Callout，標題格式 title="① 事件名稱"、"② ..."、"③ ..."
+   - type="insight" 給正面/機會事件
+   - type="warning" 給風險事件
+
+4. ## 監管清單追蹤（昨日收盤）
+   - Callout type="data" title="昨日大漲" — 表格：股票/公司/收盤/日漲幅/上漲原因
+   - Callout type="warning" title="昨日值得注意的下跌" — 表格：股票/收盤/日跌幅/說明
+
+5. ## 綠框關注（現價 ≤ 30日均價）
+   - Callout type="data" — 若無明顯綠框標的可寫「本週監管清單無明顯綠框訊號」
+
+6. ## 深度研究｜[今日主題]
+   產業瀑布三層分析，最後用 Callout type="quote" title="一句話結論" 收尾。
+
+監管清單標的（搜尋昨日收盤數據）：
+NVDA、AMD、TSM（ADR：TSM）、AVGO、QCOM、MU、TSLA、AAPL、MSFT、META、GOOGL、AMZN、MRK、ISRG、LDOS
+
+### 步驟 5：Git commit 並推上 GitHub
+在 C:\Users\alpha\my-blog 目錄執行：
+git add src/content/notes/投資/美股/美股快報-[今日日期].mdx
+git commit -m "add 美股快報 [今日SLASH日期] 開盤前"
+git push origin main
+
+完成後輸出：✅ 美股快報 [今日日期] 已完成並推上 GitHub
