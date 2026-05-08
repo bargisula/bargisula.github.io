@@ -159,9 +159,14 @@ data、insight、warning、quote、link
 
 ---
 
-### 步驟 5：確認檔案已寫入
+### 步驟 5：git commit 並推上 GitHub
 
-確認檔案存在於正確路徑後，輸出：
-「DONE: 台股快報 [SLASH日期] 已生成」
+確認檔案存在後，在 C:\Users\alpha\my-blog 目錄執行：
 
-git commit 與 push 由外部腳本負責，你不需要執行。
+git add src/content/notes/投資/台股/台股快報-[HYPHEN日期].mdx
+git commit -m "add 台股快報 [SLASH日期] 收盤後"
+git push origin main
+
+push 成功後，GitHub Actions 會自動 deploy 並透過 ntfy.sh 推播通知。
+
+完成後輸出：「DONE: 台股快報 [SLASH日期] 已推上 GitHub，ntfy 通知即將送出」
