@@ -17,9 +17,30 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      changed_titles: ${{ steps.changed-titles.outputs.titles }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+      - name: Extract titles from changed content files
+        id: changed-titles
+        run: |
+          TITLES=""
+          while IFS= read -r file; do
+            if [[ "$file" =~ \.(md|mdx)$ ]] && [ -f "$file" ]; then
+              TITLE=$(grep -m1 "^title:" "$file" | sed "s/^title: *//" | tr -d "\"'")
+              if [ -n "$TITLE" ]; then
+                TITLES="${TITLES}• ${TITLE}"$'\n'
+              fi
+            fi
+          done < <(git diff --name-only HEAD~1 HEAD)
+          {
+            echo "titles<<EOF"
+            printf "%s" "$TITLES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -60,10 +81,15 @@ jobs:
 
       - name: Notify via ntfy
         run: |
-          MSG="${{ github.event.head_commit.message }}"
+          TITLES="${{ needs.build.outputs.changed_titles }}"
+          if [ -n "$TITLES" ]; then
+            BODY="$TITLES"
+          else
+            BODY="${{ github.event.head_commit.message }}"
+          fi
           curl -s \
             -H "Title: 部落格已更新 🚀" \
             -H "Tags: white_check_mark" \
             -H "Click: https://bargisula.github.io" \
-            -d "新內容上線：${MSG}" \
+            --data-raw "$BODY" \
             ntfy.sh/my-blog-notify
