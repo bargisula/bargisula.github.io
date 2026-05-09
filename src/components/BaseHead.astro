@@ -24,6 +24,22 @@ const { title, description, image = FallbackImage } = Astro.props;
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Check if renderMathInElement is available (provided by KaTeX)
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true}, // For display math
+          {left: '$', right: '$', display: false}   // For inline math
+        ],
+        // Optional: Can add more options here if needed
+      });
+    } else {
+      console.error("KaTeX is not loaded correctly.");
+    }
+  });
+</script>
 <link rel="canonical" href={canonicalURL} />
 <title>{title}</title>
 <meta name="title" content={title} />
