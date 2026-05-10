@@ -114,7 +114,12 @@ function getSubTopics(cat: string, sub: string, topic: string): string[] {
   return CATEGORY_TREE.find(c => c.name === cat)?.subs.find(s => s.name === sub)?.subTopicMap?.[topic] ?? [];
 }
 function topicCount(cat: string, sub: string, topic: string) {
-  return (noteIndex[cat]?.[sub]?.[topic] ?? []).length;
+  const count = (noteIndex[cat]?.[sub]?.[topic] ?? []).length;
+  const subTopics = getSubTopics(cat, sub, topic);
+  if (subTopics.length > 0) {
+    return subTopics.reduce((acc, st) => acc + (noteIndex[cat]?.[sub]?.[st] ?? []).length, count);
+  }
+  return count;
 }
 function getTopicNotes(cat: string, sub: string, topic: string): NoteEntry[] {
   return noteIndex[cat]?.[sub]?.[topic] ?? [];
