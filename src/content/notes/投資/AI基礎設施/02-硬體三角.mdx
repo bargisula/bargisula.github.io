@@ -1,0 +1,228 @@
+---
+title: 'AI 基礎設施②｜硬體三角：晶片 × 記憶體 × 封裝，一次看懂'
+description: 'AI 算力的核心矛盾是「算得快，但搬不動資料」。本文拆解 HBM、NAND、DRAM 三種記憶體各自的角色，說明台積電封裝如何把它們串在一起，以及 HBM4、CXL、PIM 等下一步技術對投資的意涵。含完整台股與美股受益標的。'
+category: '投資'
+subcategory: 'AI基礎設施'
+topic: '系列'
+pubDate: '2026-05-10'
+---
+
+import Callout from '../../../../components/Callout.astro';
+
+> 本文為「AI 基礎設施全景」系列第二篇。上一篇說的是誰在花錢，這篇說的是錢花在最核心的硬體上，發生了什麼事。
+
+---
+
+## 核心矛盾：GPU 太快，記憶體跟不上
+
+AI 運算的根本矛盾，不是算力不夠，而是**資料搬不動**。
+
+GPU 每秒可以做幾千兆次浮點運算，但它每次運算都需要從記憶體調資料進來。問題在於，記憶體的傳輸速度遠遠跟不上 GPU 的運算速度——GPU 有 99% 的時間在等資料，不在算數。
+
+這個現象叫 **Memory Wall（記憶體牆）**，是整個 AI 硬體產業最核心的物理瓶頸。
+
+所有你聽過的技術——HBM、CoWoS、CXL、CPO——本質上都在做同一件事：**讓資料離 GPU 更近，讓搬運更快**。
+
+---
+
+## 記憶體的四個層次：從最快到最慢
+
+<Callout type="data">
+
+| 層次 | 名稱 | 位置 | 頻寬 | 容量 | 比喻 | AI 裡的用途 |
+|---|---|---|---|---|---|---|
+| 1 | SRAM | GPU 晶片內部 | 極快 | 極小（50–200MB）| 廚師的手 | 即時運算暫存 |
+| 2 | HBM | 貼在 GPU 旁邊 | 3–4 TB/s | 中（24–96GB）| 廚房台面 | 模型權重、KV Cache |
+| 3 | DDR DRAM | 主機板上 | 200–400 GB/s | 大（512GB–1TB）| 廚房冰箱 | 系統記憶體、CPU offload |
+| 4 | NAND SSD | 機架儲存 | 10–30 GB/s | 最大（TB 級）| 倉庫 | 訓練資料集、模型備份、Checkpoint |
+
+</Callout>
+
+這四層的關係是：**越靠近 GPU 越快越貴越小，越遠越慢越便宜越大**。AI 訓練需要同時動用全部四層——模型權重放 HBM，訓練資料在 SSD，CPU 偶爾扮演搬運工角色。
+
+---
+
+## 第一層：HBM——AI 勝負手
+
+**HBM（High Bandwidth Memory，高頻寬記憶體）** 是目前 AI 硬體最炙手可熱的元件。它把多層 DRAM 晶片垂直堆疊，整個封裝貼在 GPU 旁邊，用幾千條細小的導線直接相連。
+
+頻寬是關鍵：NVIDIA H100 的 HBM3 頻寬是 3.35 TB/s，最新的 HBM4 達到 **2.8 TB/s 每顆堆疊**，是一般 DDR5 的 10 倍以上。
+
+### HBM 三國戰爭
+
+<Callout type="data">
+
+| 廠商 | 市占率（2026 Q1）| 目前世代 | 優勢 | 弱點 |
+|---|---|---|---|---|
+| SK Hynix | ~62% | HBM3E 量產 / HBM4 出貨 | 良率最高，NVIDIA 首選 | 產能受限，價格偏高 |
+| 美光（Micron）| ~21% | HBM3E 量產 / HBM4 開發中 | 成本最低，美國本土生產 | 晚了一個世代，容量落後 |
+| 三星 | ~17% | HBM3E 量產 / HBM4 良率問題 | 規模最大 | HBM4 良率未達 NVIDIA 標準，出貨受阻 |
+
+</Callout>
+
+### HBM4：下一場戰爭的起點
+
+SK Hynix 在 CES 2026 展示的 HBM4 是 16 層堆疊、48GB 容量，每顆晶片厚度只有 30 微米（頭髮的三分之一），頻寬達 2.8 TB/s。HBM4E（預計 2027–2028）將進一步突破 4 TB/s。
+
+<Callout type="insight">
+
+**2026 年最關鍵的 HBM 投資觀察點：**
+三星 HBM4 良率問題若無法在 2026 下半年解決，NVIDIA 的 Rubin GPU 出貨量將完全依賴 SK Hynix 和美光。SK Hynix 一家定價能力極強，但產能有天花板。美光若率先解決成本並拿到 NVIDIA 大訂單，是最大的邊際變化。
+
+</Callout>
+
+---
+
+## 第二層：NAND SSD——被低估的 AI 受益者
+
+NAND 是另一個因 AI 而爆發的記憶體，但市場討論度遠低於 HBM。
+
+**AI 為什麼需要 NAND？**
+
+1. **訓練資料集**：訓練一個大型語言模型需要幾十 TB 到幾 PB 的文字、圖片、影片資料，全部存在 SSD
+2. **Checkpoint（模型存檔）**：訓練過程中定期存下模型狀態，防止當機白費工夫，每次存檔幾十到幾百 GB
+3. **模型推論快取**：推論時需要快速載入模型權重，SSD 的速度決定「冷啟動」時間
+4. **RAG 知識庫**：企業把文件向量化後存在 SSD，每次問答都要快速檢索
+
+<Callout type="data">
+
+**NAND 在 AI 時代的供需狀況**
+
+| 指標 | 數據 |
+|---|---|
+| Kioxia 2026 年 NAND 產能 | 已全數預訂完，緊俏延伸至 2027 |
+| NAND 晶圓合約價（2025 Q4）| 單季漲幅超過 60% |
+| 高容量 SSD 等待時間 | 已達一年以上（TrendForce, 2025 Q4）|
+| Kioxia Q3 2025 營收成長 | +33.1% QoQ，AI 需求是最大驅動力 |
+| 三星 2026 企業 SSD 漲價計畫 | 20–30% |
+
+</Callout>
+
+### NAND 供應鏈：誰在賺
+
+<Callout type="data">
+
+| 公司 | Ticker | 角色 | 現況 |
+|---|---|---|---|
+| 三星電子 | 005930.KS | NAND 最大廠，同時做 SSD | 企業 SSD 漲價 20–30% |
+| Kioxia | 285A.T | 332 層 BiCS10 提前到 2026 量產 | 2026 產能售罄 |
+| Western Digital | WDC | 與 Kioxia 共用工廠，企業 SSD | 硬碟已售罄 |
+| Micron | MU | NAND + HBM 雙線受益 | QLC 企業 SSD 高速成長 |
+| 群聯電子 | 8299 | SSD 主控晶片，台股純玩法 | 企業 SSD 需求帶動出貨 |
+
+</Callout>
+
+---
+
+## 第三層：封裝——把記憶體串起來的關鍵
+
+HBM 再好，也要想辦法跟 GPU 連起來。這就是台積電的核心價值所在。
+
+**CoWoS** 是台積電的封裝技術，把 GPU 晶片和 HBM 堆疊放在同一個「矽中介層」上，用幾千條高密度導線直連，通勤時間從「坐捷運」縮短到「下床走三步」。
+
+<Callout type="data">
+
+**封裝技術演進：從現在到 2030**
+
+| 技術 | 時程 | 核心突破 | 對記憶體的影響 |
+|---|---|---|---|
+| CoWoS-S / CoWoS-L | 現在量產 | GPU + HBM 同一矽中介層 | HBM 需求直接拉動 |
+| CoWoS-L 5.5× 光罩 | 2026–2027 | 可放更多 HBM 堆疊（最多 20 個）| HBM 用量翻倍 |
+| CoPoS（玻璃基板）| 2028–2029 量產 | 突破晶圓尺寸限制，可封裝更大系統 | 為 HBM5 時代鋪路 |
+| CPO（光互連封裝）| 2026 年開始 | 光子晶片與電子晶片共封裝 | 改變記憶體與網路的邊界 |
+
+</Callout>
+
+台積電 2026 年 CoWoS 月產能擴張到 12–13 萬片（+60%），NVIDIA 一家就預訂了約 50%。這條數字直接決定了 AI GPU 的總出貨量天花板。
+
+---
+
+## 記憶體的下一步：三條技術路線
+
+<Callout type="insight">
+
+**路線一：CXL 記憶體池（2026–2028）**
+
+CXL（Compute Express Link）是一種新的記憶體介面協議，允許多顆 GPU 共享一個大型外部記憶體池。
+
+白話說：以前每顆 GPU 有自己的 HBM（私人冰箱），CXL 讓大家共用一個大型冷凍庫，需要的時候去拿。適合推論場景：模型放在 CXL 記憶體，多個 GPU 一起用，不用每顆各自佔一份 HBM。
+
+SK Hynix 在 CES 2026 展示了 CXL 記憶體模組 CMM-Ax，整合了計算能力。三星、美光也都在跟進。
+
+---
+
+**路線二：PIM 近記憶體運算（2027+）**
+
+PIM（Processing-in-Memory）是更激進的方案：把計算單元直接嵌入記憶體晶片裡，讓記憶體自己做矩陣運算，不需要把資料搬給 GPU。
+
+白話說：不是廚師去倉庫拿食材，而是倉庫自己把菜洗好切好，直接送上桌。SK Hynix 的 AiMX 就是這個概念，理論上可以把 AI 推論的能耗降低幾十倍。
+
+---
+
+**路線三：Storage-Class Memory（SCM）**
+
+介於 DRAM 和 NAND 之間的記憶體，讀寫速度比 NAND 快 100 倍，容量比 DRAM 大 10 倍，成本介於兩者之間。目前以 Samsung Z-NAND、Kioxia XL-FLASH 為代表，適合需要「超大又夠快」的 AI 推論場景。
+
+</Callout>
+
+---
+
+## 完整投資地圖
+
+<Callout type="data">
+
+**記憶體層**
+
+| 公司 | Ticker | 角色 | 受益程度 | 關鍵觀察指標 |
+|---|---|---|---|---|
+| SK Hynix | 000660.KS | HBM 龍頭，62% 市占 | ⭐⭐⭐⭐⭐ | HBM4 出貨量、NVIDIA 認證進度、ASP 走勢 |
+| 美光 | MU | HBM 後起之秀 + NAND | ⭐⭐⭐⭐ | HBM 市占變化、QLC 企業 SSD 出貨 |
+| 三星電子 | 005930.KS | HBM + NAND 雙線，但 HBM 落後 | ⭐⭐⭐ | HBM4 良率改善時程 |
+| Kioxia | 285A.T | NAND 純玩法，企業 SSD 爆量 | ⭐⭐⭐⭐ | 企業 SSD 出貨量、332 層量產時程 |
+| 群聯電子 | 8299 | SSD 主控晶片，台股受益 | ⭐⭐⭐ | 企業 SSD 控制器出貨比例 |
+
+**封裝層**
+
+| 公司 | Ticker | 角色 | 受益程度 | 關鍵觀察指標 |
+|---|---|---|---|---|
+| 台積電 | 2330 | CoWoS / CoPoS / COUPE，全包 | ⭐⭐⭐⭐⭐ | 法說會 CoWoS 產能數字、封裝佔總營收比 |
+| 日月光投控 | 3711 | 先進封裝 OSAT，FoCoS 技術 | ⭐⭐⭐⭐ | AI 封裝訂單佔比、毛利率走勢 |
+| 欣興電子 | 3037 | ABF 載板（CoWoS 基板）| ⭐⭐⭐ | ABF 載板出貨量、CoWoS 訂單比例 |
+
+</Callout>
+
+---
+
+## 三大風險
+
+<Callout type="warning">
+
+**① 三星 HBM4 繼續掉隊**
+若三星無法在 2026 年底前解決 HBM4 良率，HBM 供給將高度集中在 SK Hynix 一家。短期對 SK Hynix 有利（定價能力），但整體 AI GPU 出貨天花板會受限。
+
+**② NAND 漲價反噬雲端客戶資本支出**
+企業 SSD 若持續漲價 20–30%，超大規模雲端商可能推遲資料中心存儲升級，間接壓縮 NAND 廠的長期出貨動能。
+
+**③ CXL / PIM 落地時程延遲**
+這兩個技術若商業化比預期慢，HBM 需求會繼續旺到 2028 年，對 SK Hynix 有利。但若 2027 年就大規模落地，HBM 的需求曲線會提前轉折，評估時需要持續追蹤。
+
+</Callout>
+
+---
+
+<Callout type="quote">
+
+AI 記憶體市場的邏輯是 M 型化：HBM 要「超快」，NAND 要「超大」，兩種極端同時缺貨，兩種廠商同時受益。夾在中間的傳統 DDR DRAM 正在被邊緣化——它不夠快，也不夠大，在 AI 伺服器裡的地位越來越像跑腿外場，而不是主角。
+
+</Callout>
+
+---
+
+**系列導覽**
+- [第一篇：誰在花錢——6,900 億的軍備競賽](/notes/投資/AI基礎設施/01-誰在花錢)
+- 第二篇（本篇）：硬體三角——晶片 × 記憶體 × 封裝
+- 第三篇（即將）：GPU vs ASIC——算力路線之爭
+- 第四篇（即將）：網路層——打通最後一哩
+- 第五篇（即將）：地基之戰——伺服器、電力、散熱、太空
+
+**來源**：[Kioxia 2026 NAND 售罄](https://www.ibselectronics.com/resources/news/market-news-kioxia-2026-nand-is-sold-out-ai-storage-demand-pushes-tight-supply-toward-2027/) ／ [HBM4 三國戰爭 CES 2026](https://markets.chroniclejournal.com/chroniclejournal/article/tokenring-2026-1-13-the-hbm4-memory-war-sk-hynix-samsung-and-micron-battle-for-ai-supremacy-at-ces-2026) ／ [SK Hynix HBM4 發表](https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/) ／ [NAND 價格與 AI 需求](https://www.trendforce.com/presscenter/news/20251203-12813.html)
