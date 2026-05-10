@@ -8,6 +8,7 @@ import { SITE_TITLE } from '../../consts';
 
 type SubDef = { name: string; topics: string[]; subTopicMap?: Record<string, string[]> };
 type CatDef = { name: string; icon: string; subs: SubDef[] };
+const DEFAULT_SUBCATEGORY = '一般';
 
 const CATEGORY_TREE: CatDef[] = [
   {
@@ -74,7 +75,7 @@ const noteIndex: Record<string, Record<string, Record<string, NoteEntry[]>>> = {
 
 for (const note of allNotes) {
   const cat = note.data.category;
-  const sub = note.data.subcategory ?? '一般';
+  const sub = note.data.subcategory ?? DEFAULT_SUBCATEGORY;
   const topic = note.data.topic ?? '_';
   if (!noteIndex[cat]) noteIndex[cat] = {};
   if (!noteIndex[cat][sub]) noteIndex[cat][sub] = {};
@@ -86,7 +87,7 @@ for (const note of allNotes) {
 for (const cat of CATEGORY_TREE) {
   const knownSubs = new Set(cat.subs.map(s => s.name));
   for (const subName of Object.keys(noteIndex[cat.name] ?? {})) {
-    if (!knownSubs.has(subName)) {
+    if (subName !== DEFAULT_SUBCATEGORY && !knownSubs.has(subName)) {
       cat.subs.push({ name: subName, topics: [] });
     }
   }
@@ -119,6 +120,9 @@ function getDirectNotes(cat: string, sub: string): NoteEntry[] {
 }
 function getAllCatNotes(cat: string): NoteEntry[] {
   return Object.values(noteIndex[cat] ?? {}).flatMap(s => Object.values(s).flat());
+}
+function getDefaultNotes(cat: string): NoteEntry[] {
+  return Object.values(noteIndex[cat]?.[DEFAULT_SUBCATEGORY] ?? {}).flat();
 }
 function vid(...parts: string[]) {
   return 'v__' + parts.join('__');
@@ -181,14 +185,29 @@ function vid(...parts: string[]) {
                 <span>{cat.icon} {cat.name}</span>
               </nav>
               {cat.subs.length > 0 ? (
-                <div class="card-grid">
-                  {cat.subs.map((sub) => (
-                    <a href={`#${cat.name}/${sub.name}`} class="card">
-                      <span class="card-name">{sub.name}</span>
-                      <span class="card-count">{countSub(cat.name, sub.name)} 篇</span>
-                    </a>
-                  ))}
-                </div>
+                <>
+                  <div class="card-grid">
+                    {cat.subs.map((sub) => (
+                      <a href={`#${cat.name}/${sub.name}`} class="card">
+                        <span class="card-name">{sub.name}</span>
+                        <span class="card-count">{countSub(cat.name, sub.name)} 篇</span>
+                      </a>
+                    ))}
+                  </div>
+                  {getDefaultNotes(cat.name).length > 0 && (
+                    <ul class="note-list" style="margin-top:1.5em">
+                      {getDefaultNotes(cat.name).map((note) => (
+                        <li class="note-item">
+                          <a href={`/notes/${note.id}/`} class="note-link">
+                            <div class="note-title">{note.data.title}</div>
+                            <div class="note-desc">{note.data.description}</div>
+                          </a>
+                          <time class="note-date"><FormattedDate date={note.data.pubDate} /></time>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
               ) : (
                 getAllCatNotes(cat.name).length > 0 ? (
                   <ul class="note-list">
