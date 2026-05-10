@@ -1,0 +1,307 @@
+---
+// WeeklyNewsletter.astro
+// 美股週報視覺容器元件
+// 使用方式：在週報 MDX 中 import 並以 <WeeklyNewsletter> 包住內容
+---
+
+<div class="wn-root">
+  <slot />
+</div>
+
+<style>
+  /* ─── 根容器 ─── */
+  .wn-root {
+    font-family: 'Microsoft JhengHei', 'Segoe UI', -apple-system, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ─── 頂部 Header ─── */
+  .wn-root :global(.wn-header) {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: white;
+    padding: 20px 24px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .wn-root :global(.wn-header-title) {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+  .wn-root :global(.wn-header-meta) {
+    text-align: right;
+    font-size: 0.78em;
+    opacity: 0.88;
+    line-height: 1.5;
+  }
+
+  /* ─── 摘要框 ─── */
+  .wn-root :global(.wn-summary) {
+    background: linear-gradient(135deg, #2563eb, #6366f1);
+    color: white;
+    padding: 18px 24px;
+    margin-bottom: 20px;
+    border-radius: 0 0 8px 8px;
+  }
+  .wn-root :global(.wn-summary h2) {
+    font-size: 0.95em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .wn-root :global(.wn-summary ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .wn-root :global(.wn-summary li) {
+    font-size: 0.85em;
+    padding: 4px 0 4px 14px;
+    position: relative;
+  }
+  .wn-root :global(.wn-summary li::before) {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+
+  /* ─── 區塊 Section ─── */
+  .wn-root :global(.wn-section) {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .wn-root :global(.wn-section-header) {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: white;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .wn-root :global(.wn-section-body) {
+    padding: 18px 20px;
+  }
+
+  /* ─── 指數表格 ─── */
+  .wn-root :global(.wn-index-table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 0.85em;
+  }
+  .wn-root :global(.wn-index-table th) {
+    background: #f1f5f9;
+    padding: 7px 10px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .wn-root :global(.wn-index-table td) {
+    padding: 9px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.88em;
+  }
+  .wn-root :global(.wn-index-table tr:last-child td) {
+    border-bottom: none;
+  }
+  .wn-root :global(.wn-up)   { color: #dc2626; font-weight: 600; }  /* 台灣慣例：漲紅 */
+  .wn-root :global(.wn-down) { color: #16a34a; font-weight: 600; }  /* 台灣慣例：跌綠 */
+
+  /* ─── 新聞卡片 ─── */
+  .wn-root :global(.wn-news) {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .wn-root :global(.wn-news:last-child) { margin-bottom: 0; }
+  .wn-root :global(.wn-news-title) {
+    background: #f1f5f9;
+    color: #1e40af;
+    padding: 9px 14px;
+    font-size: 0.88em;
+    font-weight: 700;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .wn-root :global(.wn-news-body) {
+    padding: 14px;
+  }
+
+  /* ─── 趨勢分析框（藍） ─── */
+  .wn-root :global(.wn-trend) {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-left: 3px solid #0ea5e9;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 0.83em;
+    line-height: 1.55;
+    color: #0c4a6e;
+  }
+  .wn-root :global(.wn-trend strong) {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+    color: #075985;
+  }
+
+  /* ─── 操作建議框（黃） ─── */
+  .wn-root :global(.wn-advice) {
+    background: #fefce8;
+    border: 1px solid #fde047;
+    border-left: 3px solid #eab308;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 0.83em;
+    line-height: 1.55;
+    color: #713f12;
+  }
+  .wn-root :global(.wn-advice strong) {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+    color: #92400e;
+  }
+  .wn-root :global(.wn-advice ul) {
+    margin: 6px 0 0 16px;
+    padding: 0;
+  }
+  .wn-root :global(.wn-advice li) { margin: 3px 0; }
+
+  /* ─── 個股快篩卡片 ─── */
+  .wn-root :global(.wn-stock) {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .wn-root :global(.wn-stock-header) {
+    background: linear-gradient(135deg, #064e3b, #059669);
+    color: white;
+    padding: 9px 14px;
+    font-size: 0.9em;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wn-root :global(.wn-stock-verdict) {
+    font-size: 0.78em;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .wn-root :global(.wn-stock-body) {
+    padding: 14px;
+    font-size: 0.85em;
+  }
+  .wn-root :global(.wn-stock-meta) {
+    display: flex;
+    gap: 16px;
+    font-size: 0.82em;
+    color: #6b7280;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .wn-root :global(.wn-stock-meta span) {
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* ─── 行事曆表格 ─── */
+  .wn-root :global(.wn-calendar) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83em;
+  }
+  .wn-root :global(.wn-calendar th) {
+    background: #f1f5f9;
+    padding: 7px 10px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .wn-root :global(.wn-calendar td) {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .wn-root :global(.wn-calendar tr:last-child td) { border-bottom: none; }
+
+  /* ─── 風險警示框（紅） ─── */
+  .wn-root :global(.wn-risk) {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-left: 3px solid #ef4444;
+    padding: 12px 14px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 0.83em;
+    color: #7f1d1d;
+  }
+  .wn-root :global(.wn-risk strong) {
+    display: block;
+    color: #dc2626;
+    margin-bottom: 4px;
+  }
+
+  /* ─── tag 標籤 ─── */
+  .wn-root :global(.wn-tag) {
+    display: inline-block;
+    background: #1e40af;
+    color: white;
+    font-size: 0.72em;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    margin: 0 2px;
+    vertical-align: middle;
+  }
+
+  /* ─── Footer ─── */
+  .wn-root :global(.wn-footer) {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.75em;
+    color: #6b7280;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* ─── RWD ─── */
+  @media (max-width: 640px) {
+    .wn-root :global(.wn-header) {
+      flex-direction: column;
+      gap: 8px;
+    }
+    .wn-root :global(.wn-header-meta) {
+      text-align: left;
+    }
+    .wn-root :global(.wn-index-table th),
+    .wn-root :global(.wn-index-table td) {
+      padding: 6px 6px;
+      font-size: 0.82em;
+    }
+    .wn-root :global(.wn-stock-header) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+</style>
