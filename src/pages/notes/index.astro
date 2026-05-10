@@ -82,6 +82,16 @@ for (const note of allNotes) {
   noteIndex[cat][sub][topic].push(note);
 }
 
+// 自動補齊：把 noteIndex 裡有、但 CATEGORY_TREE 裡沒登記的 sub 補進去
+for (const cat of CATEGORY_TREE) {
+  const knownSubs = new Set(cat.subs.map(s => s.name));
+  for (const subName of Object.keys(noteIndex[cat.name] ?? {})) {
+    if (!knownSubs.has(subName)) {
+      cat.subs.push({ name: subName, topics: [] });
+    }
+  }
+}
+
 function countCat(cat: string) {
   return Object.values(noteIndex[cat] ?? {}).flatMap(s => Object.values(s).flat()).length;
 }
