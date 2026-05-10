@@ -180,6 +180,8 @@ PIM（Processing-in-Memory）是更激進的方案：把計算單元直接嵌入
 | 三星電子 | 005930.KS | HBM + NAND 雙線，但 HBM 落後 | ⭐⭐⭐ | HBM4 良率改善時程 |
 | Kioxia | 285A.T | NAND 純玩法，企業 SSD 爆量 | ⭐⭐⭐⭐ | 企業 SSD 出貨量、332 層量產時程 |
 | 群聯電子 | 8299 | SSD 主控晶片，台股受益 | ⭐⭐⭐ | 企業 SSD 控制器出貨比例 |
+| Seagate | STX | nearline HDD 龍頭，售罄至 2027 | ⭐⭐⭐⭐ | nearline 出貨量、長約能見度 |
+| Western Digital | WDC | HDD + NAND 雙線，雲端佔 90% | ⭐⭐⭐ | 企業 HDD 出貨、NAND 毛利率 |
 
 **封裝層**
 
@@ -210,9 +212,50 @@ PIM（Processing-in-Memory）是更激進的方案：把計算單元直接嵌入
 
 ---
 
+## 補充：被忽視的瓶頸——硬碟（HDD）
+
+HBM 和 NAND 討論度很高，但有一個更底層的儲存層正在悄悄告急：**傳統硬碟（HDD）**。
+
+AI 訓練需要餵幾十 PB 的原始資料（網路文字、圖片、影片），這些幾乎全部存在 HDD 上。原因很簡單：
+
+<Callout type="data">
+
+| 儲存媒介 | 成本（每 TB）| 角色 |
+|---|---|---|
+| NAND SSD | ~$80–100 | 熱資料、頻繁讀寫、模型快取 |
+| HDD | ~$20 | 訓練資料集、冷備份、模型封存 |
+
+</Callout>
+
+沒有人會用 SSD 存 50PB 的原始訓練資料，成本差了 4–5 倍。**HDD 是 AI 訓練資料的最終倉庫，無法被取代，只能被塞滿。**
+
+現況已經很緊張：
+
+<Callout type="data">
+
+| 指標 | 數據 |
+|---|---|
+| Western Digital 2026 產能 | 全數售罄，前七大雲端客戶鎖定 |
+| Seagate nearline 產能 | 2026 年售罄，長約延伸到 **2027 年** |
+| 30–32TB 企業硬碟等待時間 | 從幾週拉長到 **52 週以上** |
+| HDD 價格漲幅（5 個月）| **+50%** |
+| WD 出貨中雲端佔比 | **90%**，消費零售只剩 5% |
+
+</Callout>
+
+Seagate（STX）和 Western Digital（WDC）是最直接的受益者，但市場焦點全在 NVIDIA 和 HBM，沒人在看硬碟——這正是這個機會被低估的原因。
+
+<Callout type="insight">
+
+Seagate 已確認 nearline 產能幾乎全數分配至 2027 年，且正在與主要客戶談 2028 年長約。在 AI 資料量持續暴增的前提下，這個需求不是景氣循環，而是結構性的。
+
+</Callout>
+
+---
+
 <Callout type="quote">
 
-AI 記憶體市場的邏輯是 M 型化：HBM 要「超快」，NAND 要「超大」，兩種極端同時缺貨，兩種廠商同時受益。夾在中間的傳統 DDR DRAM 正在被邊緣化——它不夠快，也不夠大，在 AI 伺服器裡的地位越來越像跑腿外場，而不是主角。
+AI 記憶體市場的邏輯是 M 型化：HBM 要「超快」，NAND 要「超大」，HDD 要「裝得下整個網際網路」——三種極端同時缺貨，三種廠商同時受益。夾在中間的傳統 DDR DRAM 正在被邊緣化——它不夠快，也不夠大，在 AI 伺服器裡的地位越來越像跑腿外場，而不是主角。
 
 </Callout>
 
@@ -225,4 +268,4 @@ AI 記憶體市場的邏輯是 M 型化：HBM 要「超快」，NAND 要「超�
 - 第四篇（即將）：網路層——打通最後一哩
 - 第五篇（即將）：地基之戰——伺服器、電力、散熱、太空
 
-**來源**：[Kioxia 2026 NAND 售罄](https://www.ibselectronics.com/resources/news/market-news-kioxia-2026-nand-is-sold-out-ai-storage-demand-pushes-tight-supply-toward-2027/) ／ [HBM4 三國戰爭 CES 2026](https://markets.chroniclejournal.com/chroniclejournal/article/tokenring-2026-1-13-the-hbm4-memory-war-sk-hynix-samsung-and-micron-battle-for-ai-supremacy-at-ces-2026) ／ [SK Hynix HBM4 發表](https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/) ／ [NAND 價格與 AI 需求](https://www.trendforce.com/presscenter/news/20251203-12813.html)
+**來源**：[Kioxia 2026 NAND 售罄](https://www.ibselectronics.com/resources/news/market-news-kioxia-2026-nand-is-sold-out-ai-storage-demand-pushes-tight-supply-toward-2027/) ／ [HBM4 三國戰爭 CES 2026](https://markets.chroniclejournal.com/chroniclejournal/article/tokenring-2026-1-13-the-hbm4-memory-war-sk-hynix-samsung-and-micron-battle-for-ai-supremacy-at-ces-2026) ／ [SK Hynix HBM4 發表](https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/) ／ [NAND 價格與 AI 需求](https://www.trendforce.com/presscenter/news/20251203-12813.html) ／ [Seagate 售罄至 2027](https://www.trefis.com/stock/stx/articles/597921/seagate-is-sold-out-through-2027-as-ai-reshapes-hard-drive-demand/2026-04-30) ／ [HDD 價格暴漲 50%](https://winbuzzer.com/2026/02/18/wd-seagate-2026-hard-drive-shortage-ai-data-centers-xcxwbn/)
