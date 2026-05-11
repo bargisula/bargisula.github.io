@@ -48,6 +48,7 @@
 | 欣興電子 | 3037 | ABF 載板（CoWoS 基板）| ⭐⭐⭐ | AI 伺服器基板需求旺 | ABF 載板出貨量；CoWoS 訂單比例 |
 | 南亞電路板 | 8046 | CoWoS 有機基板 | ⭐⭐⭐ | 同欣興，二線受益 | 伺服器基板出貨比例 |
 | AUO | 2409 | 玻璃基板（CoPoS 長線）| ⭐⭐（長線）| 2028 以後才是主戰場 | 玻璃基板技術認證進度 |
+| **Corning** | **GLW** | **Glass Core 玻璃基板 + Through-Glass Vias（CoPoS 材料層）** | **⭐⭐⭐（長線 ⭐⭐⭐⭐⭐）** | CoPoS 量產 2028–2029；現階段為敘事期；Glass Core 可整合光波導 + 電氣重佈線，是最先進的基板方案 | 台積電 CoPoS 試產片良率；蘋果 / NVIDIA Glass Core 採購消息 |
 | Amkor | AMKR | OSAT；2.5D / TSV 切入 NVIDIA | ⭐⭐⭐ | 美國廠擴產；NVIDIA 訂單 | 先進封裝營收佔比 |
 
 ---
@@ -60,6 +61,7 @@
 | Arista Networks | ANET | AI / 雲端 400G / 800G 交換器 | ⭐⭐⭐⭐ | Meta / Microsoft 大客戶 | AI / Cloud 客戶營收佔比 |
 | Coherent | COHR | CPO 光引擎供應商 | ⭐⭐⭐⭐ | NVIDIA 入股 $20 億；Q3 FY26 $1.81B | scale-out CPO 出貨時程；毛利率 |
 | Lumentum | LITE | 200G EML 雷射唯一量產商 | ⭐⭐⭐⭐ | CPO 雷射晶片不可替代 | EML 出貨量成長；CPO 訂單 |
+| **Corning** | **GLW** | **光纖 / CPO 連接器 / 玻璃基板（雙引擎）** | **⭐⭐⭐⭐⭐** | NVIDIA 投資 $32 億、3 座新廠、產能 10 倍擴張；Meta $60 億長約；Q1 光通訊淨利 +93% YoY；YTD +48%；Springboard 目標升至 $30B（2028）| Q2 法說光通訊成長率；新廠動工進度；CoPoS 玻璃基板採購啟動消息 |
 | 聯亞光電 | 3081 | 矽光子模組量產（台股）| ⭐⭐⭐⭐ | CPO 賽道台股純玩法 | 矽光子出貨量；CPO 客戶認證 |
 | Fabrinet | FN | 光模組代工（Coherent / Lumentum 供應鏈）| ⭐⭐⭐ | AI 光模組出貨受益 | 光模組代工出貨量；客戶集中度 |
 
