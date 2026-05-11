@@ -83,6 +83,8 @@ user-invocable: false
 
 **禁用：** `type="info"`
 
+> 📝 此寫作規則與 tech-analysis 保持一致。若修改 Callout 規範或 MDX 規則，須同步更新兩個 skill。
+
 **MDX 第一行（必填）：**
 ```
 import Callout from '../../../../components/Callout.astro';

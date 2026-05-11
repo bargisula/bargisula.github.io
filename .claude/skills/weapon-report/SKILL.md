@@ -172,6 +172,8 @@ import Callout from '../../../../components/Callout.astro';
 在 `C:\Users\alpha\my-blog` 執行（依確認篇數調整）：
 
 ```bash
+git checkout main
+git pull origin main
 git add src/content/notes/軍事/武器裝備/[檔名1].mdx
 git add src/content/notes/軍事/武器裝備/[檔名2].mdx  # 若有
 git add src/content/notes/軍事/武器裝備/[檔名3].mdx  # 若有

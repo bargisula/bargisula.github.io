@@ -396,6 +396,8 @@ src/content/notes/投資/週報/
 ## 步驟 5：git commit 並推上 GitHub
 
 ```bash
+git checkout main
+git pull origin main
 git add src/content/notes/投資/週報/週報-YYYY-MM-DD.mdx
 git commit -m "add 美股週報 YYYY-MM-DD"
 git push origin main

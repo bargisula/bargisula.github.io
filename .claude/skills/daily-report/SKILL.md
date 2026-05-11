@@ -170,6 +170,8 @@ pubDate: '[YYYY-MM-DD]'
 
 ```bash
 # 兩份都確認
+git checkout main
+git pull origin main
 git add src/content/notes/投資/理財日報/理財日報-[YYYY-MM-DD].md
 git add src/content/notes/勞動/勞動日報/勞動日報-[YYYY-MM-DD].md
 git commit -m "add 理財日報＋勞動日報 [YYYY-MM-DD]"

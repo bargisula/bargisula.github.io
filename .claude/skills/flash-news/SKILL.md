@@ -1,13 +1,14 @@
 ---
 name: flash-news
 description: >
-  用於將使用者提供的財經新聞內容，補充相關背景後，以快訊格式寫入並推上 bargisula.github.io。
+  用於將使用者提供的財經新聞內容，補充相關背景後，以快訊格式寫成獨立文章並推上部落格。
   觸發時機：使用者說「快訊」並附上新聞內容或連結。
+  與 flash 的差異：flash 寫進月份聚合檔（個人快速紀錄）；flash-news 每則獨立一個 MDX 檔，有背景補充的獨立快訊文章。
 ---
 
 # 快訊寫入技能
 
-使用者給你一篇新聞（內容或截圖），你要補充相關背景，整理成快訊格式，寫入當月檔案，commit 並 push。
+使用者給你一篇新聞（內容或截圖），你要補充相關背景，整理成快訊格式，每則寫成獨立 MDX 檔，commit 並 push。
 
 ## 快訊格式規範
 
@@ -57,9 +58,24 @@ description: >
 從使用者訊息提取：
 - 新聞標題、發佈時間、來源
 - 核心數據、機構名稱、觀點立場
-- 文章日期 → 決定寫入哪個月份檔案
+- 文章日期 → 決定檔名日期
 
-月份檔案路徑：`src/content/notes/投資/快訊/YYYY-MM.mdx`
+**檔案路徑（每則獨立）：**
+`src/content/notes/投資/快訊/YYYY-MM-DD-[主題關鍵詞].mdx`
+
+例：`2026-05-11-台積電蘋果轉單INTC.mdx`
+
+frontmatter 格式：
+```mdx
+---
+title: '[HH:MM｜MM/DD｜情緒 類別｜標題]'
+description: '[60字內，核心事件 + 背景意義]'
+category: '投資'
+subcategory: '快訊'
+topic: '市場快訊'
+pubDate: 'YYYY-MM-DD'
+---
+```
 
 ### 2. 補充相關資訊（WebSearch）
 
@@ -70,69 +86,34 @@ description: >
 
 搜尋結果用於豐富第二段背景，但不要讓快訊超過 4 句話。
 
-### 3. 讀取目標檔案
+### 3. 寫入獨立 MDX 檔
 
-用 Read 工具讀取月份檔案，確認現有條目時間順序，決定新條目的插入位置（依日期時間倒序排列，最新在最上方）。
+用 Write 工具建立新檔案（路徑如步驟 1 所定義）。
 
-### 4. 寫入快訊條目
+若同名檔案已存在，告知使用者並詢問是否覆蓋。
 
-用 Edit 工具，將新條目插入正確位置（在第一個 `###` 標題之前，或在比新條目更舊的條目之前）。
-
-若目標月份檔案不存在，用 Write 工具建立，frontmatter 格式如下：
+內文格式（純快訊內容，不需 import）：
 
 ```mdx
----
-title: '市場快訊｜YYYY 年 MM 月'
-description: '台股、美股、黃金、總經 — YYYY 年 MM 月多空觀點與市場事件紀錄'
-category: '投資'
-subcategory: '快訊'
-topic: '市場快訊'
-pubDate: 'YYYY-MM-01'
----
+[第一段：核心事件或數據，1–2 句]
 
-import Callout from '../../../../components/Callout.astro';
+[第二段：背景、驅動因子或市場含意，1–2 句]
 
-> 隨手記錄多空觀點、市場事件、數據與個股動態。台股、美股、黃金、總經每則皆含情緒標注。
+> #標籤1 #標籤2 #標籤3
 
----
-
+**來源**：[來源名稱](URL)
 ```
 
-### 5. Commit & Push 到 feature branch
+### 4. Commit & Push
+
+在 `C:\Users\alpha\my-blog` 執行（依序，不可跳過）：
 
 ```bash
-git add src/content/notes/投資/快訊/YYYY-MM.mdx
-git commit -m "feat(快訊): 新增 MM/DD [類別]快訊 — [標題關鍵字]"
-git push -u origin <current-branch>
-```
-
-Push 失敗時以指數退避重試最多 4 次（2s、4s、8s、16s）。
-
-### 6. 建立 PR 並 Merge 進 main
-
-`main` 有 branch protection，**不可直接 push**，須透過 GitHub MCP 建 PR 再 merge。
-
-```
-mcp__github__create_pull_request:
-  owner: bargisula
-  repo: bargisula.github.io
-  title: feat(快訊): 新增 MM/DD [類別]快訊 — [標題關鍵字]
-  head: <current-branch>
-  base: main
-  body: 一行說明新增哪幾則快訊
-
-mcp__github__merge_pull_request:
-  owner: bargisula
-  repo: bargisula.github.io
-  pullNumber: <PR number from above>
-  merge_method: squash
-```
-
-Squash merge 後，遠端 `main` 會產生新的 commit hash，本地 `main` 與遠端會出現分叉。merge 完成後執行：
-
-```bash
-git fetch origin main
-git reset --hard origin/main
+git checkout main
+git pull origin main
+git add src/content/notes/投資/快訊/YYYY-MM-DD-[主題].mdx
+git commit -m "feat(快訊): MM/DD [類別] — [標題關鍵字]"
+git push origin main
 ```
 
 ---
@@ -140,8 +121,5 @@ git reset --hard origin/main
 ## 完成後回報
 
 告知使用者：
-- 寫入的條目標題與時間
-- 插入位置（在哪個條目之前/之後）
-- PR 編號與 merge 結果
-
-不需要顯示完整的快訊內容（使用者已知道），簡短確認即可。
+- 寫入的檔名與標題
+- 簡短確認即可，不需重複顯示快訊內容

@@ -84,6 +84,8 @@ user-invocable: false
 
 **禁用：** `type="info"` — 不存在此類型，會造成 build error
 
+> 📝 此寫作規則與 us-tech-analysis 保持一致。若修改 Callout 規範或 MDX 規則，須同步更新兩個 skill。
+
 **MDX 第一行（必填）：**
 ```
 import Callout from '../../../../components/Callout.astro';
