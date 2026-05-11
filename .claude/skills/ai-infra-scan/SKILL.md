@@ -27,6 +27,7 @@ user-invocable: false
 - `references/six-layers.md`：各層定義、現況、關鍵指標
 - `references/company-map.md`：各公司在供應鏈的定位與當前狀態
 - `references/timeline.md`：技術發展時程表
+- `references/ai-regulation.md`：AI 監管框架、模型安全爭議、公司監管立場（EU AI Act、Mythos、GPAI）
 
 ---
 
