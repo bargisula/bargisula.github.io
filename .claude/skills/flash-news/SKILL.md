@@ -1,14 +1,16 @@
 ---
 name: flash-news
 description: >
-  用於將使用者提供的財經新聞內容，補充相關背景後，以快訊格式寫成獨立文章並推上部落格。
+  用於將使用者提供的財經新聞內容，補充相關背景後，以快訊格式寫入當月彙整 MDX 並推上部落格。
   觸發時機：使用者說「快訊」並附上新聞內容或連結。
-  與 flash 的差異：flash 寫進月份聚合檔（個人快速紀錄）；flash-news 每則獨立一個 MDX 檔，有背景補充的獨立快訊文章。
+  與 flash 的差異：flash 寫進月份聚合檔（個人快速紀錄）；flash-news 補充背景後寫進同一月份彙整，並 commit push。
 ---
 
 # 快訊寫入技能
 
-使用者給你一篇新聞（內容或截圖），你要補充相關背景，整理成快訊格式，每則寫成獨立 MDX 檔，commit 並 push。
+使用者給你一篇新聞（內容或截圖），你要補充相關背景，整理成快訊格式，**寫入當月彙整 MDX 檔**，commit 並 push。
+
+> **重要：不要為每則快訊建立獨立 MDX 檔。所有快訊依發佈月份寫入對應的 `YYYY-MM.mdx`。**
 
 ## 快訊格式規範
 
@@ -53,27 +55,34 @@ description: >
 
 ## 工作流程
 
-### 1. 解析來源
+### 1. 確認目標檔案
 
-從使用者訊息提取：
-- 新聞標題、發佈時間、來源
-- 核心數據、機構名稱、觀點立場
-- 文章日期 → 決定檔名日期
+根據新聞發佈日期決定目標月份檔：
 
-**檔案路徑（每則獨立）：**
-`src/content/notes/投資/快訊/YYYY-MM-DD-[主題關鍵詞].mdx`
+```
+src/content/notes/投資/快訊/YYYY-MM.mdx
+```
 
-例：`2026-05-11-台積電蘋果轉單INTC.mdx`
+例：
+- 5 月新聞 → `2026-05.mdx`
+- 6 月新聞 → `2026-06.mdx`（月份切換時需新建檔案）
 
-frontmatter 格式：
+**若該月份檔案不存在，先建立，frontmatter 格式如下：**
+
 ```mdx
 ---
-title: '[HH:MM｜MM/DD｜情緒 類別｜標題]'
-description: '[60字內，核心事件 + 背景意義]'
+title: '市場快訊｜YYYY 年 MM 月'
+description: '台股、美股、黃金、總經 — YYYY 年 MM 月多空觀點與市場事件紀錄'
 category: '投資'
 subcategory: '快訊'
 topic: '市場快訊'
-pubDate: 'YYYY-MM-DD'
+pubDate: 'YYYY-MM-01'
+---
+
+import Callout from '../../../../components/Callout.astro';
+
+> 隨手記錄多空觀點、市場事件、數據與個股動態。台股、美股、黃金、總經每則皆含情緒標注。
+
 ---
 ```
 
@@ -86,34 +95,35 @@ pubDate: 'YYYY-MM-DD'
 
 搜尋結果用於豐富第二段背景，但不要讓快訊超過 4 句話。
 
-### 3. 寫入獨立 MDX 檔
+### 3. 插入快訊內容
 
-用 Write 工具建立新檔案（路徑如步驟 1 所定義）。
+用 Edit 工具將新快訊插入月份檔頂部（緊接在 `---` intro 分隔線之後、第一則現有快訊之前），保持**最新在最上**的排列順序。
 
-若同名檔案已存在，告知使用者並詢問是否覆蓋。
-
-內文格式（純快訊內容，不需 import）：
+內文格式（無需 import）：
 
 ```mdx
+### HH:MM｜MM/DD｜[情緒] [類別]｜[標題]
+
 [第一段：核心事件或數據，1–2 句]
 
 [第二段：背景、驅動因子或市場含意，1–2 句]
 
 > #標籤1 #標籤2 #標籤3
 
-**來源**：[來源名稱](URL)
+---
 ```
 
 ### 4. Commit & Push
 
-在 `C:\Users\alpha\my-blog` 執行（依序，不可跳過）：
+透過 feature branch + PR 方式合併進 main（main 不接受直接 push）：
 
 ```bash
-git checkout main
-git pull origin main
-git add src/content/notes/投資/快訊/YYYY-MM-DD-[主題].mdx
+git checkout -b claude/flash-news-YYYY-MM-DD
+git add src/content/notes/投資/快訊/YYYY-MM.mdx
 git commit -m "feat(快訊): MM/DD [類別] — [標題關鍵字]"
-git push origin main
+git push -u origin claude/flash-news-YYYY-MM-DD
+# 接著用 GitHub MCP 建立 PR 並合併
+# 合併後 git checkout main && git fetch origin main && git reset --hard origin/main
 ```
 
 ---
@@ -121,5 +131,5 @@ git push origin main
 ## 完成後回報
 
 告知使用者：
-- 寫入的檔名與標題
+- 寫入的月份檔與標題
 - 簡短確認即可，不需重複顯示快訊內容
