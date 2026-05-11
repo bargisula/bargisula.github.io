@@ -108,6 +108,12 @@ AI 算力競爭已從「誰的 GPU 最強」變成「整條系統有沒有短板
 | CoWoS-R | 聚合物 RDL，成本低 | 量產中 |
 | CoWoS-L | RDL + 局部矽橋，大尺寸高密度折衷 | 快速擴產 |
 
+### Intel EMIB（新進入者，2028）
+- EMIB（Embedded Multi-die Interconnect Bridge）：用嵌入式矽橋連接多個 die，無需完整矽中介層
+- NVIDIA Feynman（2028）計畫採用 EMIB 連接 I/O die 與計算核心，與 CoWoS 並存
+- 優勢：成本低於 CoWoS-S、可與不同製程 foundry 搭配；劣勢：頻寬密度略遜 CoWoS-S
+- 意涵：台積電封裝壟斷地位首次出現裂縫；Intel IFS 正式進入 AI GPU 封裝供應鏈
+
 ### CoPoS（下一代，2028+）
 - 把矽中介層換成方形玻璃基板，突破晶圓尺寸限制
 - 台積電試產線預計 2026 年 6 月完成，大規模量產 2028–2029

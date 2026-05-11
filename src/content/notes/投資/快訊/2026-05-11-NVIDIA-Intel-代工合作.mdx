@@ -1,0 +1,60 @@
+---
+title: 'NVIDIA 與英特爾確認深化合作：Feynman GPU 分流 IFS、SoC 聯合開發'
+description: '陳立武親頒學位後宣布雙方開發新產品。Feynman GPU I/O die 約 25% 產量將走 Intel 18A/EMIB，計算核心仍留台積電；資料中心 SoC Titan Lake 預計 2028–2029 落地。'
+category: '投資'
+subcategory: '美股'
+topic: '產業分析'
+pubDate: '2026-05-11'
+---
+
+import Callout from '../../../../components/Callout.astro';
+
+黃仁勳於 CMU 2026 屆畢業典禮獲英特爾執行長陳立武親頒榮譽博士，典禮結束後陳立武在 X 上公開宣布：英特爾與輝達正積極投入「令人興奮的新產品」開發，輝達官方隨即轉發。
+
+## 合作輪廓
+
+根據業界報告，雙方合作分兩條線：
+
+**第一條線：Feynman GPU 製程分流**
+
+輝達下一代旗艦 GPU「Feynman」（預計 2028 量產）將首度採用非台積電廠商。分工如下：
+
+| 元件 | 製程 / 封裝 | 廠商 | 佔比 |
+|---|---|---|---|
+| GPU 計算核心（Compute Die）| 台積電 A16 | TSMC | ~75% |
+| I/O Die | Intel 18A 或 14A + EMIB 封裝 | Intel IFS | ~25% |
+
+<Callout type="data">
+NVIDIA $50 億美元投資英特爾，但陳立武明確表示「不附帶製造承諾」；Feynman 分工目前仍為業界傳聞，非官方確認。
+</Callout>
+
+**第二條線：資料中心 SoC「Titan Lake」**
+
+兩家公司計畫將輝達 Rubin GPU 技術整合進英特爾未來處理器，打造資料中心用系統單晶片，預計 2028–2029 年面世，直接對標 AMD MI 系列 CPU+GPU 整合方案。
+
+## 英特爾 IFS 動能全面升溫
+
+<Callout type="insight">
+此前市場普遍不相信 Intel IFS 能搶到一線大客戶。2026 年 Q1–Q2 連續出現三張背書：Apple 評估 18A-P 用於最低階 M 系列（2027 量產目標）、NVIDIA Feynman I/O die、馬斯克 TeraFab 14A 長約（$1,190 億）。IFS 設備訂單 YoY 增幅超過 50%。
+</Callout>
+
+## 供應鏈影響
+
+**台積電（2330）**：Feynman 計算核心仍在台積電，短期影響有限。長線看，這是台積電封裝壟斷地位出現的第一道裂縫——NVIDIA 選擇 Intel EMIB 作為 CoWoS 的並存方案，而非替代方案。
+
+**Intel EMIB vs CoWoS**：EMIB 成本低於 CoWoS-S，可跨 foundry 搭配不同製程；頻寬密度略遜於 CoWoS-S，適合 I/O die 而非計算核心。
+
+<Callout type="warning">
+Intel IFS 關鍵風險：18A 節點量產良率至今未有公開第三方驗證數據。NVIDIA 是全球最懂製程的晶片買家，它選擇 Intel 是強力信號；但 Intel 歷史上有多次「傳出大客戶，最終未量產」前例。Feynman 訂單是否最終落地，觀察指標是 Apple 18A-P 試產片良率報告。
+</Callout>
+
+## 時程與觀察指標
+
+| 時間 | 事件 |
+|---|---|
+| 2026 年 5 月底 | Computex 2026：陳立武是否進一步揭露合作細節 |
+| 2026 H2 | Apple 18A-P 試產片消息（NVIDIA 訂單代理指標）|
+| 2027 Q1 | Apple 最低階 M 系列預計量產（IFS 良率首次公開驗證）|
+| 2028 | NVIDIA Feynman 量產；Intel IFS 份額落地確認 |
+
+**資料來源**：[WCCFTech](https://wccftech.com/nvidia-is-set-to-adopt-intel-18a-14a-process-emib-advanced-packaging-for-feynman-chips/) ／ [TrendForce](https://www.trendforce.com/news/2026/04/29/news-intel-foundry-gains-momentum-apple-reportedly-eyes-18a-p-as-google-explores-advanced-packaging/) ／ [CNBC](https://www.cnbc.com/2026/05/08/intel-stock-apple-chip-deal.html)

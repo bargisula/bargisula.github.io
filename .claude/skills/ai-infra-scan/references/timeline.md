@@ -47,7 +47,9 @@
 | 2026 | Google TPU v6 部署 | 📍 預期中 | GCP 推論成本下降 |
 | 2026–2027 | ASIC 推論市場佔比超過 30% | 📍 預期趨勢 | 落後 = GPU 推論需求更持久 |
 | 2027 | NVIDIA Rubin Ultra（含 COUPE）| 📍 預期中 | 延遲 = 負面（COHR / 光模組廠）|
-| 2028 | NVIDIA 下一代（Feynman?）| 📅 長線 | — |
+| 2026 Q2 | Intel IFS 獲 Apple / NVIDIA / TeraFab 三線客戶背書 | ✅ 進行中（超前預期）| IFS 信任度升級；NVIDIA $5B 投資；設備訂單 +50% YoY |
+| 2028 | NVIDIA Feynman GPU 量產；I/O die ~25% 走 Intel IFS（18A/14A）+ EMIB；計算核心仍在台積電 A16 | 📍 預期中（確定性升級）| Intel IFS 良率是關鍵；延遲 = 台積電繼續獨占；提前 = IFS 供應鏈信任爆發 |
+| 2028–2029 | NVIDIA + Intel 資料中心 SoC「Titan Lake」（CPU+GPU 整合）| 📍 傳聞中 | 若成真 = 直接對標 AMD MI 系列 |
 
 ---
 

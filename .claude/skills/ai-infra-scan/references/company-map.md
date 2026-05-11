@@ -10,11 +10,11 @@
 
 | 公司 | Ticker | 角色 | 受益程度 | 當前狀態 | 關鍵觀察指標 |
 |---|---|---|---|---|---|
-| NVIDIA | NVDA | GPU 龍頭，AI 算力核心 | ⭐⭐⭐⭐⭐ | Blackwell 等兩年；NVLink 護城河 | Data Center 營收季增率；指引 |
+| NVIDIA | NVDA | GPU 龍頭，AI 算力核心 | ⭐⭐⭐⭐⭐ | Blackwell 等兩年；NVLink 護城河；Feynman（2028）I/O die 分流至 Intel IFS，供應鏈首次多元化 | Data Center 營收季增率；指引；Feynman 製程最終確認 |
 | AMD | AMD | GPU 追趕者，MI300X | ⭐⭐⭐ | 市占個位數，軟體生態是弱點 | MI 系列出貨量；ROCm 生態進展 |
 | 博通 | AVGO | Google TPU 設計 + 網路晶片 | ⭐⭐⭐⭐ | AI 營收佔比已達 35%+ | ASIC 自定義晶片訂單；XPU 出貨 |
 | Marvell | MRVL | ASIC 設計、光互連晶片 | ⭐⭐⭐ | 微軟 / Amazon ASIC 合作 | 自定義 ASIC 設計勝率 |
-| Intel | INTC | Gaudi AI 加速器；代工（IFS）| ⭐⭐ | Gaudi 市占低；代工轉型中 | Gaudi 出貨量；IFS 外部訂單 |
+| Intel | INTC | Gaudi AI 加速器；代工（IFS）| ⭐⭐⭐（升級）| IFS 動能翻轉：Apple 評估 18A-P、NVIDIA Feynman I/O die ~25%、TeraFab 14A 長約；設備訂單 YoY +50%；$5B NVIDIA 投資；但 18A 量產良率尚未公開驗證 | IFS 18A 外部客戶良率；Apple 正式簽約消息；Feynman 分工官方確認 |
 
 ---
 
