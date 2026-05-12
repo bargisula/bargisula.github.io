@@ -1,0 +1,248 @@
+---
+title: 'AI 基礎設施③｜GPU vs ASIC：算力路線之爭，CUDA 護城河，與中國平行宇宙'
+description: 'ASIC 會取代 GPU 嗎？訓練與推論為何走上分岔路？CUDA 護城河到底有多深？本文從算力路線分工出發，拆解 Google TPU、AWS Inferentia、Meta MTIA 的策略邏輯，再看中國在出口管制下如何打造平行算力體系，以及這一切對 NVDA、AVGO、MRVL 的投資意涵。'
+category: '投資'
+subcategory: '美股'
+topic: 'AI基礎設施'
+pubDate: '2026-05-12'
+---
+
+import Callout from '../../../../../../components/Callout.astro';
+
+> 本文為「AI 基礎設施全景」系列第三篇。前兩篇說的是誰在花錢、錢花在哪些硬體上；這篇聚焦算力本身的路線之爭——GPU 與 ASIC，誰來訓練、誰來推論、誰的護城河更深。
+
+---
+
+## 先釐清一個常見誤解
+
+「ASIC 會取代 GPU」——這句話說對了一半，說錯了一半。
+
+正確的版本是：**ASIC 正在取代 GPU 做推論；GPU 在訓練場景的地位，目前沒有人能撼動。**
+
+這不是技術優劣的問題，而是任務需求不同，導致最優解不同。
+
+---
+
+## 訓練 vs 推論：兩種完全不同的工作
+
+<Callout type="data">
+
+| 維度 | 訓練（Training）| 推論（Inference）|
+|---|---|---|
+| 任務 | 從頭學習，反覆更新模型參數 | 接收輸入，產出結果 |
+| 資料流 | 隨機、動態，每次都不一樣 | 固定模型，重複相同計算 |
+| 規模 | 萬卡以上 GPU 叢集，數週到數月 | 單次請求，毫秒內回應 |
+| 彈性需求 | 高——架構常改，算子不固定 | 低——模型定型後幾乎不變 |
+| GPU 優勢 | 通用、彈性、NVLink 萬卡互連 | 功耗偏高，每 token 成本高 |
+| ASIC 優勢 | — | token/s 高 3–10 倍，成本低 50% |
+
+</Callout>
+
+白話說：**訓練是研發部門，每天都在改需求；推論是生產線，做的永遠是同一件事。**
+
+研發部門需要通用機器（GPU），生產線需要專用機器（ASIC）。
+
+---
+
+## 為什麼 ASIC 在推論上這麼強？
+
+ASIC（Application-Specific Integrated Circuit，特定應用積體電路）是把某一種計算「焊死」在電路裡的晶片。
+
+以 Transformer 推論為例——它的核心計算就是矩陣乘法加 Attention。如果把這兩個操作設計成專用電路，不需要通用控制邏輯、不需要浮點調度、不需要 CUDA 中介層，直接讓電流走最短路徑完成計算：
+
+<Callout type="insight">
+
+**ASIC 的效率優勢從哪裡來：**
+
+- GPU：先把計算需求翻譯成 CUDA 指令 → CUDA 呼叫底層硬體 → 硬體執行
+- ASIC：輸入直接觸發電路，沒有翻譯層
+
+AWS Inferentia2 的 Transformer 推論速度比 H100 快 4 倍，能耗低 60%。Google TPU v6 每 token 成本比 H100 低約 2.3 倍。這不是微幅優化，是量級差距。
+
+</Callout>
+
+---
+
+## 四大超大規模雲端商的 ASIC 路線
+
+<Callout type="data">
+
+| 公司 | ASIC 代號 | 主要用途 | 當前狀態 |
+|---|---|---|---|
+| Google | TPU v6（Trillium）| 訓練 + 推論，自家 Gemini 主力 | 2025 量產，GCP 對外開放租用 |
+| Amazon（AWS）| Inferentia2 / Trainium2 | 推論（Inferentia）/ 訓練（Trainium）| 量產中，AWS 內部 + 對外出租 |
+| Meta | MTIA（Meta Training and Inference Accelerator）| 推論為主（廣告、推薦系統）| 與博通合作延至 2029，>1GW 部署 |
+| Microsoft | Maia 200 | 推論，GPT-5.2 / M365 Copilot | 2026 年 1 月發布，TSMC 3nm + HBM3e |
+
+</Callout>
+
+注意：這四家都在走**GPU 訓練 → ASIC 推論**的雙軌路線。沒有人打算用 ASIC 取代 GPU 做大型模型訓練——那需要數萬張卡的動態互連，ASIC 無法處理。
+
+<Callout type="warning">
+
+**OpenAI Nexus 是個例外——也是個警示**
+
+OpenAI 試圖用 Nexus（與博通合作）跳過 NVIDIA GPU 做訓練。目前卡在融資結構：博通要求微軟承諾 40% 產能才願注資，微軟自己有 Maia 200，採購動機薄弱。若 Nexus 延遲，OpenAI 的 $200B 燒錢計畫中，NVIDIA GPU 的份額會比預期更大、更久。
+
+</Callout>
+
+---
+
+## CUDA 護城河：比硬體更深的軟體壁壘
+
+很多人以為 NVIDIA 的護城河是 GPU 硬體。**不是。最深的護城河是 CUDA 生態。**
+
+CUDA 是 NVIDIA 2006 年推出的並行運算平台，今天它的護城河體現在三個層面：
+
+<Callout type="insight">
+
+**第一層：PyTorch 綁定**
+
+全球 85%+ 的 AI 研究用 PyTorch 開發。PyTorch 的預設後端是 CUDA。你要換成 AMD ROCm 或其他替代方案？沒問題——但每次升版都可能有相容性問題，每次換算子都要重新測試。
+
+**第二層：算子庫生態**
+
+CUDA 上有 cuDNN（深度學習）、cuBLAS（矩陣運算）、TensorRT（推論優化）等數十個高度優化的算子庫。這些庫是 NVIDIA 工程師花了十幾年調出來的，沒有直接替代品。換平台 = 這些庫的效能優化全部重來。
+
+**第三層：切換成本**
+
+一個熟悉 CUDA 的 AI 工程師，要切到 AMD ROCm 或 Google XLA？估計需要 3–6 個月適應 + 大量偵錯。企業不想付這個代價，除非 NVIDIA 的成本貴到無法接受。
+
+</Callout>
+
+這就是為什麼 AMD 的 MI300X 在硬體規格上有競爭力（HBM 容量甚至比 H100 大），但市占率始終在個位數。**軟體生態的護城河比硬體本身更難攻破。**
+
+---
+
+## ASIC 的軟體問題
+
+ASIC 的最大弱點，同樣在軟體這一層。
+
+每改一代 ASIC 架構，配套的編譯器、算子映射、模型優化工具全部要重寫。Google 有上千人的 TPU 軟體團隊，亞馬遜、Meta 也配置了大量資源。這不是小公司能複製的投入。
+
+<Callout type="warning">
+
+**ASIC 的隱性成本：**
+- 硬體更新週期 18–24 個月，軟體棧要跟著重新對齊
+- 支援的模型架構有限（為 Transformer 優化的 ASIC，遇到新架構就卡住）
+- 工程師招募難——懂 TPU 軟體的人比懂 CUDA 的人少一個數量級
+
+結論：**只有規模夠大、算力需求夠穩定的超大規模雲端商，才有資本養一條 ASIC 軟體棧。** 中小型 AI 公司和新創，短期內不會離開 NVIDIA。
+
+</Callout>
+
+---
+
+## 中國算力：出口管制下的平行宇宙
+
+2022 年至今，美國對中國的 AI 晶片出口管制一波波升級。H100、A100 全面禁止，H800、A800 縮水版也在 2023 年跟著被禁，最新的 H20 也在 2025 年被納入管制。
+
+中國 AI 產業面臨兩個選擇：**等、或是自己造。**
+
+<Callout type="data">
+
+**中國主要算力方案對比**
+
+| 廠商 | 產品 | 對標 | 現況 |
+|---|---|---|---|
+| 華為 | Ascend 910C | H100 | 量產中，效能約 H100 的 60–70%，良率仍有差距 |
+| 華為 | Ascend 910D（傳聞）| H200 / B100 | 2026 年測試中，樣品已交少數客戶 |
+| 壁仞科技（Biren）| BR100 | A100 | 良率問題，2025 年產能受限 |
+| 寒武紀（Cambricon）| 思元 590 | 推論加速器 | 中低端推論場景，不做大模型訓練 |
+| 天數智芯（Iluvatar）| BI-V150 | 訓練加速器 | 規模尚小 |
+
+</Callout>
+
+<Callout type="insight">
+
+**華為是唯一真正的替代方案，但差距仍在**
+
+Ascend 910C 的算力約是 H100 的 60–70%，但生態系統遠落後於 CUDA。中國 AI 廠商（百度、阿里、騰訊、字節）在需要的情況下使用，但也在各自開發軟體棧以繞過限制。
+
+更關鍵的問題是製程：華為使用中芯國際（SMIC）的 7nm 製程，而 NVIDIA 使用台積電 4nm。製程差距意味著功耗和效能都有結構性落差，短期內無法彌補。
+
+</Callout>
+
+### 出口管制的雙面效應
+
+<Callout type="data">
+
+| 面向 | 影響 |
+|---|---|
+| 對 NVIDIA | 中國市場直接收入損失（原本約佔 Data Center 15–20%），但市場轉向其他地區 |
+| 對台積電 | 先進製程（N3/N2）出口管制逐步收緊，中國客戶被迫使用落後製程 |
+| 對中國 AI 發展 | 算力瓶頸拖慢訓練速度，但推論場景受影響較小（推論對算力要求低） |
+| 對非中國 ASIC 廠 | 博通、Marvell 的自定義 ASIC 業務不受影響，甚至受益（客戶更願意多元化） |
+
+</Callout>
+
+---
+
+## 訓練 vs 推論的長期分工預測
+
+到 2027–2028 年，市場普遍預期 ASIC 的推論市占率將超過 30%（現在約 15–20%）。但這**不代表 GPU 的絕對需求下降**——因為：
+
+1. 模型訓練規模持續擴大，Scaling Law 沒有停止
+2. 每個季度都有新模型發布，舊的 ASIC 方案要重新對齊
+3. ASIC 的推論需求釋放，反而拉動更多訓練算力來生成更多模型
+
+<Callout type="insight">
+
+簡單說：**ASIC 切走了推論市場，但訓練市場的蛋糕也在同步變大。** NVIDIA 輸掉的是市占率，贏的是總量——只要 Scaling Law 持續，GPU 需求的絕對值不會萎縮。
+
+</Callout>
+
+---
+
+## 完整投資地圖
+
+<Callout type="data">
+
+**算力層（GPU + ASIC 設計）**
+
+| 公司 | Ticker | 角色 | 受益程度 | 關鍵觀察指標 |
+|---|---|---|---|---|
+| NVIDIA | NVDA | GPU 龍頭，訓練場景壟斷，CUDA 護城河 | ⭐⭐⭐⭐⭐ | Data Center 營收季增率；指引；CoWoS 產能分配 |
+| 博通 | AVGO | Google TPU + Meta MTIA + 網路晶片設計 | ⭐⭐⭐⭐ | AI 客製化 ASIC 營收佔比；XPU 出貨量 |
+| Marvell | MRVL | 微軟 / Amazon ASIC 設計合作 | ⭐⭐⭐ | 自定義 ASIC 設計勝率；訂單能見度 |
+| AMD | AMD | GPU 追趕者，MI 系列推論市場 | ⭐⭐⭐ | ROCm 生態進展；MI400 出貨量；市占率變化 |
+| Intel | INTC | Gaudi AI 加速器；代工（IFS）| ⭐⭐ | Gaudi 出貨量；IFS 外部先進製程訂單 |
+
+</Callout>
+
+---
+
+## 三大風險
+
+<Callout type="warning">
+
+**① ASIC 替代速度超預期**
+若超大規模雲端商的 ASIC 推論佔比在 2026 底就超過 40%（比預期快兩年），NVIDIA Data Center 的指引將面臨向下修正壓力，市場估值需要重新定價。
+
+**② 出口管制升級造成台積電業務衝擊**
+若美國把台積電先進製程服務全面納入對中管制，台積電在中國的業務佔比（目前約 10–15%）將快速歸零，短期衝擊毛利率。
+
+**③ 中國 ASIC 自主化進度超預期**
+若華為 Ascend 系列在 2027 年良率明顯改善、效能追上 H100，中國市場的 NVIDIA 替代空間將快速壓縮，NVIDIA 的主權 AI 業務（中東、東南亞）也可能面臨競爭。
+
+</Callout>
+
+---
+
+<Callout type="quote">
+
+GPU 和 ASIC 不是對手，是分工。GPU 負責「想清楚」（訓練），ASIC 負責「快速執行」（推論）。NVIDIA 的護城河不在晶片有多快，而在 CUDA 讓你換不掉它。真正的風險不是 ASIC 崛起，而是哪一天有人打造出「夠好用」的 CUDA 替代生態——但那一天，目前看不到。
+
+</Callout>
+
+---
+
+**系列導覽**
+- [⓪ 系統戰地圖——六個瓶頸，六條投資線](/notes/投資/美股/產業分析/AI基礎設施/00-系統戰地圖)
+- [① 誰在花錢——6,900 億美元的軍備競賽](/notes/投資/美股/產業分析/AI基礎設施/01-誰在花錢)
+- [② 硬體三角——晶片 × 記憶體 × 封裝](/notes/投資/美股/產業分析/AI基礎設施/02-硬體三角)
+- ③ GPU vs ASIC（本篇）：算力路線之爭
+- ④ 網路層（即將）：IB vs 乙太、CPO 翻轉光通訊
+- ⑤ 地基之戰（即將）：伺服器、電力、散熱、太空
+
+**來源**：[Google TPU v6 部署](https://cloud.google.com/blog/products/compute/trillium-tpu-is-ga) ／ [AWS Inferentia2 效能](https://aws.amazon.com/machine-learning/inferentia/) ／ [華為 Ascend 910C 現況](https://www.reuters.com/technology/huawei-new-ai-chip-matches-nvidia-h100-performance-2024-08-05/) ／ [CUDA 護城河分析](https://www.semianalysis.com/p/nvidiaopenai-triton-cuda-moat) ／ [ASIC 市占趨勢](https://www.trendforce.com/presscenter/news/20251010-12794.html)
