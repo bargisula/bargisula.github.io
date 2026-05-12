@@ -1,0 +1,241 @@
+---
+title: 'AI 基礎設施④｜網路層：IB vs 乙太世紀大戰，CPO 如何翻轉光通訊'
+description: '十萬張 GPU 要像一張一樣協同工作，網路是最後的瓶頸。本文拆解 InfiniBand 與乙太網路的路線之爭、銅線為何走入歷史、CPO 共封裝光互連如何改寫光通訊供應鏈，以及 AVGO、ANET、COHR、LITE、聯亞光電的投資邏輯。'
+category: '投資'
+subcategory: '美股'
+topic: 'AI基礎設施'
+pubDate: '2026-05-12'
+---
+
+import Callout from '../../../../../../components/Callout.astro';
+
+> 本文為「AI 基礎設施全景」系列第四篇。前三篇說的是算力本身（GPU/ASIC）、記憶體、封裝；這篇說的是：這些算力怎麼連起來協同工作。
+
+---
+
+## 十萬張 GPU，一個思考單元
+
+現代 AI 訓練不是一台電腦在跑——是一萬到十萬張 GPU 同時工作，每隔幾十毫秒就要彼此同步一次。
+
+任何一張 GPU 沒有準時送出梯度，整個叢集就要等它。等的時間超過幾百毫秒，整批訓練就浪費了。
+
+<Callout type="insight">
+
+**為什麼網路比你想的更關鍵：**
+
+NVIDIA 內部統計，大型模型訓練中，GPU 約有 30–40% 的時間是在等待其他 GPU 的通訊同步，而不是在算數。網路速度每提升一倍，等待時間縮短一半，等效算力就上去了——不需要多買一顆 GPU。
+
+</Callout>
+
+這就是為什麼 AI 基礎設施在算力層和記憶體層之外，還要在網路層燒那麼多錢。
+
+---
+
+## 三層網路架構
+
+AI 資料中心的網路分三個層次，每一層的需求不同，玩家也不同：
+
+<Callout type="data">
+
+| 層次 | 範圍 | 主要技術 | 主要玩家 |
+|---|---|---|---|
+| Scale-up | 機櫃內 GPU ↔ GPU | NVLink / NVSwitch | NVIDIA（私有協議） |
+| Scale-out | 機櫃間、機房內伺服器 ↔ 伺服器 | InfiniBand / 800G–1.6T 乙太 | NVIDIA vs 博通 + Arista |
+| 長距互連 | 資料中心 ↔ 資料中心 | 長距離光互連 / 海纜 | 光模組廠、海纜廠 |
+
+</Callout>
+
+Scale-up 層（機櫃內）是 NVIDIA 的私家領地：NVLink 提供 GPU 間的超高頻寬連接，NVSwitch 讓一個機架內的 72 張 GPU 像一顆超級 GPU 一樣工作。這層沒有開放競爭。
+
+真正的戰場在 **Scale-out 層**。
+
+---
+
+## InfiniBand vs 乙太：世紀大戰
+
+這是 AI 網路最核心的路線之爭，雙方各有擁護者。
+
+<Callout type="data">
+
+| 維度 | NVIDIA InfiniBand | 博通 + Arista 乙太 |
+|---|---|---|
+| 頻寬 | NDR 400G / 下一代 800G | 800G（已商用）/ 1.6T（2026 H2）|
+| 延遲 | 極低（~600ns）| 略高（~1–2μs），但差距縮小 |
+| 生態 | 封閉，需全套 NVIDIA 方案 | 開放，可自由混搭廠商 |
+| 成本 | 較高，尤其交換器 | 較低，競爭充分 |
+| 誰在用 | 傳統 HPC、部分雲端商 | Meta、Google、微軟逐步轉向 |
+| 現況 | NDR 仍是旗艦訓練叢集首選 | 800G 乙太效能已達 IB 90%+ |
+
+</Callout>
+
+**趨勢正在轉向乙太。**
+
+Meta 的 AI 叢集（PyTorch 之父所在的地方）2024 年起大規模採用 800G RoCE 乙太；Google 自建的 AI 網路也以乙太為主；微軟 Azure AI 的新建叢集同樣偏向乙太。
+
+原因很直接：**乙太生態開放，成本低，可以和多個供應商談價格；InfiniBand 是 NVIDIA 的護城河，用了就被鎖定。**
+
+<Callout type="warning">
+
+**InfiniBand 的長期風險：**
+
+NVIDIA 在 2019 年以 $69 億收購 Mellanox，獲得 InfiniBand 的核心技術。這個「完整解決方案」讓 NVIDIA 在銷售 GPU 的同時也賣網路——但也讓客戶覺得被套牢。Meta 和 Google 的乙太轉向，有一部分就是為了降低對 NVIDIA 的依賴。若 2027 年乙太在效能上完全追平 InfiniBand，NVIDIA 的網路部門（現在佔 Data Center 約 10–15%）將面臨壓力。
+
+</Callout>
+
+---
+
+## 為什麼銅線已死
+
+在 400G 時代之前，資料中心伺服器之間用銅線（DAC 直接連接纜線）傳輸訊號——成本低、安裝簡單。
+
+到了 800G，銅線就撐不住了。
+
+<Callout type="insight">
+
+**銅線的物理極限：**
+
+電流在銅線裡傳輸會產生熱，速率越高、距離越遠，損耗越大。400G 時，銅線勉強能在 3 米內工作。800G 時，3 米就已經接近極限——一個機架的深度。
+
+AI 資料中心的 Scale-out 網路需要連到 100 米以外的其他機架，甚至跨棟建築。銅線在物理上無法做到。
+
+**光纜是唯一的出路：** 光訊號不怕熱、不受電磁干擾、速度不受距離影響（在幾公里內）。800G 乙太 = 光模組是標配。
+
+</Callout>
+
+---
+
+## 光模組的爆發：從插拔式到 CPO
+
+傳統光模組是插拔式的（QSFP-DD、OSFP 規格）——把光電轉換模組插在交換器的籠子裡，需要時可以拔換。
+
+這個設計在 800G 以下沒問題。但到了 1.6T 和未來的 3.2T，插拔式光模組有兩個根本問題：
+
+<Callout type="warning">
+
+**插拔式光模組的天花板：**
+
+1. **功耗**：1.6T 的插拔式光模組每埠功耗達 20–30W，整台交換器光模組就要 1–2KW。加上晶片本身的功耗，散熱問題難以解決。
+2. **訊號損耗**：光電轉換在晶片外部完成，訊號從晶片跑到籠子再轉換成光，這段電路有損耗。速率越高，損耗越難克服。
+
+</Callout>
+
+**CPO（Co-Packaged Optics，共封裝光互連）** 是解法：把光子晶片和交換器晶片封裝在一起，光電轉換就在晶片旁邊完成，訊號路徑縮短到幾毫米。
+
+<Callout type="insight">
+
+**CPO 的三個優勢：**
+
+1. **功耗降低 30–50%**：訊號不需要跑那麼遠，電損耗大幅減少
+2. **頻寬可擴展**：每個光引擎可以整合更多通道，未來升到 3.2T、6.4T 更容易
+3. **延遲更低**：光電轉換路徑更短，延遲從幾十奈秒降到幾奈秒
+
+</Callout>
+
+---
+
+## CPO 供應鏈：誰在賺
+
+CPO 改變了光通訊的價值鏈，產生了新的贏家和輸家：
+
+<Callout type="data">
+
+**CPO 供應鏈受益者**
+
+| 公司 | Ticker | 角色 | 受益程度 | 當前狀態 |
+|---|---|---|---|---|
+| 博通 | AVGO | CPO 交換器晶片（Tomahawk 5）+ 光引擎整合 | ⭐⭐⭐⭐⭐ | 2026 年已出貨 50,000+ 套 CPO 交換器 |
+| Coherent | COHR | CPO 光引擎核心供應商 | ⭐⭐⭐⭐ | NVIDIA 入股 $20 億；scale-out CPO 2026 H2 出貨 |
+| Lumentum | LITE | 200G EML 雷射，CPO 唯一量產商 | ⭐⭐⭐⭐ | CPO 雷射晶片不可替代，2027 多億美元訂單 |
+| 聯亞光電 | 3081 | 矽光子模組量產（台股 CPO 純玩法）| ⭐⭐⭐⭐ | CPO 賽道台股代表，客戶認證進行中 |
+| Fabrinet | FN | 光模組代工（Coherent / Lumentum 供應鏈）| ⭐⭐⭐ | AI 光模組出貨量直接受益 |
+| Arista Networks | ANET | 800G / 1.6T 乙太交換器系統 | ⭐⭐⭐⭐ | Meta、Microsoft 大客戶，AI 佔比持續提升 |
+
+</Callout>
+
+<Callout type="data">
+
+**CPO 輸家：傳統插拔式光模組廠**
+
+| 公司 | 角色 | 影響時程 |
+|---|---|---|
+| Innolight（博創）| 中國最大插拔式光模組廠 | 2027–2028 年後市場被 CPO 取代 |
+| Eoptolink（仕佳）| 中國光模組廠 | 同上 |
+| 傳統 QSFP-DD 廠商 | 1.6T 以上市場萎縮 | 轉型壓力大 |
+
+CPO 不是立刻消滅插拔式光模組——800G 以下市場仍以插拔式為主，且有幾年過渡期。但 1.6T 以上，插拔式的物理極限已到，CPO 是唯一解。
+
+</Callout>
+
+---
+
+## 光模組速率演進時程
+
+<Callout type="data">
+
+| 時程 | 里程碑 | 對應 AI 場景 |
+|---|---|---|
+| 2025（已發生）| 800G 乙太交換器商用 | 現在的 AI 叢集主流 |
+| 2026（進行中）| CPO 交換器開始規模出貨（博通 Tomahawk 5）| 新建 AI 叢集標配 |
+| 2026 H2（預期）| 1.6T 光模組放量 | NVIDIA Rubin 叢集配套 |
+| 2027（預期）| Lumentum 多億美元 CPO 雷射交付 | CPO 規模商用確認 |
+| 2027–2028 | InfiniBand vs 乙太決勝期 | 看哪家超大規模雲端商做最終選擇 |
+| 2028+（長線）| 102.4T 交換器標配 CPO | AI 叢集下一代標準 |
+
+</Callout>
+
+---
+
+## 完整投資地圖
+
+<Callout type="data">
+
+**網路層（Scale-out + 光互連）**
+
+| 公司 | Ticker | 角色 | 受益程度 | 關鍵觀察指標 |
+|---|---|---|---|---|
+| 博通 | AVGO | 乙太交換晶片 + CPO 光引擎整合 | ⭐⭐⭐⭐⭐ | AI 網路晶片出貨；CPO 光引擎季度出貨量 |
+| Arista Networks | ANET | 800G / 1.6T 乙太交換器系統 | ⭐⭐⭐⭐ | AI 客戶（Meta / MSFT）營收佔比；訂單能見度 |
+| Coherent | COHR | CPO 光引擎供應商 | ⭐⭐⭐⭐ | scale-out CPO 出貨時程；季度毛利率走勢 |
+| Lumentum | LITE | EML 雷射，CPO 不可替代元件 | ⭐⭐⭐⭐ | EML 出貨量成長率；CPO 訂單比例 |
+| 聯亞光電 | 3081 | 矽光子模組（台股）| ⭐⭐⭐⭐ | CPO 客戶認證進度；矽光子出貨量 |
+| Fabrinet | FN | 光模組代工 | ⭐⭐⭐ | 光模組出貨量；客戶集中度 |
+| NVIDIA（網路部門）| NVDA | InfiniBand 交換器 + NVLink | ⭐⭐⭐ | IB 在大客戶的市占是否被乙太蠶食 |
+
+</Callout>
+
+---
+
+## 三大風險
+
+<Callout type="warning">
+
+**① 乙太比預期更快追平 InfiniBand**
+若 2026 年底 800G RoCE 乙太在大規模訓練叢集的實測效能已達 IB 95%+，NVIDIA 網路部門的定價能力將顯著下滑，InfiniBand 的高溢價難以為繼。
+
+**② CPO 落地時程延遲**
+CPO 面臨工程整合複雜性（電子晶片 + 光子晶片的熱管理、對準精度），若 2027 年規模出貨延遲，Coherent（COHR）和 Lumentum（LITE）的估值溢價將面臨壓縮。
+
+**③ 中國光模組廠技術追趕**
+中國廠商（Innolight 等）在 400G 已有強競爭力。若在 800G 也快速追上，傳統插拔式光模組的美國廠商毛利率將受壓——這是 COHR 和 LITE 的中期風險，但 CPO 技術壁壘較高，短期內中國廠商難以複製。
+
+</Callout>
+
+---
+
+<Callout type="quote">
+
+網路層的投資邏輯簡單到殘酷：銅線死了，光纜唯一；插拔式有天花板，CPO 必然到來；InfiniBand 和乙太的戰爭還在打，但乙太生態更大、更開放，長期贏面更高。在這個背景下，光引擎供應鏈裡有不可替代元件的廠商，是最值得持有的標的。
+
+</Callout>
+
+---
+
+**系列導覽**
+- [⓪ 系統戰地圖——六個瓶頸，六條投資線](/notes/投資/美股/產業分析/AI基礎設施/00-系統戰地圖)
+- [① 誰在花錢——6,900 億美元的軍備競賽](/notes/投資/美股/產業分析/AI基礎設施/01-誰在花錢)
+- [② 硬體三角——晶片 × 記憶體 × 封裝](/notes/投資/美股/產業分析/AI基礎設施/02-硬體三角)
+- [③ GPU vs ASIC——算力路線之爭](/notes/投資/美股/產業分析/AI基礎設施/03-GPU-vs-ASIC)
+- ④ 網路層（本篇）：IB vs 乙太、CPO 翻轉光通訊
+- ⑤ 地基之戰（即將）：伺服器、電力、散熱、太空
+
+**來源**：[博通 CPO 出貨 2026](https://www.broadcom.com/solutions/data-center/co-packaged-optics) ／ [Arista AI 網路部署](https://www.arista.com/en/solutions/ai-networking) ／ [NVIDIA InfiniBand NDR](https://www.nvidia.com/en-us/networking/infiniband/) ／ [Coherent CPO 進度](https://ii-vi.com/coherent-co-packaged-optics/) ／ [CPO 技術趨勢分析](https://www.lightcounting.com/report/co-packaged-optics-market-forecast-2026/)
