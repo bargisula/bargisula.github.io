@@ -7,12 +7,12 @@ import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
 type SubDef = { name: string; topics: string[]; subTopicMap?: Record<string, string[]> };
-type CatDef = { name: string; icon: string; subs: SubDef[] };
+type CatDef = { name: string; icon: string; subs: SubDef[]; label?: string };
 const DEFAULT_SUBCATEGORY = '一般';
 
 const CATEGORY_TREE: CatDef[] = [
   {
-    name: '經濟', icon: '📈',
+    name: '經濟', icon: '📈', label: 'Claude',
     subs: [
       { name: '經濟思想史', topics: [] },
       { name: '商業革命', topics: [] },
@@ -21,7 +21,7 @@ const CATEGORY_TREE: CatDef[] = [
     ],
   },
   {
-    name: '投資', icon: '💹',
+    name: '投資', icon: '💹', label: 'Claude',
     subs: [
       { name: '快訊', topics: [] },
       { name: '理財日報', topics: [] },
@@ -36,7 +36,7 @@ const CATEGORY_TREE: CatDef[] = [
     ],
   },
   {
-    name: '軍事', icon: '⚔️',
+    name: '軍事', icon: '⚔️', label: 'Gemini',
     subs: [
       { name: '區域防禦', topics: [] },
       { name: '武器裝備', topics: [] },
@@ -44,7 +44,7 @@ const CATEGORY_TREE: CatDef[] = [
     ],
   },
   {
-    name: '小書', icon: '📖',
+    name: '小書', icon: '📖', label: 'meta',
     subs: [
       { name: '福建人的海洋500年', topics: [] },
       { name: '紅毛、海賊與十字架', topics: [] },
@@ -52,7 +52,7 @@ const CATEGORY_TREE: CatDef[] = [
     ],
   },
   {
-    name: '勞動', icon: '⚖️',
+    name: '勞動', icon: '⚖️', label: 'Gemini',
     subs: [
       { name: '勞動日報', topics: [] },
       { name: '勞動法規', topics: [] },
@@ -60,7 +60,7 @@ const CATEGORY_TREE: CatDef[] = [
     ],
   },
   {
-    name: '雜記', icon: '🗒️',
+    name: '雜記', icon: '🗒️', label: 'meta',
     subs: [
       { name: '天文物理', topics: ['時間與時空', '宇宙的誕生', '暗物質與暗能量', '黑洞'] },
       { name: '科普物理', topics: ['力學', '波動', '聲學', '光學', '電磁學', '熱學', '能量', '量子力學', '粒子物理'] },
@@ -158,6 +158,7 @@ function vid(...parts: string[]) {
               <a href={`#${cat.name}`} class="cat-title">
                 <span>{cat.icon}</span>
                 <span>{cat.name}</span>
+                {cat.label && <span style="font-size: 0.6em; margin-left: 4px; opacity: 0.5; font-weight: 400; font-family: monospace;">{cat.label}</span>}
                 <span class="cat-count">{countCat(cat.name)}</span>
               </a>
               {cat.subs.map((sub) => (
@@ -178,7 +179,10 @@ function vid(...parts: string[]) {
               {CATEGORY_TREE.map((cat) => (
                 <a href={`#${cat.name}`} class="card">
                   <span class="card-icon">{cat.icon}</span>
-                  <span class="card-name">{cat.name}</span>
+                  <span class="card-name">
+                    {cat.name}
+                    {cat.label && <span style="font-size: 0.6em; margin-left: 4px; opacity: 0.5; font-weight: 400; font-family: monospace; vertical-align: middle;">{cat.label}</span>}
+                  </span>
                   <span class="card-count">{countCat(cat.name)} 篇</span>
                 </a>
               ))}
