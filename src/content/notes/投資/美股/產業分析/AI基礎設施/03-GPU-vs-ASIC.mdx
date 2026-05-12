@@ -1,6 +1,6 @@
 ---
-title: 'AI 基礎設施③｜GPU vs ASIC：算力路線之爭，CUDA 護城河，與中國平行宇宙'
-description: 'ASIC 會取代 GPU 嗎？訓練與推論為何走上分岔路？CUDA 護城河到底有多深？本文從算力路線分工出發，拆解 Google TPU、AWS Inferentia、Meta MTIA 的策略邏輯，再看中國在出口管制下如何打造平行算力體系，以及這一切對 NVDA、AVGO、MRVL 的投資意涵。'
+title: 'AI 基礎設施③｜GPU vs ASIC：算力路線之爭、LPU、晶圓晶片、CUDA 護城河與中國平行宇宙'
+description: 'GPU 的通用性根源是每次推論都要從 HBM 搬一次模型權重——這既是彈性來源，也是推論速度的天花板。本文拆解 GPU/ASIC/LPU/晶圓晶片四條算力路線的根本差異，解析 Groq LPU 和 Cerebras 晶圓晶片為何能比 GPU 快 10–20 倍，以及 CUDA 護城河、中國算力平行體系對投資的意涵。'
 category: '投資'
 subcategory: '美股'
 topic: 'AI基礎設施'
@@ -41,6 +41,39 @@ import Callout from '../../../../../../components/Callout.astro';
 白話說：**訓練是研發部門，每天都在改需求；推論是生產線，做的永遠是同一件事。**
 
 研發部門需要通用機器（GPU），生產線需要專用機器（ASIC）。
+
+---
+
+## GPU 的通用性從哪裡來——也是它最大的弱點
+
+要理解為什麼 GPU 在訓練場景無敵、推論場景卻這麼貴，得先搞清楚 GPU 怎麼跑推論。
+
+一個大型語言模型（比如 70B 參數的模型）有大約 140GB 的「模型權重」——就是訓練完成後固定下來的所有參數。這些權重平常存在 HBM（高頻寬記憶體）裡。
+
+**問題出在推論的過程：**
+
+<Callout type="insight">
+
+**GPU 推論的記憶體搬運問題：**
+
+當你輸入一段文字請 GPU 生成回覆，它必須執行「自回歸生成」——每次只生成一個 token（一個字或字片段），然後把這個 token 加回輸入，再生成下一個。
+
+每生成一個 token，GPU 就必須：
+1. 把全部 140GB 的模型權重從 HBM 搬到 GPU 核心旁的 SRAM（運算暫存區）
+2. 做一次矩陣乘法，算出下一個 token
+3. 再生成下一個 token，再搬一次
+
+一個 H100 的 HBM 頻寬是 3.35 TB/s。140GB 的權重，每次生成 token 都要讀一遍——理論上每個 token 至少要等 42 毫秒。
+
+這就是為什麼 GPU 在**單使用者、低批次推論**時，算力利用率只有 5–10%：它大部分時間在等記憶體搬資料，不在算數。
+
+</Callout>
+
+**但這同時解釋了 GPU 的通用性：**
+
+因為權重存在 HBM、每次運算時才載入，GPU 今天可以跑 GPT-5，明天可以跑 LLaMA 4，後天可以跑任何新架構的模型——只要把新的權重換進 HBM 就好。這個「每次都重新搬」的設計，讓 GPU 對任何模型都適用。
+
+換句話說：**GPU 的通用性，正是因為它不把任何東西焊死在晶片上。代價，是每次推論都要付出記憶體搬運的時間與能耗。**
 
 ---
 
@@ -133,6 +166,97 @@ ASIC 的最大弱點，同樣在軟體這一層。
 
 ---
 
+## 激進解法：LPU 與晶圓晶片——把權重塞進晶片裡
+
+如果 GPU 推論慢的根本原因是「每次都要從 HBM 搬權重」，那最直接的解法是：**把模型權重直接放進晶片上的 SRAM，不需要搬運。**
+
+這就是 LPU 和晶圓晶片的核心邏輯。兩者都是在問同一個問題：**如果記憶體搬運是瓶頸，為什麼不把記憶體和計算放在同一個地方？**
+
+### LPU（Language Processing Unit）— Groq
+
+Groq 發明的 LPU（語言處理單元），架構與 GPU 根本不同：
+
+<Callout type="insight">
+
+**Groq LPU 的設計哲學：**
+
+GPU 是「算力等記憶體」，Groq LPU 是「記憶體就在計算旁邊」。
+
+LPU 的核心是 TSP（Tensor Streaming Processor）架構：模型的每一層權重，在編譯時就被靜態分配到晶片上特定的 SRAM 區塊，推論時資料「流過」已就位的權重，不需要動態搬運。
+
+結果：
+- **首 token 延遲**：GPU H100 約 200–500ms，Groq LPU 約 10–30ms
+- **生成速度**：GPU H100 約 30–60 tokens/s，Groq LPU 最高達 500+ tokens/s
+- **能耗**：每 token 約只有 GPU 的 1/5
+
+</Callout>
+
+**LPU 的天花板：** SRAM 比 HBM 貴 10–20 倍，密度低很多。一片 Groq 晶片約有 230MB SRAM——足以跑 7B–13B 的模型，但跑 70B 以上就需要多片組合。巨型模型（100B+）在單一 LPU 上無法直接跑。
+
+Groq 的市場定位因此很清晰：**低延遲推論、即時語音 AI、需要極快首 token 的場景**——不跟 GPU 搶訓練，也不跟 ASIC 搶批次推論。
+
+---
+
+### 晶圓晶片（Wafer-Scale Engine）— Cerebras
+
+Cerebras 走的是更激進的路：**把整片晶圓變成一顆晶片。**
+
+<Callout type="data">
+
+**Cerebras WSE-3 vs NVIDIA H100 規格對比**
+
+| 規格 | Cerebras WSE-3 | NVIDIA H100 |
+|---|---|---|
+| 晶片面積 | 46,225 mm²（整片晶圓）| 814 mm² |
+| 計算核心數 | 900,000 核 | 16,896 CUDA 核 |
+| **片上 SRAM** | **44 GB**（全在晶片上）| 約 50 MB |
+| 記憶體頻寬（片上）| 21 PB/s | — |
+| 外部記憶體 | 不需要 HBM | 需要 80GB HBM3 |
+| 需要 CoWoS 封裝 | 否（整片晶圓即成品）| 是 |
+| 單顆售價 | ~$250 萬+ | ~$30,000 |
+
+</Callout>
+
+<Callout type="insight">
+
+**為什麼晶圓晶片能這麼快：**
+
+傳統 GPU 把晶片切成小塊再封裝，晶片之間的通訊要走封裝基板（慢），記憶體（HBM）也在晶片外面（更慢）。
+
+Cerebras WSE-3 的 44GB SRAM 全部在晶片上——頻寬達 21 PB/s（H100 HBM 的 6,000 倍）。模型權重直接放在片上 SRAM，推論時計算單元和記憶體在同一顆晶片的不同區域，訊號只需要走幾毫米的銅線，不需要進出晶片封裝邊界。
+
+結果：**對能裝進 44GB 的模型，Cerebras 可以做到比 H100 快 10–20 倍的推論，能耗低 80%。**
+
+</Callout>
+
+**晶圓晶片的現實問題：**
+
+<Callout type="warning">
+
+1. **良率挑戰**：整片晶圓上有 10 億個電晶體，任何一個區域有缺陷就要繞路——製造複雜度極高，Cerebras 有一套自研的「冗餘架構」處理這個問題，但成本仍高
+2. **模型大小限制**：44GB SRAM 可以裝 70B 模型（FP16），但 100B+ 需要多片聯機，跨片通訊又成為瓶頸
+3. **定價極高**：$250 萬一顆，不是一般公司能部署的設備
+4. **Cerebras 剛於 2026 年 5 月在那斯達克掛牌（估值約 350 億美元）**，是算力賽道的新興上市標的
+
+</Callout>
+
+---
+
+### 四條算力路線全圖
+
+<Callout type="data">
+
+| 路線 | 代表 | 模型權重存在哪 | 推論速度 | 通用性 | 適合場景 |
+|---|---|---|---|---|---|
+| GPU | NVIDIA H100/B200 | HBM（片外）| 中（30–60 tok/s）| 最高 | 訓練 + 批次推論 |
+| ASIC | Google TPU、AWS Inferentia | HBM（片外）+ 部分 SRAM | 快（200–400 tok/s）| 低（特定模型）| 大規模批次推論 |
+| LPU | Groq TSP | SRAM（片上）| 極快（500+ tok/s）| 中（模型大小受限）| 低延遲單次推論 |
+| 晶圓晶片 | Cerebras WSE-3 | 全片上 SRAM（44GB）| 最快（小模型）| 低（尺寸限制）| 極高速推論、研究 |
+
+</Callout>
+
+---
+
 ## 中國算力：出口管制下的平行宇宙
 
 2022 年至今，美國對中國的 AI 晶片出口管制一波波升級。H100、A100 全面禁止，H800、A800 縮水版也在 2023 年跟著被禁，最新的 H20 也在 2025 年被納入管制。
@@ -207,6 +331,8 @@ Ascend 910C 的算力約是 H100 的 60–70%，但生態系統遠落後於 CUDA
 | Marvell | MRVL | 微軟 / Amazon ASIC 設計合作 | ⭐⭐⭐ | 自定義 ASIC 設計勝率；訂單能見度 |
 | AMD | AMD | GPU 追趕者，MI 系列推論市場 | ⭐⭐⭐ | ROCm 生態進展；MI400 出貨量；市占率變化 |
 | Intel | INTC | Gaudi AI 加速器；代工（IFS）| ⭐⭐ | Gaudi 出貨量；IFS 外部先進製程訂單 |
+| Cerebras | CBRS | 晶圓晶片（WSE-3），2026/05 那斯達克掛牌 | ⭐⭐⭐ | 訂單能見度；WSE-4 時程；大客戶採購 |
+| Groq | 未上市 | LPU，低延遲推論服務（GroqCloud）| — | 尚未上市，觀察融資輪與大客戶合約 |
 
 </Callout>
 
@@ -242,7 +368,7 @@ GPU 和 ASIC 不是對手，是分工。GPU 負責「想清楚」（訓練），
 - [① 誰在花錢——6,900 億美元的軍備競賽](/notes/投資/美股/產業分析/AI基礎設施/01-誰在花錢)
 - [② 硬體三角——晶片 × 記憶體 × 封裝](/notes/投資/美股/產業分析/AI基礎設施/02-硬體三角)
 - ③ GPU vs ASIC（本篇）：算力路線之爭
-- ④ 網路層（即將）：IB vs 乙太、CPO 翻轉光通訊
-- ⑤ 地基之戰（即將）：伺服器、電力、散熱、太空
+- [④ 網路層——IB vs 乙太、CPO 翻轉光通訊](/notes/投資/美股/產業分析/AI基礎設施/04-網路層)
+- [⑤ 地基之戰——伺服器、電力、散熱、太空](/notes/投資/美股/產業分析/AI基礎設施/05-地基之戰)
 
 **來源**：[Google TPU v6 部署](https://cloud.google.com/blog/products/compute/trillium-tpu-is-ga) ／ [AWS Inferentia2 效能](https://aws.amazon.com/machine-learning/inferentia/) ／ [華為 Ascend 910C 現況](https://www.reuters.com/technology/huawei-new-ai-chip-matches-nvidia-h100-performance-2024-08-05/) ／ [CUDA 護城河分析](https://www.semianalysis.com/p/nvidiaopenai-triton-cuda-moat) ／ [ASIC 市占趨勢](https://www.trendforce.com/presscenter/news/20251010-12794.html)
