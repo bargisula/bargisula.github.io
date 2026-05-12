@@ -158,8 +158,11 @@ function vid(...parts: string[]) {
               <a href={`#${cat.name}`} class="cat-title">
                 <span>{cat.icon}</span>
                 <span>{cat.name}</span>
-                {cat.label && <span style="font-size: 0.6em; margin-left: 4px; opacity: 0.5; font-weight: 400; font-family: monospace;">{cat.label}</span>}
-                <span class="cat-count">{countCat(cat.name)}</span>
+                {cat.label && (
+                  <span class={`cat-label label-${cat.label.toLowerCase()}`}>
+                    {cat.label}
+                  </span>
+                )}
               </a>
               {cat.subs.map((sub) => (
                 <a href={`#${cat.name}/${sub.name}`} class="sub-title">
@@ -181,9 +184,12 @@ function vid(...parts: string[]) {
                   <span class="card-icon">{cat.icon}</span>
                   <span class="card-name">
                     {cat.name}
-                    {cat.label && <span style="font-size: 0.6em; margin-left: 4px; opacity: 0.5; font-weight: 400; font-family: monospace; vertical-align: middle;">{cat.label}</span>}
+                    {cat.label && (
+                      <span class={`cat-label label-${cat.label.toLowerCase()}`} style="display: block; margin-top: 4px; margin-left: 0;">
+                        {cat.label}
+                      </span>
+                    )}
                   </span>
-                  <span class="card-count">{countCat(cat.name)} 篇</span>
                 </a>
               ))}
             </div>
@@ -437,16 +443,21 @@ function vid(...parts: string[]) {
   .cat-title:hover, .cat-title.active { background: rgb(var(--gray-light)); color: var(--accent); }
 
   .cat-count {
-    margin-left: auto;
-    background: rgb(var(--gray-light));
-    color: rgb(var(--gray));
-    font-size: 0.75em;
-    padding: 0.1em 0.5em;
-    border-radius: 10px;
-    font-weight: 500;
-    min-width: 1.4em;
-    text-align: center;
+    display: none;
   }
+
+  .cat-label {
+    font-size: 0.65em;
+    margin-left: auto;
+    padding: 0.1em 0.5em;
+    border-radius: 6px;
+    font-weight: 500;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+  .label-claude { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
+  .label-gemini { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
+  .label-meta { background: #f0fdfa; color: #0d9488; border: 1px solid #ccfbf1; }
 
   .sub-title {
     display: flex;
