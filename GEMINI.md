@@ -32,3 +32,18 @@
 ## 4. 檔案結構參考
 - `src/content/notes/[Category]/[Subcategory]/[Topic]/[Article].md`
 - 專題入口文建議命名為：`專題說明-[Topic].md`
+
+## 5. 常用快捷指令 (Quick Commands)
+為了提高開發效率，本專案定義了以下快捷指令：
+- **「寫台股快報」**：
+  - **執行邏輯**：讀取並嚴格遵循 `scripts/taiwan-report-prompt.txt` 中的指示。
+  - **流程**：自動搜尋當日收盤數據、三大法人籌碼、焦點新聞及美股期指，生成 MDX 檔案，最後執行 Git 提交與推送。
+  - **檔案路徑**：`src/content/notes/投資/台股/台股快報-YYYY-MM-DD.mdx`
+- **「寫美股快報」**：
+  - **執行邏輯**：比照 `scripts/us-tech-analysis-prompt.txt` 的規範執行。
+- **「執行技術分析」**：
+  - **執行邏輯**：使用 `scripts/tech-analysis-skill.md` 定義的流程進行深度分析。
+- **「寫台股夜間攻略」**：
+  - **執行邏輯**：針對次日開盤準備。
+  - **流程**：彙整當日大盤收盤指數、成交量、三大法人買賣超與期貨淨部位；追蹤台指期夜盤、TSMC ADR 及美股重大數據；篩選 3-5 則影響次日之焦點新聞，最後給出戰術結論。
+  - **檔案路徑**：`src/content/notes/投資/台股/台股攻略-YYYY-MM-DD.md`
