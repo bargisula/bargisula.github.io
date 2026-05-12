@@ -9,12 +9,12 @@ const notes = (await getCollection('notes'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const CATEGORIES = [
-  { name: '經濟', icon: '📈', color: '#6366f1', bg: '#eef2ff', border: '#c7d2fe' },
-  { name: '投資', icon: '💹', color: '#059669', bg: '#f0fdf4', border: '#6ee7b7' },
-  { name: '軍事', icon: '🎖️', color: '#dc2626', bg: '#fff1f2', border: '#fca5a5' },
-  { name: '小書', icon: '📚', color: '#d97706', bg: '#fffbeb', border: '#fcd34d' },
-  { name: '勞動', icon: '⚖️', color: '#0891b2', bg: '#f0f9ff', border: '#7dd3fc' },
-  { name: '雜記', icon: '🗒️', color: '#7c3aed', bg: '#f5f3ff', border: '#c4b5fd' },
+  { name: '經濟', icon: '📈', color: '#6366f1', bg: '#eef2ff', border: '#c7d2fe', label: 'Claude', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
+  { name: '投資', icon: '💹', color: '#059669', bg: '#f0fdf4', border: '#6ee7b7', label: 'Claude', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
+  { name: '軍事', icon: '🎖️', color: '#dc2626', bg: '#fff1f2', border: '#fca5a5', label: 'Gemini', lColor: '#7c3aed', lBg: '#f5f3ff', lBorder: '#ede9fe' },
+  { name: '小書', icon: '📚', color: '#d97706', bg: '#fffbeb', border: '#fcd34d', label: 'meta', lColor: '#0d9488', lBg: '#f0fdfa', lBorder: '#ccfbf1' },
+  { name: '勞動', icon: '⚖️', color: '#0891b2', bg: '#f0f9ff', border: '#7dd3fc', label: 'Gemini', lColor: '#7c3aed', lBg: '#f5f3ff', lBorder: '#ede9fe' },
+  { name: '雜記', icon: '🗒️', color: '#7c3aed', bg: '#f5f3ff', border: '#c4b5fd', label: 'meta', lColor: '#0d9488', lBg: '#f0fdfa', lBorder: '#ccfbf1' },
 ];
 
 const categoryData = CATEGORIES.map(cat => {
@@ -67,9 +67,11 @@ const totalNotes = notes.length;
                   <span class="cat-icon">{cat.icon}</span>
                   <div class="cat-title-wrap">
                     <span class="cat-name">{cat.name}</span>
-                    <span class="cat-count" style={`color:${cat.color}`}>
-                      {cat.count > 0 ? `${cat.count} 篇` : '尚無筆記'}
-                    </span>
+                    {cat.label && (
+                      <span class="cat-label" style={`color:${cat.lColor}; background:${cat.lBg}; border:1px solid ${cat.lBorder}`}>
+                        {cat.label}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -256,6 +258,17 @@ const totalNotes = notes.length;
     font-size: 1.25em;
     font-weight: 700;
     color: rgb(var(--black));
+  }
+
+  .cat-label {
+    display: inline-block;
+    font-size: 0.65em;
+    padding: 0.1em 0.5em;
+    border-radius: 6px;
+    font-weight: 600;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+    width: fit-content;
   }
 
   .cat-count {
