@@ -1,0 +1,152 @@
+---
+title: '太空資料中心：AI 算力的下一個邊疆，誰在佈局軌道雲'
+description: '地球電網已撐不住 AI 算力需求，太空資料中心成下一個解方。市場規模 2035 年前估達 $390 億，Starcloud（NVIDIA 支持）已在軌道訓練 H100 模型，Kepler 40 顆 Orin GPU 在軌，RKLB、LUNR、PL 是上市受益鏈。'
+category: '投資'
+subcategory: '美股'
+topic: '太空資料中心'
+pubDate: '2026-05-12'
+---
+
+import Callout from '../../../../../../components/Callout.astro';
+
+## 模組 1｜什麼是太空資料中心？
+
+**太空資料中心（Space-Based Data Center）** 是把伺服器、GPU 運算叢集和儲存系統送入地球軌道——讓資料處理本身在太空進行，而非只把衛星當通訊中繼。
+
+與地面資料中心的核心差異在三點：
+
+| 面向 | 地面資料中心 | 太空資料中心 |
+|---|---|---|
+| 電力來源 | 電網（化石燃料＋再生能源混合） | 太陽能（軌道每 90 分鐘過一次晨昏線，特定軌道可接近全天照射） |
+| 散熱方式 | 冷卻水塔、空調、液冷 | 純輻射散熱（無空氣對流，最難解的工程問題） |
+| 延遲 | 毫秒以下（本地） | 低軌道 20–60 ms（依仰角），高軌道 250–600 ms |
+| 擴張彈性 | 受土地、電網、法規限制 | 受發射成本與軌道槽位限制 |
+
+為什麼值得現在關注？一句話：**AI 算力的電力需求已開始超過地球部分地區電網的增補速度，太空資料中心是結構性約束逼出來的解方，不是科幻噱頭。**
+
+---
+
+## 模組 2｜為什麼是現在？四個匯聚的驅動力
+
+### 驅動力 1：AI 算力需求爆炸，地面資源吃緊
+
+Alphabet、Amazon、Microsoft、Meta 在 2026 年合計預計花費 **4,000 億美元** 在地面資料中心擴建，但電網審批、用水權、土地取得在美國、歐洲多地已形成瓶頸。Google 在愛爾蘭因電力不足凍結新資料中心，美國德州電網在 AI 需求下屢次拉警報。
+
+### 驅動力 2：SpaceX Starship 大幅壓縮發射成本
+
+目前把 1 公斤送入軌道約需 1,000 美元。Google 的評估是：成本要降到 **200 美元/公斤** 以下，太空資料中心才有經濟可行性。SpaceX Starship 的設計目標是 100 美元/公斤以下，且單次可攜帶 Falcon 9 六倍的酬載——時間軸正在壓縮。
+
+### 驅動力 3：軌道太陽能效率明顯優於地面
+
+在 500–600 km 低軌道，太陽能板接收的輻照強度約為地面的 **1.4 倍**，且無雲層、無晝夜遮蔽問題（在某些軌道傾角下），發電效率可達地面的 4–7 倍（計算全年可用時數）。AI 訓練最需要的是持續穩定的算力——這正是軌道太陽能的強項。
+
+### 驅動力 4：監管寬鬆窗口
+
+2026 年 1 月起，美國 FCC 已收到三份太空資料中心衛星星座的申請。相比地面資料中心在部分州需要 5–10 年完成電力接入審批，軌道部署的監管摩擦目前相對較低。
+
+---
+
+## 模組 3｜技術需求：四個尚未完全解決的工程問題
+
+MIT Technology Review 在 2026 年 4 月點名的四大技術門檻：
+
+<Callout type="warning">
+
+**門檻 1｜散熱**：在真空環境，熱只能靠輻射排出，無法依賴對流。一台 AI 訓練叢集若在地面消耗 1 MW 功率，在太空中需要面積相當於一個足球場的散熱板。液態金屬冷卻、可控發射率的輕量輻射板是當前技術前沿。
+
+**門檻 2｜空間碎片**：大型太陽能陣列面積越大，被碎片擊中的機率越高。每次撞擊都可能製造新的碎片（Kessler Syndrome），現有軌道垃圾追蹤系統尚未達到保護大型太空基礎設施的精度。
+
+**門檻 3｜星座協調**：SpaceX Starlink 已有超過 6,000 顆衛星，Blue Origin TeraWave 計畫部署 5,400 顆，再加上太空資料中心衛星，低軌道的「停車位」協調難度呈指數增長，需要星間通訊和自動避讓標準化。
+
+**門檻 4｜發射成本**：目前每公斤 1,000 美元的成本，意味著一個 1 MW 的軌道資料中心光硬體發射就要超過 10 億美元，遠超地面等效成本。
+
+</Callout>
+
+---
+
+## 模組 4｜市場規模與現況
+
+<Callout type="data">
+
+| 指標 | 數值 |
+|---|---|
+| 軌道資料中心市場（2026 估） | 14.4 億美元 |
+| 軌道資料中心市場（2034 預測） | 38.1 億美元（CAGR 12.96%） |
+| 更積極情境（In-Orbit DC，2035） | 390.9 億美元（CAGR 67.4%） |
+| 2026 年已在軌 GPU | Kepler 星座 40 顆 Nvidia Orin（10 顆衛星） |
+| 最新里程碑 | Starcloud H100 在軌完成 AI 模型訓練（2025 Q4） |
+| FCC 太空資料中心申請數（截至 2026/01） | 3 份 |
+
+</Callout>
+
+### 主要公司現況
+
+**Starcloud（前身 Lumen Orbit）**：NVIDIA 投資支持，2025 年 11 月發射 Starcloud-1，搭載 Nvidia H100，成功在軌完成 AI 模型訓練——這是有記錄以來最重要的概念驗證。2026 年 3 月完成 1.7 億美元 A 輪，估值 11 億美元（Y Combinator 畢業後最快達到獨角獸的新創之一）。
+
+**Kepler Communications**：加拿大公司，2026 年 1 月透過 SpaceX Falcon 9 發射 10 顆光學中繼衛星，每顆搭載 4 個光學終端、多 GPU 運算模組與 TB 級儲存。目前是有記錄以來最大的軌道運算叢集。
+
+**Axiom Space**：建造全球第一個商業太空站「Axiom Station」，第一個模組預計 2026 年發射，包含軌道資料中心功能。
+
+**Aetherflux**（Robinhood 共同創辦人 Baiju Bhatt 創立）：專注太空太陽能傳輸，已獲 a16z、Breakthrough Energy Ventures 投資 5,000 萬美元。
+
+---
+
+## 模組 5｜受益企業圖譜
+
+### 上市公司受益分析
+
+<Callout type="data">
+
+| 公司 | 代號 | 受益層次 | 核心角色 |
+|---|---|---|---|
+| Rocket Lab | RKLB | 直接、高確定 | 小型衛星發射＋衛星系統製造＋太陽能板生產 |
+| NVIDIA | NVDA | 直接、高確定 | H100/B200/Orin 是軌道算力唯一商業等級 GPU |
+| AST SpaceMobile | ASTS | 間接 | 太空連線基礎設施，與資料中心形成互補 |
+| Planet Labs | PL | 間接 | Alphabet Project Suncatcher 合作夥伴 |
+| Intuitive Machines | LUNR | 間接 | 收購 Lanteris 後具備大功率衛星的熱管理能力 |
+| Kratos Defense | KTOS | 間接 | 地面控制系統＋衛星通訊鏈路 |
+
+</Callout>
+
+**RKLB 是目前最值得關注的上市受益標的**：Rocket Lab 不只是發射公司，更是「太空系統整合商」——自製太陽能板、衛星總線、反應輪、光通訊終端。太空資料中心越多，Rocket Lab 的訂單越多，邏輯最直接。
+
+**NVDA 是被動受益者**：不管哪家公司建太空資料中心，GPU 幾乎必然來自 NVIDIA（目前沒有商業等級替代方案能在太空環境穩定運作）。
+
+### 非上市關鍵玩家
+
+- **SpaceX**：Starship 是太空資料中心擴張的先決條件，IPO 傳言估值 8,000–15,000 億美元。若 IPO 成真，將是太空基建最大的結構性事件。
+- **Starcloud**：最接近量產的軌道運算新創，但尚未公開上市。
+- **Kepler Communications**：軌道資料傳輸與邊緣運算，目前仍為私人公司。
+
+---
+
+## 模組 6｜投資時間軸與風險判斷
+
+<Callout type="insight">
+
+**現階段定位：主題投資，非基本面投資。**
+
+太空資料中心在 2026–2028 年是**概念驗證期**——已有訓練模型在軌完成的里程碑，但離「商業規模資料中心」還有發射成本、散熱技術、監管標準三個前置條件。
+
+**適合的布局邏輯**：
+- 核心倉位放在有「太空基礎建設」＋「現有現金流」支撐的公司（RKLB 的火箭發射本業在成長，太空資料中心是選擇性）
+- 主題押注放在 NVDA（被動受益，有多個催化劑，不只靠太空資料中心）
+- 觀察 SpaceX IPO 動態作為行業指標事件
+
+**主要風險**：
+1. Starship 延誤或失敗 → 發射成本不下降，整個產業時間軸延後 3–5 年
+2. 散熱技術未能突破 → 軌道 AI 算力密度無法達到地面同等水準
+3. 軌道碎片事件 → 觸發監管限制，影響所有在軌資產
+4. 地面資料中心技術快速迭代（核融合電力、超高效熱管理）→ 替代太空方案的迫切性
+
+</Callout>
+
+---
+
+## 一句話結論
+
+> 太空資料中心不是科幻，是電網物理約束逼出來的下一個 AI 基礎建設邊疆——2026 年已有 GPU 在軌完成 AI 訓練，RKLB 和 NVDA 是現在可以持有的上市受益標的，真正的爆發點是 SpaceX Starship 讓發射成本跌破 200 美元/公斤的那一天。
+
+---
+
+**來源**：[MIT Technology Review](https://www.technologyreview.com/2026/04/03/1135073/four-things-wed-need-to-put-data-centers-in-space/) ／ [TechCrunch Starcloud](https://techcrunch.com/2026/03/30/starcloud-raises-170-million-series-ato-build-data-centers-in-space/) ／ [NPR](https://www.npr.org/2026/04/03/nx-s1-5718416/ai-data-centers-in-space-spacex-elon-musk) ／ [Fortune Business Insights](https://www.fortunebusinessinsights.com/space-based-data-center-market-115870) ／ [NVIDIA Blog](https://blogs.nvidia.com/blog/starcloud/) ／ [InvestorPlace](https://investorplace.com/hypergrowthinvesting/2026/01/2026-could-be-the-breakout-year-for-space-stocks/)
