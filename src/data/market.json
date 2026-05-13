@@ -1,0 +1,8 @@
+{
+  "updated": "2026-05-12",
+  "indices": [
+    {"name": "道瓊", "symbol": "^DJI", "close": 41249.38, "change": 127.04, "pct": 0.31},
+    {"name": "那斯達克100", "symbol": "^NDX", "close": 18678.23, "change": -23.11, "pct": -0.12},
+    {"name": "S&P 500", "symbol": "^GSPC", "close": 5659.91, "change": 18.22, "pct": 0.32}
+  ]
+}
