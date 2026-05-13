@@ -2,7 +2,7 @@
 title: 'Eichengreen《美元的特權》：全世界憑什麼借錢給美國花'
 description: '2011 年，UC Berkeley 教授 Eichengreen 追問一個問題：布列敦森林早就崩了，美元憑什麼還是全球儲備貨幣？他用 800 年金融史回答：慣性、市場深度、安全感知、網路效應，四根支柱撐住了。但特里芬難題 2.0 還在——美元霸權正在製造美國的去工業化和政治反彈。特權不是免費午餐。'
 category: '經濟'
-subcategory: '總體經濟'
+subcategory: '名家巨著'
 topic: '政治經濟學'
 pubDate: '2026-04-30'
 ---

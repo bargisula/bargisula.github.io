@@ -2,7 +2,7 @@
 title: '《大蕭條》— Rothbard，1963'
 description: '奧地利學派最犀利的一本「指控書」。Rothbard 用 ABCT 架構，逐年追蹤 1921–1933 年的貨幣數據，主張聯準會的信用擴張製造了泡沫，而胡佛的干預把原本 1–2 年能出清的衰退拖成了十年大蕭條。'
 category: '經濟'
-subcategory: '總體經濟'
+subcategory: '名家巨著'
 topic: '經濟成長與景氣循環'
 pubDate: '2026-04-30'
 ---

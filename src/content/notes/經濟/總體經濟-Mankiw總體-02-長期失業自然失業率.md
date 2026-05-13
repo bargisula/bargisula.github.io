@@ -2,7 +2,7 @@
 title: 'Mankiw 總體（二）：長期失業——自然失業率的結構解剖'
 description: '摩擦性失業是配對過程，結構性失業是薪資卡死的結果。Mankiw 承認工資僵固是現實，與 Barro 把失業視為「理性跨期休息」形成正面對立。效率工資、遲滯效應、勞動力參與率——把自然失業率講透。'
 category: '經濟'
-subcategory: '總體經濟'
+subcategory: '名家巨著'
 topic: 'Mankiw總體'
 pubDate: '2026-04-29'
 ---

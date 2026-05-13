@@ -2,7 +2,7 @@
 title: 'Barro 宏觀（四）：貨幣只是面紗——RBC 的實質衝擊邏輯'
 description: '為什麼 Barro 和 RBC 學派堅持「一定是實質影響」？三個層次：貨幣中性讓印鈔只是調整計價單位、只有實質報酬率改變才能影響人的決策、失業是理性的跨期休息而非市場故障。索洛剩餘數據是關鍵佐證。'
 category: '經濟'
-subcategory: '總體經濟'
+subcategory: '名家巨著'
 topic: 'Barro宏觀'
 pubDate: '2026-04-29'
 ---
