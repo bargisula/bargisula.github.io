@@ -2,7 +2,7 @@
 title: 'SpaceX、OpenAI、Anthropic 三巨頭擠壓年底流動性，比特幣準備好了嗎'
 description: 'SpaceX 6月上市目標750億美元、散戶配額史上最大；OpenAI與Anthropic接力年底IPO，三家合計最高吸走逾2,000億美元。BloFin研究指出加密與傳統風險資金共用同一池，5到6月是最關鍵的訊號窗口。'
 category: '投資'
-subcategory: '其他'
+subcategory: '其他投資'
 topic: '比特幣'
 pubDate: '2026-04-26'
 ---
