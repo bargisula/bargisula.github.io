@@ -1,0 +1,121 @@
+---
+title: 'Claude Skills 指令總覽：自動技能 × 手動指令完整清單'
+description: '所有可用的 Claude Skills（自動觸發）與 Commands（手動輸入）完整清單，含觸發詞、功能說明與輸出路徑。'
+category: '工具'
+subcategory: 'Claude'
+topic: 'Claude'
+pubDate: '2026-05-13'
+---
+
+import Callout from '../../../components/Callout.astro';
+
+> 最後更新：2026-05-13｜說「有哪些 skill」→ Claude 會列出這份清單。
+
+---
+
+## Skills（對話中自動觸發）
+
+說出觸發詞，Claude 自動套用對應框架，不需手動輸入指令。
+
+<Callout type="data">
+| Skill | 觸發詞 / 情境 | 功能 | 輸出位置 |
+|---|---|---|---|
+| `flash` | 貼新聞、說「記下來」「存起來」 | 解析市場快訊，記錄情緒標注 | `flash-notes/YYYY-MM.md` |
+| `daily-report` | 「今日日報」「寫日報」 | 搜尋台灣理財 + 勞動新聞，草稿確認後推上 | `投資/理財日報/` + `勞動/勞動日報/` |
+| `tech-analysis` | CoWoS、HBM、先進封裝、台股技術關鍵詞 | 六模組台股產業技術分析文章 | `投資/台股/` |
+| `us-tech-analysis` | 給美股 ticker + 說「分析」「寫文章」 | 七模組美股產業分析文章，含台股連動 | `投資/美股/` |
+| `us-weekly-report` | 「寫美股週報」「瀑布分析」「下一個受益股」 | 美股週報，含供應鏈三層瀑布分析 | `投資/美股/` |
+| `deep-analysis` | 「深度分析 TICKER」「深挖這家公司」 | 六節深度報告：業務→市場→護城河→財務→趨勢→風險 | `投資/美股/[TICKER]-深度分析.mdx` |
+| `quick-scan` | 「快篩」「塊篩」「快速掃描 TICKER」 | 精簡快篩文章，直接推上部落格 | `投資/美股/[TICKER]-快篩.mdx` |
+| `stock-scout` | 貼選股文章 + 「幫我篩」「哪幾支值得看」 | 解析選股文章，四維評分，輸出優先清單 | 對話中輸出 |
+| `ai-infra-scan` | 貼 AI 產業新聞 + 「幫我解讀」「這對誰影響最大」 | AI 基礎設施新聞解讀，六層供應鏈定位 | 對話中輸出 |
+| `earnings` | 「看 TICKER 財報」「抓 earnings」 | 抓 SEC EDGAR 原始申報，快速財報解讀 | 對話中輸出 |
+| `macro-scan` | 「總經掃描」「這週有什麼數據」「macro」 | 搜尋重要總經指標，risk-on/off 判斷 | 對話中輸出 |
+| `gold-analysis` | 討論黃金走勢、央行購金、去美元化 | 黃金五維分析框架（自動套用） | 對話中輸出 |
+| `menu` | 「有哪些 skill」「列出 skill」「menu」 | 列出所有 skill，互動式選擇 | 對話中輸出 |
+</Callout>
+
+---
+
+## Commands（手動輸入，`/` 開頭）
+
+在 Claude Code CLI 直接輸入以下指令：
+
+<Callout type="data">
+| 指令 | 用法 | 功能 |
+|---|---|---|
+| `/flash [內容]` | `/flash 黃金 #看多 高盛目標價 3500` | 快速記錄市場快訊到本月 MD 檔案 |
+| `/flashlog [條件]` | `/flashlog` 或 `/flashlog NVDA #財報` | 查閱本月快訊速覽，可篩選標的或標籤 |
+| `/stock-scan [代號]` | `/stock-scan NVDA` | 個股快速五維掃描分析（價格/基本面/新聞/供應鏈/分析師） |
+</Callout>
+
+---
+
+## 進階用法
+
+### 日報確認語法
+
+`daily-report` 輸出草稿後，用以下指令確認推送：
+
+<Callout type="insight">
+| 輸入 | 動作 |
+|---|---|
+| 「確認」 | 理財日報 + 勞動日報 兩份都推 |
+| 「理財確認」 | 只推理財日報 |
+| 「勞動確認」 | 只推勞動日報 |
+| 「修改 [哪份] [哪節]：[內容]」 | 修改草稿後重新預覽 |
+</Callout>
+
+### flash 標籤規則
+
+`/flash` 與 `flash` skill 共用相同解析邏輯：
+
+<Callout type="data">
+| 標籤 | 功能 |
+|---|---|
+| `#看多` / `#看空` / `#中性` | 情緒標籤（未標記預設中性） |
+| `#事件` / `#數據` / `#財報` / `#法說` / `#地緣` | 類型標籤 |
+| 大寫英文（NVDA、TSLA）或四位數（2330）| 自動識別為股票代號 |
+</Callout>
+
+### us-weekly-report 瀑布圖調用
+
+說出關鍵詞自動載入對應供應鏈瀑布地圖：
+
+<Callout type="data">
+| 關鍵詞 | 瀑布圖主題 |
+|---|---|
+| HBM、AI 記憶體 | AI 記憶體 / HBM 三層瀑布 |
+| AI 基礎設施、算力、資本支出 | 超大規模資料中心供應鏈 |
+| 台積電、CoWoS、先進封裝 | AI 晶片製造瀑布 |
+| 晶片禁令、成熟製程、中國半導體 | 美中晶片戰瀑布 |
+| EV、電動車、SiC、碳化矽 | 電動車供應鏈瀑布 |
+| GaN、氮化鎵、功率半導體 | 功率半導體 / GaN 瀑布 |
+| GLP-1、減重藥、生技 | GLP-1 生技瀑布 |
+| 無人機、國防、軍事 | 國防 / 無人機瀑布 |
+</Callout>
+
+---
+
+## 輸出路徑對照
+
+```
+C:\Users\alpha\my-blog\src\content\notes\
+├── 投資\
+│   ├── 快訊\YYYY-MM.mdx             ← flash skill
+│   ├── 理財日報\YYYY-MM-DD.md       ← daily-report skill
+│   ├── 台股\[關鍵詞]-產業分析.mdx    ← tech-analysis skill
+│   └── 美股\[TICKER]-產業分析.mdx   ← us-tech-analysis / us-weekly-report / deep-analysis / quick-scan
+├── 勞動\
+│   └── 勞動日報\YYYY-MM-DD.md       ← daily-report skill
+└── 軍事\
+    └── 武器裝備\YYYY-MM-DD-[主題].mdx
+
+C:\Users\alpha\flash-notes\YYYY-MM.md  ← flash 本機備份
+```
+
+---
+
+<Callout type="quote">
+新增或修改 skill → 各 skill 完整定義在 `~/.claude/skills/[名稱]/SKILL.md`，修改後下次對話自動生效，不需重啟。
+</Callout>

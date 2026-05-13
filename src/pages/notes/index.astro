@@ -17,13 +17,13 @@ const CATEGORY_TREE: CatDef[] = [
       { name: '經濟思想史', topics: [] },
       { name: '商業革命', topics: [] },
       { name: '工業革命', topics: [] },
-      { name: '總體經濟', topics: ['Barro宏觀', 'Mankiw總體', 'Krugman總體', '貨幣', '國際經濟', '政治經濟學', '經濟成長與景氣循環'] },
+      { name: '總經速描', topics: ['Barro宏觀', 'Mankiw總體', 'Krugman總體', '貨幣', '國際經濟', '政治經濟學', '經濟成長與景氣循環'] },
     ],
   },
   {
     name: '投資', icon: '💹', label: 'Claude',
     subs: [
-      { name: '快訊', topics: [] },
+      { name: '當月快訊', topics: [] },
       { name: '理財日報', topics: [] },
       { 
         name: '美股', 
@@ -31,8 +31,7 @@ const CATEGORY_TREE: CatDef[] = [
         subTopicMap: { '產業分析': ['方法論', '半導體', 'CoPoS', 'CPO', 'ASIC', '快篩', '太空資料中心', 'AI基礎設施'] }
       },
       { name: '台股', topics: ['台股快報', '產業分析'] },
-      { name: '投資哲學', topics: [] },
-      { name: '其他', topics: ['黃金', '比特幣', '不動產'] },
+      { name: '其他投資', topics: ['黃金', '比特幣', '不動產'] },
     ],
   },
   {
@@ -57,6 +56,12 @@ const CATEGORY_TREE: CatDef[] = [
       { name: '勞動日報', topics: [] },
       { name: '勞動法規', topics: [] },
       { name: '勞工保險', topics: [] },
+    ],
+  },
+  {
+    name: '工具', icon: '🛠️', label: 'Claude',
+    subs: [
+      { name: 'Claude', topics: ['Claude'] },
     ],
   },
   {
