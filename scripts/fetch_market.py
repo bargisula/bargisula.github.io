@@ -8,6 +8,7 @@ fetch_market.py
 
 import json
 import sys
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -24,33 +25,50 @@ INDICES = [
 ]
 
 OUTPUT_PATH = Path(__file__).parent.parent / "src" / "data" / "market.json"
+MAX_RETRIES = 3
 
 
 def fetch_index(symbol: str) -> dict | None:
-    try:
-        ticker = yf.Ticker(symbol)
-        hist = ticker.history(period="5d", interval="1d")
-        if hist.empty or len(hist) < 2:
-            print(f"  WARN: no sufficient data for {symbol}")
-            return None
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            # yf.download is more reliable than Ticker.history for indices
+            hist = yf.download(
+                symbol,
+                period="5d",
+                interval="1d",
+                progress=False,
+                auto_adjust=True,
+            )
+            if hist.empty or len(hist) < 2:
+                print(f"  WARN: no sufficient data for {symbol} (attempt {attempt})")
+                if attempt < MAX_RETRIES:
+                    time.sleep(2 ** attempt)
+                    continue
+                return None
 
-        latest = hist.iloc[-1]
-        prev   = hist.iloc[-2]
-        close      = float(latest["Close"])
-        prev_close = float(prev["Close"])
-        change     = round(close - prev_close, 2)
-        pct        = round((change / prev_close) * 100, 2)
-        date_str   = hist.index[-1].strftime("%Y-%m-%d")
+            # yf.download may return MultiIndex columns when single ticker
+            if hasattr(hist.columns, "levels"):
+                hist.columns = hist.columns.droplevel(1)
 
-        return {
-            "close":  round(close, 2),
-            "change": change,
-            "pct":    pct,
-            "date":   date_str,
-        }
-    except Exception as e:
-        print(f"  ERROR fetching {symbol}: {e}")
-        return None
+            close      = float(hist["Close"].iloc[-1])
+            prev_close = float(hist["Close"].iloc[-2])
+            change     = round(close - prev_close, 2)
+            pct        = round((change / prev_close) * 100, 2)
+            date_str   = hist.index[-1].strftime("%Y-%m-%d")
+
+            return {
+                "close":  round(close, 2),
+                "change": change,
+                "pct":    pct,
+                "date":   date_str,
+            }
+        except Exception as e:
+            print(f"  ERROR fetching {symbol} (attempt {attempt}): {e}")
+            if attempt < MAX_RETRIES:
+                time.sleep(2 ** attempt)
+            else:
+                return None
+    return None
 
 
 def main():
@@ -64,7 +82,6 @@ def main():
         data = fetch_index(idx["symbol"])
         if data is None:
             print(f"  SKIP: {idx['symbol']}")
-            # Keep previous value if exists
             continue
 
         if source_date is None:
@@ -80,8 +97,8 @@ def main():
         print(f"    {idx['name']}: {data['close']:,.2f}  {data['change']:+.2f} ({data['pct']:+.2f}%)")
 
     if not results:
-        print("ERROR: No data fetched. Keeping existing market.json.")
-        sys.exit(0)
+        print("ERROR: No data fetched for any index.")
+        sys.exit(1)  # fail loudly so GitHub Actions marks the run as failed
 
     # If partial fetch, fill missing from existing file
     if len(results) < len(INDICES) and OUTPUT_PATH.exists():
@@ -92,7 +109,6 @@ def main():
             if idx["symbol"] not in fetched_symbols and idx["symbol"] in existing_map:
                 results.append(existing_map[idx["symbol"]])
                 print(f"  Kept previous data for {idx['symbol']}")
-        # Restore original order
         order = [i["symbol"] for i in INDICES]
         results.sort(key=lambda x: order.index(x["symbol"]) if x["symbol"] in order else 99)
 
