@@ -1,36 +1,63 @@
 # Claude Skills 總覽
 
-> 說「列出我的 skill」或「我有哪些 skill」→ Claude 會讀這份檔案給你看。
+> 說「列出我的 skill」或「有哪些 skill」→ Claude 會讀這份檔案給你看。
 
 ---
 
-## Skills（自動觸發）
+## 📊 個股 / 選股分析類
 
-| skill 名稱 | 觸發方式 | 功能說明 | 輸出位置 |
+| Skill | 觸發方式 | 功能 | 輸出 |
 |---|---|---|---|
-| `flash` | 貼新聞 / 說「記下來」 | 自動解析市場快訊，記錄情緒標注，推上部落格 | `flash-notes/YYYY-MM.md` + 部落格 `投資/快訊/` |
-| `daily-report` | 說「今日日報」「寫日報」 | 搜尋台灣理財 + 勞動新聞，草稿確認後推上部落格 | `投資/理財日報/` + `勞動/勞動日報/` |
-| `weapon-report` | 說「武器日報」「軍事日報」 | 搜尋全球武器新聞，最多 3 篇 MDX 草稿，確認後推上 | `軍事/武器裝備/` |
-| `tech-analysis` | 說台股技術主題（CoWoS、HBM、先進封裝等） | 六模組台股產業分析文章 | `投資/台股/` |
-| `us-tech-analysis` | 給美股 ticker（NVDA、TSLA 等） | 七模組美股產業分析文章（含台股連動） | `投資/美股/` |
-| `us-weekly-report` | 說「寫美股週報」「瀑布分析」 | 美股週報撰寫框架，含供應鏈瀑布分析 | `投資/美股/` |
-| `gold-analysis` | 討論黃金走勢、央行購金、去美元化 | 黃金分析框架（自動套用，不寫檔） | 對話中輸出 |
+| `stock-analysis` | 「分析 NVDA」/ 「深度分析 PLTR」/ 「CoWoS 分析」 | 三模式合一：台股六模組瓶頸→溢出 / 美股標準七模組 / 美股深度六節原創洞察 | `投資/台股/` 或 `投資/美股/` |
+| `quick-scan` | 「快篩 TICKER」「塊篩」「先掃一下」 | 美股財務快照，判斷「值不值得繼續看」 | `投資/美股/[TICKER]-快篩.mdx` |
+| `earnings` | 「看 TICKER 財報」「抓 TICKER earnings」 | 直抓 SEC EDGAR / 公開資訊觀測站，輸出五段財報分析 | 對話中輸出，詢問是否存檔 |
+| `stock-scout` | 貼選股文章 + 「幫我篩」「掃這篇」 | 解析文章 ticker → 補估值數據 → 四維評分（論點/估值/漲幅/偏好）→ 排序優先清單 | 對話中輸出 |
+| `leopold-model` | 「Leopold模型 [行業]」「用Leopold分析 [主題]」 | 世界觀 → 物理瓶頸 → 押解決者 → 做空被替代者 | 對話中輸出 |
 
-| `deep-analysis` | 說「深度分析 TICKER」「深挖這家公司」「寫深度報告」 | 六節架構深度分析：業務本質→市場→護城河→財務→結構性洞察→風險，先討論架構再動筆 | `投資/美股/[TICKER]-深度分析.mdx` |
+---
 
-| `quick-scan` | 說「快篩」「塊篩」「快速掃描 TICKER」 | 六節精簡結構：公司定位→觸發事件→財務→論點→觀察指標→結論，直接推上 | `投資/美股/[TICKER]-快篩.mdx` |
-| ` ai-infra-scan ` | (TODO trigger) | AI 基礎設施新聞解讀框架。當使用者貼上 AI 產業新聞、說「幫我解讀」「... | (TODO output) |
-| ` earnings ` | (TODO trigger) | 財報快查框架。當使用者說「看 [TICKER] 財報」「[TICKER] ... | (TODO output) |
-| ` macro-scan ` | (TODO trigger) | 總體經濟掃描框架。當使用者說「總經掃描」「這週有什麼數據」「總經環境」 | (TODO output) |
+## 📰 新聞 / 快訊類
+
+| Skill | 觸發方式 | 功能 | 輸出 |
+|---|---|---|---|
+| `flash` | 貼新聞 / 說「記下來」「快訊」 | 自動解析情緒、標的、來源，同步寫入本機 + 部落格，git push | `flash-notes/YYYY-MM.md` + `投資/快訊/YYYY-MM.mdx` |
+| `ai-infra-scan` | 貼 AI 新聞 / 說「幫我解讀」「這對誰影響最大」 | 套用六層瓶頸框架（算力/記憶體/封裝/網路/電力/需求），輸出結構化影響鏈 + 投資訊號 | 對話中輸出 |
+
+---
+
+## 🌐 總經 / 市場框架類
+
+| Skill | 觸發方式 | 功能 | 輸出 |
+|---|---|---|---|
+| `macro-scan` | 「總經掃描」「這週有什麼數據」「risk-on 還是 risk-off」 | 搜尋當週重要總經指標，輸出一頁式市場模式判斷 | 對話中輸出，詢問是否存檔 |
+| `gold-analysis` | 討論黃金走勢 / 央行購金 / 去美元化 | 五維分析（實質利率/美元/央行/地緣/避險） | 對話中輸出 |
+
+---
+
+## ✍️ 文章 / 日報寫作類
+
+| Skill | 觸發方式 | 功能 | 輸出 |
+|---|---|---|---|
+| `daily-report` | 「今日日報」「寫日報」 | 搜尋台灣理財 + 勞動新聞，草稿確認後推上部落格 | `投資/理財日報/` + `勞動/勞動日報/` |
+| `us-weekly-report` | 「寫美股週報」「瀑布分析」「供應鏈分析」 | 三層產業瀑布，找第二、三層間接受益者與輸家 | `投資/美股/` |
+
+---
+
+## 🛠️ 系統工具
+
+| Skill | 觸發方式 | 功能 |
+|---|---|---|
+| `menu` | 「skill」「有哪些 skill」「列出 skill」 | 列出所有可用 skill 讓你選 |
+
 ---
 
 ## Commands（手動輸入）
 
-| 指令 | 觸發方式 | 功能說明 |
-|---|---|---|
-| `/flash [內容]` | CLI 輸入 | 記錄市場快訊（同 flash skill） |
-| `/flashlog` | CLI 輸入 | 查閱本月快訊速覽 + 最近 5 則 |
-| `/stock-scan [代號]` | CLI 輸入 | 個股快速掃描分析 |
+| 指令 | 功能 |
+|---|---|
+| `/flash [內容]` | 記錄市場快訊（同 flash skill） |
+| `/flashlog` | 查閱本月快訊速覽 + 最近 5 則 |
+| `/stock-scan [代號]` | 個股快速掃描分析 |
 
 ---
 
@@ -41,8 +68,6 @@
 | 「確認」 | 兩份都推（理財 + 勞動） |
 | 「理財確認」 | 只推理財日報 |
 | 「勞動確認」 | 只推勞動日報 |
-| 「武器確認」 | 武器裝備三篇全推 |
-| 「推武器第 N 篇」 | 只推指定篇 |
 | 「修改 [哪份] [哪節]：[內容]」 | 修改草稿後重新預覽 |
 
 ---
@@ -52,21 +77,33 @@
 ```
 C:\Users\alpha\my-blog\src\content\notes\
 ├── 投資\
-│   ├── 快訊\YYYY-MM.mdx          ← flash
-│   ├── 理財日報\理財日報-YYYY-MM-DD.md  ← daily-report
-│   ├── 台股\[關鍵詞]-產業分析.mdx      ← tech-analysis
-│   └── 美股\[TICKER]-產業分析.mdx     ← us-tech-analysis / us-weekly-report
-├── 勞動\
-│   └── 勞動日報\勞動日報-YYYY-MM-DD.md ← daily-report
-└── 軍事\
-    └── 武器裝備\YYYY-MM-DD-[主題].mdx  ← weapon-report
+│   ├── 快訊\YYYY-MM.mdx                    ← flash
+│   ├── 理財日報\理財日報-YYYY-MM-DD.md      ← daily-report
+│   ├── 台股\[關鍵詞]-分析.mdx              ← stock-analysis（台股模式）
+│   └── 美股\
+│       ├── [TICKER]-產業分析.mdx           ← stock-analysis（美股標準模式）
+│       ├── [TICKER]-深度分析.mdx           ← stock-analysis（美股深度模式）
+│       └── [TICKER]-快篩.mdx              ← quick-scan
+└── 勞動\
+    └── 勞動日報\勞動日報-YYYY-MM-DD.md     ← daily-report
 
-C:\Users\alpha\flash-notes\YYYY-MM.md  ← flash 本機備份
+C:\Users\alpha\flash-notes\YYYY-MM.md      ← flash 本機備份
 ```
+
+---
+
+## stock-analysis 模式速查
+
+| 觸發詞 | 模式 | 框架 | 流程 |
+|---|---|---|---|
+| 「分析 NVDA」「寫文章 AVGO」 | 美股標準 | 七模組（定位/財務/護城河/瓶頸/台股連動/催化劑/風險） | 直接執行 |
+| 「深度分析 PLTR」「深挖 CRWD」 | 美股深度 | 六節原創洞察（業務本質/市場/護城河/財務/結構趨勢/風險） | 先討論架構，確認後動筆 |
+| 「分析 CoWoS」「HBM 供應鏈」「台積電封裝」 | 台股 | 六模組瓶頸→溢出（技術定位/供應鏈/瓶頸/時程/關注點/輸家） | 直接執行 |
 
 ---
 
 ## 新增 / 修改 skill
 
-- 各 skill 完整定義在：`C:\Users\alpha\.claude\skills\[skill名稱]\SKILL.md`
+- 各 skill 完整定義：`C:\Users\alpha\.claude\skills\[skill名稱]\SKILL.md`
 - 修改後下次對話自動生效，不需重啟
+- GitHub 備份：`bargisula/bargisula.github.io` → `.claude/skills/`
