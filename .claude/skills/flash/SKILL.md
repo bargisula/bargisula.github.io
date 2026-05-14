@@ -92,7 +92,7 @@ user-invocable: true
 
 ## 步驟 4：同步寫入部落格 MDX
 
-路徑：`C:\Users\alpha\my-blog\src\content\notes\投資\快訊\YYYY-MM.mdx`
+路徑：`C:\Users\alpha\my-blog\src\content\notes\投資\當月快訊\YYYY-MM.mdx`
 
 - 檔案存在 → 在最後一筆 `---` 前追加新快訊
 - 檔案不存在 → 建立新 MDX 檔：
@@ -102,7 +102,7 @@ user-invocable: true
 title: '市場快訊｜YYYY 年 MM 月'
 description: '台股、美股、黃金、總經 — YYYY 年 MM 月多空觀點與市場事件紀錄'
 category: '投資'
-subcategory: '快訊'
+subcategory: '當月快訊'
 topic: '市場快訊'
 pubDate: 'YYYY-MM-01'
 ---
@@ -133,7 +133,7 @@ import Callout from '../../../../components/Callout.astro';
 在 `C:\Users\alpha\my-blog` 執行：
 
 ```
-git add src/content/notes/投資/快訊/YYYY-MM.mdx
+git add src/content/notes/投資/當月快訊/YYYY-MM.mdx
 git commit -m "flash YYYY/MM/DD {標的}｜{內容前20字}"
 git push origin main
 ```
