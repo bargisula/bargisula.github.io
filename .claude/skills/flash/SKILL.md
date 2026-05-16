@@ -94,7 +94,7 @@ user-invocable: true
 
 路徑：`C:\Users\alpha\my-blog\src\content\notes\投資\當月快訊\YYYY-MM.mdx`
 
-- 檔案存在 → 在最後一筆 `---` 前追加新快訊
+- 檔案存在 → 在開頭第一筆 `---`（intro 分隔線）之後、第一則快訊之前插入新快訊（最新在最上面）
 - 檔案不存在 → 建立新 MDX 檔：
 
 ```markdown
