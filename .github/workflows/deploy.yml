@@ -57,14 +57,18 @@ jobs:
           import os, json, subprocess
 
           changed = subprocess.check_output(
-              ["git", "diff", "--name-only", "HEAD~1", "HEAD"], text=True
-          ).splitlines()
+              ["git", "diff", "-z", "--name-only", "HEAD~1", "HEAD"], text=True
+          ).split("\0")
 
           articles = []
           for f in changed:
+              f = f.strip()
               if not (f.endswith(".md") or f.endswith(".mdx")):
                   continue
-              if not f.startswith("src/content/notes/投資/"):
+              if "notes/" not in f or not os.path.isfile(f):
+                  continue
+              # 只推播投資類文章（路徑含 投資 目錄）
+              if "投資" not in f:
                   continue
               if not os.path.isfile(f):
                   continue
