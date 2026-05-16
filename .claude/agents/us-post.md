@@ -72,7 +72,7 @@ title: "美股盤後 [TRADE_DATE]｜[15字內，含關鍵數字或事件]"
 description: "[60字內，含指數漲跌與核心驅動因子]"
 category: '投資'
 subcategory: '美股'
-topic: '美股快報'
+topic: '盤後'
 pubDate: '[TODAY]'
 ---
 ```
