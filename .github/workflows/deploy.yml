@@ -67,8 +67,8 @@ jobs:
                   continue
               if "notes/" not in f or not os.path.isfile(f):
                   continue
-              # 只推播投資類文章（路徑含 投資 目錄）
-              if "投資" not in f:
+              # 只推播盤前/盤後報告
+              if "/盤前/" not in f and "/盤後/" not in f:
                   continue
               if not os.path.isfile(f):
                   continue

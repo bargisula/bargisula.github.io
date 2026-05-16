@@ -111,7 +111,7 @@ pubDate: '[TODAY]'
 
 ## 步驟 5：寫入檔案
 
-路徑：`C:\Users\alpha\my-blog\src\content\notes\投資\美股\美股盤前-[TODAY].md`
+路徑：`C:\Users\alpha\my-blog\src\content\notes\投資\美股\盤前\美股盤前-[TODAY].md`
 
 若當日檔案已存在，詢問使用者是否覆蓋，預設不覆蓋。
 
@@ -124,7 +124,7 @@ pubDate: '[TODAY]'
 ```bash
 git checkout main
 git pull origin main
-git add "src/content/notes/投資/美股/美股盤前-[TODAY].md"
+git add "src/content/notes/投資/美股/盤前/美股盤前-[TODAY].md"
 git commit -m "add: 美股盤前 [TODAY]"
 git push origin main
 ```
