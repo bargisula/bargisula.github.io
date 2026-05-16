@@ -57,7 +57,7 @@ date +%Y-%m-%d
 ### frontmatter
 ```
 ---
-title: '美股盤前 [TODAY]｜[15字內，含關鍵期指或事件]'
+title: "美股盤前 [TODAY]｜[15字內，含關鍵期指或事件]"
 description: "[60字內，含期指方向與核心開盤訊號]"
 category: '投資'
 subcategory: '美股'

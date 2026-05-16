@@ -70,7 +70,7 @@ date +%Y-%m-%d
 ### frontmatter
 ```
 ---
-title: '台股盤後 [TODAY]｜[15字內，含關鍵數字或事件]'
+title: "台股盤後 [TODAY]｜[15字內，含關鍵數字或事件]"
 description: "[60字內，含加權指數漲跌與核心驅動因子]"
 category: '投資'
 subcategory: '台股'

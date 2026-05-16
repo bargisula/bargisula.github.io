@@ -55,7 +55,7 @@ date +%Y-%m-%d
 ### frontmatter
 ```
 ---
-title: '台股盤前 [TODAY]｜[15字內，含關鍵數字或事件]'
+title: "台股盤前 [TODAY]｜[15字內，含關鍵數字或事件]"
 description: "[60字內，含台指期漲跌與核心開盤訊號]"
 category: '投資'
 subcategory: '台股'
