@@ -27,6 +27,7 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     outputs:
       changed_titles: ${{ steps.changed-titles.outputs.titles }}
+      line_payload: ${{ steps.line-payload.outputs.payload }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -49,6 +50,55 @@ jobs:
             printf "%s" "$TITLES"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
+      - name: Build LINE notification payload
+        id: line-payload
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, subprocess
+
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD~1", "HEAD"], text=True
+          ).splitlines()
+
+          articles = []
+          for f in changed:
+              if not (f.endswith(".md") or f.endswith(".mdx")):
+                  continue
+              if not f.startswith("src/content/notes/投資/"):
+                  continue
+              if not os.path.isfile(f):
+                  continue
+              title, desc = "", ""
+              with open(f, encoding="utf-8") as fp:
+                  for line in fp:
+                      line = line.rstrip()
+                      if line == "---" and title:
+                          break
+                      if line.startswith("title:") and not title:
+                          title = line[6:].strip().strip("\"'")
+                      if line.startswith("description:") and not desc:
+                          desc = line[12:].strip().strip("\"'")
+              if not title:
+                  continue
+              slug = f.removeprefix("src/content/notes/").rsplit(".", 1)[0]
+              url = f"https://bargisula.github.io/notes/{slug}"
+              articles.append({"title": title, "desc": desc, "url": url})
+
+          if not articles:
+              payload = ""
+          else:
+              lines = ["📊 新投資報告\n"]
+              for a in articles:
+                  lines.append(a["title"])
+                  if a["desc"]:
+                      lines.append(a["desc"])
+                  lines.append(a["url"])
+                  lines.append("")
+              payload = "\n".join(lines).strip()
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write(f"payload<<EOF\n{payload}\nEOF\n")
+          PYEOF
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -101,3 +151,43 @@ jobs:
             -H "Click: https://bargisula.github.io" \
             --data-raw "$BODY" \
             ntfy.sh/my-blog-notify
+
+      - name: Notify LINE Group
+        if: ${{ needs.build.outputs.line_payload != '' }}
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_TOKEN }}
+          LINE_GROUP_ID: ${{ secrets.LINE_GROUP_ID }}
+          LINE_MSG: ${{ needs.build.outputs.line_payload }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json
+          from urllib import request, error
+
+          token = os.environ["LINE_TOKEN"]
+          group_id = os.environ["LINE_GROUP_ID"]
+          message = os.environ["LINE_MSG"].strip()
+
+          if not message or not token or not group_id:
+              print("LINE secrets not configured, skipping.")
+              exit(0)
+
+          payload = json.dumps({
+              "to": group_id,
+              "messages": [{"type": "text", "text": message}]
+          }).encode()
+
+          req = request.Request(
+              "https://api.line.me/v2/bot/message/push",
+              data=payload,
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Content-Type": "application/json",
+              },
+          )
+          try:
+              resp = request.urlopen(req)
+              print(f"LINE sent: {resp.status}")
+          except error.HTTPError as e:
+              print(f"LINE error {e.code}: {e.read().decode()}")
+              exit(1)
+          PYEOF
