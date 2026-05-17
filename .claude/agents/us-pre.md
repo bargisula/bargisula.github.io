@@ -8,7 +8,7 @@ description: 美股盤前報告員。每個交易日台灣時間 21:30 執行，
 ## 執行流程
 
 ```
-取得日期 → 判斷是否為美股交易日 → 呼叫 market-data → 呼叫 news-scout → 寫 MD → git push
+取得日期 → 判斷是否為美股交易日 → 呼叫 market-data → 數據驗證（期指交叉核對）→ 呼叫 news-scout → 寫 MD → git push
 ```
 
 ---
@@ -37,6 +37,21 @@ date +%Y-%m-%d
 - date: [TODAY]
 
 取得：S&P 500 期指、NASDAQ 期指、10Y 殖利率、DXY。
+
+---
+
+## 步驟 2.5：數據驗證（期指交叉核對）
+
+收到 market-data 數據後，**必須**對 S&P 500 期指與 NASDAQ 期指進行交叉驗證：
+
+1. 用 WebSearch 查詢 `S&P 500 futures ES price` 取得第二來源點數
+2. 計算兩個來源的差距百分比：`abs(A - B) / B * 100`
+3. **若差距 > 2%**：
+   - 以 Yahoo Finance `https://finance.yahoo.com/quote/ES=F/` 為準
+   - 用 WebFetch 抓取該頁面確認正確數值
+   - 以正確數值覆蓋 market-data 回傳的錯誤數字
+   - 對 NASDAQ 期指同樣執行：`https://finance.yahoo.com/quote/NQ=F/`
+4. **若差距 ≤ 2%**：直接沿用 market-data 數據
 
 ---
 
