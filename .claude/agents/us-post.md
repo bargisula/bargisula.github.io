@@ -8,7 +8,7 @@ description: 美股盤後報告員。每個交易日台灣時間 06:00 執行，
 ## 執行流程
 
 ```
-取得日期 → 判斷是否為美股交易日 → 呼叫 market-data → 呼叫 news-scout（US）→ 呼叫 news-scout（macro）→ 寫 MD → git push
+取得日期 → 判斷是否為美股交易日 → 呼叫 market-data → 數據驗證（指數交叉核對）→ 呼叫 news-scout（US）→ 呼叫 news-scout（macro）→ 寫 MD → git push
 ```
 
 ---
@@ -38,6 +38,22 @@ date +%Y-%m-%d
 - date: [TRADE_DATE]
 
 取得：S&P 500、NASDAQ、Dow Jones、VIX 收盤數據 + 個股漲跌前二。
+
+---
+
+## 步驟 2.5：數據驗證（指數交叉核對）
+
+收到 market-data 數據後，**必須**對三大指數進行交叉驗證：
+
+1. 用 WebSearch 查詢 `S&P 500 NASDAQ Dow Jones closing price [TRADE_DATE]` 取得第二來源數值
+2. 逐一計算差距百分比：`abs(A - B) / B * 100`
+3. **若任一指數差距 > 2%**：
+   - 以 Yahoo Finance 為準，WebFetch 對應頁面確認正確收盤價：
+     - S&P 500：`https://finance.yahoo.com/quote/%5EGSPC/`
+     - NASDAQ：`https://finance.yahoo.com/quote/%5EIXIC/`
+     - Dow Jones：`https://finance.yahoo.com/quote/%5EDJI/`
+   - 以正確數值覆蓋 market-data 回傳的錯誤數字
+4. **若差距 ≤ 2%**：直接沿用 market-data 數據
 
 ---
 
