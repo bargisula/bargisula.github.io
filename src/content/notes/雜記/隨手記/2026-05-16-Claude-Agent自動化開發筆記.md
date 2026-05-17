@@ -6,8 +6,6 @@ subcategory: "隨手記"
 pubDate: "2026-05-16"
 ---
 
-# Claude Agent 自動化開發筆記 (2026/05/16)
-
 5/16 開發 Claude Agent 的功能，啟動定期自動研究 + 推 GitHub + 推 Line 群組。
 
 ### 技術細節與設定
