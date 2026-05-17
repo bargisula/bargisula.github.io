@@ -360,7 +360,7 @@ title: '【產業分析】[主題]：[15字內含方向性判斷]'
 description: '[60字內，含產業定位、核心驅動力、一個讓人意外的洞察]'
 category: '投資'
 subcategory: '美股'
-topic: '[主題關鍵詞]'
+topic: '自動研究'
 pubDate: 'YYYY-MM-DD'
 ---
 ```
