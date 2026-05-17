@@ -30,6 +30,7 @@
 | 有 AI 供應鏈重大新聞（NVIDIA、TSMC、SK Hynix 等） | `ai-infra-scan` | 貼新聞 + 「怎麼看」 |
 | 黃金有重大行情（金價破位/央行大量購金） | `gold-analysis` | 「黃金現在怎麼看」 |
 | 想對某行業建立投資世界觀、找瓶頸標的 | `leopold-model` | 「Leopold模型 資料中心」 |
+| 每週歐洲國際情勢（英/北歐/西歐/南歐/東歐） | `europe-weekly` | 「歐洲週報」 |
 | 產業深度報告（醫療/科技/能源/消費等子板塊分歧大的產業） | `sector-deep-dive` | 由 `industry-analyst` agent 自動選用，不需手動觸發 |
 | 決定深研某標的，要寫成部落格文章 | `stock-analysis` | 「分析 AVGO」或「深度分析 CRWD」 |
 | 有個股名字想快速了解基本面 | `/stock-scan` | `/stock-scan NVDA` |
