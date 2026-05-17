@@ -30,7 +30,7 @@ jobs:
           import urllib.request
 
           result = subprocess.run(
-              ['git', 'diff', '--name-only', '--diff-filter=A', 'HEAD~1', 'HEAD'],
+              ['git', '-c', 'core.quotepath=false', 'diff', '--name-only', '--diff-filter=AM', 'HEAD~1', 'HEAD'],
               capture_output=True, text=True
           )
           files = [f for f in result.stdout.strip().split('\n')
