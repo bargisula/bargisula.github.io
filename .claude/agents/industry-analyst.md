@@ -58,7 +58,7 @@ description: >
 | 主題 | Mordor 分類頁 URL |
 |---|---|
 | 航太/國防 | `https://www.mordorintelligence.com/market-analysis/aerospace-defense` |
-| 科技/AI/軟體 | `https://www.mordorintelligence.com/market-analysis/technology` |
+| 科技/AI/軟體/電信 | `https://www.mordorintelligence.com/market-analysis/technology-media-and-telecom` |
 | 能源/電力 | `https://www.mordorintelligence.com/market-analysis/energy-and-power` |
 | 醫療/製藥 | `https://www.mordorintelligence.com/market-analysis/healthcare` |
 | 化學/材料 | `https://www.mordorintelligence.com/market-analysis/chemicals-and-materials` |
@@ -71,16 +71,43 @@ URL 格式：`https://www.mordorintelligence.com/industry-reports/[關鍵字]-ma
 
 常用關鍵字範例：
 - 飛彈：`missiles-and-missile-defense-systems`
-- 無人機：`uav`
+- 無人機（整體）：`uav`
+- 無人機（戰術）：`tactical-uav`
+- 無人機（交付）：`delivery-drones`
+- 反無人機：`counter-uav`
 - 國防 AI：`artificial-intelligence-and-analytics-in-defense`
 - 美國國防：`united-states-defense`
 - 太空：`space-launch-services`
 - 海軍艦艇：`naval-vessels`
+- 網路安全：`cybersecurity`
+- 半導體：`semiconductor`
+- 雲端運算：`cloud-computing`
 
 **Step C：取得後引用規則**
 - 直接引用市場規模（USD 億）、CAGR、細分占比，標注「來源：Mordor Intelligence」
 - 整體數字與子產業數字分開引用，不混用
 - 若抓取失敗（404/403）：改用 `[主題] market size CAGR site:mordorintelligence.com` 搜尋
+
+**Step D：整理成市場數據卡（必做，在進入 Step 4 前完成）**
+
+把 Mordor 抓到的數字整理成下方格式，作為後續分析的量化基礎。查不到的填「未取得」，不估算。
+
+```
+## Mordor 市場數據卡｜[主題]
+
+| 維度 | 數字 | 報告來源 |
+|---|---|---|
+| 整體 TAM（當年） | USD XX 億 | [報告名] |
+| 2031 預測 | USD XX 億 | [報告名] |
+| CAGR（預測期） | XX% | [報告名] |
+| 最大子產業（占比） | XX（XX%） | [報告名] |
+| 最快成長子產業（CAGR） | XX（XX%） | [報告名] |
+| 北美市占 | XX% | [報告名] |
+| 亞太成長率 | CAGR XX% | [報告名] |
+| 主要玩家 | 公司A, 公司B, 公司C | [報告名] |
+```
+
+這張卡在 Step 5 的「市場規模總覽」中直接引用，數字不重複搜尋。
 
 依框架執行搜尋，**數字必須來自搜尋結果，不使用訓練資料中的市場數字**。
 
