@@ -25,12 +25,12 @@ const CATEGORY_TREE: CatDef[] = [
     subs: [
       { name: '當月快訊', topics: [] },
       { name: '理財日報', topics: [] },
-      { 
-        name: '美股', 
-        topics: ['自動研究', '美股快報', '產業分析', '特斯拉', '美債與利率', 'AI'],
-        subTopicMap: { '產業分析': ['選股模型', '方法論', '半導體', 'CoPoS', 'CPO', 'ASIC', '快篩', '太空資料中心', 'AI基礎設施'] }
+      {
+        name: '美股',
+        topics: ['盤前', '盤後', '自動研究', '美股快報', '產業分析', '特斯拉', '美債與利率', 'AI'],
+        subTopicMap: { '產業分析': ['選股模型', '方法論', '半導體', 'CoPoS', 'CPO', 'ASIC', '快篩', '太空資料中心', 'AI基礎設施', '火箭與衛星'] }
       },
-      { name: '台股', topics: ['台股快報', '產業分析'] },
+      { name: '台股', topics: ['盤前', '盤後', '台股快報', '產業分析'] },
       { name: '其他投資', topics: ['不動產'] },
     ],
   },
@@ -40,6 +40,16 @@ const CATEGORY_TREE: CatDef[] = [
       { name: '區域防禦', topics: [] },
       { name: '武器裝備', topics: [] },
       { name: '台海分析', topics: [] },
+    ],
+  },
+  {
+    name: '國際情勢', icon: '🌐', label: 'GPT',
+    subs: [
+      { name: '中國', topics: ['週報'] },
+      { name: '日本', topics: ['週報'] },
+      { name: '印度', topics: ['週報'] },
+      { name: '韓國', topics: ['週報'] },
+      { name: '歐洲', topics: ['週報'] },
     ],
   },
   {
@@ -68,7 +78,7 @@ const CATEGORY_TREE: CatDef[] = [
       { name: '心理與腦', topics: ['心理學'] },
       { name: '歷史', topics: ['東亞海洋史-15至17世紀', '日本戰國專題', '日本幕末時代', '新選組', '洋務運動'] },
       { name: 'GitHub 專案', topics: [] },
-      { name: '隨手記', topics: ['隨手記'] },
+      { name: '隨手記', topics: [] },
     ],
   },
 ];
@@ -460,6 +470,7 @@ function vid(...parts: string[]) {
   .label-claude { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
   .label-gemini { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
   .label-meta { background: #f0fdfa; color: #0d9488; border: 1px solid #ccfbf1; }
+  .label-gpt { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
 
   .sub-title {
     display: flex;
