@@ -3,8 +3,7 @@ title: SpaceX：11維度拆解，為何「太空產業 = SpaceX」
 description: 分析太空產業做到最後，就是分析「SpaceX的壟斷能維持幾年」。這11點每一點都在說同一件事：它在位，其他人想辦法活。
 category: 投資
 subcategory: 美股
-topic: 產業分析
-subtopic: 火箭與衛星
+topic: 火箭與衛星
 pubDate: 2026-05-17
 ---
 
