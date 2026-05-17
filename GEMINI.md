@@ -12,6 +12,7 @@
   - `subcategory`: 次分類（如：歷史、美股、商業革命等）
   - `topic`: 專題名稱（對應 UI 上的卡片）
   - `pubDate`: 發布日期 (YYYY-MM-DD)
+- **禁止標題重複**：在 Markdown 正文中**禁止**出現 `# 標題` (H1)。因為 Astro 系統會自動將 Frontmatter 中的 `title` 欄位渲染為頁面的 `<h1>`，若在正文再次寫入 H1 會導致顯示重複。
 - **Topic 一致性**：檔案內的 `topic` 欄位文字必須與 `src/pages/notes/index.astro` 中 `CATEGORY_TREE` 定義的名稱完全一致。
 
 ## 2. UI 顯示邏輯 (核心規則)
