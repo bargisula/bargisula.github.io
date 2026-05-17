@@ -16,11 +16,20 @@ description: >
 
 ## Step 1：解析輸入
 
-判斷分析對象：
+**判斷分析對象：**
 
 - **A：純產業**：輸出產業地圖 + 受益標的清單
 - **B：公司＋產業**：公司為主、產業為背景脈絡
 - **C：受益股篩選**：產業分析 + 標的評分表
+
+**判斷輸出格式（在 Step 5 執行時選擇）：**
+
+| 產業類型 | 輸出格式 | 參考 |
+|---|---|---|
+| 國防、地緣供應鏈、關鍵材料 | **Format A：地緣格式**（四節：結論→地圖→發展→標的） | Step 5 Format A |
+| 醫療、科技應用、能源轉型、消費、金融 | **Format B：子板塊格式**（八節：核心邏輯→規模→子板塊→政策→技術→競爭→主線→追蹤） | Step 5 Format B（sector-deep-dive skill） |
+
+判斷依據：主題是否有明確地緣/採購週期 + backlog 可視性 → Format A；主題是否以法規週期 + 技術採用曲線驅動，子板塊分歧大 → Format B。
 
 ---
 
@@ -182,7 +191,12 @@ S8: [主題] new entrant startup disruption OTA contracts
 
 ## Step 5：輸出格式
 
-### 核心原則
+**Format A（地緣格式）** 用於國防/地緣產業，見下方四節結構。
+**Format B（子板塊格式）** 用於醫療/科技/能源/消費等，完整規範見 `sector-deep-dive` skill（`.claude/skills/sector-deep-dive/SKILL.md`）。
+
+---
+
+### Format A 核心原則
 
 **散文建立論點，表格只做比較。**
 
