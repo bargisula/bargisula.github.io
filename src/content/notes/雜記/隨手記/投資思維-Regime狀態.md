@@ -3,7 +3,6 @@ title: "投資思維：Regime 狀態與環境變數"
 description: "探討投資底層的 Regime 狀態，從景氣循環到地緣政治與債務的多維度預測。"
 category: "雜記"
 subcategory: "隨手記"
-topic: "隨手記"
 pubDate: "2026-05-14"
 ---
 

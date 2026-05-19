@@ -20,10 +20,11 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# claude worktrees (keep skills, commands and scheduled-tasks tracked)
+# claude worktrees (keep skills, commands, agents and scheduled-tasks tracked)
 .claude/*
 !.claude/skills/
 !.claude/commands/
+!.claude/agents/
 !.claude/scheduled-tasks/
 
 # jetbrains setting folder

@@ -1,0 +1,84 @@
+name: LINE Notify on Article Push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/notes/投資/總經/總經掃描-*.md'
+      - 'src/content/notes/投資/台股/盤前/台股盤前-*.md'
+      - 'src/content/notes/投資/台股/盤後/台股盤後-*.md'
+      - 'src/content/notes/投資/美股/盤前/美股盤前-*.md'
+      - 'src/content/notes/投資/美股/盤後/美股盤後-*.md'
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Send LINE push message
+        env:
+          LINE_CHANNEL_TOKEN: ${{ secrets.LINE_CHANNEL_TOKEN }}
+          LINE_GROUP_ID: ${{ secrets.LINE_GROUP_ID }}
+        run: |
+          python3 << 'EOF'
+          import os, re, subprocess, json
+          from urllib.parse import quote
+          import urllib.request
+
+          result = subprocess.run(
+              ['git', '-c', 'core.quotepath=false', 'diff', '--name-only', '--diff-filter=AM', 'HEAD~1', 'HEAD'],
+              capture_output=True, text=True
+          )
+          files = [f for f in result.stdout.strip().split('\n')
+                   if f.startswith('src/content/notes/投資/') and f.endswith('.md')]
+
+          if not files:
+              print("No target article found, skipping.")
+              exit(0)
+
+          filepath = files[0]
+          content = open(filepath, encoding='utf-8').read()
+
+          title = re.search(r'title:\s*[\'"](.+?)[\'"]', content)
+          desc  = re.search(r'description:\s*[\'"](.+?)[\'"]', content)
+          date  = re.search(r'pubDate:\s*[\'"]?(\d{4}-\d{2}-\d{2})[\'"]?', content)
+
+          title = title.group(1) if title else os.path.basename(filepath).replace('.md', '')
+          desc  = desc.group(1)  if desc  else ''
+          date  = date.group(1)  if date  else ''
+
+          # src/content/notes/投資/總經/總經掃描-2026-05-17.md
+          # → /notes/投資/總經/總經掃描-2026-05-17/
+          parts = filepath.replace('src/content/notes/', '').replace('.md', '').split('/')
+          url_path = '/'.join(quote(p) for p in parts)
+          url = f"https://bargisula.github.io/notes/{url_path}/"
+
+          message = f"【{title}】\n{date}\n\n{desc}\n\n{url}"
+
+          token    = os.environ['LINE_CHANNEL_TOKEN']
+          group_id = os.environ['LINE_GROUP_ID']
+
+          payload = json.dumps({
+              "to": group_id,
+              "messages": [{"type": "text", "text": message}]
+          }).encode('utf-8')
+
+          req = urllib.request.Request(
+              'https://api.line.me/v2/bot/message/push',
+              data=payload,
+              headers={
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json; charset=utf-8',
+              }
+          )
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  print(f"LINE API: {resp.status} OK")
+          except urllib.error.HTTPError as e:
+              print(f"LINE API error: {e.code} {e.read().decode()}")
+              exit(1)
+          EOF
