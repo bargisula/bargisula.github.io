@@ -5,25 +5,33 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import MarketTicker from '../components/MarketTicker.astro';
+import { CATEGORY_TREE } from '../data/categories';
 
 const notes = (await getCollection('notes'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const CATEGORIES = [
-  { name: '經濟', icon: '📈', color: '#6366f1', bg: '#eef2ff', border: '#c7d2fe', label: 'Claude', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
-  { name: '投資', icon: '💹', color: '#059669', bg: '#f0fdf4', border: '#6ee7b7', label: 'Claude', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
-  { name: '軍事', icon: '🎖️', color: '#dc2626', bg: '#fff1f2', border: '#fca5a5', label: 'Gemini', lColor: '#7c3aed', lBg: '#f5f3ff', lBorder: '#ede9fe' },
-  { name: '國際情勢', icon: '🌐', color: '#2563eb', bg: '#eff6ff', border: '#93c5fd', label: 'GPT', lColor: '#166534', lBg: '#f0fdf4', lBorder: '#bbf7d0' },
-  { name: '小書', icon: '📚', color: '#d97706', bg: '#fffbeb', border: '#fcd34d', label: 'meta', lColor: '#0d9488', lBg: '#f0fdfa', lBorder: '#ccfbf1' },
-  { name: '勞動', icon: '⚖️', color: '#0891b2', bg: '#f0f9ff', border: '#7dd3fc', label: 'Gemini', lColor: '#7c3aed', lBg: '#f5f3ff', lBorder: '#ede9fe' },
-  { name: '雜記', icon: '🗒️', color: '#7c3aed', bg: '#f5f3ff', border: '#c4b5fd', label: 'meta', lColor: '#0d9488', lBg: '#f0fdfa', lBorder: '#ccfbf1' },
-];
+type ColorMeta = { color: string; bg: string; border: string; lColor: string; lBg: string; lBorder: string };
+const COLOR_MAP: Record<string, ColorMeta> = {
+  '經濟':    { color: '#6366f1', bg: '#eef2ff',  border: '#c7d2fe', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
+  '投資':    { color: '#059669', bg: '#f0fdf4',  border: '#6ee7b7', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
+  '軍事':    { color: '#dc2626', bg: '#fff1f2',  border: '#fca5a5', lColor: '#7c3aed', lBg: '#f5f3ff', lBorder: '#ede9fe' },
+  '國際情勢': { color: '#2563eb', bg: '#eff6ff',  border: '#93c5fd', lColor: '#166534', lBg: '#f0fdf4', lBorder: '#bbf7d0' },
+  '小書':    { color: '#d97706', bg: '#fffbeb',  border: '#fcd34d', lColor: '#0d9488', lBg: '#f0fdfa', lBorder: '#ccfbf1' },
+  '勞動':    { color: '#0891b2', bg: '#f0f9ff',  border: '#7dd3fc', lColor: '#7c3aed', lBg: '#f5f3ff', lBorder: '#ede9fe' },
+  '商業故事': { color: '#b45309', bg: '#fefce8',  border: '#fde68a', lColor: '#c2410c', lBg: '#fff7ed', lBorder: '#ffedd5' },
+  '雜記':    { color: '#7c3aed', bg: '#f5f3ff',  border: '#c4b5fd', lColor: '#0d9488', lBg: '#f0fdfa', lBorder: '#ccfbf1' },
+};
+const DEFAULT_COLOR: ColorMeta = { color: '#6b7280', bg: '#f9fafb', border: '#e5e7eb', lColor: '#374151', lBg: '#f3f4f6', lBorder: '#d1d5db' };
 
-const categoryData = CATEGORIES.map(cat => {
+const categoryData = CATEGORY_TREE.map(cat => {
+  const style = COLOR_MAP[cat.name] ?? DEFAULT_COLOR;
   const catNotes = notes.filter(n => n.data.category === cat.name);
   const subcats = [...new Set(catNotes.map(n => n.data.subcategory).filter(Boolean))];
   return {
-    ...cat,
+    name: cat.name,
+    icon: cat.icon,
+    label: cat.label,
+    ...style,
     count: catNotes.length,
     latest: catNotes[0],
     subcats: subcats.slice(0, 5),
