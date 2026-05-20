@@ -40,13 +40,21 @@ const notes = defineCollection({
       }
     }
     if (data.topic !== undefined && data.subcategory !== undefined) {
-      const valid = getValidTopics(data.category, data.subcategory);
-      if (valid.length > 0 && !valid.includes(data.topic)) {
+      if (data.topic === data.subcategory) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ['topic'],
-          message: `'${data.topic}' 不是 ${data.category}/${data.subcategory} 的合法 topic。可用：${valid.join('、')}`,
+          message: `topic 不能與 subcategory 同名（'${data.topic}'），這會產生多餘的卡片層。`,
         });
+      } else {
+        const valid = getValidTopics(data.category, data.subcategory);
+        if (valid.length > 0 && !valid.includes(data.topic)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ['topic'],
+            message: `'${data.topic}' 不是 ${data.category}/${data.subcategory} 的合法 topic。可用：${valid.join('、')}`,
+          });
+        }
       }
     }
   }),
