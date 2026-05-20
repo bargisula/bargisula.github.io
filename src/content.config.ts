@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { getValidSubcategories, getValidTopics } from './data/categories';
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
@@ -27,6 +28,27 @@ const notes = defineCollection({
     seriesOrder: z.number().optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
+  }).superRefine((data, ctx) => {
+    if (data.subcategory !== undefined) {
+      const valid = getValidSubcategories(data.category);
+      if (valid.length > 0 && !valid.includes(data.subcategory)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['subcategory'],
+          message: `'${data.subcategory}' 不是 ${data.category} 的合法子分類。可用：${valid.join('、')}`,
+        });
+      }
+    }
+    if (data.topic !== undefined && data.subcategory !== undefined) {
+      const valid = getValidTopics(data.category, data.subcategory);
+      if (valid.length > 0 && !valid.includes(data.topic)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['topic'],
+          message: `'${data.topic}' 不是 ${data.category}/${data.subcategory} 的合法 topic。可用：${valid.join('、')}`,
+        });
+      }
+    }
   }),
 });
 
