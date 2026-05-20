@@ -1,0 +1,29 @@
+{
+  "ticker": "NVDA",
+  "name": "NVIDIA Corporation",
+  "thesis": "AI 訓練與推理硬體的事實壟斷者，CUDA 生態系構築的軟體護城河使競爭者需 3-5 年才能有效替代",
+  "thesis_risk": "超大雲端客戶自製 ASIC（Google TPU / Amazon Trainium）滲透率超過 30%，或 ROCm 生態系達到 CUDA 兼容性，使 NVIDIA 的軟體鎖定效應瓦解",
+  "rating": "追蹤中",
+  "last_updated": "2026-05-19",
+  "key_metrics": {
+    "data_center_revenue_qtrly": "待 Q1 FY2027 財報更新",
+    "gross_margin": "待更新",
+    "revenue_growth_yoy": "待更新",
+    "forward_pe": "待更新",
+    "data_center_revenue_mix": "待更新"
+  },
+  "watch_triggers": [
+    "資料中心季營收 YoY 成長率是否維持 >50%",
+    "毛利率是否守住 73% 以上",
+    "超大雲端客戶（Hyperscaler）Capex 指引有無下修",
+    "AMD MI 系列市占率突破 10% 的時機",
+    "Blackwell 架構良率與出貨節奏"
+  ],
+  "thesis_history": [
+    {
+      "date": "2026-05-19",
+      "thesis": "AI 訓練與推理硬體的事實壟斷者，CUDA 生態系構築的軟體護城河使競爭者需 3-5 年才能有效替代",
+      "changed_because": "初始建立覆蓋"
+    }
+  ]
+}

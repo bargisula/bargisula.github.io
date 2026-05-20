@@ -1,0 +1,22 @@
+{
+  "last_updated": "2026-05-20",
+  "groups": {
+    "ai-chips": {
+      "researcher": "ai-infra-researcher",
+      "tickers": ["NVDA", "AMD", "AVGO", "QCOM", "TSM"],
+      "path": "data/coverage/ai-chips/"
+    },
+    "tech-platform": {
+      "researcher": "tech-platform-researcher",
+      "tickers": ["AAPL", "MSFT", "GOOGL", "META"],
+      "path": "data/coverage/tech-platform/",
+      "status": "待建"
+    },
+    "ev": {
+      "researcher": "ev-researcher",
+      "tickers": ["TSLA"],
+      "path": "data/coverage/ev/",
+      "status": "待建"
+    }
+  }
+}

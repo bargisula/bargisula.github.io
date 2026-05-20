@@ -1,0 +1,28 @@
+{
+  "ticker": "QCOM",
+  "name": "Qualcomm Inc.",
+  "thesis": "端側 AI（On-device AI）的領先晶片供應商，AI 算力從雲端移往邊緣端驅動手機/PC/汽車三條成長曲線",
+  "thesis_risk": "Apple 持續擴大自研晶片份額壓縮手機業務，或端側 AI 殺手應用遲未出現導致升級需求低於預期",
+  "rating": "追蹤中",
+  "last_updated": "2026-05-19",
+  "key_metrics": {
+    "handset_revenue_qtrly": "待更新",
+    "auto_revenue_qtrly": "待更新",
+    "iot_revenue_qtrly": "待更新",
+    "gross_margin": "待更新",
+    "forward_pe": "待更新"
+  },
+  "watch_triggers": [
+    "汽車業務季營收成長率（目標高於手機業務）",
+    "PC/Snapdragon X Elite 市占率與 OEM 採用數量",
+    "Apple 自製晶片對 QCOM 手機業務的蠶食比例",
+    "端側 AI 殺手應用出現時機"
+  ],
+  "thesis_history": [
+    {
+      "date": "2026-05-19",
+      "thesis": "端側 AI 領先晶片供應商，手機/PC/汽車三條成長曲線",
+      "changed_because": "初始建立覆蓋"
+    }
+  ]
+}

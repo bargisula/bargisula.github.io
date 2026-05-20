@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-05-20",
+  "items": [
+    {
+      "name": "PCE 物價指數",
+      "added_date": "2026-05-20",
+      "next_date": "2026-05-30",
+      "last_value": null,
+      "note": "核心 PCE 前值 3.2%，觀察是否繼續走高，若超 3.5% 則 Regime 跳轉至滯脹"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "ticker": "AMD",
+  "name": "Advanced Micro Devices",
+  "thesis": "NVIDIA 的最可信替代選項，超大雲端客戶分散採購需求驅動 MI 系列 GPU 滲透，但受限於 ROCm 生態系成熟度",
+  "thesis_risk": "ROCm 生態系無法達到 CUDA 兼容性，或超大雲端客戶轉向自製 ASIC 而非 AMD，使 AMD 的替代採購邏輯失效",
+  "rating": "追蹤中",
+  "last_updated": "2026-05-19",
+  "key_metrics": {
+    "data_center_revenue_qtrly": "待更新",
+    "gross_margin": "待更新",
+    "revenue_growth_yoy": "待更新",
+    "forward_pe": "待更新",
+    "mi300x_shipment": "待更新"
+  },
+  "watch_triggers": [
+    "資料中心季營收是否持續超越傳統 CPU 業務",
+    "MI300X/MI400 大客戶採用數量與名單",
+    "ROCm 對主流 AI 框架（PyTorch）的兼容進度",
+    "毛利率是否朝 55% 以上改善"
+  ],
+  "thesis_history": [
+    {
+      "date": "2026-05-19",
+      "thesis": "NVIDIA 的最可信替代選項，超大雲端客戶分散採購需求驅動 MI 系列 GPU 滲透",
+      "changed_because": "初始建立覆蓋"
+    }
+  ]
+}
