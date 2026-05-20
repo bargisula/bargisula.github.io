@@ -26,6 +26,7 @@ pnpm-debug.log*
 !.claude/commands/
 !.claude/agents/
 !.claude/scheduled-tasks/
+!.claude/settings.json
 
 # jetbrains setting folder
 .idea/
