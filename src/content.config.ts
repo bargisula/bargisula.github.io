@@ -20,7 +20,7 @@ const notes = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum(['經濟', '投資', '軍事', '小書', '勞動', '雜記', '國際情勢']),
+    category: z.enum(['經濟', '投資', '軍事', '小書', '勞動', '雜記', '國際情勢', '商業故事']),
     subcategory: z.string().optional(),
     topic: z.string().optional(),
     series: z.string().optional(),
