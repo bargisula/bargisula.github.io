@@ -32,7 +32,7 @@ export const CATEGORY_TREE: CatDef[] = [
         subTopicMap: { '產業分析': ['選股模型', '方法論', '半導體', 'CoPoS', 'CPO', 'ASIC', '快篩', '太空資料中心', 'AI基礎設施', '火箭與衛星'] },
       },
       { name: '台股', topics: ['盤前', '盤後', '台股快報', '產業分析'] },
-      { name: '總經', topics: [] },
+      { name: '總經速描', topics: [] },
       { name: '其他投資', topics: ['不動產', '黃金', '比特幣'] },
     ],
   },
