@@ -102,7 +102,7 @@ function vid(...parts: string[]) {
                   </span>
                 )}
               </a>
-              {cat.subs.map((sub) => (
+              {!cat.hideSubs && cat.subs.map((sub) => (
                 <a href={`#${cat.name}/${sub.name}`} class="sub-title">
                   {sub.name}
                   <span class="sub-count">{countSub(cat.name, sub.name) || ''}</span>
