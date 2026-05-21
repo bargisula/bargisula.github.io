@@ -72,7 +72,11 @@ export const CATEGORY_TREE: CatDef[] = [
   },
   {
     name: '商業故事', icon: '🏢', label: 'Claude',
-    subs: [],
+    subs: [
+      { name: 'Gogoro', topics: [] },
+      { name: '裕隆', topics: [] },
+      { name: '個案研究', topics: ['品牌生死'] },
+    ],
   },
   {
     name: '雜記', icon: '🗒️', label: 'meta',
