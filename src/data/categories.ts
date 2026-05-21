@@ -76,7 +76,7 @@ export const CATEGORY_TREE: CatDef[] = [
       { name: 'Gogoro', topics: [] },
       { name: '裕隆', topics: [] },
       { name: '85度C', topics: [] },
-      { name: '個案研究', topics: ['品牌生死'] },
+      { name: '個案研究', topics: ['品牌生死', '燒錢地獄'] },
     ],
   },
   {
