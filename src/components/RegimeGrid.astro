@@ -1,0 +1,275 @@
+---
+/**
+ * RegimeGrid — 景氣象限定位元件
+ *
+ * 用法：
+ *   <RegimeGrid current="Stagflation" trend="right" confidence="medium" />
+ *
+ * Props:
+ *   current    — 當前象限：'Recovery' | 'Overheat' | 'Stagflation' | 'Recession'
+ *   trend      — 移動方向：'right' | 'left' | 'up' | 'down' | 'up-right' | 'down-right' | 'up-left' | 'down-left'
+ *   confidence — 確信度：'high' | 'medium' | 'low'
+ *
+ * 座標系：
+ *   X 軸 = 通膨率（左低→右高）
+ *   Y 軸 = 成長率（下低→上高）
+ *
+ *   ┌──────────┬──────────┐
+ *   │ Recovery │ Overheat │  ← 高成長
+ *   ├──────────┼──────────┤
+ *   │ Recession│Stagflat. │  ← 低成長
+ *   └──────────┴──────────┘
+ *     低通膨        高通膨
+ */
+
+interface Props {
+  current: 'Recovery' | 'Overheat' | 'Stagflation' | 'Recession';
+  trend?: 'right' | 'left' | 'up' | 'down' | 'up-right' | 'down-right' | 'up-left' | 'down-left';
+  confidence?: 'high' | 'medium' | 'low';
+}
+
+const { current, trend = 'right', confidence = 'medium' } = Astro.props;
+
+const ARROWS: Record<string, string> = {
+  right: '→', left: '←', up: '↑', down: '↓',
+  'up-right': '↗', 'down-right': '↘', 'up-left': '↖', 'down-left': '↙',
+};
+
+const CONF = {
+  high:   { label: '高確信', color: '#16a34a', bg: '#f0fdf4', border: '#bbf7d0' },
+  medium: { label: '中確信', color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
+  low:    { label: '觀察期', color: '#64748b', bg: '#f8fafc', border: '#e2e8f0' },
+};
+
+type QuadId = 'Recovery' | 'Overheat' | 'Recession' | 'Stagflation';
+
+const QUAD: Record<QuadId, { zh: string; en: string; color: string; bg: string; dimColor: string }> = {
+  Recovery:    { zh: '擴張 / 復甦', en: 'Recovery',    color: '#16a34a', bg: '#f0fdf4', dimColor: '#bbf7d0' },
+  Overheat:    { zh: '過熱',        en: 'Overheat',    color: '#ea580c', bg: '#fff7ed', dimColor: '#fed7aa' },
+  Recession:   { zh: '衰退',        en: 'Recession',   color: '#64748b', bg: '#f8fafc', dimColor: '#e2e8f0' },
+  Stagflation: { zh: '滯脹',        en: 'Stagflation', color: '#dc2626', bg: '#fef2f2', dimColor: '#fecaca' },
+};
+
+// Quadrant order: [Recovery, Overheat, Recession, Stagflation] maps to 2×2 grid
+// Row 1 (top) = high growth; Row 2 (bottom) = low growth
+// Col 1 (left) = low inflation; Col 2 (right) = high inflation
+const ORDER: QuadId[] = ['Recovery', 'Overheat', 'Recession', 'Stagflation'];
+
+const arrow = ARROWS[trend] ?? '→';
+const conf = CONF[confidence];
+---
+
+<div class="rg-wrap">
+
+  <!-- Top: inflation axis label -->
+  <div class="rg-x-axis" aria-hidden="true">
+    <span class="rg-axis-side">低通膨</span>
+    <span class="rg-axis-center">←─── 通膨率 ───→</span>
+    <span class="rg-axis-side">高通膨</span>
+  </div>
+
+  <div class="rg-body">
+
+    <!-- Left: growth axis label -->
+    <div class="rg-y-axis" aria-hidden="true">
+      <span class="rg-axis-side">高成長</span>
+      <span class="rg-axis-name">成長率</span>
+      <span class="rg-axis-side">低成長</span>
+    </div>
+
+    <!-- 2×2 matrix -->
+    <div class="rg-matrix" role="img" aria-label={`景氣座標：當前位置 ${QUAD[current as QuadId].zh}`}>
+      {ORDER.map((id) => {
+        const q = QUAD[id];
+        const isActive = id === current;
+        return (
+          <div
+            class={`rg-cell${isActive ? ' rg-active' : ''}`}
+            style={isActive
+              ? `background:${q.bg};border-color:${q.color};`
+              : `background:#fafafa;border-color:#e8edf2;`}
+          >
+            <span class="rg-cell-zh" style={isActive ? `color:${q.color};` : `color:#b0bec5;`}>
+              {q.zh}
+            </span>
+            <span class="rg-cell-en" style={isActive ? `color:${q.color};` : `color:#cfd8dc;`}>
+              {q.en}
+            </span>
+            {isActive && (
+              <span class="rg-arrow" style={`color:${q.color};`} aria-label={`移動方向：${trend}`}>
+                {arrow}
+              </span>
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+
+  <!-- Bottom: confidence indicator -->
+  <div class="rg-confidence" style={`background:${conf.bg};border-color:${conf.border};`}>
+    <span class="rg-conf-dot" style={`background:${conf.color};`}></span>
+    <span>確信度：<strong style={`color:${conf.color};`}>{conf.label}</strong></span>
+    <span class="rg-conf-pos">
+      當前 → <strong style={`color:${QUAD[current as QuadId].color};`}>{QUAD[current as QuadId].zh}</strong>
+      <span class="rg-conf-arrow" style={`color:${QUAD[current as QuadId].color};`}>{arrow}</span>
+    </span>
+  </div>
+
+</div>
+
+<style>
+  .rg-wrap {
+    margin: 1.8em 0;
+    font-family: inherit;
+  }
+
+  /* ── Inflation axis (top) ── */
+  .rg-x-axis {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72em;
+    color: #94a3b8;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.4em;
+    padding-left: 2.8em; /* align with matrix (skip y-axis width) */
+  }
+  .rg-axis-side { white-space: nowrap; }
+  .rg-axis-center {
+    flex: 1;
+    text-align: center;
+    font-size: 0.95em;
+  }
+
+  /* ── Body: y-axis + matrix ── */
+  .rg-body {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5em;
+  }
+
+  /* ── Growth axis (left) ── */
+  .rg-y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 2.2em;
+    font-size: 0.68em;
+    color: #94a3b8;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+  .rg-axis-name {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 1em;
+    opacity: 0.7;
+  }
+
+  /* ── 2×2 matrix ── */
+  .rg-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6px;
+    flex: 1;
+    min-height: 130px;
+  }
+
+  /* ── Individual quadrant cell ── */
+  .rg-cell {
+    border: 1.5px solid;
+    border-radius: 8px;
+    padding: 0.75em 0.9em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.15em;
+    position: relative;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .rg-active {
+    border-width: 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .rg-cell-zh {
+    font-size: 0.92em;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .rg-cell-en {
+    font-size: 0.72em;
+    letter-spacing: 0.02em;
+  }
+
+  /* Trend arrow — bottom-right of active cell */
+  .rg-arrow {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.65em;
+    font-size: 1.35em;
+    font-weight: 900;
+    animation: rg-pulse 2s ease-in-out infinite;
+    line-height: 1;
+  }
+
+  @keyframes rg-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.88); }
+  }
+
+  /* ── Confidence indicator (bottom) ── */
+  .rg-confidence {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    margin-top: 0.55em;
+    padding: 0.5em 0.85em;
+    border: 1px solid;
+    border-radius: 6px;
+    font-size: 0.8em;
+    color: #475569;
+    flex-wrap: wrap;
+  }
+
+  .rg-conf-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .rg-conf-pos {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+
+  .rg-conf-arrow {
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+
+  /* ── Responsive: narrow screens ── */
+  @media (max-width: 480px) {
+    .rg-x-axis { padding-left: 0; font-size: 0.65em; }
+    .rg-axis-center { display: none; }
+    .rg-y-axis { width: 1.8em; font-size: 0.62em; }
+    .rg-axis-name { display: none; }
+    .rg-matrix { min-height: 110px; gap: 4px; }
+    .rg-cell { padding: 0.6em 0.7em; }
+    .rg-cell-zh { font-size: 0.82em; }
+    .rg-cell-en { display: none; }
+    .rg-arrow { font-size: 1.1em; }
+    .rg-conf-pos { display: none; }
+  }
+</style>
