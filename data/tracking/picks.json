@@ -1,0 +1,37 @@
+{
+  "last_updated": "2026-05-22",
+  "picks": [
+    {
+      "id": "pick-2026-05-21-GLW",
+      "ticker": "GLW",
+      "company": "Corning Incorporated",
+      "recommended_date": "2026-05-21",
+      "price_at_rec": 188,
+      "thesis": "光纖物理邊界已至 + 玻璃基板封裝為下一個未定價選項，結構看多但等進場條件",
+      "entry_condition": "回測 180 美元 + 美債 10Y ≤ 4.3%",
+      "report_path": "src/content/notes/Xompass/投資報告/pick-2026-05-21-GLW.md",
+      "reviews": {
+        "week1": { "due": "2026-05-28", "price": null, "direction": null, "thesis_status": null, "notes": null },
+        "week2": { "due": "2026-06-04", "price": null, "direction": null, "thesis_status": null, "notes": null },
+        "week3": { "due": "2026-06-11", "price": null, "direction": null, "thesis_status": null, "notes": null }
+      },
+      "final_verdict": null,
+      "failure_mode": null,
+      "status": "pending"
+    }
+  ],
+  "stats": {
+    "total": 1,
+    "correct": 0,
+    "incorrect": 0,
+    "mixed": 0,
+    "pending": 1,
+    "accuracy_rate": null,
+    "last_updated": "2026-05-22"
+  },
+  "schema_notes": {
+    "direction": "correct | incorrect | neutral（外部衝擊，非論點失誤）",
+    "thesis_status": "confirmed | invalidated | mixed | pending",
+    "failure_mode": "timing（方向對但太早）| logic（推論本身有誤）| external（黑天鵝）| entry_price（進場價設錯）"
+  }
+}
