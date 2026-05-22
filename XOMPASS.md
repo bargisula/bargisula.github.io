@@ -9,41 +9,56 @@
 ## 組織架構
 
 ```
-        董事會
-          │
-        董事長
-          │
-         CEO
-    ┌─────┼──────┬──────┐
-   CIO   CMO   DNI   CTO
-    │
-  研究部
-  ├ ai-infra-researcher
-  ├ industry-analyst
-  ├ earnings-analyst
-  └ （CMO 直屬高管，不在研究部）
+              董事會
+                │
+              董事長
+                │
+               CEO
+        ┌───────┼────────┬────────┐
+       CIO     CMO     DNI      CTO
+        │                │
+      研究部            情報組
+      ├ AI基礎設施研究員  ├ 市場數據員
+      ├ 產業分析師        └ 新聞精選員
+      └ 財報分析師
 
-直屬幕僚：Secretary、PMC
-情報組（DNI 轄下）：market-data、news-scout
+CEO 直屬幕僚：秘書（Secretary）
 ```
 
 ---
 
-## Agent 職掌
+## 角色職掌
 
-| Agent | 職責 | 輸出 |
+### 高管層（C-suite）
+
+| 角色 | 全名 | 核心職責 |
 |---|---|---|
-| **CEO** | 主持會議、系統診斷、協調各 Agent | 會議紀錄、系統報告 |
-| **CMO** | Regime 判讀、維護 Regime Config（每週五） | `data/regime/current.json`、CMO 報告 |
-| **CIO** | 整合各 Agent 輸出、組成完整報告、推 GitHub | 最終報告 |
-| **DNI** | 即時新聞採集、清洗、存入 SQLite | `data/intel/` JSON |
-| **CTO** | 技術前沿追蹤（6-18 個月轉折點） | 科技前沿簡報 |
-| **ai-infra-researcher** | 覆蓋 NVDA/AMD/AVGO/QCOM + 供應鏈圖譜建立（Graph Agent） | company bible、供應鏈 md |
-| **industry-analyst** | 產業分析報告 | MDX 報告 |
-| **earnings-analyst** | 財報深度解析 | 財報筆記 |
-| **Secretary** | 行事曆、Watchlist 追蹤、會議紀錄 | `data/tracking/watchlist.json` |
-| **market-data** | 市場數字採集（US/TW） | 結構化數字表格 |
-| **news-scout** | 從 DNI 資料庫精選新聞 | 2-3 則新聞 + 洞察 |
+| **CEO** | 執行長 | 主持晨會與臨時會議、系統診斷、協調各部門；知識層與智慧層由 CEO 親自主導，不外包 |
+| **CIO** | 投資長 | 整合研究部各 Agent 輸出，組成完整報告並推 GitHub；璞玉報告、個股推薦的最終發布者 |
+| **CMO** | 首席宏觀官 | Regime 判讀與景氣座標定位，每週五更新 Regime Config；整合 Dalio 三層框架、市場 Regime、危機雷達 |
+| **DNI** | 情報長 | 即時抓取財經/科技/地緣政治/軍事四類新聞，清洗後存入 SQLite；其他 Agent 讀 `data/intel/` 取用 |
+| **CTO** | 技術長 | 追蹤科技前沿 6–18 個月轉折點，識別「論文→產品→定價」之間的時間差；不做個股分析 |
+
+### CEO 直屬幕僚
+
+| 角色 | 全名 | 核心職責 |
+|---|---|---|
+| **Secretary** | 秘書 | 三項職責：(1) 開會前報告行事曆（財報日、FOMC、重要數據）；(2) 維護 Watchlist，每次開會追蹤到期事項；(3) 開會後整理會議紀錄存 `data/meetings/` 並推部落格 |
+
+### 研究部（CIO 轄下）
+
+| 角色 | 全名 | 核心職責 |
+|---|---|---|
+| **ai-infra-researcher** | AI 基礎設施研究員 | 深度覆蓋 NVDA / AMD / AVGO / QCOM，維護 company bible JSON；建立供應鏈圖譜，產出開始覆蓋、財報筆記、論點更新三種研究報告 |
+| **industry-analyst** | 產業分析師 | 輸入產業名稱或主題，自動判斷框架，獨立搜尋數據，產出完整 MDX 產業分析報告；回答「為什麼現在、為什麼是它、什麼會讓邏輯失效」 |
+| **earnings-analyst** | 財報分析師 | 抓取 SEC EDGAR 原始申報，逐項解析財報數字，對照投資論點，給出論點是否仍成立的裁定 |
+
+### 情報組（DNI 轄下）
+
+| 角色 | 全名 | 核心職責 |
+|---|---|---|
+| **market-data** | 市場數據員 | 輸入市場（US/TW）與盤別（盤前/盤後），回傳結構化數字表格；只提供數字，不分析、不評論 |
+| **news-scout** | 新聞精選員 | 從 DNI 資料庫讀取當日新聞，精選 2–3 則並附投資相關性洞察；優先讀快取，無快取才 WebSearch 補充 |
 
 ---
 
