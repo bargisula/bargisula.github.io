@@ -86,7 +86,7 @@ export const CATEGORY_TREE: CatDef[] = [
     subs: [
       { name: '公司介紹', topics: [] },
       { name: '會議記錄', topics: [] },
-      { name: '投資報告', topics: ['璞玉報告', '總經報告', '個股推薦', '績效檢討'] },
+      { name: '投資報告', topics: ['璞玉報告', '總經報告', '個股研究', '績效檢討'] },
     ],
   },
   {
