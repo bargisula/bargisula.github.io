@@ -14,6 +14,35 @@ description: >
 
 ---
 
+## Step 0：查 Position 檔（強制，任何分析前）
+
+**執行：**
+```bash
+cat data/positions/sectors/[主題關鍵字].md
+```
+或掃描目錄找最相關的：
+```bash
+ls data/positions/sectors/
+```
+
+**若 position 檔存在：**
+- 顯示當前論點版本與條件清單
+- 本次分析的核心任務是：**逐條檢驗 conditions 是否仍成立**，不重新生成論點
+- 輸出格式：先做「條件檢核表」，再補充新增資訊，最後裁定論點狀態
+- 分析結束後更新 position 檔（新增一筆 checklist 紀錄）
+
+**若 position 檔不存在：**
+- 正常執行分析
+- 分析結束後，詢問董事長：「是否建立 [主題] 的論點追蹤檔？」
+- 確認後建立 `data/positions/sectors/[主題].md`，依照 `data/positions/_TEMPLATE.md` 格式填入初始 conditions 與 kill_switches
+
+**position 檔命名規則：**
+- 台灣無人機 → `data/positions/sectors/tw-drone.md`
+- 美國國防科技 → `data/positions/sectors/us-defense-tech.md`
+- 歐洲重整軍備 → `data/positions/sectors/europe-rearmament.md`
+
+---
+
 ## Step 1：解析輸入
 
 **判斷分析對象：**

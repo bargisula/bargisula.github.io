@@ -1,12 +1,40 @@
 {
-  "last_updated": "2026-05-20",
+  "last_updated": "2026-05-21",
   "items": [
     {
       "name": "PCE 物價指數",
       "added_date": "2026-05-20",
-      "next_date": "2026-05-30",
+      "next_date": "2026-05-28",
       "last_value": null,
       "note": "核心 PCE 前值 3.2%，觀察是否繼續走高，若超 3.5% 則 Regime 跳轉至滯脹"
+    },
+    {
+      "name": "GLW 股價回測 $180",
+      "added_date": "2026-05-21",
+      "trigger_price": 180,
+      "last_value": 188,
+      "note": "技術支撐位，2026-05-21 從 180 反彈至 188 確認有效。董事長論點：回測 $180 為建倉區間。需同步確認 C2 玻璃基板訂單進展。"
+    },
+    {
+      "name": "美債 10 年期殖利率 4.3%",
+      "added_date": "2026-05-21",
+      "trigger_level": "≤ 4.3%",
+      "last_value": null,
+      "note": "首席經濟學家裁定：殖利率回落 4.3% 以下是 GLW 等資本密集工業科技股估值壓力解除的信號，可考慮加碼。"
+    },
+    {
+      "name": "GLW Q2 2026 財報",
+      "added_date": "2026-05-21",
+      "next_date": "2026-07-29",
+      "last_value": null,
+      "note": "預計 7 月底。重點觀察：光通訊 backlog 能見度、玻璃基板封裝收入是否首次出現（C2 觸發條件）、顯示玻璃是否持續拖累。"
+    },
+    {
+      "name": "Intel 玻璃基板封裝量產公告",
+      "added_date": "2026-05-21",
+      "next_date": null,
+      "last_value": null,
+      "note": "Intel 宣布 2026 年後先進封裝導入玻璃基板，Corning 為關鍵供應商。任何正式量產時間表或訂單公告即觸發 C2，為 GLW 論點最大催化劑。"
     }
   ]
 }

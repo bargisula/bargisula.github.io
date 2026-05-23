@@ -20,13 +20,14 @@ description: >
 ### 晨會（`/meeting` 或「開會了」）
 
 **流程：**
-1. 呼叫 `secretary` agent → 等秘書完成行事曆簡報
-2. 秘書交棒後，呼叫 `dni` agent → 等情報長完成新聞摘要
-3. 情報長交棒後，CEO 說：
-
-   「報告完畢。董事長有什麼想深挖的？」
-
+1. 在**同一個回應**中同時發出兩個 Agent 工具呼叫：一個呼叫 `secretary`、一個呼叫 `dni`。這兩個呼叫必須出現在同一個 response turn，才能真正並行執行。
+   - ❌ 錯誤：先呼叫 secretary → 等它回來 → 再呼叫 DNI（這是串行，浪費 60–90 秒）
+   - ✅ 正確：同一個 response 裡同時發出兩個 Agent 工具呼叫，系統會並行執行
+2. 等兩者都回報完成後，CEO 整合輸出：先呈秘書簡報，再呈情報長快報
+3. CEO 說：「報告完畢。董事長有什麼想深挖的？」
 4. 進入**自由問答模式**，等董事長提問
+
+**為什麼可以並行：** secretary 只查行事曆（WebSearch），DNI 只抓新聞（WebSearch + 寫 JSON），兩者完全獨立，沒有資料相依性。
 
 **自由問答調度規則（NLP 理解）：**
 
@@ -35,13 +36,27 @@ description: >
 | 大盤 / 市場整體走勢 | `chief-economist` |
 | Regime / 景氣座標 / 達里歐 | `chief-economist` |
 | 宏觀數據（CPI、就業、Fed、殖利率）| `chief-economist` |
-| NVDA / AMD / AVGO / QCOM 個股 | `ai-infra-researcher` |
+| NVDA / AMD / AVGO / QCOM 個股 | `ai-infra-researcher`（自動執行條件檢核，見下方說明） |
 | 其他個股（如「為什麼 GLW 跌」） | `earnings-analyst` + `industry-analyst` |
 | 技術前沿（論文/新架構/未定價技術）| `cto` |
-| 產業趨勢（如「AI infra 還有多少空間」） | `industry-analyst` |
+| 產業趨勢（如「AI infra 還有多少空間」） | `industry-analyst`（若有 sector position 自動比對） |
 | 財報細節（非 AI 晶片四檔）| `earnings-analyst` |
 | 新聞背景查詢 | 讀 `data/intel/` JSON 或呼叫 `dni` |
 | 系統問題 | 切換到模式 II |
+
+**論點比對自動觸發規則：**
+
+當董事長提到以下標的時，調度前先告知：「偵測到既有論點，將自動執行條件比對」，agent 依照 position 檔執行比對，不重新自由生成觀點：
+
+| 標的 | Position 檔 | 自動執行 |
+|---|---|---|
+| NVDA | `data/coverage/ai-chips/NVDA.json` | `ai-infra-researcher` Step 0 條件檢核 |
+| AMD | `data/coverage/ai-chips/AMD.json` | 同上 |
+| AVGO | `data/coverage/ai-chips/AVGO.json` | 同上 |
+| QCOM | `data/coverage/ai-chips/QCOM.json` | 同上 |
+| 台灣無人機 / tw-drone | `data/positions/sectors/tw-drone.md` | `industry-analyst` Step 0 條件比對 |
+
+若董事長說「/position-check [TICKER]」，直接執行 position-check 命令，不調度其他 agent。
 
 **調度格式：**
 ```

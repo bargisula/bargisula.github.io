@@ -4,13 +4,73 @@
   "thesis": "AI 訓練與推理硬體的事實壟斷者，CUDA 生態系構築的軟體護城河使競爭者需 3-5 年才能有效替代",
   "thesis_risk": "超大雲端客戶自製 ASIC（Google TPU / Amazon Trainium）滲透率超過 30%，或 ROCm 生態系達到 CUDA 兼容性，使 NVIDIA 的軟體鎖定效應瓦解",
   "rating": "追蹤中",
-  "last_updated": "2026-05-19",
+  "last_updated": "2026-05-21",
+  "conditions": [
+    {
+      "id": "C1",
+      "description": "資料中心（Data Center）營收 QoQ 成長率連續兩季 ≥ 10%",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "Q1 FY2027 資料中心營收 752 億美元，QoQ +20%（前季約 626 億），遠超 10% 門檻。連續多季達標。"
+    },
+    {
+      "id": "C2",
+      "description": "Blackwell 系列毛利率恢復至 ≥ 73%（Hopper 水準）",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "Q1 FY2027 GAAP 毛利率 74.9%、Non-GAAP 75.0%，已回升至 73% 以上，Blackwell 爬坡毛利率壓力已消化。"
+    },
+    {
+      "id": "C3",
+      "description": "中國市場仍有合規出口路徑，或中國收入佔比已降至 10% 以下且全球其他市場補位",
+      "status": "❌ 失效",
+      "last_checked": "2026-05-21",
+      "note": "黃仁勳坦言已「基本放棄」中國 AI 晶片市場給華為。Q2 Guidance 明確不含中國資料中心算力收入。H20 出口禁令後中國收入歸零（前峰值約 171 億美元/年），但全球其他市場以 Q2 指引 910 億美元大幅補位，條件前半（合規路徑）已失效，後半（其他市場補位）已成立。整體裁定：C3 前半條件失效，但補位條件成立，論點影響為部分吸收。"
+    },
+    {
+      "id": "C4",
+      "description": "CUDA 仍是 AI 訓練主流框架後端，無替代生態被頂尖實驗室大規模採用",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "無新證據顯示替代生態大規模採用。華為 Ascend 950 PR 在推理效率上超越 H20，但屬於中國封閉生態，不衝擊全球 CUDA 護城河。"
+    },
+    {
+      "id": "C5",
+      "description": "超大雲端 Hyperscaler Capex 指引無重大下修（QoQ 降幅 ≤ 10%）",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "Q2 FY2027 指引 910 億美元，高於市場預期 868 億，Hyperscaler Capex 需求持續強勁。"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "K1",
+      "description": "AMD MI 系列在 Microsoft、Google、Amazon 的 AI 訓練晶片佔比超過 25%",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K2",
+      "description": "美國政府新一輪出口管制覆蓋現有 H20 替代品且無新合規方案",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K3",
+      "description": "連續兩季 Guidance 低於市場預期 10% 以上，顯示需求週期反轉",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    }
+  ],
   "key_metrics": {
-    "data_center_revenue_qtrly": "待 Q1 FY2027 財報更新",
-    "gross_margin": "待更新",
-    "revenue_growth_yoy": "待更新",
+    "data_center_revenue_qtrly": "752 億美元（Q1 FY2027，YoY +92%，QoQ +20%）",
+    "gross_margin": "74.9% GAAP / 75.0% Non-GAAP（Q1 FY2027）",
+    "revenue_growth_yoy": "+85%（Q1 FY2027，816 億美元）",
     "forward_pe": "待更新",
-    "data_center_revenue_mix": "待更新"
+    "data_center_revenue_mix": "92%（752/816）",
+    "q2_fy2027_guidance": "910 億美元（市場預期 868 億，高出 5%）",
+    "eps_non_gaap": "1.87 美元（預期 1.76-1.78 美元）",
+    "china_revenue": "0（Q2 Guidance 明確不含中國資料中心收入）"
   },
   "watch_triggers": [
     "資料中心季營收 YoY 成長率是否維持 >50%",
@@ -24,6 +84,16 @@
       "date": "2026-05-19",
       "thesis": "AI 訓練與推理硬體的事實壟斷者，CUDA 生態系構築的軟體護城河使競爭者需 3-5 年才能有效替代",
       "changed_because": "初始建立覆蓋"
+    },
+    {
+      "date": "2026-05-20",
+      "thesis": "AI 訓練與推理硬體的事實壟斷者，CUDA 生態系護城河使競爭者需 3-5 年才能有效替代；Blackwell 超級週期是當前定價核心",
+      "changed_because": "晨會引入條件追蹤系統（C1–C5, K1–K3）。注意：C3 中國出口路徑因 RTX 5090D V2 禁運事件降為⚠️弱化，C1、C2 待今晚 Q1 FY2027 財報確認"
+    },
+    {
+      "date": "2026-05-21",
+      "thesis": "AI 訓練與推理硬體的事實壟斷者，CUDA 生態系護城河使競爭者需 3-5 年才能有效替代；中國市場已正式放棄，但全球 Hyperscaler 需求以 Q2 910 億美元指引強勁補位，Blackwell 毛利率已恢復至 75%",
+      "changed_because": "Q1 FY2027 財報確認 C1、C2 成立；C3 中國出口路徑正式失效（黃仁勳坦承放棄中國市場），但全球補位條件成立，論點核心未動搖；股跌原因為估值已隱含超高預期（Q2 指引 910 億高於預期但部分分析師預估高達 960 億），疊加中東戰爭推升債券殖利率的大環境風險情緒壓制"
     }
   ]
 }

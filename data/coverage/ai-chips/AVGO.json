@@ -4,7 +4,57 @@
   "thesis": "超大雲端客戶（Google、Meta）的 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭，走差異化客製路線；VMware 整合提供企業軟體現金流護底",
   "thesis_risk": "超大雲端客戶提升自製 ASIC 能力並減少對 Broadcom 的依賴，或 VMware 整合拖累現金流超預期",
   "rating": "追蹤中",
-  "last_updated": "2026-05-19",
+  "last_updated": "2026-05-21",
+  "conditions": [
+    {
+      "id": "C1",
+      "description": "AI 相關營收（ASIC + 網路）QoQ 持續成長，且全年 AI 營收指引維持或上調",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "管理層在上季法說會給出 60 億美元以上 AI 營收年度指引"
+    },
+    {
+      "id": "C2",
+      "description": "Google（TPU）與 Meta（MTIA）的 ASIC 合作關係維持，無公開終止或轉移消息",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": ""
+    },
+    {
+      "id": "C3",
+      "description": "VMware 訂閱轉換進度正常，ARR 維持正成長且不拖累整體自由現金流利潤率（FCF margin ≥ 45%）",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "VMware 整合已大致完成，訂閱轉換順利"
+    },
+    {
+      "id": "C4",
+      "description": "新客戶（第三家超大雲端）ASIC 設計合作公開確認，顯示市場份額擴張",
+      "status": "⚠️ 待觀察",
+      "last_checked": "2026-05-21",
+      "note": "Apple 智慧晶片傳聞中，尚未正式確認"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "K1",
+      "description": "Google 或 Meta 宣布將 ASIC 設計移轉至內部團隊或其他供應商，終止與 Broadcom 的合作",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K2",
+      "description": "VMware 整合出現重大問題（客戶大量流失或訴訟），導致 ARR 轉負或 FCF margin 跌破 40%",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K3",
+      "description": "AI ASIC 市場出現低成本競爭者（如 Marvell 或新創），使 Broadcom 失去定價能力",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    }
+  ],
   "key_metrics": {
     "ai_revenue_qtrly": "待更新",
     "gross_margin": "待更新",

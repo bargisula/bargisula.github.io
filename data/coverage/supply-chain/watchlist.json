@@ -1,0 +1,94 @@
+{
+  "companies": [
+    {
+      "ticker": "GLW",
+      "name": "Corning Incorporated",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "光纖需求受益於 AI 數據中心建設，GPU cluster 互連用量上升",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "VRT",
+      "name": "Vertiv Holdings Co",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "AI 數據中心電源與液冷系統直接受益者，與 NVIDIA 合作開發 GB200 7MW 參考架構",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "ANET",
+      "name": "Arista Networks, Inc.",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "AI 後端網路主要供應商，Meta/Microsoft 等超大型雲端業者 AI 叢集乙太網路設備首選",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "KLAC",
+      "name": "KLA Corporation",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "AI 晶片製造良率管理關鍵設備商，TSMC/Samsung 先進製程節點與先進封裝檢測主導者",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "LRCX",
+      "name": "Lam Research Corporation",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "HBM 製程設備主導者，AI GPU 所需高頻寬記憶體（HBM3/HBM4）擴產直接受益",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "COHR",
+      "name": "Coherent Corp.",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "AI 數據中心 800G/1.6T 光模組核心供應商，垂直整合 InP 晶圓廠為競爭護城河",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "EQIX",
+      "name": "Equinix, Inc.",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "全球最大中立數據中心 REIT，xScale 計畫為超大型雲端業者 AI 基礎設施提供 2GW 容量",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "APD",
+      "name": "Air Products and Chemicals, Inc.",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "半導體製程用電子級氣體供應商，TSMC/Samsung 新建晶圓廠的長期供氣合約夥伴",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton Corporation plc",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "AI 數據中心電力基礎設施全鏈路供應商，資料中心訂單 YoY +200%，受益電力超級週期",
+      "last_kb_update": "2026-05-22"
+    },
+    {
+      "ticker": "CIEN",
+      "name": "Ciena Corporation",
+      "status": "active",
+      "added_by": "ai-infra-researcher",
+      "added_date": "2026-05-22",
+      "add_reason": "AI 流量驅動數據中心互連（DCI）光傳輸需求，雲端業者 DCI 業務佔 Q4 FY2025 營收 42%",
+      "last_kb_update": "2026-05-22"
+    }
+  ]
+}

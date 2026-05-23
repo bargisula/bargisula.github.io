@@ -1,9 +1,9 @@
----
+﻿---
 title: Rocket Lab：11維度拆解「小火箭之王的夾縫生存術」
 description: SpaceX是巨人，Rocket Lab就是在巨人腳下撿漏的專家。打不贏就繞道，這間公司把「細分市場」做到極致。
 category: 投資
 subcategory: 美股
-topic: 火箭與衛星
+topic: 太空與國防
 pubDate: 2026-05-17
 ---
 

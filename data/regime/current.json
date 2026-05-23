@@ -1,0 +1,19 @@
+{
+  "regime": "AI_capex_cycle",
+  "regime_desc": "超大型雲端業者 AI 資本支出持續擴張，驅動半導體、光纖、電力基礎設施需求",
+  "updated": "2026-05-22",
+  "updated_by": "CMO",
+  "focus_sectors": [
+    {"sector": "AI_infrastructure",  "reason": "hyperscaler capex 上升，NVDA/AVGO/QCOM 直接受益", "added": "2026-05-22"},
+    {"sector": "optical_fiber",      "reason": "GPU cluster 機架間互連需求帶動光纜採購",          "added": "2026-05-22"},
+    {"sector": "power_grid",         "reason": "數據中心電力需求推升電網設備與備援電源採購",      "added": "2026-05-22"}
+  ],
+  "suppress_sectors": [
+    {"sector": "long_duration_growth", "reason": "10Y yield 4.59%，估值壓力仍在", "added": "2026-05-22"}
+  ],
+  "trigger_keywords": [
+    "AI capex", "data center", "hyperscaler", "fiber demand",
+    "GPU interconnect", "power infrastructure", "cloud spending"
+  ],
+  "next_review": "2026-05-29"
+}

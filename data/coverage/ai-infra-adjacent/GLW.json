@@ -1,0 +1,93 @@
+{
+  "ticker": "GLW",
+  "name": "Corning Incorporated",
+  "thesis": "AI 資料中心光纖建設（光通訊）＋半導體先進封裝玻璃基板（玻璃基板封裝）雙引擎受益者。短期屬本夢比（敘事驅動），等基本面確認後估值重評。",
+  "thesis_risk": "CPO（Co-Packaged Optics）量產壓縮短距光纖需求，或 Intel 玻璃基板封裝時程延誤，使兩個成長引擎同步落空",
+  "rating": "觀察中｜等進場點",
+  "entry_target": 180,
+  "ceiling_estimate": "200-210（現階段分析師共識天花板）",
+  "entry_note": "2026-05-21 技術面確認 180 支撐有效，當日反彈至 188。首席經濟學家裁定：正確方向但等更好進場點（美債 10Y 回落 4.3% 以下，或財報出現 backlog 超預期）",
+  "last_updated": "2026-05-21",
+  "coverage_group": "ai-infra-adjacent",
+  "researcher": "ai-infra-researcher（臨時擴大授權）",
+  "conditions": [
+    {
+      "id": "C1",
+      "description": "光通訊（Optical Communications）部門營收 QoQ 成長率維持 ≥ 10%",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "Q1 2026 光通訊部門 18 億美元，YoY +36%，企業資料中心次類別 +61%。Meta 多年協議（最高 60 億美元）、NVIDIA 產能綁定協議已確立訂單積壓。"
+    },
+    {
+      "id": "C2",
+      "description": "半導體玻璃基板封裝：出現正式客戶量產訂單或財報中揭露收入貢獻",
+      "status": "⏳ 待確認",
+      "last_checked": "2026-05-21",
+      "note": "Intel 已宣布 2026 年後先進封裝導入玻璃基板，Corning 為關鍵供應商。目前為合作開發階段，尚無量產收入，是論點的最大未定價選項。"
+    },
+    {
+      "id": "C3",
+      "description": "整體 GAAP 毛利率回升並維持 ≥ 40%",
+      "status": "⏳ 待確認",
+      "last_checked": "2026-05-21",
+      "note": "顯示玻璃業務拖累整體毛利結構。需確認光通訊高毛利業務佔比提升能否抵銷。"
+    },
+    {
+      "id": "C4",
+      "description": "主要 Hyperscaler（Meta、Google、Microsoft）Capex 指引無重大下修（QoQ 降幅 ≤ 10%）",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "間接指標。當前 Hyperscaler Capex 強勁，NVIDIA Q2 指引 910 億元佐證需求未縮減。"
+    },
+    {
+      "id": "C5",
+      "description": "顯示玻璃（Display Technologies）業務不構成整體營收成長的系統性拖累（年增率不低於 -10%）",
+      "status": "⚠️ 觀察中",
+      "last_checked": "2026-05-21",
+      "note": "BOE 垂直整合、中國競爭者擴產，GLW 2024 提價後出貨量 -5%。顯示玻璃為歷史高毛利板塊，若持續萎縮將壓毛利結構。"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "K1",
+      "description": "CPO（Co-Packaged Optics）在主流 Hyperscaler 資料中心量產驗證，使機架內短距光纖需求大幅萎縮",
+      "triggered": false,
+      "last_checked": "2026-05-21",
+      "note": "CTO 預估時間窗口 18-24 個月後。Broadcom Tomahawk 6 進度為觀察指標。"
+    },
+    {
+      "id": "K2",
+      "description": "Intel 正式延誤或取消 2026+ 玻璃基板封裝量產路線",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K3",
+      "description": "光通訊部門連續兩季營收年增率轉負，顯示 AI 資料中心建設週期反轉",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    }
+  ],
+  "key_metrics": {
+    "q1_2026_revenue": "43.5 億美元（整體核心，YoY +18%）",
+    "q1_2026_eps": "0.70 美元（Non-GAAP，YoY +30%）",
+    "optical_comms_q1_2026": "18 億美元（YoY +36%，企業資料中心 +61%）",
+    "analyst_consensus_target": "約 202-203 美元（11 位 Buy）",
+    "bofa_incremental_opportunity": "逾 103 億美元（scale-out 光纖需求）",
+    "springboard_plan": "2026 年底較基期+65億美元年化營收；2028 年底累計+110億美元"
+  },
+  "watch_triggers": [
+    "C2 觸發：財報中出現玻璃基板封裝收入或 Intel 量產訂單公告",
+    "股價回測 180 美元支撐位（建議加碼區間）",
+    "美債 10 年期殖利率回落至 4.3% 以下（估值壓力解除）",
+    "光通訊部門 backlog 能見度是否超過 12 個月",
+    "CPO 量產驗證新聞（K1 觀察）"
+  ],
+  "thesis_history": [
+    {
+      "date": "2026-05-21",
+      "thesis": "AI 資料中心光通訊＋半導體玻璃基板封裝雙引擎受益者。本夢比階段，$180 為技術支撐，$200-210 為現階段天花板，基本面確認後重評。",
+      "changed_because": "董事長晨會提出論點，CEO 圓桌三位高管（CTO、首席經濟學家、產業分析師）交叉驗證後建立覆蓋。"
+    }
+  ]
+}

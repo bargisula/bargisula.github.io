@@ -4,7 +4,57 @@
   "thesis": "NVIDIA 的最可信替代選項，超大雲端客戶分散採購需求驅動 MI 系列 GPU 滲透，但受限於 ROCm 生態系成熟度",
   "thesis_risk": "ROCm 生態系無法達到 CUDA 兼容性，或超大雲端客戶轉向自製 ASIC 而非 AMD，使 AMD 的替代採購邏輯失效",
   "rating": "追蹤中",
-  "last_updated": "2026-05-19",
+  "last_updated": "2026-05-21",
+  "conditions": [
+    {
+      "id": "C1",
+      "description": "資料中心營收 QoQ 持續成長，且連續兩季超越傳統 CPU 業務（成為最大營收貢獻）",
+      "status": "⚠️ 進行中",
+      "last_checked": "2026-05-21",
+      "note": "資料中心已是主要驅動力，但尚未穩定超越 CPU 業務，需追蹤 Q1 FY2027 數字"
+    },
+    {
+      "id": "C2",
+      "description": "MI 系列 GPU 有至少兩家超大雲端（Microsoft、Google、Amazon、Meta）公開確認大規模部署",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "Microsoft Azure 與 Meta 已公開部署 MI300X"
+    },
+    {
+      "id": "C3",
+      "description": "ROCm 對 PyTorch 主流工作負載的兼容性達到可用水準（無需大量程式碼改寫）",
+      "status": "⚠️ 弱化",
+      "last_checked": "2026-05-21",
+      "note": "ROCm 持續改善但仍落後 CUDA 生態系，開發者切換成本高"
+    },
+    {
+      "id": "C4",
+      "description": "毛利率持續改善，朝向 55% 以上（代表 MI 系列定價能力與規模化）",
+      "status": "⚠️ 待確認",
+      "last_checked": "2026-05-21",
+      "note": "需最新財報數字確認"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "K1",
+      "description": "超大雲端客戶公開宣布轉向自製 ASIC 而非 AMD GPU，且 AMD 資料中心營收 QoQ 轉負",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K2",
+      "description": "ROCm 在主要 AI 框架社群被正式標記為不支援或維護中斷",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K3",
+      "description": "NVIDIA 推出大幅降價方案（超過 30%）直接封殺 AMD 的價格優勢",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    }
+  ],
   "key_metrics": {
     "data_center_revenue_qtrly": "待更新",
     "gross_margin": "待更新",

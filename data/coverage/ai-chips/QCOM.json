@@ -4,7 +4,57 @@
   "thesis": "端側 AI（On-device AI）的領先晶片供應商，AI 算力從雲端移往邊緣端驅動手機/PC/汽車三條成長曲線",
   "thesis_risk": "Apple 持續擴大自研晶片份額壓縮手機業務，或端側 AI 殺手應用遲未出現導致升級需求低於預期",
   "rating": "追蹤中",
-  "last_updated": "2026-05-19",
+  "last_updated": "2026-05-21",
+  "conditions": [
+    {
+      "id": "C1",
+      "description": "汽車業務 QoQ 持續成長且成長率高於手機業務，顯示結構轉型進行中",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "汽車業務已連續多季高速成長，管理層給出明確指引"
+    },
+    {
+      "id": "C2",
+      "description": "Snapdragon X 系列 PC 晶片被 3 家以上主要 OEM（Dell、HP、Lenovo、Samsung）採用且出貨量成長",
+      "status": "✅ 成立",
+      "last_checked": "2026-05-21",
+      "note": "Snapdragon X Elite 已進入多家 OEM 產品線"
+    },
+    {
+      "id": "C3",
+      "description": "Apple 手機業務蠶食比例維持在可控範圍（QCOM 仍供應 Apple 部分 modem，或 Android 市場填補缺口）",
+      "status": "⚠️ 弱化",
+      "last_checked": "2026-05-21",
+      "note": "Apple 預計 2026–2027 完全轉用自製 modem，替代時間軸逐漸明確"
+    },
+    {
+      "id": "C4",
+      "description": "端側 AI 功能帶動手機換機週期加速（Android 旗艦換機周期縮短至 ≤ 2.5 年）",
+      "status": "⚠️ 待觀察",
+      "last_checked": "2026-05-21",
+      "note": "端側 AI 殺手應用尚未出現，換機週期縮短証據不足"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "K1",
+      "description": "Apple 提前完成 modem 自製並宣布終止向 QCOM 採購，且 QCOM 手機業務 QoQ 跌幅超過 15%",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K2",
+      "description": "ARM 修改授權條款或提高費率，威脅 QCOM Snapdragon 的架構成本結構",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    },
+    {
+      "id": "K3",
+      "description": "PC 市場整體需求長期萎縮（連續三季出貨量 YoY 下滑超過 10%），使 Snapdragon X 成長天花板大幅壓縮",
+      "triggered": false,
+      "last_checked": "2026-05-21"
+    }
+  ],
   "key_metrics": {
     "handset_revenue_qtrly": "待更新",
     "auto_revenue_qtrly": "待更新",

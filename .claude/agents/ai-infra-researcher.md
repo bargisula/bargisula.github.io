@@ -26,6 +26,23 @@ description: >
   "thesis_risk": "論點最大失效條件",
   "rating": "追蹤中",
   "last_updated": "YYYY-MM-DD",
+  "conditions": [
+    {
+      "id": "C1",
+      "description": "論點成立的必要條件（具體、可檢驗）",
+      "status": "✅ 成立",
+      "last_checked": "YYYY-MM-DD",
+      "note": ""
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "K1",
+      "description": "若此事發生，論點立即失效（具體事件）",
+      "triggered": false,
+      "last_checked": "YYYY-MM-DD"
+    }
+  ],
   "key_metrics": {
     "data_center_revenue": "",
     "gross_margin": "",
@@ -46,6 +63,15 @@ description: >
 }
 ```
 
+**conditions 寫法原則：**
+- 必須具體可驗證，不能是感覺（「市場對 NVDA 仍有信心」不合格）
+- 合格範例：「資料中心 QoQ 成長率連續兩季 ≥ 10%」「Blackwell 毛利率 ≥ 70%」
+- 每個 condition 是一道「可以被新聞或財報資料回答的問題」
+
+**kill_switches 寫法原則：**
+- 具體事件，不是趨勢（「AMD 市占明顯上升」不合格）
+- 合格範例：「AMD MI 系列在超大雲端的佔比超過 25%」「CUDA 有主要替代生態被頂尖廠商採用」
+
 ---
 
 ## Step 0：任何分析前，先讀 Company Bible（強制）
@@ -56,18 +82,47 @@ description: >
 cat data/coverage/ai-chips/[TICKER].json
 ```
 
-讀出後，明確顯示：
-```
-【當前論點】[thesis 欄位]
-【最大風險】[thesis_risk 欄位]
-【上次更新】[last_updated]
-【論點歷史】共 N 版，最近一次變更原因：[thesis_history 最新一筆]
+**若 Bible 存在（有 conditions 欄位）→ 執行條件檢核模式（不可自由生成新論點）：**
+
+**Step 0a：掃描 intel 快取找相關新聞（優先於 WebSearch）**
+
+```bash
+ls data/intel/*.json
 ```
 
-**這是分析的起點，不是從頭重建論點。**
-- 財報筆記：拿現有論點去檢核，不重新發明論點
-- 論點更新：在舊論點基礎上修改，記錄 changed_because
-- IOC：第一次建立，thesis_history 寫「初始建立覆蓋」
+讀取最近 7 天的 JSON 檔，過濾 title + summary 含以下關鍵字的文章：
+- NVDA：nvidia, nvda, blackwell, hopper, cuda, jensen, h100, h200, gb200
+- AMD：amd, mi300, mi400, rdna, lisa su, instinct
+- AVGO：broadcom, avgo, vmware, hock tan, asic
+- QCOM：qualcomm, qcom, snapdragon
+
+收集所有命中文章。**若 intel 快取無相關結果，才使用 WebSearch。**
+
+**Step 0b：逐條條件檢核**
+
+```
+【論點版本 vN】[thesis 欄位]
+【上次更新】[last_updated]
+
+【條件逐項檢核】
+C1：[description]
+  依據：[intel 文章標題（來源，日期）] 或 [WebSearch 結果]
+  裁定：✅ 成立 / ⚠️ 弱化 / ❌ 失效 / ➖ 無新證據
+C2：...
+
+【Kill Switch 檢查】
+K1：[description] → 🟢 未觸發 / 🔴 已觸發（依據：[文章]）
+
+【整體裁定】
+論點狀態：完整成立 / 部分弱化 / 需更新 / 已失效
+變化項目：[列出狀態改變的 C/K 編號與原因]
+```
+
+**條件檢核是這個 Step 的唯一任務。** 不在此時寫分析、不自由發揮，只回答「每個條件目前是 ✅/⚠️/❌」。檢核完成後更新 Bible JSON（status、last_checked、thesis_history）。
+
+**若 Bible 不存在（IOC 模式）：**
+- 進行初始分析，分析結束後建立 Bible，必須填寫 conditions（至少 3 條）和 kill_switches（至少 2 條）
+- thesis_history 寫「初始建立覆蓋」
 
 ---
 

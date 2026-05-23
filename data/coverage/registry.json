@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-20",
+  "last_updated": "2026-05-21",
   "groups": {
     "ai-chips": {
       "researcher": "ai-infra-researcher",
@@ -17,6 +17,13 @@
       "tickers": ["TSLA"],
       "path": "data/coverage/ev/",
       "status": "待建"
+    },
+    "ai-infra-adjacent": {
+      "researcher": "ai-infra-researcher",
+      "tickers": ["GLW"],
+      "path": "data/coverage/ai-infra-adjacent/",
+      "status": "啟動中",
+      "note": "AI 基礎設施相鄰標的：光纖、玻璃基板封裝等非晶片但受 AI 拉動的供應鏈。臨時由 ai-infra-researcher 擴大授權覆蓋。"
     }
   }
 }
