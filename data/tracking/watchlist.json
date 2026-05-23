@@ -1,6 +1,13 @@
 {
-  "last_updated": "2026-05-21",
+  "last_updated": "2026-05-23",
   "items": [
+    {
+      "name": "【下次會議議題】伊朗衝突總經裁示未完成",
+      "added_date": "2026-05-23",
+      "next_date": null,
+      "type": "meeting_reminder",
+      "note": "2026-05-23 緊急會議討論但未裁示。待繼續討論：(1) 能源→PCE 三波傳導對 Regime 的重新定性 (2) 27 國 EM 傳染路徑的持倉影響 (3) 霍爾木茲升級觸發器是否納入 watchlist (4) OPEC+ 06/07 決議前的準備。知識庫已建立：data/knowledge/mechanisms/"
+    },
     {
       "name": "PCE 物價指數",
       "added_date": "2026-05-20",
