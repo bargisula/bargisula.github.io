@@ -64,6 +64,44 @@ GLW、VRT、ANET、KLAC、LRCX、COHR、EQIX、APD、ETN、CIEN
 
 ---
 
+## 知識庫（Knowledge Bible）
+
+每次分析從**已知基準**出發，而非從零開始。知識庫存放跨對話的領域知識，存於 `data/knowledge/`，分三層：
+
+### 三層架構
+
+| 層級 | 路徑 | 內容 | 更新頻率 |
+|---|---|---|---|
+| **Mechanisms**（機制） | `mechanisms/` | 因果傳導鏈、歷史先例、可觀測觸發條件 | 事件驅動（每次危機） |
+| **Structures**（結構） | `structures/` | 產業供應鏈地圖、競爭格局、定價機制 | 每半年至一年 |
+| **Entities**（實體） | `entities/` | 公司與機構知識（擴展 company bible 概念） | 每季財報後 |
+
+Company Bible（`data/coverage/ai-chips/`）由 ai-infra-researcher 獨立維護，覆蓋 NVDA / AMD / QCOM / AVGO，為 Entities 層的子集。
+
+### 各層內容格式
+
+每份機制知識包含：**觸發條件 → 傳導節點（含時間滯後與幅度估算）→ 可觀測早期指標 → 歷史先例 → 已知缺口**。每個節點記錄確信度與 `last_validated` 日期。
+
+### 何時讀取
+
+| Agent | 讀取時機 | 讀取內容 |
+|---|---|---|
+| **CMO** | Regime 評估 Step 0 | `mechanisms/` 相關傳導鏈 |
+| **CEO** | 會議推演鏈前 | `mechanisms/` + `structures/` |
+| **industry-analyst** | 開始產業分析前 | `structures/` 對應產業 |
+| **earnings-analyst** | 財報解析前 | `entities/[TICKER].json` |
+| **ai-infra-researcher** | 固定 Step 0 | `data/coverage/ai-chips/[TICKER].json` |
+
+### 如何累積
+
+- **會議沉澱**：每次晨會或緊急討論產生新機制知識，CEO 在寫會議紀錄後同步更新 `mechanisms/`
+- **財報後更新**：earnings-analyst 或 ai-infra-researcher 更新 `entities/`
+- **產業分析後**：industry-analyst 輸出存入 `structures/`
+
+知識不強求完整，**遇到什麼填什麼**，一年後自然形成厚實的研究底座。
+
+---
+
 ## 日常運作
 
 | 頻率 | 動作 |

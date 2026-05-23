@@ -1,0 +1,29 @@
+{
+  "layer": "mechanisms",
+  "description": "因果傳導鏈與歷史先例",
+  "entries": [
+    {
+      "id": "energy-to-pce",
+      "file": "energy-to-pce.md",
+      "title": "能源衝擊 → PCE 三波傳導鏈",
+      "trigger": "oil_price_sustained_above_90",
+      "confidence": "high",
+      "created": "2026-05-23",
+      "last_validated": "2026-05-23",
+      "tags": ["能源", "通膨", "PCE", "滯脹", "氨", "化肥", "海運", "石化"],
+      "key_nodes": ["oil_price", "ammonia", "fertilizer", "agricultural_plastics", "pesticides", "shipping_rates", "pce_energy", "pce_food", "pce_core_services"]
+    },
+    {
+      "id": "em-contagion",
+      "file": "em-contagion.md",
+      "title": "新興市場危機傳染路徑（27 國框架）",
+      "trigger": "major_energy_shock_plus_supply_chain_disruption",
+      "confidence": "medium",
+      "created": "2026-05-23",
+      "last_validated": "2026-05-23",
+      "tags": ["新興市場", "主權債務", "世銀", "傳染", "土耳其", "巴基斯坦", "埃及", "供應鏈"],
+      "key_nodes": ["world_bank_emergency", "pakistan_sovereign_risk", "turkey_sovereign_risk", "egypt_suez", "bangladesh_apparel", "european_banks", "gcc_swf", "taiwan_foreign_flows"]
+    }
+  ],
+  "usage_note": "CMO 和 CEO 在評估能源/地緣衝擊的 Regime 影響時，Step 0 讀取相關機制知識"
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-23",
+  "layers": {
+    "mechanisms": {
+      "description": "因果傳導鏈與歷史先例",
+      "path": "mechanisms/",
+      "index": "mechanisms/index.json"
+    },
+    "structures": {
+      "description": "產業結構與供應鏈地圖",
+      "path": "structures/",
+      "index": "structures/index.json"
+    },
+    "entities": {
+      "description": "公司與機構知識",
+      "path": "entities/",
+      "index": "entities/index.json",
+      "note": "AI 晶片四大股已在 data/coverage/ai-chips/ 維護，本目錄擴展至其他標的"
+    }
+  },
+  "usage_protocol": {
+    "step_0_agents": ["cmo", "ceo", "industry-analyst", "earnings-analyst"],
+    "update_trigger": "每次會議產生新機制知識，或財報後公司知識需更新",
+    "validation_cycle_days": 180
+  }
+}
