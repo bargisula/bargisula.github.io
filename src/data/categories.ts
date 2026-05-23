@@ -73,12 +73,9 @@ export const CATEGORY_TREE: CatDef[] = [
   },
   {
     name: '商業故事', icon: '🏢', label: 'Claude',
-    hideSubs: true,
     subs: [
-      { name: 'Gogoro', topics: [] },
-      { name: '裕隆', topics: [] },
-      { name: '85度C', topics: [] },
-      { name: '個案研究', topics: ['框架', '品牌生死', '燒錢地獄'] },
+      { name: '個案研究', topics: ['品牌沉浮', '危機轉型', '競爭格局', '框架方法'] },
+      { name: '商業追蹤', topics: [] },
     ],
   },
   {
