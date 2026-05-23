@@ -24,6 +24,28 @@
       "tags": ["新興市場", "主權債務", "世銀", "傳染", "土耳其", "巴基斯坦", "埃及", "供應鏈"],
       "key_nodes": ["world_bank_emergency", "pakistan_sovereign_risk", "turkey_sovereign_risk", "egypt_suez", "bangladesh_apparel", "european_banks", "gcc_swf", "taiwan_foreign_flows"]
     }
+    {
+      "id": "gpt-macro-cycle",
+      "file": "gpt-macro-cycle.md",
+      "title": "通用目的技術（GPT）宏觀週期：AS-AD 框架",
+      "trigger": "major_gpt_technology_diffusion",
+      "confidence": "high",
+      "created": "2026-05-23",
+      "last_validated": "2026-05-23",
+      "tags": ["AS-AD", "AI", "圈地運動", "通用目的技術", "生產力", "勞動替代", "分配效應", "結構性通縮"],
+      "key_nodes": ["infrastructure_investment", "labor_substitution", "as_rightshift", "ad_leftshift", "baumol_effect", "new_equilibrium"]
+    },
+    {
+      "id": "usd-recycling-breakdown",
+      "file": "usd-recycling-breakdown.md",
+      "title": "美元回流機制斷裂：外資撤退→殖利率失控→財政主導傳導鏈",
+      "trigger": "foreign_official_reserves_monthly_reduction_above_50b_usd",
+      "confidence": "high",
+      "created": "2026-05-24",
+      "last_validated": "2026-05-24",
+      "tags": ["美債", "去美元化", "財政主導", "殖利率", "Fed", "石油美元", "美元回流", "結構性"],
+      "key_nodes": ["foreign_treasury_selling", "yield_spike", "fed_rate_hike", "fiscal_debt_service", "path_a_self_clearing", "path_b_monetization", "fiscal_dominance_trap"]
+    }
   ],
   "usage_note": "CMO 和 CEO 在評估能源/地緣衝擊的 Regime 影響時，Step 0 讀取相關機制知識"
 }
