@@ -142,7 +142,11 @@ function findBareDollars(content) {
 // ── Get changed MD/MDX files ─────────────────────────────────────────────────
 function getChangedFiles() {
   // Use -c core.quotepath=false to get raw UTF-8 paths without octal encoding
-  const filter = f => f && f.trim() && (f.endsWith('.md') || f.endsWith('.mdx')) && existsSync(f.trim());
+  // Only validate content files — not framework/template/data files
+  const filter = f => f && f.trim()
+    && (f.endsWith('.md') || f.endsWith('.mdx'))
+    && f.startsWith('src/content/')
+    && existsSync(f.trim());
   const split = out => out.trim().split('\n').map(f => f.trim()).filter(Boolean);
 
   // 1. Files in commits not yet pushed to remote
