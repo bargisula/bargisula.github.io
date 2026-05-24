@@ -1,0 +1,125 @@
+---
+title: '【框架】Xompass 知識庫系統：三層知識架構'
+description: 'mechanisms（因果傳導鏈）/ structures（產業結構）/ entities（公司實體）三層知識庫，加上 Company Bible 條件追蹤系統。讓每次分析從已知基準出發，不從零開始。'
+category: 'Xompass'
+subcategory: '運作框架'
+pubDate: '2026-05-25'
+---
+
+import Callout from '@components/Callout.astro';
+
+<Callout type="insight">
+知識庫的核心假設：每次分析從零開始是最大的效率殺手，也是幻覺的溫床。把過去的推演存起來，下次驗證而非重複，這是 Xompass 與一般 LLM 研究的本質差異。
+</Callout>
+
+---
+
+## 為什麼需要知識庫
+
+一般的 AI 研究流程：問題 → 搜尋 → 生成答案。
+
+每次都從頭開始，不積累，不驗證。LLM 用訓練資料填補資訊空白，讀起來流暢，但數字是幻覺，因果是猜測。
+
+Xompass 的流程：問題 → **讀取既有知識** → 搜尋補充缺口 → 驗證（不是重新生成）。
+
+知識不斷累積，推演品質隨時間提升，而非每次重置。
+
+---
+
+## 三層架構
+
+```
+data/knowledge/
+  mechanisms/    因果傳導鏈（油價→通膨，EM 傳染路徑）
+  structures/    產業結構與供應鏈地圖
+  entities/      公司與機構知識
+```
+
+<Callout type="data">
+
+| 層級 | 存放內容 | 更新頻率 | 主要消費者 |
+|---|---|---|---|
+| **mechanisms** | 因果機制、傳導鏈、歷史先例 | 事件驅動（每次危機）| CEO、CMO |
+| **structures** | 產業結構、供應鏈層次、競爭格局 | 每半年至一年 | industry-analyst、CMO |
+| **entities** | 公司基本面、論點、歷史驚喜 | 每季財報後 | earnings-analyst、ai-infra-researcher |
+
+</Callout>
+
+---
+
+## mechanisms 層：因果傳導鏈
+
+每份機制知識的標準格式：
+
+```
+觸發條件 → 傳導節點（含時間滯後與幅度估算）
+→ 可觀測早期指標 → 歷史先例 → 已知缺口
+```
+
+每個節點記錄 `confidence`（確信度）與 `last_validated`（上次驗證日）。知識可能過時，標記讓使用者知道何時需要重新評估。
+
+**已入庫機制（2026-05 批次）：**
+
+| 機制 | 觸發條件 | 核心命題 |
+|---|---|---|
+| GPT 宏觀週期 | 通用目的技術擴散 | 建設期通膨 → 擴散期通縮 → 新均衡分叉 |
+| 能源三波傳導 | Brent >90 美元 | 市場只定價第一波（直接能源），低估第二波食品與第三波核心服務 |
+| 新興市場傳染 | 大規模能源衝擊 | 四條傳染路徑：金融、供應鏈、GCC 撤守、難民政治 |
+| 美元回流斷裂 | 外資單月減持 >500 億美元 | 閉環三點斷裂 × Warsh 三難困境 → 殖利率結構性偏高 |
+
+---
+
+## Company Bible：entities 層的實作
+
+`data/coverage/` 是 entities 層目前最完整的實作，由 ai-infra-researcher 維護。
+
+**覆蓋清單：** NVDA / AMD / AVGO / QCOM（ai-chips）、GLW（ai-infra-adjacent）
+
+每一檔包含：
+
+<Callout type="data">
+
+| 欄位 | 內容 |
+|---|---|
+| `thesis` | 當前投資論點一句話（可證偽）|
+| `conditions` | 論點成立的必要條件，每條有 ✅/⚠️/❌ 狀態 |
+| `kill_switches` | 若此事發生，論點立即失效 |
+| `key_metrics` | 最新財務快照（最近一季）|
+| `watch_triggers` | 盯著看的領先指標 |
+| `thesis_history` | 每次重大事件後論點版本記錄 |
+
+</Callout>
+
+<Callout type="warning">
+**conditions 的寫法原則：** 每條必須是「可以被新聞或財報資料回答的問題」，不能是感覺。「市場對 NVDA 仍有信心」不合格。「資料中心 QoQ ≥ 10% 連續兩季」合格。
+</Callout>
+
+---
+
+## 論點追蹤：Position Bible
+
+`data/positions/` 存放產業層級的論點，格式類似 Company Bible，但追蹤的是整條投資邏輯而非單一公司。
+
+目前入庫：台灣無人機（tw-drone）
+
+每次晨會或重大事件後，industry-analyst 的 Step 0 強制讀取並逐條檢核，防止 LLM 自由發揮覆蓋既有論點。
+
+---
+
+## 知識如何累積
+
+<Callout type="insight">
+知識庫不求完整，**遇到什麼填什麼**。一年後自然形成厚實的研究底座。強求完整只會讓起始成本過高，導致永遠不開始。
+</Callout>
+
+三個入庫觸發點：
+
+1. **會議沉澱**：每次晨會或緊急討論產生新機制知識，CEO 寫完會議紀錄後同步更新 `mechanisms/`
+2. **財報後更新**：ai-infra-researcher 財報筆記完成後更新 `entities/` 的 key_metrics
+3. **產業分析後**：industry-analyst 輸出的供應鏈結構存入 `structures/`
+
+---
+
+<Callout type="quote">
+市場每天都在生成新資訊，但真正稀缺的不是資訊，是「把新資訊接進正確因果框架的能力」。知識庫的作用不是存資料，是存因果鏈——讓每條新資訊有地方落腳，而不是漂浮在語言空間裡。
+</Callout>
