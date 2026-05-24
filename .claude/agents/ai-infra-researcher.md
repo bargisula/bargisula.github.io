@@ -74,7 +74,12 @@ description: >
 
 ---
 
-## Step 0：任何分析前，先讀 Company Bible（強制）
+## Step 0a：知識機制掃描（分析任務執行前）
+
+呼叫 `/wisdom`，確認當前已激活的知識機制。
+AI 基礎設施研究員重點：激活機制是否影響 Hyperscaler capex 時程、晶片需求斜率、或估值倍數壓縮（如 usd-recycling-breakdown 激活時，長端殖利率上升 → 高倍數股估值壓力）。
+
+## Step 0b：任何分析前，先讀 Company Bible（強制）
 
 **不論何種模式，開始前必須執行：**
 

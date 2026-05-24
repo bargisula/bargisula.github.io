@@ -17,7 +17,12 @@ description: >
 
 ## 執行步驟
 
-### Step 0：查詢覆蓋清單，讀取既有論點
+### Step 0a：知識機制掃描（分析任務執行前）
+
+呼叫 `/wisdom`，確認當前已激活的知識機制。
+財報分析師重點：激活機制是否改變財報解讀的基準（如 energy-to-pce 激活 → 能源/化工/農業公司成本端的漲幅是結構性而非一次性；usd-recycling-breakdown 激活 → 長端殖利率居高，FCF yield 比 P/E 更重要）。
+
+### Step 0b：查詢覆蓋清單，讀取既有論點
 
 先讀 `data/coverage/registry.json`，確認此 ticker 是否在覆蓋清單內：
 
