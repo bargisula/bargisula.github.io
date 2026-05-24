@@ -1,0 +1,6 @@
+#!/bin/bash
+# Pre-push hook: validate MD/MDX files before pushing
+
+cd "$(git rev-parse --show-toplevel)"
+node scripts/validate-mdx.mjs
+exit $?
