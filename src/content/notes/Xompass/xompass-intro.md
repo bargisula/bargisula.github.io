@@ -27,7 +27,14 @@ pubDate: '2026-05-22'
 | **DNI**（情報長）| 即時新聞採集，清洗存入資料庫 |
 | **CTO**（技術長）| 追蹤科技前沿，6–18 個月轉折點 |
 
-研究部：ai-infra-researcher、industry-analyst、earnings-analyst
+**研究部**（由 CEO 調度或董事長直接呼叫）：
+
+| 研究員 | 職責 |
+|---|---|
+| **ai-infra-researcher**（AI 基礎設施研究員）| 追蹤 NVDA / AMD / AVGO / QCOM，維護 Company Bible，產出開始覆蓋、財報筆記、論點更新 |
+| **industry-analyst**（產業分析師）| 深度產業分析，七維度思考框架，Mordor Intelligence 資料搜尋，輸出遵循 v2.0 七模組 |
+| **earnings-analyst**（財報分析師）| 解析個股財報，逐條對照論點條件，裁定論點成立 / 弱化 / 失效 |
+| **Codex**（外勤分析師）| 透過 inbox 非同步觸發，獨立搜尋資料、撰寫產業分析，結果寫入 outbox 供 CEO 審閱；不佔用主對話 token |
 
 ---
 
