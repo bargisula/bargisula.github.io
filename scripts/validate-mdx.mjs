@@ -124,6 +124,11 @@ function fixImportPosition(content, filePath) {
   return { fixed: true, content: fixed };
 }
 
+// ── Math subcategories：合法使用 LaTeX 數學式（$...$），跳過裸 $數字 檢查 ──────
+// 這些子分類的內容會用 KaTeX 渲染數學式（如 $2^{50}$），不是貨幣符號。
+// 財經類（美股、其他投資等）不在此列，$數字 仍視為錯誤。
+const MATH_SUBCATEGORIES = new Set(['科普物理', '天文物理']);
+
 // ── Check bare $number ───────────────────────────────────────────────────────
 function findBareDollars(content) {
   const issues = [];
@@ -244,10 +249,13 @@ for (const file of files) {
     }
   }
 
-  // ── Bare $number check ──
-  const dollars = findBareDollars(content);
-  for (const d of dollars) {
-    errors.push(`裸 $數字（MDX 會誤判為 LaTeX）→ ${d}`);
+  // ── Bare $number check（數學子分類跳過，因其合法使用 $...$ 數學式）──
+  const isMathDoc = parsed && MATH_SUBCATEGORIES.has(parsed.fm.subcategory);
+  if (!isMathDoc) {
+    const dollars = findBareDollars(content);
+    for (const d of dollars) {
+      errors.push(`裸 $數字（MDX 會誤判為 LaTeX）→ ${d}`);
+    }
   }
 
   // ── Report ──
