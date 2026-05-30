@@ -39,7 +39,7 @@ SpaceX 只是第一砲。2026 年下半年，另外兩家 AI 巨頭也已蓄勢�
 
 ## 流動性虹吸：加密市場為何是高風險目標
 
-BloFin Research 在 4 月發布報告《The $197 Billion Question》，點出核心機制：
+BloFin Research 在 4 月發布報告《The \$197 Billion Question》，點出核心機制：
 
 > 加密資產與科技股坐在同一個風險性流動性池裡。當投機性資金鎖進 IPO 配售，減少的正是原本用來推升比特幣等高 Beta 資產的買盤。
 

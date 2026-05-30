@@ -6,7 +6,7 @@ subcategory: "武器裝備"
 pubDate: "2026-05-14"
 ---
 
-import Callout from '../../../../components/Callout.astro';
+import Callout from '@components/Callout.astro';
 
 根據《華爾街日報》2026 年 5 月 13 日報導，美國五角大廈正啟動一項名為「**低成本貨櫃化飛彈**」（LCCM, Low-Cost Containerized Missiles）的戰略計畫。這標誌著美軍從過去追求少數「高價、精確、長程」的打擊模式，轉向強調「**動能質量**」（Kinetic Mass）——即透過數以萬計的低成本飛彈，實現飽和攻擊與消耗戰能力。
 

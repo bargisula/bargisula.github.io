@@ -7,7 +7,7 @@ topic: 'AI基礎設施'
 pubDate: '2026-05-12'
 ---
 
-import Callout from '../../../../../../components/Callout.astro';
+import Callout from '@components/Callout.astro';
 
 > 本文為「AI 基礎設施全景」系列第四篇。前三篇說的是算力本身（GPU/ASIC）、記憶體、封裝；這篇說的是：這些算力怎麼連起來協同工作。
 
@@ -78,7 +78,7 @@ Meta 的 AI 叢集（PyTorch 之父所在的地方）2024 年起大規模採用 
 
 **InfiniBand 的長期風險：**
 
-NVIDIA 在 2019 年以 $69 億收購 Mellanox，獲得 InfiniBand 的核心技術。這個「完整解決方案」讓 NVIDIA 在銷售 GPU 的同時也賣網路——但也讓客戶覺得被套牢。Meta 和 Google 的乙太轉向，有一部分就是為了降低對 NVIDIA 的依賴。若 2027 年乙太在效能上完全追平 InfiniBand，NVIDIA 的網路部門（現在佔 Data Center 約 10–15%）將面臨壓力。
+NVIDIA 在 2019 年以 \$69 億收購 Mellanox，獲得 InfiniBand 的核心技術。這個「完整解決方案」讓 NVIDIA 在銷售 GPU 的同時也賣網路——但也讓客戶覺得被套牢。Meta 和 Google 的乙太轉向，有一部分就是為了降低對 NVIDIA 的依賴。若 2027 年乙太在效能上完全追平 InfiniBand，NVIDIA 的網路部門（現在佔 Data Center 約 10–15%）將面臨壓力。
 
 </Callout>
 
@@ -144,7 +144,7 @@ CPO 改變了光通訊的價值鏈，產生了新的贏家和輸家：
 | 公司 | Ticker | 角色 | 受益程度 | 當前狀態 |
 |---|---|---|---|---|
 | 博通 | AVGO | CPO 交換器晶片（Tomahawk 5）+ 光引擎整合 | ⭐⭐⭐⭐⭐ | 2026 年已出貨 50,000+ 套 CPO 交換器 |
-| Coherent | COHR | CPO 光引擎核心供應商 | ⭐⭐⭐⭐ | NVIDIA 入股 $20 億；scale-out CPO 2026 H2 出貨 |
+| Coherent | COHR | CPO 光引擎核心供應商 | ⭐⭐⭐⭐ | NVIDIA 入股 \$20 億；scale-out CPO 2026 H2 出貨 |
 | Lumentum | LITE | 200G EML 雷射，CPO 唯一量產商 | ⭐⭐⭐⭐ | CPO 雷射晶片不可替代，2027 多億美元訂單 |
 | 聯亞光電 | 3081 | 矽光子模組量產（台股 CPO 純玩法）| ⭐⭐⭐⭐ | CPO 賽道台股代表，客戶認證進行中 |
 | Fabrinet | FN | 光模組代工（Coherent / Lumentum 供應鏈）| ⭐⭐⭐ | AI 光模組出貨量直接受益 |

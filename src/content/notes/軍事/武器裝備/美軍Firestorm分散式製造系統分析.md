@@ -6,7 +6,7 @@ subcategory: "武器裝備"
 pubDate: "2026-05-14"
 ---
 
-import Callout from '../../../../components/Callout.astro';
+import Callout from '@components/Callout.astro';
 
 美國五角大廈（DoD）於 2026 年 5 月 8 日宣布，根據「加速創新技術採購與部署計畫」（APFIT），正式向國防新創公司 **Firestorm Labs** 授予價值 3,000 萬美元（約新臺幣 9.4 億元）的合約。這項採購案的核心在於將「工廠搬到前線」，讓部隊在補給線被切斷的情況下，仍能持續產製無人機發動攻勢。
 
