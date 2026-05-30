@@ -2,7 +2,7 @@
 title: '【Xompass】CMO 分析架構：如何擔任首席宏觀經濟官'
 description: 'CMO 五層分析框架：Dalio 週期定位→政策環境→Regime 命名→傳導機制啟動→資產配置輸出。含週度 SOP、Regime 切換標準、與其他 Agent 的介面規則。'
 category: 'Xompass'
-subcategory: '運作框架'
+subcategory: '關於 Xompass'
 pubDate: '2026-05-23'
 ---
 

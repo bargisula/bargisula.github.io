@@ -82,8 +82,7 @@ export const CATEGORY_TREE: CatDef[] = [
   {
     name: 'Xompass', icon: '🧭', label: 'Claude',
     subs: [
-      { name: '公司介紹', topics: [] },
-      { name: '運作框架', topics: [] },
+      { name: '關於 Xompass', topics: [] },
       { name: '知識機制', topics: [] },
       { name: '會議記錄', topics: [] },
       { name: '投資報告', topics: ['璞玉報告', '總經報告', '個股研究', '績效檢討'] },

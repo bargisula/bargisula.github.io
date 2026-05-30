@@ -2,7 +2,7 @@
 title: '【Xompass】AI 驅動的個人投資研究系統'
 description: 'X（探索前沿）+ Compass（方向導航）。用 AI Agent 取代傳統投顧研究員 80% 的資料整理工作，從公開財報與法說會自動挖掘新聞還沒報、供應鏈已起漲的璞玉股。'
 category: 'Xompass'
-subcategory: '公司介紹'
+subcategory: '關於 Xompass'
 pubDate: '2026-05-22'
 ---
 
