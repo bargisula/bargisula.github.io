@@ -1,8 +1,8 @@
 ---
 title: '【宏觀框架】均衡之前：Xompass 宏觀分析框架'
 description: '以知識地圖呈現經濟事件的因果方向、傳導順序與初始條件影響，涵蓋財政與貨幣政策完整場景分析。這是 Xompass 宏觀推演的核心工具，隨時間持續更新。'
-category: '經濟'
-subcategory: '宏觀框架'
+category: 'Xompass'
+subcategory: '關於 Xompass'
 pubDate: '2026-05-26'
 ---
 

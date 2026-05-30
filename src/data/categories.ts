@@ -20,7 +20,6 @@ export const CATEGORY_TREE: CatDef[] = [
       { name: '商業革命', topics: [] },
       { name: '工業革命', topics: [] },
       { name: '名家巨著', topics: ['Barro宏觀', 'Mankiw總體', 'Krugman總體', '貨幣', '國際經濟', '政治經濟學', '經濟成長與景氣循環'] },
-      { name: '宏觀框架', topics: [] },
     ],
   },
   {
