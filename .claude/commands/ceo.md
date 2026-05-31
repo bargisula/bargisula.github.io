@@ -75,8 +75,22 @@ Step 2：若需要更新 → 呼叫 /macro-scan 採集數據 → 再呼叫 /dsmm
 
 ```
 Step 1：讀 data/coverage/ 對應 Bible（若存在）→ 報告現有論點
-Step 2：若需更新 → 呼叫 /stock-pick 或 ai-infra-researcher
+Step 2：若需更新論點 → 呼叫 /stock-pick 或 ai-infra-researcher
 ```
+
+### 財報請求
+
+**識別條件：** 使用者說「看 NVDA 財報」「TSLA 這季怎麼樣」「財報出來了」等
+
+**標準流程：**
+
+```
+Step 1：earnings skill 採集數據（純數字，不判斷）
+Step 2：/earnings-analyst 讀 Bible + 比對論點 → 裁定論點成立/弱化/失效
+Step 3：earnings-analyst 寫回 Bible（financials + thesis_status 更新）
+```
+
+**CEO 不自行解讀財報數字。** 財報數字的意義由 earnings-analyst 對照 Bible 論點後裁定。
 
 ---
 
