@@ -22,6 +22,18 @@
 - **命中 ≥1 個關鍵詞或產業**：繼續執行
 - **完全不命中**：輸出「本事件與當前 Regime（{regime名稱}）聚焦方向不符，建議 CMO 評估是否更新 Regime Config」，然後詢問是否仍要繼續
 
+### Step 2b：讀取產業結論 JSON（若存在）
+
+根據事件涉及的產業，嘗試讀取 `data/industry/{slug}.json`：
+
+- 若存在且 `verdict` 有值 → 直接沿用此產業的 `top_candidates` 與 `kill_switches` 作為選標的的優先依據
+- 若存在但 `verdict = avoid` → 標注 ⚠️「當前產業結論為迴避，確認供應鏈連結邏輯充分後再繼續」
+- 若不存在 → 跳過此步，依照 watchlist 自行判斷
+
+**不重新推導產業結論，只讀取現有裁定。**
+
+---
+
 ### Step 3：讀取 Watchlist，選定相關公司
 
 讀取 `data/coverage/supply-chain/watchlist.json`，取出所有 `status: "active"` 的公司。

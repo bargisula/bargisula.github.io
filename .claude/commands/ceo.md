@@ -1,10 +1,12 @@
-# /ceo：執行長系統診斷
+# /ceo：執行長
+
+**雙重職責：系統診斷 + 研究協調**
 
 **模式：$ARGUMENTS**
 
 ---
 
-## 用法
+## 職責一：系統診斷
 
 ```
 /ceo audit     → 隨機抽查 5 篇文章，評分並給修改建議
@@ -18,9 +20,99 @@
 
 ---
 
+## 職責二：研究協調（NLP 路由）
+
+當董事長或會議情境提出研究需求時，CEO 識別需求類型並協調正確流程，不自己直接分析。
+
+---
+
+### 產業分析請求
+
+**識別條件：** 使用者說「分析 XX 產業」「XX 產業怎麼看」「幫我研究 XX」「XX 有沒有機會」等
+
+**標準流程：**
+
+```
+Step 1：讀 data/industry/{slug}.json
+         └→ 存在且 updated < 30 天 → 直接報告現有結論，詢問是否需要更新
+         └→ 不存在或已過期 → 進入 Step 2
+
+Step 2：執行 /industry-scan [產業名稱]
+         └→ 輸出數據包 + 引擎推薦
+
+Step 3：依 industry-scan 推薦選引擎
+         AI / 半導體     → ai-infra-scan + leopold-model
+         傳統週期產業    → /industry-analysis（週期框架）
+         科技 SaaS / 法規 → /industry-analysis（監管框架）
+         需要正式存檔    → 最終必須跑 /industry-analysis
+
+Step 4：確認 /industry-analysis 已寫入 data/industry/{slug}.json
+         └→ 寫入後，jade-report / stock-pick 可直接讀取，不重新分析
+```
+
+**CEO 不自行下產業結論。** 結論由引擎產生，CEO 負責確認流程走完、JSON 已寫入。
+
+---
+
+### 總經分析請求
+
+**識別條件：** 使用者說「總經怎麼樣」「現在 Regime 是什麼」「市場環境」等
+
+**標準流程：**
+
+```
+Step 1：讀 data/regime/current.json → 報告現有 Regime 裁定
+Step 2：若需要更新 → 呼叫 /macro-scan 採集數據 → 再呼叫 /dsmm 分析
+```
+
+---
+
+### 個股分析請求
+
+**識別條件：** 使用者說「看一下 NVDA」「幫我研究 XX 股票」等
+
+**標準流程：**
+
+```
+Step 1：讀 data/coverage/ 對應 Bible（若存在）→ 報告現有論點
+Step 2：若需更新論點 → 呼叫 /stock-pick 或 ai-infra-researcher
+```
+
+### 財報請求（單一個股）
+
+**識別條件：** 使用者說「看 NVDA 財報」「TSLA 這季怎麼樣」「財報出來了」等
+
+**標準流程：**
+
+```
+Step 1：earnings skill 採集數據（純數字，不判斷）
+Step 2：/earnings-analyst 讀 Bible + 比對論點 → 裁定論點成立/弱化/失效
+Step 3：earnings-analyst 寫回 Bible（financials + thesis_status 更新）
+```
+
+**CEO 不自行解讀財報數字。** 財報數字的意義由 earnings-analyst 對照 Bible 論點後裁定。
+
+---
+
+### 法說會趨勢請求（橫向掃描）
+
+**識別條件：** 使用者說「AI 公司這季法說說什麼」「這個產業的 CEO 怎麼看」「法說趨勢」「這季大家都在說什麼」等
+
+**標準流程：**
+
+```
+Step 1：/earnings-call-scan [產業或主題]
+         → 掃 3-6 家主要公司 transcript，橫向比較 CEO 措辭與態度
+Step 2：若需要正式分析 → 將結果餵入 /industry-scan 面向 B，或直接進 /industry-analysis
+```
+
+**與財報請求的差異：** 財報請求是單一股票的論點驗證；法說趨勢請求是橫向掃描，目的是抓產業趨勢訊號。
+
+---
+
 ## 執行
 
-將 $ARGUMENTS 作為模式參數，呼叫 CEO agent 執行對應模式。
-
-若輸入的模式不在上述五種中，回覆：
-「模式不存在。可用模式：audit / strategy / system / memory / token」
+將 $ARGUMENTS 作為模式參數：
+- 符合診斷模式（audit/strategy/system/memory/token）→ 執行對應診斷
+- 符合研究需求（產業/總經/個股）→ 走研究協調流程
+- 其他或空白 → 輸出使用說明與系統概覽

@@ -315,16 +315,45 @@ data/coverage/ai-infra-adjacent/{TICKER}.json
 
 > 把分析結果寫回知識庫，不是單次消耗品。
 
-A 級標的（瓶頸分 ≥ 4 + 裁示為研究/進入）→ **建議開啟 Bible 覆蓋**
+**① 寫入產業結論 JSON（強制，每次必做）：**
+
+路徑：`data/industry/{slug}.json`（slug = 產業名稱轉小寫 kebab-case，例：AI 基礎設施 → ai-infrastructure）
+
+寫入內容（對照 `data/industry/_schema.json`）：
+```json
+{
+  "industry": "{產業中文名}",
+  "slug": "{kebab-case}",
+  "framework_used": ["{第一節選定的框架名稱}"],
+  "verdict": "favorable | cautious | avoid",
+  "verdict_desc": "{一句話裁定理由，附關鍵數字}",
+  "bottleneck_score": "{第四節評分，1-5}",
+  "top_candidates": [
+    {"ticker": "{TICKER}", "name": "{公司名}", "role": "{在供應鏈的定位}", "type": "bottleneck | monopoly | option | low-cost"}
+  ],
+  "suppress_reason": "{若 verdict=avoid 則填原因，否則 null}",
+  "kill_switches": [
+    {"id": "K1", "condition": "{第十一節 K1 條件}", "action": "{觸發後行動}"},
+    {"id": "K2", "condition": "{第十一節 K2 條件}", "action": "{觸發後行動}"}
+  ],
+  "focus_segments": ["{值得關注的子板塊}"],
+  "regime_alignment": "{第九節的順/逆/中性 Regime}",
+  "updated": "{YYYY-MM-DD}",
+  "updated_by": "industry-analysis",
+  "next_review": "{下次確認點日期}"
+}
+```
+
+**② A 級標的開啟 Bible 覆蓋（瓶頸分 ≥ 4 + 裁示為研究/進入）：**
 - 路徑：`data/coverage/[群組]/[TICKER].json`
 - 若 Bible 已存在：補充本次分析發現的新 conditions 或 kill_switches
 - 若 Bible 不存在：由 ai-infra-researcher 或 industry-analyst 新建
 
-修正現有 Insight：
+**③ 修正現有 Insight：**
 - 若第 9 節發現某 Insight 被此分析挑戰 → 提交建議「降級 {INS-XXX} 或加挑戰記錄」
 - 若產生新的 L2 因果假說 → 提交建議「新增 Insight：{一句話 claim}」，由下次晨會確認後寫入
 
-新進場標的：
+**④ 新進場標的：**
 - 若裁示為加碼/進場 → 寫入 `data/tracking/picks.json`，格式對照現有 picks
 
 ---

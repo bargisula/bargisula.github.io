@@ -29,6 +29,16 @@
 
 ---
 
+### Step 2b：讀取產業結論 JSON（若存在）
+
+對 Step 2 選定的每個產業，嘗試讀取 `data/industry/{slug}.json`：
+
+- 若存在 → 沿用 `verdict`、`top_candidates`、`focus_segments` 作為分析起點，不重新推導
+- 若 `verdict = avoid` → 該產業標注 ⚠️，說明為何本週仍選此產業（需充分理由）
+- 若不存在 → 正常進行 Step 3 分析，分析完後建議執行 `/industry-analysis` 補建 JSON
+
+---
+
 ### Step 3：逐一分析每個產業
 
 對每個選定產業，依序完成：

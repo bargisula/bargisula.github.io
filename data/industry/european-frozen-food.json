@@ -1,0 +1,64 @@
+{
+  "industry": "歐洲冷凍食品",
+  "slug": "european-frozen-food",
+  "framework_used": ["industry-analysis", "porter-five-forces", "earnings-call-scan"],
+  "verdict": "cautious",
+  "verdict_desc": "品類 CAGR 4.7-5.3% 仍健康，但自有品牌侵蝕品牌商利潤結構，中國蔬菜傾銷為額外外生衝擊。機會在有差異化品牌策略的個別公司（FRoSTA），非整體板塊做多",
+  "bottleneck_score": 2,
+  "top_candidates": [
+    {
+      "ticker": "NLM",
+      "name": "FRoSTA AG",
+      "role": "德國無添加冷凍品牌龍頭，EBIT率 9.2%，品牌收入+15.7% vs 市場+3.7%",
+      "type": "monopoly"
+    },
+    {
+      "ticker": "NOMD",
+      "name": "Nomad Foods",
+      "role": "歐洲最大品牌商22國布局，主動轉型重整渠道，2026轉型年",
+      "type": "option"
+    },
+    {
+      "ticker": "BON",
+      "name": "Bonduelle SCA",
+      "role": "冷凍蔬菜品類，中國玉米傾銷衝擊中，轉型復甦，18個月回穩窗口",
+      "type": "option"
+    }
+  ],
+  "suppress_reason": null,
+  "kill_switches": [
+    {
+      "id": "K1",
+      "condition": "品牌 vs 自有品牌價差縮小至 <15%（當前約 30-40%），顯示品牌溢價持續流失",
+      "action": "全板塊降評至 avoid"
+    },
+    {
+      "id": "K2",
+      "condition": "中國冷凍食品傾銷擴散至肉類/即食餐品類（目前僅限玉米/蔬菜）",
+      "action": "Bonduelle 降評至 avoid，重新評估 Nomad 歐陸業務"
+    },
+    {
+      "id": "K3",
+      "condition": "歐洲工業電費較當前水平再漲 >30%（冷鏈成本結構性惡化）",
+      "action": "全板塊降評，冷鏈物流標的受益"
+    }
+  ],
+  "focus_segments": [
+    "無添加/健康定位冷凍品牌（FRoSTA 模式）",
+    "植物性冷凍食品（+12% YoY，結構性成長）",
+    "冷鏈物流（CAGR 8.97%，高於品牌端，獨立機會）"
+  ],
+  "earnings_call_signals": {
+    "new_terms_this_quarter": [
+      "aligning sell-in with sell-out（NOMD：主動去渠道庫存扭曲）",
+      "Chinese corn dumping（BON：首次用傾銷框架定性外部衝擊）"
+    ],
+    "consensus": "歐洲消費環境承壓 + 私有品牌壓力 + 品類本身仍成長",
+    "scan_date": "2026-05-31"
+  },
+  "regime_alignment": "中性",
+  "updated": "2026-05-31",
+  "updated_by": "industry-analysis",
+  "next_review": "2026-09-01",
+  "_note": "由 CEO 整合 industry-scan + earnings + earnings-call-scan 三路數據後產出。jade-report / stock-pick 讀此 JSON，不重新推導。"
+}

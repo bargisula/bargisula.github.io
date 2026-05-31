@@ -1,0 +1,33 @@
+{
+  "_doc": "產業分析結論庫。由各分析引擎寫入，jade-report / stock-pick / position-check 讀此 JSON，不重新推導。每個產業一個檔案，slug 即檔名。",
+  "_schema": {
+    "industry": "產業中文名",
+    "slug": "檔名用，小寫 kebab-case，例 ai-infrastructure",
+    "framework_used": ["使用的引擎名稱，可多個，例 industry-analysis / leopold-model / ai-infra-scan"],
+    "verdict": "favorable | cautious | avoid",
+    "verdict_desc": "一句話說明裁定理由，附關鍵數字",
+    "bottleneck_score": "1-5，由 industry-analysis 或 industry-11d 給出",
+    "top_candidates": [
+      {
+        "ticker": "代號",
+        "name": "公司名",
+        "role": "在供應鏈的定位",
+        "type": "bottleneck | monopoly | option | low-cost"
+      }
+    ],
+    "suppress_reason": "若 verdict=avoid，說明原因；否則 null",
+    "kill_switches": [
+      {
+        "id": "K1",
+        "condition": "可觀察的觸發條件，必須有具體門檻",
+        "action": "立即離場 | 降評至觀察"
+      }
+    ],
+    "focus_segments": ["此產業內值得關注的子板塊或技術"],
+    "regime_alignment": "順 Regime | 逆 Regime | 中性",
+    "updated": "YYYY-MM-DD",
+    "updated_by": "industry-analysis | leopold-model | ai-infra-scan",
+    "next_review": "YYYY-MM-DD",
+    "_note": "唯一裁定來源。下游工具讀此 JSON，不自行推導產業結論。"
+  }
+}
