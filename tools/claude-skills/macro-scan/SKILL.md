@@ -1,10 +1,9 @@
 ---
 name: macro-scan
 description: >
-  總體經濟掃描框架。當使用者說「總經掃描」「這週有什麼數據」「總經環境」
-  「macro」「市場現在是 risk-on 還是 risk-off」時，
-  搜尋當週重要總經指標與事件，輸出一頁式總覽，判斷當前市場模式。
-  不自動寫檔，對話中輸出後詢問是否儲存。
+  總體經濟數據採集工具。當使用者說「總經掃描」「這週有什麼數據」「總經環境」「macro」時，
+  搜尋當週重要總經指標與事件，輸出結構化數據包供 DSMM 分析引擎使用。
+  不做判斷、不下 risk-on/off 結論，純數據採集。
 user-invocable: true
 ---
 
@@ -13,7 +12,7 @@ user-invocable: true
 ## 執行流程
 
 ```
-搜尋四個面向數據 → 輸出一頁式總覽 → 判斷 risk-on/off → 詢問是否存檔
+搜尋四個面向數據 → 輸出結構化數據包 → 交由 DSMM 分析
 ```
 
 ---
@@ -138,55 +137,22 @@ user-invocable: true
 
 - [事件 1]
 - [事件 2]
-
----
-
-### 市場模式判斷
-
-> [一句話：現在是 risk-on（追成長）、risk-off（守防禦）、還是 wait-and-see（等數據）]
-
-**核心邏輯**：[2-3 句說明為什麼這樣判斷，依據是哪幾個指標]
 ```
 
 ---
 
-## 步驟 4：詢問儲存
+## 步驟 4：輸出數據包
 
-輸出後加上：
+輸出完整數據表後加上：
 
 ```
 ─────────────────────────────
-要存起來嗎？
-
-A) 存成週報筆記 → notes/投資/總經/總經掃描-YYYY-MM-DD.md
-B) 不用，看完就好
+以上為結構化數據原料，不含判斷。
+下一步：將此數據餵入 /dsmm 進行 Regime 分析。
 ─────────────────────────────
 ```
 
-### 若選 A，寫檔並推上 GitHub
-
-路徑：`C:\Users\alpha\my-blog\src\content\notes\投資\總經\總經掃描-YYYY-MM-DD.md`
-
-frontmatter：
-```yaml
----
-title: '總經掃描 YYYY-MM-DD｜[市場模式判斷，10字內]'
-description: '[60字內，含 VIX 水位、殖利率、本週關鍵數據]'
-category: '投資'
-subcategory: '總經'
-pubDate: 'YYYY-MM-DD'
-draft: true
----
-```
-
-git：
-```
-git checkout main
-git pull origin main
-git add src/content/notes/投資/總經/總經掃描-YYYY-MM-DD.md
-git commit -m "add 總經掃描 YYYY-MM-DD"
-git push origin main
-```
+**注意：** macro-scan 不下 risk-on/off 結論，所有判斷由 DSMM 引擎處理後寫入 `data/regime/current.json`。
 
 ---
 
@@ -195,5 +161,4 @@ git push origin main
 - 「總經掃描」
 - 「這週有什麼數據」
 - 「總體環境怎麼樣」
-- 「現在 risk-on 還是 risk-off」
 - 「macro」
