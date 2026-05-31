@@ -78,7 +78,7 @@ Step 1：讀 data/coverage/ 對應 Bible（若存在）→ 報告現有論點
 Step 2：若需更新論點 → 呼叫 /stock-pick 或 ai-infra-researcher
 ```
 
-### 財報請求
+### 財報請求（單一個股）
 
 **識別條件：** 使用者說「看 NVDA 財報」「TSLA 這季怎麼樣」「財報出來了」等
 
@@ -91,6 +91,22 @@ Step 3：earnings-analyst 寫回 Bible（financials + thesis_status 更新）
 ```
 
 **CEO 不自行解讀財報數字。** 財報數字的意義由 earnings-analyst 對照 Bible 論點後裁定。
+
+---
+
+### 法說會趨勢請求（橫向掃描）
+
+**識別條件：** 使用者說「AI 公司這季法說說什麼」「這個產業的 CEO 怎麼看」「法說趨勢」「這季大家都在說什麼」等
+
+**標準流程：**
+
+```
+Step 1：/earnings-call-scan [產業或主題]
+         → 掃 3-6 家主要公司 transcript，橫向比較 CEO 措辭與態度
+Step 2：若需要正式分析 → 將結果餵入 /industry-scan 面向 B，或直接進 /industry-analysis
+```
+
+**與財報請求的差異：** 財報請求是單一股票的論點驗證；法說趨勢請求是橫向掃描，目的是抓產業趨勢訊號。
 
 ---
 
