@@ -239,3 +239,74 @@ Stage 5 結束後執行：
 主要風險點：[逼近閾值的初始條件]
 需人工確認：[所有標注 ⚠️ 的判斷點]
 ```
+
+---
+
+### 步驟六：Regime 更新寫入
+
+分析完成後，將結論對應到 Regime 座標並更新 `data/regime/current.json`。
+
+**象限對應規則：**
+- 成長↑ + 通膨↑ → `Overheat`（過熱）
+- 成長↑ + 通膨↓ → `Recovery`（擴張）
+- 成長↓ + 通膨↑ → `Stagflation`（滯脹）
+- 成長↓ + 通膨↓ → `Recession`（衰退）
+
+**trend 對應規則：**
+- 通膨加速 → `right`；通膨緩解 → `left`
+- 成長改善 → `up`；成長惡化 → `down`
+- 組合方向取主要驅動力
+
+**risk_posture 對應規則：**
+- `Recovery` 或 `Overheat` 初期 → `risk-on`
+- `Stagflation` 或 `Recession` → `risk-off`
+- 方向不確定或過渡期 → `wait-and-see`
+
+**active_faces 對應規則（對應 CMO 六面向）：**
+- `fed_cycle`：面向一 B（貨幣政策週期）
+- `credit_cycle`：面向二 C（信用利差）
+- `growth_inflation`：面向一 A（增長/通膨向量）
+- `geographic_spill`：面向四（地域溢出）
+- `domino_risk`：面向五（骨牌推演）
+- `external_shock`：面向一 D（外生變數）
+
+活躍度判斷：衝擊直接命中該面向 → 🔴；間接影響 → 🟡；無關 → 🟢
+
+**執行：**
+```bash
+# 讀取現有 JSON
+cat data/regime/current.json
+```
+
+更新以下欄位，其餘（`regime`、`regime_desc`、`focus_sectors`、`suppress_sectors`、`trigger_keywords`）若無明確變化則保留：
+
+```json
+{
+  "regime_grid": {
+    "quadrant": "Recovery|Overheat|Stagflation|Recession",
+    "trend": "right|left|up|down|up-right|down-right|up-left|down-left",
+    "confidence": "high|medium|low"
+  },
+  "risk_posture": "risk-on|risk-off|wait-and-see",
+  "active_faces": {
+    "fed_cycle":        "🔴|🟡|🟢",
+    "credit_cycle":     "🔴|🟡|🟢",
+    "growth_inflation": "🔴|🟡|🟢",
+    "geographic_spill": "🔴|🟡|🟢",
+    "domino_risk":      "🔴|🟡|🟢",
+    "external_shock":   "🔴|🟡|🟢"
+  },
+  "updated": "YYYY-MM-DD",
+  "updated_by": "DSMM",
+  "next_review": "YYYY-MM-DD（下週同日）"
+}
+```
+
+Regime 象限若發生轉變，同步更新 `regime`、`regime_desc`、`focus_sectors`、`suppress_sectors`、`trigger_keywords`。
+
+寫入後 git commit：
+```bash
+git add data/regime/current.json
+git commit -m "system: DSMM Regime 更新 YYYY-MM-DD"
+git push -u origin main
+```

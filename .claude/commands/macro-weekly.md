@@ -163,17 +163,26 @@ Regime 座標後，緊接一張地域波及快表，**每週必須輸出，不�
 
 ## 執行步驟
 
-### Step 1：取得數據（CMO 六面向掃描）
+### Step 1：讀取 Regime 基線 + CMO 增量掃描
 
-呼叫 CMO agent，CMO 必須先執行**六面向活躍度掃描**，確認本週 🔴 活躍面向後，再提供以下素材：
+**先讀取唯一裁定來源：**
+```bash
+cat data/regime/current.json
+```
 
-- 面向活躍度總覽（六面向各自的 🔴🟡🟢 狀態）
-- 當前 Regime 裁定（象限 + 移動方向 + 確信度）
+取得：`regime_grid`（象限/方向/確信度）、`risk_posture`、`active_faces`、`focus_sectors`、`suppress_sectors`。
+
+這是本週報告的 Regime 起點，不重新推導。
+
+**再呼叫 CMO agent 執行增量掃描：**
+CMO 以 JSON 內容為基線，只針對本週新訊號確認六面向活躍度是否有變化，提供以下素材：
+
+- 六面向活躍度確認（對照 `active_faces`，有異動則說明）
 - 本週 🔴 活躍面向的關鍵指標（含值 + 方向↑↓→ + 斜率）
 - 本週核心外生風險（地緣/聖嬰/政策轉向，若有）
 - 骨牌傳導地圖（若面向五活躍）
 
-**macro-weekly 只負責把 CMO 的分析素材轉化為對外敘事，不重新分析數字。**
+**macro-weekly 只負責把 CMO 的分析素材轉化為對外敘事，不重新分析數字。若本週無新 DSMM 分析，直接以 JSON 現有裁定為準。**
 
 **API Fallback：** 若 `localhost:8000` 無回應，CMO 執行 WebSearch 補充缺口數據，並在報告數據表末加注：「* 數據來源：WebSearch，{日期}」
 
