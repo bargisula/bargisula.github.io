@@ -138,13 +138,29 @@ Regime 名稱直接從 `data/regime/current.json` 讀取，不自行造詞。
 
 ## 會議紀錄
 
-存入 `data/meetings/YYYY-MM-DD.md`，結構六個章節：
+**兩份同步寫入：**
+
+1. `data/meetings/YYYY-MM-DD.md`——原始完整版（內部資料）
+2. `src/content/notes/Xompass/會議記錄/YYYY-MM-DD.md`——網站顯示版（同內容，加 frontmatter）
+
+**Frontmatter 格式：**
+```yaml
+---
+title: '【會議記錄】YYYY-MM-DD 晨會'
+description: '60字內，列出本次主要討論主題'
+category: 'Xompass'
+subcategory: '會議記錄'
+pubDate: 'YYYY-MM-DD'
+---
+```
+
+**六個章節：**
 
 1. 前次追蹤事項
 2. 市場環境（美股/台股大盤、重要新聞、總經、Regime）
 3. 今日議題（自動生成的結構化議題）
 4. 裁定（置頂，行動動詞開頭）
 5. 下次檢查點
-6. 深入討論（若有）——可含總經、產業、個股任意組合，每個討論以 `### 討論：[主題]` 開頭
+6. 深入討論（若有）——可含總經、產業、個股任意組合，每個討論以 `### 討論主題名稱` 開頭
 
-裁定放第一段（方便下次會議快速讀取）。確認後才寫，不在討論中途存檔。
+裁定置頂。確認後才寫，不在討論中途存檔。寫完後 git push origin main（直接 push，不需要 PR）。
