@@ -1,6 +1,16 @@
 {
-  "last_updated": "2026-05-23",
+  "last_updated": "2026-06-01",
   "items": [
+    {
+      "name": "RKLB（Rocket Lab）觀察標的",
+      "added_date": "2026-06-01",
+      "type": "watch_candidate",
+      "ticker": "RKLB",
+      "trigger_event": "SpaceX IPO（預計 06/12 掛牌，代號 SPCX）後代理溢價收縮程度",
+      "watch_condition": "SpaceX 掛牌後 RKLB 股價跌至 110 以下（代理溢價基本消化）+ Neutron 首飛時間表確認",
+      "next_date": "2026-06-12",
+      "note": "基本面健康（Q1 營收 2.003 億 YoY +63%，backlog 22 億翻倍），但估值嚴重透支（P/S 97x，RSI 80，分析師目標價 103 vs 現價 143）。最大近期風險：SpaceX 6/12 IPO 後代理溢價消失。Neutron 重型火箭尚未首飛，商業可行性未驗證。等估值落地後再評估進場。"
+    },
     {
       "name": "【下次會議議題】伊朗衝突總經裁示未完成",
       "added_date": "2026-05-23",
@@ -11,9 +21,9 @@
     {
       "name": "PCE 物價指數",
       "added_date": "2026-05-20",
-      "next_date": "2026-05-28",
-      "last_value": null,
-      "note": "核心 PCE 前值 3.2%，觀察是否繼續走高，若超 3.5% 則 Regime 跳轉至滯脹"
+      "next_date": "2026-06-27",
+      "last_value": "核心 PCE 3.3% YoY（4月，2026-05-28公布）；整體 PCE 3.8% YoY",
+      "note": "核心 PCE 3.3% 符合預期，月增 0.2%（低於預期 0.3%）。整體 PCE 3.8%（自 2023/05 以來最高）。未觸發 Regime 跳轉條件（3.5%），走路徑 A/中性。下次公布預計 2026-06-27。"
     },
     {
       "name": "GLW 股價回測 $180",
@@ -42,6 +52,36 @@
       "next_date": null,
       "last_value": null,
       "note": "Intel 宣布 2026 年後先進封裝導入玻璃基板，Corning 為關鍵供應商。任何正式量產時間表或訂單公告即觸發 C2，為 GLW 論點最大催化劑。"
+    },
+    {
+      "name": "【AS 先行指標】NVDA 推理晶片 vs 訓練晶片營收佔比",
+      "added_date": "2026-05-26",
+      "type": "as_leading_indicator",
+      "frequency": "季度（NVDA 財報）",
+      "trigger_level": "推理晶片佔比 > 40%",
+      "last_value": null,
+      "next_date": "2026-08-20",
+      "note": "Brain Project Phase 5 AS 先行指標。推理晶片佔比突破 40% 代表 AI 需求從訓練（AD 端）轉向推理（AS 應用端起量），是 AD→AS 轉折的最早訊號之一。資料來源：NVDA 季報財報電話。當前訓練晶片（H100/H200/B200）仍主導，推理佔比估計 20-25%。"
+    },
+    {
+      "name": "【AS 先行指標】Microsoft/Salesforce 財報電話「seat-based pricing 壓力」提及次數",
+      "added_date": "2026-05-26",
+      "type": "as_leading_indicator",
+      "frequency": "季度（財報電話）",
+      "trigger_level": "QoQ 提及次數變化率 > +50%",
+      "last_value": null,
+      "next_date": "2026-07-30",
+      "note": "Brain Project Phase 5 AS 先行指標。seat-based pricing 壓力上升代表 AI 工具開始替代人工席位，是企業 AI 落地與生產力通縮的早期訊號。每次財報電話後人工計算提及次數，追蹤 QoQ 變化率。資料來源：MSFT / CRM 財報電話逐字稿。"
+    },
+    {
+      "name": "【AS 先行指標】美國 H1B 簽證核准率",
+      "added_date": "2026-05-26",
+      "type": "as_leading_indicator",
+      "frequency": "季度（USCIS 公告）",
+      "trigger_level": "連續兩季下滑",
+      "last_value": null,
+      "next_date": "2026-09-30",
+      "note": "Brain Project Phase 5 AS 先行指標。H1B 核准率連續兩季下滑代表企業預期勞動力需求結構改變，科技業對技術移民需求下降意味 AI 替代勞動力效應正在浮現。資料來源：USCIS 季度數據。注意：需排除政策性因素（Trump 政策影響）再解讀。"
     }
   ]
 }
