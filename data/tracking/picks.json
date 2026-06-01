@@ -1,6 +1,25 @@
 {
-  "last_updated": "2026-05-22",
+  "last_updated": "2026-06-01",
   "picks": [
+    {
+      "id": "pick-2026-06-01-RKLB",
+      "ticker": "RKLB",
+      "company": "Rocket Lab USA",
+      "recommended_date": "2026-06-01",
+      "price_at_rec": 143.48,
+      "thesis": "基本面健康（Q1 營收 +63%，backlog 22 億翻倍），但代理溢價（SpaceX 無法直接買）即將在 SpaceX 6/12 IPO 後消化。等估值重設後進場，押 Neutron 首飛帶動的商業模式驗證。",
+      "entry_condition": "低於 180 美元逐步建倉（分批，非一次性）；SpaceX IPO 後代理溢價消化為優先等待條件",
+      "entry_strategy": "逐步建倉：180 以下首批，165 以下加碼，150 以下再加；每批間距至少一週觀察",
+      "kill_switch": "Neutron 計畫正式取消 OR Q2 2026 backlog 萎縮 OR 融資需求大幅增加（稀釋股本 >10%）",
+      "reviews": {
+        "week1": { "due": "2026-06-12", "price": null, "direction": null, "thesis_status": null, "notes": "SpaceX IPO 掛牌日，觀察代理溢價收縮幅度" },
+        "week2": { "due": "2026-06-19", "price": null, "direction": null, "thesis_status": null, "notes": null },
+        "week3": { "due": "2026-06-26", "price": null, "direction": null, "thesis_status": null, "notes": null }
+      },
+      "final_verdict": null,
+      "failure_mode": null,
+      "status": "pending"
+    },
     {
       "id": "pick-2026-05-21-GLW",
       "ticker": "GLW",
@@ -8,10 +27,10 @@
       "recommended_date": "2026-05-21",
       "price_at_rec": 188,
       "thesis": "光纖物理邊界已至 + 玻璃基板封裝為下一個未定價選項，結構看多但等進場條件",
-      "entry_condition": "回測 180 美元 + 美債 10Y ≤ 4.3%",
+      "entry_condition": "≤198 美元 + 美債 10Y ≤ 4.6%（2026-05-27 上修：原條件 ≤180 + 10Y ≤4.3%，因 NVIDIA 32 億美元股權投資協議確立訂單底，論點從本夢比升級為有錨定合約支撐）",
       "report_path": "src/content/notes/Xompass/投資報告/pick-2026-05-21-GLW.md",
       "reviews": {
-        "week1": { "due": "2026-05-28", "price": null, "direction": null, "thesis_status": null, "notes": null },
+        "week1": { "due": "2026-05-28", "price": 196.17, "direction": "correct", "thesis_status": "confirmed", "notes": "股價 $196（+4.3% vs 建倉日 $188）。NVIDIA 32億美元股權投資協議為新增錨定事件，論點升級。進場條件上修至 ≤$198 + 10Y ≤4.6%，現況已符合兩個條件。C2 玻璃基板仍待確認（2030量產），Kill Switch 均未觸發。" },
         "week2": { "due": "2026-06-04", "price": null, "direction": null, "thesis_status": null, "notes": null },
         "week3": { "due": "2026-06-11", "price": null, "direction": null, "thesis_status": null, "notes": null }
       },

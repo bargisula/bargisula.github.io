@@ -15,20 +15,22 @@
     "domino_risk":      "🟢",
     "external_shock":   "🟡"
   },
+  "updated": "2026-05-26",
+  "updated_by": "CMO",
+  "bible_anchor": "AI 外生變數正處 AD 衝擊階段（2022-2026 Capex 潮），AS 衝擊（生產力通縮）預計 2027-2029 浮現；長期實質利率均衡受此路徑約束",
+  "insight_signal": "INS-002（封裝需求多季度能見度，L2 高確信）強化 Regime 核心；INS-004（電力瓶頸未定價，L1 待驗證）為 Regime 下一個定價窗口；INS-001（Warsh 公信力，L1 認知型）為 Regime 的最大外生風險",
   "focus_sectors": [
     {"sector": "AI_infrastructure",  "reason": "hyperscaler capex 上升，NVDA/AVGO/QCOM 直接受益", "added": "2026-05-22"},
     {"sector": "optical_fiber",      "reason": "GPU cluster 機架間互連需求帶動光纜採購",          "added": "2026-05-22"},
     {"sector": "power_grid",         "reason": "數據中心電力需求推升電網設備與備援電源採購",      "added": "2026-05-22"}
   ],
   "suppress_sectors": [
-    {"sector": "long_duration_growth", "reason": "10Y yield 高位，估值壓力仍在", "added": "2026-05-22"}
+    {"sector": "long_duration_growth", "reason": "10Y yield 4.59%，估值壓力仍在；Warsh 鷹派壓力使利率尾部風險上升", "added": "2026-05-22"}
   ],
   "trigger_keywords": [
     "AI capex", "data center", "hyperscaler", "fiber demand",
     "GPU interconnect", "power infrastructure", "cloud spending"
   ],
-  "updated": "2026-05-22",
-  "updated_by": "CMO",
   "next_review": "2026-06-06",
   "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。"
 }
