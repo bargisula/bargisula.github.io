@@ -1,0 +1,97 @@
+{
+  "last_updated": "2026-06-02",
+  "note": "持倉紀錄，董事長提供均價與股數，現價由 PMC 會議時查詢更新",
+  "holdings": [
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "business": "客製化 AI 推理晶片（XPU）與企業網路設備，VMware 軟體訂閱",
+      "shares": 1,
+      "avg_cost": 480,
+      "category": "AI基礎設施",
+      "notes": "部位小，明日財報（6/3）是關鍵確認節點"
+    },
+    {
+      "ticker": "GLDM",
+      "company": "SPDR Gold MiniShares",
+      "business": "黃金 ETF，避險用途",
+      "shares": 2,
+      "avg_cost": 97,
+      "category": "避險",
+      "notes": "避險倉位，非投機性"
+    },
+    {
+      "ticker": "GLW",
+      "company": "Corning Incorporated",
+      "business": "全球最大光纖製造商，AI 資料中心光纖連線直接受益，玻璃基板封裝長期選項",
+      "shares": 37,
+      "avg_cost": 199,
+      "category": "AI基礎設施",
+      "notes": "picks.json 已有追蹤紀錄（pick-2026-05-21-GLW），進場條件 ≤198 + 10Y ≤4.6% 均觸發。Week2 review 到期 06/04。",
+      "linked_pick": "pick-2026-05-21-GLW"
+    },
+    {
+      "ticker": "GOOG",
+      "company": "Alphabet（Google）",
+      "business": "搜尋廣告、Google Cloud（AI 服務）、YouTube、Android",
+      "shares": 43,
+      "avg_cost": 391,
+      "category": "科技",
+      "notes": "最大單一持倉（佔成本 55%）。看好多模態 AI 敘事，維持持有。Cloud 季增 63%，backlog 4,600 億為論點核心支柱。主要風險：搜尋廣告市佔結構性侵蝕。",
+      "thesis_stance": "持有，多模態看好，接受集中度高"
+    },
+    {
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "business": "AI 客製晶片（XPU）設計，服務 Amazon、Microsoft 等雲端客戶",
+      "shares": 3,
+      "avg_cost": 270,
+      "category": "AI基礎設施",
+      "notes": "2026-06-02 單日 +27%（Jensen Huang 公開點名 Marvell 的 AI ASIC 角色，敘事調整非純情緒）。均價 270 仍在現價以上，無資金追加，維持觀察。",
+      "thesis_stance": "維持，敘事轉正，等後續驗證"
+    },
+    {
+      "ticker": "RKLB",
+      "company": "Rocket Lab USA",
+      "business": "小型火箭發射服務，Neutron 中型火箭開發中",
+      "shares": 5,
+      "avg_cost": 141,
+      "category": "太空",
+      "notes": "picks.json 已有追蹤紀錄（pick-2026-06-01-RKLB）。現價約 122，Blue Origin 爆炸事件拖累。等 SpaceX 6/12 掛牌後代理溢價消化（目標觀察 ≤110）。",
+      "linked_pick": "pick-2026-06-01-RKLB"
+    },
+    {
+      "ticker": "TSM",
+      "company": "台積電 ADR（NYSE: TSM）",
+      "business": "全球最大晶圓代工廠，AI 晶片先進封裝（CoWoS）主要供應方",
+      "shares": 8,
+      "avg_cost": 407,
+      "category": "AI基礎設施",
+      "notes": "唯一有較明顯正報酬的 AI 持倉（+7%），長期核心部位"
+    },
+    {
+      "ticker": "VTI",
+      "company": "Vanguard Total Stock Market ETF",
+      "business": "美國全市場 ETF，壓倉用途",
+      "shares": 2,
+      "avg_cost": 326,
+      "category": "指數ETF",
+      "notes": "壓倉，+14.4%，無需動作"
+    },
+    {
+      "ticker": "XLP",
+      "company": "Consumer Staples Select Sector SPDR",
+      "business": "消費必需品 ETF（食品、飲料、日用品），防禦性倉位",
+      "shares": 1,
+      "avg_cost": 85,
+      "category": "防禦",
+      "notes": "防禦性配置，部位極小"
+    }
+  ],
+  "portfolio_summary": {
+    "total_cost": 30358,
+    "pmc_date": "2026-06-02",
+    "concentration_note": "GOOG 佔總成本 55%，為最大集中度風險",
+    "stance": "整體 Risk-on，AI 基礎設施主題為核心，接受 GOOG 集中度"
+  }
+}
