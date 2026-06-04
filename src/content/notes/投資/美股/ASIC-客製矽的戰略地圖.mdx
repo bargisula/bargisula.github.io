@@ -1,0 +1,206 @@
+---
+title: '【美股】ASIC 客製矽的戰略地圖：誰在設定規則、誰在瓜分市場'
+description: '從 GPU 壟斷到多極競爭——ASIC 的崛起不是取代輝達，而是超大雲端用客製矽重奪算力主權。訓練 vs 推論的分工、AVGO vs Marvell 的賽道、以及 2028 年後真正的戰場在哪。'
+category: '投資'
+subcategory: '美股'
+topic: 'AI 半導體'
+pubDate: '2026-06-04'
+---
+
+import Callout from '@components/Callout.astro'
+
+## 一、GPU 時代的根本矛盾
+
+輝達（NVIDIA）用 CUDA 鎖住了 AI 開發者，也鎖住了每年花數百億美元買 GPU 的超大雲端業者。問題在於，**被鎖住的不只是技術棧，還有定價權。**
+
+Google、Meta、Amazon、Microsoft 每年合計砸超過 7,000 億美元的 AI 資本支出，其中晶片採購是最大的單一成本項。讓單一供應商決定這顆晶片值多少錢，對任何一家超大雲端來說都是策略上的致命弱點。
+
+這是客製矽（Custom ASIC）崛起的根本動機，不是技術情懷，是主權。
+
+---
+
+## 二、數字先說話
+
+<Callout type="data">
+**2026 ASIC 市場關鍵數據**
+
+- 超大雲端合計 capex：~7,250 億美元（2026 全年估）
+- ASIC AI 伺服器出貨市占：27.8%（2026），預估 2028 年首次超越 GPU
+- Custom ASIC 出貨成長率：YoY +44.6%（vs GPU +16.1%）
+- AVGO 三大 ASIC 客戶 TAM（FY2027）：600-900 億美元
+- Marvell AI 資料中心收入：季度創歷史新高，FY2027 目標超過 100 億美元
+</Callout>
+
+2028 年是分水嶺：ASIC 出貨量將首次超過 GPU。這不是 GPU 的終結，是算力格局的重新分層。
+
+---
+
+## 三、ASIC 到底是什麼，為什麼現在
+
+**ASIC（Application-Specific Integrated Circuit）** 是針對特定工作負載設計的專用晶片，相對於 GPU 的通用彈性，ASIC 的優勢在於：
+
+| 面向 | GPU（通用） | ASIC（客製） |
+|---|---|---|
+| 彈性 | 高，新模型架構直接跑 | 低，架構定版後難改 |
+| 效能/瓦特 | 中 | 高（特定工作負載） |
+| 成本 | 高（輝達溢價） | 中低（量大後攤平 NRE） |
+| 設計週期 | 無（買現貨） | 長（18-36 個月） |
+| 定價自主性 | 無 | 高 |
+
+過去 ASIC 沒有大規模流行，原因是 AI 模型架構變化太快，客製一顆晶片還沒出貨模型就改了。**2025-2026 年的轉折點在於推論需求爆發**——推論用的模型架構比訓練穩定得多，這讓 ASIC 的 ROI 計算成立。
+
+---
+
+## 四、超大雲端的供應商策略：三層鎖定都要打破
+
+超大雲端的採購邏輯從來不是「找最好的」，而是「不被任何一家綁死」。
+
+```
+第一層：不想被輝達綁 → 自研 ASIC，找 AVGO 代工設計
+第二層：不想被 AVGO 綁 → 把部分需求切給 Marvell
+第三層：不想被 Marvell 綁 → 未來找第四家，或直接內化設計
+```
+
+這個邏輯已經在現實中展開：
+
+<Callout type="insight">
+**Google 的雙供應商策略**
+
+Google 的 AI 加速器（TPU v5）找 AVGO 做 co-design，同時把 ARM CPU（Axion）交給 Marvell。兩家各拿一條腿，Google 保留談判籌碼。Meta 的 MTIA 也是類似結構——核心加速器給 AVGO，周邊晶片分給第二供應商。
+
+這不是偶然，是制度性採購策略。
+</Callout>
+
+---
+
+## 五、AVGO vs Marvell：不是競爭，是分工
+
+這是目前市場最常見的誤解——把 AVGO 和 Marvell 放在同一個賽道比較。實際上他們服務的客戶群和晶片類型有明顯差異。
+
+### 客戶版圖
+
+| 客戶 | AVGO | Marvell | 備註 |
+|---|---|---|---|
+| Google | ✅ TPU（AI 加速器） | ✅ Axion CPU | 分層採購 |
+| Meta | ✅ MTIA 核心 | ✅ 周邊矽 | 分層採購 |
+| Amazon AWS | ❌ | ✅ Trainium 2/3 | Marvell 獨佔 |
+| Microsoft | ❌ | ✅ Maia（Azure + OpenAI） | Marvell 獨佔 |
+| Anthropic | ✅ | ❌ | AVGO 獨佔 |
+| OpenAI | ✅ | ❌ | AVGO 獨佔（2027 部署） |
+| Apple | ✅ | ❌ | AVGO 獨佔 |
+
+### 定位差異
+
+**AVGO** 拿的是「AI 原生公司」的計算核心——Google TPU、Meta MTIA、Anthropic、OpenAI，這些都是以去 NVIDIA 化為策略目標、主動建立算力主權的客戶。AVGO 的客製 ASIC 市占超過 70%，Google 與其簽訂延伸至 2031 年的長約。
+
+**Marvell** 拿的是「雲端基礎設施公司」的計算周邊——Amazon 和 Microsoft 對 NVIDIA 依賴更深，自研 ASIC 的動機是降本，不是主權。Marvell 接受更低的毛利，換取 Amazon Trainium 這種量大穩定的訂單。
+
+---
+
+## 六、NVIDIA 的應對：FUSION，打群架不吞並
+
+輝達看清楚了一件事：強迫超大雲端只用 GPU 是不可能的，不如讓 GPU 和 ASIC 並存，自己卡住中間的介面標準。
+
+**NVIDIA FUSION** 的邏輯：用 NVLink-C2C 高頻寬橋接，讓 GPU 和第三方 ASIC 協同運作。
+
+- GPU 負責**彈性部分**：新模型架構、訓練、多樣化工作負載
+- 客製 ASIC 負責**固定部分**：高重複性推論、特定 attention 機制
+- NVLink 橋接兩者，整體系統效能高於各自單打
+
+Marvell 已確認加入 FUSION 生態。**AVGO 則幾乎不可能加入**——AVGO 的核心客戶（Google、OpenAI、Anthropic）做 ASIC 的動機之一就是建立 NVIDIA 以外的算力主權，AVGO 加入 FUSION 等於在最大客戶面前政治失分。
+
+輝達的真正策略不是垂直整合，是**生態系擴張**：讓 MediaTek 做 CPU+GPU（AIPC）、讓 Marvell 做 ASIC 橋接、讓 ODM 四雄做機架——輝達卡住每一層之間的介面標準，讓所有人都有飯吃，但換的是生態鎖定。
+
+---
+
+## 七、訓練 vs 推論：ASIC 競爭的核心分野
+
+這是 2027-2028 年最重要的結構性分裂。
+
+**訓練 XPU**：設計複雜、差異大、co-design 週期長 → AVGO 護城河深，不易被替代。
+
+**推論 XPU**：架構趨於收斂（GPT 系、Claude 系、Gemma 系就那幾個）→ 設計門檻降低 → 第二供應商有機會進入 → 這是 Marvell 的成長空間，也是超大雲端降低 AVGO 依賴的著力點。
+
+<Callout type="insight">
+**Jevons 悖論讓推論 XPU 市場比想像中大**
+
+理論上，推論比訓練便宜 → 推論晶片需求應該有限。但 agent 時代的查詢結構是：一個問題拆成數十個子問題、每個子問題都要推論一次。Vera Rubin 讓每個 token 成本降 10 倍，但用量增加速度更快。推論 XPU 的 TAM 可能超過訓練 XPU，這個市場的競爭會更激烈。
+</Callout>
+
+---
+
+## 八、AVGO 的護城河：真正的版本
+
+市場普遍把 AVGO 的護城河說成「客製 ASIC 設計能力」，這個說法不完整。AVGO 真正難以撼動的有三層：
+
+**第一層：Tomahawk / Jericho 網路交換晶片**
+這才是 AVGO 的毛利底座（~65-70%），也是真正難以替代的基礎設施。超大雲端資料中心的機架間網路全跑 AVGO 的交換晶片，無論上面是 NVIDIA GPU 還是自研 ASIC，網路這層都要付 AVGO 的錢。重建成本極高，幾乎沒有替代動機。
+
+**第二層：SerDes IP**
+224G 每條 lane 的高速電氣信號技術，是晶片與晶片、晶片與光模組之間通訊的基礎。AVGO 做了 20 年，IP 庫深度無法在數年內追上。
+
+**第三層：co-design 的制度性記憶**
+AVGO 在 Google 資料中心蹲了 15 年以上，知道 Google 的功耗預算、散熱限制、軟體框架的特殊假設。這不是設計能力，是信任和制度積累，新進者拿到需求書也做不出這層。
+
+---
+
+## 九、光通訊時代的變數
+
+現在 AI 叢集的訊號傳輸分兩種：短距電氣（AVGO SerDes 的地盤）和長距光纖（GLW 玻璃纖維的地盤）。光通訊時代的推進方向是**把光纖往晶片端推**，最終形態是 CPO（Co-Packaged Optics，共封裝光學）。
+
+AVGO 同時有 ASIC 設計和光學元件業務，是全球少數能做 CPO 整合的公司，因此 CPO 過渡期是機會而非威脅。但若競爭對手（Marvell、Ayar Labs 等）在 CPO 節奏上領先，AVGO 的 SerDes 護城河會提前侵蝕。
+
+這是 2027-2028 年最值得追蹤的技術轉折點。
+
+---
+
+## 十、結構性時間軸
+
+```
+2026-2027（現在）：
+  - 訓練 XPU → AVGO 主導，護城河完整
+  - 推論 XPU → 開始出現競爭，Marvell 切入邊緣
+  - 網路交換 → AVGO 壟斷，無實質威脅
+
+2027-2028（轉折期）：
+  - 推論 XPU 架構收斂 → 第二供應商大規模進入
+  - Google / Meta 自研設計能力提升，co-design 需求邊際下降
+  - CPO 光學過渡開始，SerDes 護城河邊際弱化
+
+2028+（重新定位）：
+  - AVGO：從「AI 全局受益者」收縮為「高端訓練 XPU + 網路層壟斷者」
+           TAM 變窄，但毛利更高、護城河更深
+  - Marvell：推論 XPU + NVIDIA FUSION 生態 + CPU 周邊
+              成長速度可能超過 AVGO，但集中風險（Amazon 依賴）較高
+```
+
+---
+
+## 十一、論點失效條件
+
+<Callout type="warning">
+**需要改變判斷的訊號**
+
+1. Google 宣布自建機架間乙太網路交換晶片（Tomahawk 層級）→ AVGO 網路護城河直接受衝擊
+2. AVGO 在 CPO 轉型節奏上落後主要競爭對手超過 12 個月
+3. 超大雲端 AI capex 出現季度性暫停（>20% QoQ 下降）→ 整個 ASIC 市場受壓
+4. 模型架構出現根本性突破，使現有所有 XPU 設計作廢（機率低但影響最大）
+</Callout>
+
+---
+
+## 十二、結語
+
+ASIC 的崛起不是 GPU 的敵人，是超大雲端奪回算力主權的工具。這個市場不會由一家公司獨吞，而是沿著**訓練/推論、核心/周邊、電氣/光學**三條軸線分層，由不同玩家各守一段。
+
+AVGO 守住訓練 XPU 和網路層，Marvell 擴大推論 XPU 和 FUSION 生態，下一個真正的戰場在 CPO 光學整合——誰率先把電氣與光學無縫整合在同一個 ASIC 封裝裡，誰就定義下一代 AI 叢集的基礎設施標準。
+
+這個答案，大概在 2027 年底會開始揭曉。
+
+Sources:
+- [Custom Silicon Inflection 2026 - Introl Blog](https://introl.com/blog/custom-silicon-inflection-2026-hyperscaler-asics-nvidia-gpu)
+- [AI Server Compute ASIC Shipments to Triple by 2027 - Counterpoint Research](https://counterpointresearch.com/en/insights/AI-Server-Compute-ASIC-Shipments-to-Triple-by-2027)
+- [Custom AI Chips Outpace Nvidia GPU Growth 2026 - TechTimes](https://www.techtimes.com/articles/317225/20260526/custom-ai-chips-outpace-nvidia-gpu-growth-2026-asic-shipments-set-triple-gpu-rate.htm)
+- [The custom AI ASIC state of play May 2026 - Tom's Hardware](https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia)
+- [Hyperscalers Hit 700 Billion in 2026 AI Spending Plans - Yahoo Finance](https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html)
+- [Broadcom vs Marvell: Custom AI Silicon Battle 2026 - HeyGoTrade](https://www.heygotrade.com/en/blog/broadcom-vs-marvell-custom-ai-silicon-battle-2026/)
