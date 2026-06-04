@@ -1,6 +1,6 @@
 ---
 title: '【美股】ASIC 客製矽的戰略地圖：誰在設定規則、誰在瓜分市場'
-description: '從 GPU 壟斷到多極競爭——ASIC 的崛起不是取代輝達，而是超大雲端用客製矽重奪算力主權。訓練 vs 推論的分工、AVGO vs Marvell 的賽道、以及 2028 年後真正的戰場在哪。'
+description: '從 GPU 壟斷到多極競爭——ASIC 崛起的真實動機是自建算力能力，不是去 NVIDIA 化。訓練/推論分工、AVGO 的鷹架困境、FUSION 的策略算術、以及 2028 年後真正的戰場。'
 category: '投資'
 subcategory: '美股'
 topic: 'AI基礎設施'
@@ -15,7 +15,9 @@ import Callout from '@components/Callout.astro'
 
 Google、Meta、Amazon、Microsoft 每年合計砸超過 7,000 億美元的 AI 資本支出，其中晶片採購是最大的單一成本項。讓單一供應商決定這顆晶片值多少錢，對任何一家超大雲端來說都是策略上的致命弱點。
 
-這是客製矽（Custom ASIC）崛起的根本動機，不是技術情懷，是主權。
+這是客製矽（Custom ASIC）崛起的根本動機，不是技術情懷，是**成本控制與自建能力**。
+
+需要釐清一個常見的誤解：超大雲端做 ASIC，動機不是「去 NVIDIA 化」，而是「自建算力能力」。前者是結果，後者才是原因。Google 做 TPU、Amazon 做 Trainium、Meta 做 MTIA，核心邏輯是在特定工作負載上取得更低的每 token 成本，同時把設計能力留在自己手裡——長期讓自己不再依賴任何外部供應商，不管是 NVIDIA 還是 AVGO。
 
 ---
 
@@ -91,9 +93,9 @@ Google 的 AI 加速器（TPU v5）找 AVGO 做 co-design，同時把 ARM CPU（
 
 ### 定位差異
 
-**AVGO** 拿的是「AI 原生公司」的計算核心——Google TPU、Meta MTIA、Anthropic、OpenAI，這些都是以去 NVIDIA 化為策略目標、主動建立算力主權的客戶。AVGO 的客製 ASIC 市占超過 70%，Google 與其簽訂延伸至 2031 年的長約。
+**AVGO** 拿的是「AI 原生公司」的計算核心——Google TPU、Meta MTIA、Anthropic、OpenAI，AVGO 的客製 ASIC 市占超過 70%，Google 與其簽訂延伸至 2031 年的長約。但這裡有個結構性警訊：**AVGO 扮演的是搭鷹架的角色，不是蓋房子的人。** Apple 是最清晰的前例——Apple 曾是 AVGO 最大非資料中心客戶之一，付 AVGO 設計費學習、建能力，然後花了十年把 WiFi、藍牙、UWB 晶片一顆顆內化。現在 Google、Meta、Amazon 的自有矽工程團隊都在快速擴張，走的是同一條路。
 
-**Marvell** 拿的是「雲端基礎設施公司」的計算周邊——Amazon 和 Microsoft 對 NVIDIA 依賴更深，自研 ASIC 的動機是降本，不是主權。Marvell 接受更低的毛利，換取 Amazon Trainium 這種量大穩定的訂單。
+**Marvell** 拿的是「雲端基礎設施公司」的計算周邊——Amazon 和 Microsoft 自研 ASIC 的動機是降本，Marvell 接受更低的毛利換取量大穩定的訂單。Marvell 的客戶對 NVIDIA 依賴更深，因此加入 NVIDIA FUSION 生態沒有利益衝突，反而是擴張。
 
 ---
 
@@ -107,9 +109,21 @@ Google 的 AI 加速器（TPU v5）找 AVGO 做 co-design，同時把 ARM CPU（
 - 客製 ASIC 負責**固定部分**：高重複性推論、特定 attention 機制
 - NVLink 橋接兩者，整體系統效能高於各自單打
 
-Marvell 已確認加入 FUSION 生態。**AVGO 則幾乎不可能加入**——AVGO 的核心客戶（Google、OpenAI、Anthropic）做 ASIC 的動機之一就是建立 NVIDIA 以外的算力主權，AVGO 加入 FUSION 等於在最大客戶面前政治失分。
-
 輝達的真正策略不是垂直整合，是**生態系擴張**：讓 MediaTek 做 CPU+GPU（AIPC）、讓 Marvell 做 ASIC 橋接、讓 ODM 四雄做機架——輝達卡住每一層之間的介面標準，讓所有人都有飯吃，但換的是生態鎖定。
+
+Marvell 已確認加入。**AVGO 尚未加入，但加入 FUSION 實際上是一個值得認真評估的策略選項，而非不可能。**
+
+<Callout type="insight">
+**如果我是 AVGO 的 CEO**
+
+ASIC co-design 是搭鷹架的生意——客戶遲早內化，每輪合約都要被砍價。網路交換（Tomahawk）才是真正的護城河，但單靠網路層，TAM 太窄。
+
+加入 FUSION 的邏輯是：**用正在消耗的資產（ASIC co-design）換取更大的生態位置。** 一旦進入 FUSION，AVGO 的網路交換晶片就成為 NVIDIA 全棧 AI 工廠的標準組件，賣給 Microsoft、Amazon 所有 FUSION 生態客戶。不再單獨面對砍價的 Google/Meta，而是跟 NVIDIA 一起定義基礎設施標準。
+
+但這個算術只有一個前提成立才划算：**談判桌上必須保住 Tomahawk 的地位，不讓 NVIDIA 的 InfiniBand 吃掉網路層。** 如果這個前提談不到，加入 FUSION 等於把最後一道護城河也交出去。
+
+這不是政治問題，是一筆風險收益計算：放棄遲早消耗的 ASIC 關係，換取網路標準的定價權。
+</Callout>
 
 ---
 
