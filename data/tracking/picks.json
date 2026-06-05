@@ -26,12 +26,12 @@
       "company": "Corning Incorporated",
       "recommended_date": "2026-05-21",
       "price_at_rec": 188,
-      "thesis": "光纖物理邊界已至 + 玻璃基板封裝為下一個未定價選項，結構看多但等進場條件",
+      "thesis": "光纖物理邊界已至 + NVIDIA 長期合作夥伴協議（股權投資 + 美國產能 10 倍擴張）確立訂單底，玻璃基板封裝為下一個未定價選項，結構看多",
       "entry_condition": "≤198 美元 + 美債 10Y ≤ 4.6%（2026-05-27 上修：原條件 ≤180 + 10Y ≤4.3%，因 NVIDIA 32 億美元股權投資協議確立訂單底，論點從本夢比升級為有錨定合約支撐）",
       "report_path": "src/content/notes/Xompass/投資報告/pick-2026-05-21-GLW.md",
       "reviews": {
         "week1": { "due": "2026-05-28", "price": 196.17, "direction": "correct", "thesis_status": "confirmed", "notes": "股價 $196（+4.3% vs 建倉日 $188）。NVIDIA 32億美元股權投資協議為新增錨定事件，論點升級。進場條件上修至 ≤$198 + 10Y ≤4.6%，現況已符合兩個條件。C2 玻璃基板仍待確認（2030量產），Kill Switch 均未觸發。" },
-        "week2": { "due": "2026-06-04", "price": null, "direction": null, "thesis_status": null, "notes": null },
+        "week2": { "due": "2026-06-04", "price": 200.76, "direction": "correct", "thesis_status": "confirmed", "notes": "股價 $200.76（+6.8% vs 建倉日 $188），已突破進場條件上限 $198。觸發事件：NVIDIA 長期合作夥伴關係公告（5/6）+ Jensen Huang Computex 發言（6/2）帶動單日跳漲 13%。Q1 光通訊分部年增 36%。論點強化：NVIDIA 股權投資＋美國產能 10 倍擴張確認錨定合約。現價已超進場條件，等回測 $198 以下再評估建倉。10Y 4.47%（符合 ≤4.6% 條件）。" },
         "week3": { "due": "2026-06-11", "price": null, "direction": null, "thesis_status": null, "notes": null }
       },
       "final_verdict": null,

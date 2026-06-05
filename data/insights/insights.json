@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.1",
+  "last_updated": "2026-06-05",
+  "description": "結構化因果洞察庫。每條 Insight 儲存歸納出的因果命題，帶有效期與失效條件，供每次晨會推演使用。",
+  "status_enum": ["active", "expired", "invalidated", "superseded"],
+  "tier_enum": {
+    "L1": "假說：單次事件支撐，引用時標黃，不納入推演主線，等待第二次獨立事件驗證",
+    "L2": "洞察：兩次獨立事件支撐，正常使用於晨會推演",
+    "L3": "定律：五次以上跨週期驗證，寫入 Bible 候選"
+  },
+  "causal_type_enum": {
+    "physical": "物理世界機制（晶片短缺→交期延遲），穩定，confidence 上限 0.95",
+    "cognitive": "市場認知機制（降息預期→估值擴張），會被提前定價殺死，confidence 上限 0.70"
+  },
+  "insights": [
+    {
+      "id": "INS-2026-05-25-001",
+      "tier": "L1",
+      "causal_type": "cognitive",
+      "regime_dependency": ["High inflation / Monetary tightening risk"],
+      "layer": "macro",
+      "claim": "Warsh 若軟化對抗鷹派，Fed 公信力受損將使長端殖利率脫鉤短端上行",
+      "causal_chain": "FOMC 4 名委員主張升息 → Warsh 面臨政治壓力（Trump）vs 貨幣紀律兩難 → 若偏向前者、壓制鷹派但不強硬表態 → 市場解讀 Fed 公信力折損 → 通膨預期上行 → 10Y 殖利率脫鉤短端走向 4.8%+（即使聯邦基金利率不動）",
+      "evidence": [
+        "FOMC 4/29 會議 4 名委員主張升息（DNI 5/25）",
+        "Warsh 5/25 宣誓就任，首次 FOMC 為 6/17",
+        "4 月 CPI 3.8% YoY，Trump 關稅推升通膨 0.7pp"
+      ],
+      "duration_estimate": "6-8 週，至 FOMC 6/17 後市場形成定見",
+      "confidence": 0.65,
+      "status": "active",
+      "created": "2026-05-25",
+      "expiry_check": "2026-06-30",
+      "invalidation_signal": "Warsh 發表明確抗通膨強硬聲明 OR PCE 大幅降溫至 3.0% 以下使鷹派失去依據",
+      "investment_implication": "高倍數科技股折現率上行壓力；若 10Y 破 4.8%，AI 基礎設施股 2027-2028 現金流估值壓縮",
+      "source_meeting": "2026-05-25"
+    },
+    {
+      "id": "INS-2026-05-25-002",
+      "tier": "L2",
+      "causal_type": "physical",
+      "regime_dependency": ["AI_capex_cycle", "High Capex / Strong Demand"],
+      "layer": "industry",
+      "claim": "AI capex 超週期需求有多季度能見度，先進封裝需求延伸至 2028-2029",
+      "causal_chain": "超大規模雲端訓練需求（2023-2025）→ 推理算力爆發（2026 當下）→ 企業 AI 落地 + 主權 AI（2027-2028）→ 實體 AI/機器人硬體（2029+）→ 每個階段都需要先進封裝，非一次性採購潮。【Vera Rubin 更新 2026-05-26】Vera Rubin 推理效能 5x、每 Token 成本降 10 倍（GTC 2026，黃仁勳確認），觸發 Jevons Paradox：Token 越便宜用越多 → 推理需求曲線加速外移 → AD→AS 轉折時間點可能從原估 2027-2028 提前至 2026 底。Blackwell + Vera Rubin 累計訂單 1 兆美元（至 2027 年底）為多季度能見度的最直接支撐。",
+      "evidence": [
+        "AMD 宣布百億美元投資台灣（5/22）",
+        "蘇姿丰宣稱 AI 打到第三局，需求旺到 2029",
+        "Dell AI 伺服器單日 +16.77%（5/22）",
+        "台積電 CoWoS 持續滿載",
+        "黃仁勳 GTC 2026：Blackwell + Vera Rubin 累計訂單 1 兆美元（至 2027 年底）",
+        "Vera Rubin 推理效能 5x、每 Token 成本降 10 倍，Jevons Paradox 加速 AS 轉折（2026-05-26 晨會更新）"
+      ],
+      "duration_estimate": "結構性，2026-2028+",
+      "confidence": 0.78,
+      "status": "active",
+      "created": "2026-05-25",
+      "expiry_check": "2026-09-30",
+      "invalidation_signal": "超大規模雲端 capex 出現季度性暫停訊號 OR GPU ROI 未達預期導致強迫砍單",
+      "investment_implication": "先進封裝鏈（台積電 CoWoS、日月光、欣興）多季度訂單能見度，非交易性題材",
+      "source_meeting": "2026-05-23"
+    },
+    {
+      "id": "INS-2026-05-25-003",
+      "tier": "L2",
+      "causal_type": "physical",
+      "regime_dependency": ["US-China tech decoupling", "AI_capex_cycle"],
+      "layer": "industry",
+      "claim": "NVIDIA 中國 AI 晶片市場已永久性喪失，非週期性損失",
+      "causal_chain": "美國出口管制禁售 H100/H200 → 華為 Ascend 系列填補市場空缺 → 中國 AI 企業建立本土供應鏈依賴 → 客戶轉換成本形成 → 即使未來管制鬆綁，市場份額難以逆轉",
+      "evidence": [
+        "黃仁勳公開表示已大幅讓出中國 AI 晶片市場（5/21）",
+        "H200 解禁不在此輪美中貿易談判範圍"
+      ],
+      "duration_estimate": "永久性（3 年以上視角）",
+      "confidence": 0.85,
+      "status": "active",
+      "created": "2026-05-25",
+      "expiry_check": "2027-01-01",
+      "invalidation_signal": "美中貿易談判重大突破 + H200 正式解禁 + 中國客戶實際回流訂單（三者須同時）",
+      "investment_implication": "NVDA 2027+ 收入天花板確認下移；估值倍數需納入中國市場永久缺口的修正",
+      "source_meeting": "2026-05-25"
+    },
+    {
+      "id": "INS-2026-05-25-004",
+      "tier": "L1",
+      "causal_type": "physical",
+      "regime_dependency": ["AI_capex_cycle", "Power infrastructure undersupply"],
+      "layer": "macro",
+      "claim": "AI 物理瓶頸已從晶片轉移至電力，電力基建是下一個未被定價的資產",
+      "causal_chain": "AI 訓練算力需求指數成長 → 晶片製造產能跟上（台積電擴產中）→ 電力需求成長速度超過電網擴張速度（電網互聯申請積壓 2,600+ GW）→ 電力成為新的物理瓶頸 → 解決電力瓶頸的公司尚未被市場充分定價",
+      "evidence": [
+        "Leopold Aschenbrenner SALP Q1 2026 13F：核心倉 Bloom Energy（佔約 20%）",
+        "SALP 半導體 Put 84.6 億美元，同期加碼電力基建",
+        "電網互聯申請積壓超過 2,600 GW（美國能源部數據）"
+      ],
+      "duration_estimate": "2-4 年（電力基建建設週期）",
+      "confidence": 0.70,
+      "status": "active",
+      "created": "2026-05-25",
+      "expiry_check": "2027-06-01",
+      "invalidation_signal": "晶片製造出現新瓶頸（良率崩潰或材料短缺）重新成為限制因素，OR 電力供應快速擴張使瓶頸消失",
+      "investment_implication": "電力基建（Bloom Energy、電網設備、電力公用事業）定價窗口打開；半導體股估值溢價面臨收窄壓力",
+      "source_meeting": "2026-05-25"
+    },
+    {
+      "id": "INS-2026-06-05-006",
+      "tier": "L1",
+      "causal_type": "physical",
+      "regime_dependency": ["AI_capex_cycle", "agentic_AI_transition"],
+      "layer": "industry",
+      "claim": "AI agent 時代的平台標準制定者將取得持續性過路費收益；硬體層的標準制定者比軟體層更難被替代",
+      "causal_chain": "AI 模型本身無法執行任務 → 需要 harness 層（記憶/工具/協調/安全）將模型轉為 agent → harness 層需向下定義「異質計算單元協作介面」→ 掌控介面標準者收所有 agent 工作量的過路費 → 硬體介面標準（SerDes/網路交換/NVLink-C2C）比軟體 runtime 更難被替代，因為硬體切換成本是軟體的 10 倍以上",
+      "evidence": [
+        "NVIDIA GTC 2026 明確定義 harness 為 autonomous agent 必需的軟體層（2026-03）",
+        "NVIDIA FUSION 以 NVLink-C2C 定義 GPU + ASIC 協作硬體介面標準，Marvell 已加入（2026-Q1）",
+        "Google TPU v8 拆分訓練/推論雙晶片，AVGO 守訓練、MediaTek 搶推論，驗證異質計算協作是主流（2026-04）",
+        "Microsoft Build 2026 開源 Agent Framework，軟體層標準競爭白熱化，但硬體層仍由少數廠商壟斷",
+        "Fiserv/Experian/PwC 等各自發布垂直 Agent OS，軟體層碎片化趨勢確認，硬體層集中度對比鮮明"
+      ],
+      "duration_estimate": "結構性，3-5 年（agent 基礎設施建設週期）",
+      "confidence": 0.65,
+      "status": "active",
+      "created": "2026-06-05",
+      "expiry_check": "2027-06-01",
+      "invalidation_signal": "開放硬體介面標準（如 Ultra Ethernet Consortium）打破現有壟斷 OR 軟體 runtime 形成唯一標準並反向定義硬體規格",
+      "investment_implication": "AVGO 加入 NVIDIA FUSION = 從 Google 單一客戶供應商升級為 AI 工廠基礎設施標準組件；NVIDIA 硬體+軟體垂直整合護城河持續加深；純軟體 agent OS 玩家（各行業垂直）估值天花板受限於碎片化",
+      "source_meeting": "2026-06-05"
+    },
+    {
+      "id": "INS-2026-05-25-005",
+      "tier": "L1",
+      "causal_type": "cognitive",
+      "regime_dependency": ["MSCI rebalancing window", "AI_capex_cycle"],
+      "layer": "industry",
+      "claim": "MSCI 5/29 換股後被動資金結束，主動型外資是否接棒決定台股能否繼續走強",
+      "causal_chain": "MSCI 權重調升 → 追蹤 ETF 被動增持台積電（5/25 前） → 5/29 收盤後調整完成 → 被動買盤停止 → 若主動型外資不以高位繼續加碼 → 動能真空、高位回吐風險",
+      "evidence": [
+        "台股 5/22 收 42,268（+2.18%）、5/25 收 43,644（+3.26%），連兩日歷史新高",
+        "外資兩日合計買超 1,255 億元，接近 MSCI 被動估計下緣",
+        "MSCI 台積電權重升至 58.33%（歷史高位），5/29 收盤後生效"
+      ],
+      "duration_estimate": "短期，5/29 後 1-2 週見分曉",
+      "confidence": 0.72,
+      "status": "active",
+      "created": "2026-05-25",
+      "expiry_check": "2026-06-10",
+      "invalidation_signal": "5/29 後外資持續大量買超（日均 >300 億）代表主動型資金已接棒，台股動能延續",
+      "investment_implication": "5/29 後密切觀察法人每日買超金額；若驟減至 100 億以下，注意高位震盪或回吐",
+      "source_meeting": "2026-05-25"
+    }
+  ]
+}

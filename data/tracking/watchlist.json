@@ -12,11 +12,21 @@
       "note": "基本面健康（Q1 營收 2.003 億 YoY +63%，backlog 22 億翻倍），但估值嚴重透支（P/S 97x，RSI 80，分析師目標價 103 vs 現價 143）。最大近期風險：SpaceX 6/12 IPO 後代理溢價消失。Neutron 重型火箭尚未首飛，商業可行性未驗證。等估值落地後再評估進場。"
     },
     {
-      "name": "【下次會議議題】伊朗衝突總經裁示未完成",
+      "name": "AVGO FUSION 加入進度",
+      "added_date": "2026-06-05",
+      "type": "weekly_track",
+      "ticker": "AVGO",
+      "frequency": "每週",
+      "next_date": "2026-06-12",
+      "note": "2026-06-05 晨會裁定：每週追蹤 AVGO 是否宣布加入 NVIDIA FUSION 生態。Marvell 已在 FUSION 內，MediaTek 搶走 Google TPU v8 推論工作量後，AVGO 加入 FUSION 的時間壓力升高。若 Q3 財報電話（預計 2026-09）前仍無動作，論點從『網路層壟斷＋訓練 ASIC 守城』再降級。觀察來源：AVGO IR、NVIDIA 合作公告、財報電話逐字稿。"
+    },
+    {
+      "name": "【已裁定】伊朗/OPEC+ 地緣風險",
       "added_date": "2026-05-23",
-      "next_date": null,
-      "type": "meeting_reminder",
-      "note": "2026-05-23 緊急會議討論但未裁示。待繼續討論：(1) 能源→PCE 三波傳導對 Regime 的重新定性 (2) 27 國 EM 傳染路徑的持倉影響 (3) 霍爾木茲升級觸發器是否納入 watchlist (4) OPEC+ 06/07 決議前的準備。知識庫已建立：data/knowledge/mechanisms/"
+      "updated_date": "2026-06-05",
+      "next_date": "2026-06-07",
+      "type": "watch_event",
+      "note": "2026-06-05 晨會裁示：走向趨緩，但非解除。框架更新為『遍地開花、美國抽身』——美國不直接軍事介入（Trump 表態除非美軍傷亡），代理衝突持續（以黎、胡塞、伊朗代理勢力）。油價風險降低（6/4 跌 3%），PCE 傳導路徑第一波能源衝擊緩解。霍爾木茲升級觸發器不再列為主要 watchlist 條件。OPEC+ 06/07 決議仍需確認：若繼續增產則油價壓力持續，對 INS-001 通膨路徑是緩解信號。"
     },
     {
       "name": "PCE 物價指數",
