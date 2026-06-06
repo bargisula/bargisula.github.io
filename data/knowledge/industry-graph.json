@@ -12,7 +12,7 @@
     }
   },
   "last_updated": "2026-06-07",
-  "updated_by": "C-1 修正：confidence 拆分；C-3 修正：光傳輸節點寫回 analysis_run_id",
+  "updated_by": "D 類稽核：ai_custom_asic + cpo_photonics 完成稽核，audit_status → audited",
   "industries": [
     {
       "id": "optical_transceiver",
@@ -208,12 +208,13 @@
       "logic_score": 0.85,
       "evidence_score": 0.00,
       "confidence": 0.60,
-      "_confidence_note": "logic_score 高（AVBO 多法說確認）；audit_status pending，待重新稽核後確認 logic_score",
+      "_confidence_note": "logic_score 高（AVGO 多法說確認，supply_demand_condition 兩個條件均已達成）；evidence_score 0（尚無 industry-pipeline VCP 驗證）",
       "expires_if": "自製 ASIC 訓練佔比 > 20% AND CoWoS 訂單 QoQ 連續下滑（2027） OR 客戶數下降至 < 4",
       "source_events": [
         { "date": "2026-06-06", "event": "AVGO Q2 FY2026：AI $10.8B +143%，6核心客戶（含Anthropic/OpenAI），$100B FY2027 重申，訂單/出貨 >3x", "source": "SEC EDGAR + Motley Fool transcript" }
       ],
-      "audit_status": "pending"
+      "audit_note": "稽核日 2026-06-07。原 pending 原因：AVGO Q2 FY2026 法說後數據需更新。稽核結論：(1) supply_demand_condition 兩條件均達成（客戶數 6≥4 ✅，訂單/出貨 >3x ✅）；(2) substitution_risk 中等合理，Anthropic/OpenAI 屬 AI native，自研 ASIC 能力低於 Google/Meta，風險略被高估但 2028+ 時間軸合理；(3) logic_score 0.85 確認（法說直接確認多個關鍵指標）；(4) 建議優先跑 /industry-pipeline AI 客製 ASIC 補充 evidence",
+      "audit_status": "audited"
     },
     {
       "id": "cpo_photonics",
@@ -222,7 +223,8 @@
       "analysis_run_id": null,
       "last_analyzed": null,
       "supply_demand": "需求加速（進入主動部署協議）",
-      "supply_demand_condition": "IF 超大雲端 GPU cluster TDP > 1000W AND 插拔式光模組佈線複雜度超過機械極限 THEN CPO 採購比例 QoQ > 5%",
+      "supply_demand_condition": "IF NVDA GPU TDP > 700W/GPU（Blackwell 已達）AND 插拔式光模組在 rack-scale 佈線複雜度超過機械極限 THEN CPO 主動量產協議簽訂（LTA 已確認為觸發訊號）",
+      "_supply_demand_note": "原觸發條件『TDP > 1000W』過於嚴苛且難以直接觀測。改為 LTA 簽訂作為近似觸發訊號（已於 2026-05 觸發）。供需狀態為「需求加速、供給仍在產能爬坡」，而非傳統意義的供不應求。",
       "key_players": [
         { "ticker": "COHR", "role": "領導廠商（NVDA 主要 CPO 供應商）", "note": "NVDA 20億美元股權投資 + LTA 至本十年末；high-power CW laser 為核心元件" },
         { "ticker": "MRVL", "role": "CPO 晶片整合廠商" },
@@ -249,12 +251,13 @@
       "logic_score": 0.80,
       "evidence_score": 0.00,
       "confidence": 0.56,
-      "_confidence_note": "logic_score 高（LTA 確認技術路線）；audit_status pending，尚無 VCP 驗證",
-      "expires_if": "NVDA 轉向其他 CPO 供應商 OR GPU TDP 成長停滯",
+      "_confidence_note": "logic_score 高（LTA 已簽訂，技術路線明確）；evidence_score 0（量產尚在 DV 階段，無 VCP 可驗）",
+      "expires_if": "NVDA 轉向其他 CPO 供應商 OR GPU TDP 成長停滯 OR 矽光子提前量產替代 InP CW laser",
       "source_events": [
-        { "date": "2026-06-06", "event": "COHR Q3 FY2026：NVDA 20億投資 + CPO LTA 至本十年末；record bookings", "source": "Motley Fool transcript + SEC EDGAR" }
+        { "date": "2026-06-06", "event": "COHR Q3 FY2026：NVDA 20億投資 + CPO LTA 至本十年末；record bookings，CPO 進入 DV 階段", "source": "Motley Fool transcript + SEC EDGAR" }
       ],
-      "audit_status": "pending"
+      "audit_note": "稽核日 2026-06-07。原 pending 原因：從 TC-006 移出傳導鏈後需重新定位節點性質。稽核結論：(1) CPO 是替代技術（替代插拔式光模組），此節點追蹤 CPO 本身的需求成長，非傳統供不應求；(2) 觸發條件修正：以 LTA 簽訂取代不可觀測的 TDP 閾值；(3) COHR 是核心 pump laser 供應商，護城河在 InP CW laser，矽光子長期替代風險 2030+ 合理；(4) logic_score 0.80 確認（LTA 是強確認訊號，但量產時間軸仍有不確定性）；(5) 此節點與 optical_transceiver 的 substitution_risk 互為映射：一個追蹤威脅方，另一個追蹤被威脅方",
+      "audit_status": "audited"
     }
   ]
 }
