@@ -14,6 +14,9 @@
 - 讀取 `data/insights/insights.json`（所有 active Insight）
 - 讀取 `data/tracking/picks.json` + `data/tracking/watchlist.json`
 - 讀取 `data/regime/current.json`
+- 讀取 `data/dsmm/macro-to-stock.json`——若有 TC 觸發，查對應 ticker 的 net_force_framework 現況評估
+- 讀取 `data/dsmm/verification/*.json`——掃描所有 VCP，篩出 `check_date ≤ 今日 AND verdict == null` 的逾期項目
+- 讀取 `data/industry/verification/*.json`——同上，掃描產業 VCP 逾期項目
 - `dni` agent：今日新聞，優先讀 `data/intel/` 快取
 - `secretary` agent：行事曆到期項目
 - `market-data` agent（美股 + 台股）：最近收盤日數字
@@ -29,7 +32,7 @@
 
 ### 1. 前次追蹤
 
-> 讀取最新會議紀錄，取「今日裁定」與「待追蹤」段落。
+> 讀取最新會議紀錄，取「今日裁定」與「待追蹤」段落。並掃描 DSMM / 產業 VCP 逾期項目（後台已讀入）。
 
 表格格式，每項一行：
 
@@ -37,7 +40,11 @@
 |---|---|---|---|
 | {上次說要等什麼} | {日期} | ✅ 觸發 / ⏳ 未到 / ❌ 未執行 | {數值或說明} |
 
-若上次無待追蹤事項，此節一行：「上次無待追蹤事項。」
+**VCP 逾期自動列入：** 若後台掃描到 `check_date ≤ 今日 AND verdict == null` 的 VCP，自動追加至追蹤表，標記 `⚠️ 逾期待驗`，格式：
+
+| VCP-XXX（DSMM/産業） | check_date | ⚠️ 逾期待驗 | 建議：`/dsmm-verify {run_id}` 或 `/industry-verify {run_id}` |
+
+若上次無待追蹤事項且無逾期 VCP，此節一行：「上次無待追蹤事項，無逾期 VCP。」
 
 ---
 
@@ -130,7 +137,10 @@ Regime 名稱直接從 `data/regime/current.json` 讀取，不自行造詞。
 | 產業分析 | `industry-analyst` |
 | 財報細節 | `earnings-analyst` |
 | 技術前沿 | `cto` |
-| 宏觀衝擊推導 | `/dsmm [衝擊描述]` |
+| 宏觀衝擊推導 | `/dsmm-pipeline [衝擊描述]` |
+| DSMM 驗證 | `/dsmm-verify {run_id}` |
+| 産業分析啟動 | `/industry-pipeline {産業名稱} [觸發事件]` |
+| 産業論點驗證 | `/industry-verify {run_id}` |
 
 深挖結果：結論 2-3 行先說，細節用 `<details>` 折疊。
 

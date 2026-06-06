@@ -1,0 +1,210 @@
+{
+  "schema_version": "1.0",
+  "description": "宏觀傳導鏈對個股財務的橋接層。目的是讓 DSMM 末端的「市場含義」有量級感，不是精確預測模型。所有敏感度數字均為估算範圍，信心標記為低。唯一可信的驗證方式是觀察實際 P/E 與財報數字，不是用公式推算股價。",
+  "_honest_disclaimer": {
+    "what_this_is": "強迫在討論中問『影響是 1% 還是 10%』的思考框架",
+    "what_this_is_not": "能預測股價的模型",
+    "known_limits": [
+      "同期財報超預期可完全蓋過利率影響（2026-06-05 SOX -8.71% 主因是 AVGO 法說情緒，非利率）",
+      "市場情緒/敘事主導期間，利率敏感度係數失效",
+      "敏感度數字來自經驗法則，非統計迴歸，不應精確使用"
+    ]
+  },
+  "last_updated": "2026-06-07",
+  "updated_by": "P0 建設",
+  "tickers_covered": ["AVGO", "GLW", "NVDA", "COHR"],
+  "links": [
+    {
+      "tc": "TC-001",
+      "tc_name": "NFP 超預期 → 利率上行",
+      "direction": "負向壓力（利率上升 → 高倍數股折現率升高）",
+      "affected": [
+        {
+          "ticker": "AVGO",
+          "company": "Broadcom Inc.",
+          "current_ntm_pe": 35,
+          "pe_source": "估算（2026-06 法說後市場共識，未即時更新）",
+          "pe_note": "法說後因 MediaTek 份額壓力，多頭目標價下修；實際數字以 FactSet/Bloomberg 為準",
+          "rate_sensitivity": {
+            "direction": "負相關",
+            "sensitivity_category": "高（成長型 AI 半導體，NTM P/E 35x，現金流集中於 2027-2029）",
+            "rough_range": "10Y +25bp → 股價約 -5% 至 -10%（視同期財報與 AI capex 敘事強度）",
+            "confidence": "低（方向可信，數字不可信）",
+            "dominant_override": [
+              "AI capex 指引上調可蓋過利率壓力（TC-004 正向效應對沖）",
+              "FUSION 加入宣布等催化劑可短期推翻率敏感度",
+              "財報超預期期間利率效應通常被市場暫時忽略"
+            ]
+          },
+          "observable_vcp": {
+            "id": "VCP-FIN-AVGO-001",
+            "condition": "10Y 殖利率維持 ≥ 4.6% 超過 8 週",
+            "observation": "AVGO NTM P/E 是否已低於 30x（共識下修）",
+            "check_date": "2026-08-01",
+            "source": "Yahoo Finance / FactSet 分析師共識 NTM EPS 與股價反推",
+            "verdict_guide": {
+              "CONFIRMED": "NTM P/E ≤ 30x，利率壓縮機制發生作用",
+              "WRONG": "NTM P/E 仍 > 33x，AI 敘事蓋過利率壓力",
+              "PARTIAL": "NTM P/E 30-33x，兩力量拉扯"
+            }
+          }
+        },
+        {
+          "ticker": "GLW",
+          "company": "Corning Incorporated",
+          "current_ntm_pe": 20,
+          "pe_source": "估算（2026-05 資料，NVIDIA 投資協議後上修中）",
+          "pe_note": "資本密集工業科技，P/E 壓縮幅度小於純成長股，但現金流更長期",
+          "rate_sensitivity": {
+            "direction": "負相關",
+            "sensitivity_category": "中（工業科技，NTM P/E 20x，長久期現金流）",
+            "rough_range": "10Y +25bp → 股價約 -2% 至 -5%（久期效應，幅度小於 AVGO）",
+            "confidence": "低（方向可信，數字不可信）",
+            "dominant_override": [
+              "NVIDIA 32億美元股權協議提供錨定合約，可部分抵消利率壓力",
+              "光通訊需求加速（TC-004）為正向對沖",
+              "進場條件 ≤$198 已反映部分利率風險，緩衝有限（現價 $200，緩衝約 1%）"
+            ]
+          },
+          "observable_vcp": {
+            "id": "VCP-FIN-GLW-001",
+            "condition": "10Y 殖利率突破 4.6% 並維持 2 週以上",
+            "observation": "GLW 股價是否跌破 $193（進場條件 $198 再下跌 2.5%）",
+            "check_date": "2026-06-30",
+            "source": "Yahoo Finance GLW",
+            "verdict_guide": {
+              "CONFIRMED": "GLW ≤ $193，利率壓縮發生，進場窗口關閉且超跌",
+              "WRONG": "GLW 維持 $195+，NVIDIA 合約錨定效應蓋過利率",
+              "PARTIAL": "$193-$198，在進場條件附近震盪"
+            }
+          }
+        },
+        {
+          "ticker": "NVDA",
+          "company": "NVIDIA Corporation",
+          "current_ntm_pe": 42,
+          "pe_source": "估算（2026-06，Blackwell 超級循環推升共識）",
+          "pe_note": "最高倍數、最長現金流久期，理論上利率最敏感；但 AI 敘事護城河最強",
+          "rate_sensitivity": {
+            "direction": "負相關",
+            "sensitivity_category": "高（但 AI capex 敘事可長時間壓制利率效應）",
+            "rough_range": "10Y +25bp → 股價約 -5% 至 -12%（若無正向催化劑同期）",
+            "confidence": "低",
+            "dominant_override": [
+              "Blackwell/Vera Rubin 超級循環敘事期間，利率幾乎無法單獨壓制股價",
+              "黃仁勳任何 TAM 擴張發言可短期逆轉",
+              "中國市場永久喪失（INS-003）已是已知缺口，不影響短期估值週期"
+            ]
+          },
+          "observable_vcp": {
+            "id": "VCP-FIN-NVDA-001",
+            "condition": "10Y ≥ 4.6% 且無 NVDA 正向催化劑（無財報、無 GTC、無合作公告）超過 4 週",
+            "observation": "NVDA 股價相對 SOX 指數的 alpha 是否轉負",
+            "check_date": "2026-07-15",
+            "source": "Yahoo Finance NVDA vs SOXX 相對表現",
+            "verdict_guide": {
+              "CONFIRMED": "NVDA 相對 SOX 跑輸超過 5%，利率壓力顯現",
+              "WRONG": "NVDA 繼續跑贏 SOX，敘事壓制利率",
+              "PARTIAL": "同步走，無法區分"
+            }
+          }
+        },
+        {
+          "ticker": "COHR",
+          "company": "Coherent Corp.",
+          "current_ntm_pe": 28,
+          "pe_source": "估算（2026-06，光傳輸業務毛利率擴張中）",
+          "rate_sensitivity": {
+            "direction": "負相關",
+            "sensitivity_category": "中高（成長型工業，NTM P/E 28x，毛利率擴張週期中）",
+            "rough_range": "10Y +25bp → 股價約 -4% 至 -8%",
+            "confidence": "低",
+            "dominant_override": [
+              "光傳輸訂單能見度（IND-20260606-OPT book-to-bill 1.4）為強正向對沖",
+              "pump laser 瓶頸期間定價能力抵消部分利率壓力",
+              "下次財報（2026-08）前訂單確認性高，利率效應可能被推遲反映"
+            ]
+          },
+          "observable_vcp": {
+            "id": "VCP-FIN-COHR-001",
+            "condition": "10Y ≥ 4.6% 持續，且 IND VCP-IND-IND-20260606-OPT-002（COHR 毛利率）到期",
+            "observation": "COHR Q4 FY2026 毛利率是否仍 QoQ 擴張（產業強度 vs 利率壓力的淨效果）",
+            "check_date": "2026-08-15",
+            "source": "COHR Q4 FY2026 財報電話",
+            "verdict_guide": {
+              "CONFIRMED": "毛利率仍擴張，供需強度蓋過利率成本",
+              "WRONG": "毛利率 QoQ 下滑，利率或競爭壓力顯現",
+              "PARTIAL": "毛利率持平（±0.5%）"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tc": "TC-002",
+      "tc_name": "日本結構性減碼美債",
+      "direction": "負向壓力（長端殖利率底部抬升，效果疊加 TC-001）",
+      "note": "TC-002 單獨觸發時個股敏感度與 TC-001 類似，但屬結構性（非事件性），壓力持續時間更長。TC-001+TC-002 同時觸發時，rough_range 乘以 1.3-1.5 倍。",
+      "affected": [
+        {
+          "ticker": "AVGO",
+          "additive_note": "TC-002 觸發時，AVGO 利率壓力估算在 TC-001 基礎上再加 30-50%（兩個賣壓機制疊加）",
+          "confidence": "低"
+        },
+        {
+          "ticker": "GLW",
+          "additive_note": "TC-002 對 GLW 的疊加效應更明顯（長久期資產對持續性利率壓力更敏感）",
+          "confidence": "低"
+        }
+      ]
+    },
+    {
+      "tc": "TC-004",
+      "tc_name": "AI Capex 擴張 → 供應鏈需求傳導",
+      "direction": "正向（AI capex 上調 → 光互連/封裝/電力設備需求加速）",
+      "note": "TC-004 是 TC-001/002 的部分對沖力量。AI capex 強時，利率敏感度可被壓制。兩者力量對比決定 AVGO/COHR/GLW 的淨方向。",
+      "affected": [
+        {
+          "ticker": "AVGO",
+          "direction": "正相關",
+          "sensitivity_category": "高（ASIC 設計勝出直接受益）",
+          "rough_range": "hyperscaler capex 指引 QoQ +10% → AVGO 股價約 +8% 至 +15%",
+          "confidence": "中（法說確認後有歷史案例，比利率敏感度估算更可信）",
+          "dominant_override": ["MediaTek 搶推論份額持續放大時，正向效應會縮減"]
+        },
+        {
+          "ticker": "COHR",
+          "direction": "正相關",
+          "sensitivity_category": "高（800G/1.6T 直接受益）",
+          "rough_range": "CIEN/HPE 法說確認需求加速 → COHR 股價約 +5% 至 +12%",
+          "confidence": "中",
+          "dominant_override": []
+        },
+        {
+          "ticker": "GLW",
+          "direction": "正相關",
+          "sensitivity_category": "中（光纖原材料，二階受益）",
+          "rough_range": "光傳輸需求確認 → GLW 光通訊分部 YoY +30% 以上時，股價約 +3% 至 +8%",
+          "confidence": "中",
+          "dominant_override": ["顯示玻璃部門持續拖累，淨效果打折"]
+        }
+      ]
+    }
+  ],
+  "_net_force_framework": {
+    "description": "當多個 TC 同時觸發時，個股的淨方向取決於各力量的相對強度，不是簡單加總",
+    "current_situation_2026_06": {
+      "avgo": {
+        "tc001_pressure": "中高（10Y 4.54%，距臨界 6bp）",
+        "tc004_support": "強（AI capex 多季度能見度，Q3 指引 $16B）",
+        "mediatek_drag": "新增（推論工作量搶奪，INS-002 confidence 降至 0.74）",
+        "net_assessment": "多空拉鋸，無明確方向；等 CPI 06/10 確認利率路徑後重評"
+      },
+      "glw": {
+        "tc001_pressure": "高（進場緩衝僅 1%，10Y 再漲 6bp 窗口關閉）",
+        "tc004_support": "中（光通訊確認，但 NVIDIA 協議已定價）",
+        "net_assessment": "利率壓力主導，06/10 CPI 為關鍵裁定點"
+      }
+    }
+  }
+}

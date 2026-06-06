@@ -90,6 +90,38 @@
       "actual": null,
       "verdict": null,
       "score": null
+    },
+    {
+      "id": "VCP-FIN-AVGO-001",
+      "market": "金融市場（個股財務）",
+      "type": "financial_bridge",
+      "check_date": "2026-08-01",
+      "condition": "10Y 殖利率維持 ≥ 4.6% 超過 8 週",
+      "prediction": "AVGO NTM P/E 已低於 30x（共識下修，利率壓縮機制發生作用）",
+      "threshold": "NTM P/E < 30x",
+      "check_source": "Yahoo Finance AVGO 股價 ÷ FactSet NTM EPS 共識",
+      "tc_reference": "TC-001",
+      "honest_note": "此 VCP 觀察實際 P/E，不是用公式推算股價。方向可信，數字不可信。",
+      "activation_condition": "10Y 須先突破 4.6% 此 VCP 才有意義；若 CPI 06/10 未推升利率則此 VCP 自動低優先",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-FIN-GLW-001",
+      "market": "金融市場（個股財務）",
+      "type": "financial_bridge",
+      "check_date": "2026-06-30",
+      "condition": "10Y 殖利率突破 4.6% 並維持 2 週以上",
+      "prediction": "GLW 股價跌破 $193（進場條件 $198 再下跌 2.5%，利率壓縮顯現）",
+      "threshold": "GLW ≤ $193",
+      "check_source": "Yahoo Finance GLW",
+      "tc_reference": "TC-001",
+      "honest_note": "此 VCP 的意義是確認『NVIDIA 合約錨定』vs『利率壓力』誰更強，不是預測股價。",
+      "activation_condition": "10Y 須先突破 4.6%",
+      "actual": null,
+      "verdict": null,
+      "score": null
     }
   ],
   "overall_score": null,

@@ -29,9 +29,10 @@
         { "step": 4, "market": "商品市場",  "signal": "融資成本上升，資本支出計畫壓縮",   "direction": "→" }
       ],
       "asset_implications": [
-        { "asset": "10Y 美債",             "direction": "殖利率↑",  "magnitude": "8-15bp/event" },
-        { "asset": "高倍數成長股",          "direction": "估值壓縮", "magnitude": "5-10% NTM P/E 收縮" },
-        { "asset": "GLW / 光纖基建股",     "direction": "進場窗口縮窄", "magnitude": "接近 4.6% 上限" }
+        { "asset": "10Y 美債",         "direction": "殖利率↑",     "magnitude": "8-15bp/event（此次 +8bp）" },
+        { "asset": "AVGO",             "direction": "估值壓力",    "magnitude": "方向負向，幅度不確定（見 macro-to-stock.json#AVGO）", "financial_bridge": "data/dsmm/macro-to-stock.json", "observable_vcp": "VCP-FIN-AVGO-001" },
+        { "asset": "GLW",              "direction": "進場窗口縮窄", "magnitude": "現價 $200，條件 $198，緩衝 1%（見 macro-to-stock.json#GLW）", "financial_bridge": "data/dsmm/macro-to-stock.json", "observable_vcp": "VCP-FIN-GLW-001" },
+        { "asset": "NVDA",             "direction": "估值壓力（AI 敘事可對沖）", "magnitude": "方向負向，敘事護城河強，淨效果不確定（見 macro-to-stock.json#NVDA）", "financial_bridge": "data/dsmm/macro-to-stock.json", "observable_vcp": "VCP-FIN-NVDA-001" }
       ],
       "logic_score": 0.85,
       "evidence_score": 0.10,
