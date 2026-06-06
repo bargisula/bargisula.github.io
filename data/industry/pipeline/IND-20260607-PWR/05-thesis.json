@@ -1,0 +1,213 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "dimension": "論點",
+  "step": 5,
+  "analyst": "industry-thesis",
+  "analyzed_at": "2026-06-07",
+
+  "thesis_statement": "IF AI hyperscaler 合計 capex 維持年增 > 15% AND 大型電力變壓器交期維持 > 24 個月 AND GPU 端 CPO 量產不早於 2028 年 THEN GEV / VRT / BE / CEG / VST 的定價權與積壓訂單能見度將持續擴張至 2028 年 BECAUSE 電力基礎設施供給彈性極低（2-5 年建設周期）面對結構性需求加速（CAGR 17-20%），加上各子市場贏家均已具備可驗證的訂單積壓作為護城河緩衝，且唯一近期技術替代威脅（CPO 交換器層）尚不影響電力需求斜率",
+
+  "thesis_strength": "強",
+
+  "logic_score": 0.85,
+  "evidence_score": 0.87,
+  "confidence": 0.86,
+
+  "logic_tree": [
+    {
+      "node": "需求加速",
+      "claim": "AI 數據中心電力需求 CAGR 17-20%（2024-2030），電網互聯積壓 2,600 GW，hyperscaler 合計 capex ~7,000 億美元已 guidance 確認",
+      "confidence": 0.88,
+      "confirmed": true,
+      "source": "01-demand.json：slope_confidence 0.88；Goldman Sachs、IEA、Morgan Stanley 多機構共識",
+      "financial_confirmed": true,
+      "confirmation_detail": "MSFT / AMZN / GOOGL / META 2026 法說 guidance 已鎖定資本支出"
+    },
+    {
+      "node": "供給瓶頸（LPT 變壓器 + 電網互聯）",
+      "claim": "大型電力變壓器交期 128-208 週（3-4 年），2025 年供給短缺 ~30%；電網互聯積壓等候中位 5 年；緩解不早於 2027-2028 年",
+      "confidence": 0.92,
+      "confirmed": true,
+      "source": "02-supply.json：supply_demand_confidence 0.92；Wood Mackenzie Q2 2025 調查；LBL Queued Up 2025",
+      "financial_confirmed": true,
+      "confirmation_detail": "Hitachi / Siemens 擴產 capex 已宣布但量產 2027-2028 才到位"
+    },
+    {
+      "node": "贏家護城河固化（GEV / VRT / BE / CEG / VST）",
+      "claim": "GEV Electrification book-to-bill 2.5 + 積壓 1,630 億；VRT 積壓 150 億（YoY +109%）；BE 2026 年前 90 天合約 76.5 億；CEG / VST 核電 AI PPA 雙寡頭各具 20 年合約鎖定",
+      "confidence": 0.83,
+      "confirmed": true,
+      "source": "03-competition.json：各贏家均有財報 / 8-K 確認；GEV Q1 2026 10-Q、VRT Q1 2026 8-K、VST Q1 2026 8-K",
+      "financial_confirmed": true,
+      "confirmation_detail": "所有主要贏家均有 SEC 申報文件確認積壓訂單或合約規模"
+    },
+    {
+      "node": "技術替代時間軸 > 24 個月",
+      "claim": "SMR（EVT，2030-2035）/ 固態電池（EVT，2028-2032）/ HTS（EVT，2030+）均不構成近期威脅；CPO 在交換器層已進入 DV，但 GPU 端 CPO 量產最快 2028-2029 年，2027 前電力需求斜率影響量化 < 5%",
+      "confidence": 0.78,
+      "confirmed": false,
+      "source": "04-technology.json：technology_verdict；CPO kill_switch 為 KS-01，機率評為「中」",
+      "financial_confirmed": false,
+      "confirmation_detail": "CPO GPU 端量產時間軸為最大不確定性，需 NVIDIA GTC 2027 驗證"
+    }
+  ],
+
+  "thesis_logic_chain": "需求加速（0.88）→ 供給瓶頸導致緊俏（0.92）→ 定價權集中於少數贏家（0.83）→ 技術替代 > 24 個月緩衝（0.78）→ 論點成立（整體 0.86）",
+
+  "kill_switches": [
+    {
+      "id": "KS-001",
+      "severity": "critical",
+      "condition": "AI hyperscaler（MSFT / AMZN / GOOGL / META）合計 capex YoY 連續 2 季降幅 > 15%，或任一主要廠商宣布明確 AI 投資暫停",
+      "breaks_node": "需求加速",
+      "leading_indicator": "Q2 2026 法說 capex guidance 下修 + 雲端 GPU 使用率連續 2 季下滑",
+      "probability_12m": "低",
+      "impact": "需求斜率假設崩解，所有相關贏家估值溢價同步收縮；影響最大：BE（離網電力需求直接掛鉤算力投資）、CEG / VST（長期 PPA 議價能力下降）"
+    },
+    {
+      "id": "KS-002",
+      "severity": "critical",
+      "condition": "NVIDIA GTC 2027 確認 GPU 端 CPO 整合進入量產路線圖（2028 年出貨），並量化單 GPU 功耗削減 > 20%",
+      "breaks_node": "技術替代時間軸 > 24 個月",
+      "leading_indicator": "NVIDIA 2026 GTC 發佈 GPU 端光子互連原型；Ayar Labs 矽光子 IP 授權大量 AI 加速器廠商",
+      "probability_12m": "低中",
+      "impact": "GEV / VRT 的需求斜率假設需下修 10-15%；BE / CEG / VST 的長期電力需求預測受壓；估值倍數壓縮但現有積壓訂單（1-3 年）提供緩衝"
+    },
+    {
+      "id": "KS-003",
+      "severity": "major",
+      "condition": "大型電力變壓器供給緩解提前至 2026 年底：Hitachi Energy Virginia 廠或 Siemens Charlotte 廠提前量產，業界交期縮短至 < 52 週",
+      "breaks_node": "供給瓶頸（LPT 變壓器 + 電網互聯）",
+      "leading_indicator": "Hitachi Energy 或 Siemens Energy 宣布廠房提前投產；Wood Mackenzie 季度調查顯示交期連續 2 季縮短",
+      "probability_12m": "極低",
+      "impact": "GEV 定價能力下降，EBITDA 利潤率擴張趨勢中斷；Hitachi Energy / Siemens Energy 訂單積壓成長率放緩；但電網互聯瓶頸（5 年審批週期）仍存在，整體電力基礎設施緊俏格局不會驟然逆轉"
+    },
+    {
+      "id": "KS-004",
+      "severity": "major",
+      "condition": "Bloom Energy SOFC 大規模部署出現系統性可靠性問題（> 50 MW 非計畫停機事件），或 AEP / Brookfield 主要合約確認取消",
+      "breaks_node": "贏家護城河固化（BE）",
+      "leading_indicator": "BE 法說提到主要客戶延遲交付時間；SOFC 現場停機事件媒體報導；數據中心客戶申訴或合約重談",
+      "probability_12m": "低中",
+      "impact": "BE 論點局部受損；76.5 億美元合約能見度下降；但 GEV / VRT / CEG / VST 論點不受影響"
+    },
+    {
+      "id": "KS-005",
+      "severity": "minor",
+      "condition": "浸沒式液冷（Immersion Cooling）在 2027 年前取得超大規模客戶標準化採購合約（> 10 MW 單案）",
+      "breaks_node": "贏家護城河固化（VRT 液冷 CDU）",
+      "leading_indicator": "MSFT / AMZN / GOOG 宣布浸沒式液冷為新建資料中心標準；LiquidStack / GRC 商業訂單顯著成長",
+      "probability_12m": "低",
+      "impact": "VRT CDU 市占論點受壓，但 150 億積壓訂單鎖定 2027-2028 交付；VRT 自身已布局浸沒式產品線，長期影響有限"
+    }
+  ],
+
+  "kill_switch_summary": {
+    "critical": 2,
+    "major": 2,
+    "minor": 1,
+    "critical_12m_probability": "低至低中（KS-001 低，KS-002 低中）"
+  },
+
+  "verification_checkpoints": [
+    {
+      "id": "VCP-IND-IND-20260607-PWR-001",
+      "dimension": "需求",
+      "check_date": "2027-03-31",
+      "prediction": "hyperscaler 四大（MSFT / AMZN / GOOGL / META）2026 年合計 capex >= 6,500 億美元",
+      "threshold": "通過：>= 6,500 億；警示：6,000-6,500 億；失敗：< 6,000 億",
+      "check_source": "MSFT / AMZN / GOOGL / META 2026 全年財報 + 法說",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-002",
+      "dimension": "供給",
+      "check_date": "2027-02-01",
+      "prediction": "Hitachi Energy 大型電力變壓器訂單積壓較 FY2026 再增 15%+ 且平均售價持續上升",
+      "threshold": "通過：積壓 YoY >= 15% 且 ASP 上升；警示：積壓 5-15% 或 ASP 持平；失敗：積壓 YoY < 5% 或 ASP 下降",
+      "check_source": "Hitachi Energy / ABB 財報電話會議 + Wood Mackenzie 季度變壓器調查",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-003",
+      "dimension": "競爭",
+      "check_date": "2026-10-31",
+      "prediction": "GEV Electrification book-to-bill 維持 >= 2.0 至 2026Q3；VRT 積壓訂單達 175 億美元以上（YoY >= 50%）",
+      "threshold": "通過：GEV BTB >= 2.0 AND VRT 積壓 >= 175 億；警示：GEV BTB 1.5-2.0 OR VRT 積壓 150-175 億；失敗：GEV BTB < 1.5 OR VRT 積壓 < 150 億",
+      "check_source": "GEV Q3 2026 法說 + VRT Q3 2026 8-K（SEC EDGAR）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-004",
+      "dimension": "技術",
+      "check_date": "2027-04-30",
+      "prediction": "NVIDIA GTC 2027（預計 2027 年 3 月）不宣布 GPU 端 CPO 量產時間表；CPO 仍限於交換器層",
+      "threshold": "通過：無 GPU 端 CPO 量產宣告；失敗：NVIDIA 確認 GPU 端 CPO 2028 量產並量化功耗削減 > 20%",
+      "check_source": "NVIDIA GTC 2027 keynote / 技術部落格 / 供應商法說",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-005",
+      "dimension": "需求",
+      "check_date": "2026-12-31",
+      "prediction": "Bloom Energy FY2026 年底產能達 2 GW/年，且 2026 年全年數據中心相關合約金額維持 > 50 億美元",
+      "threshold": "通過：產能 >= 2 GW 且合約 > 50 億；警示：產能 1.5-2 GW 或合約 30-50 億；失敗：產能 < 1.5 GW 或主要合約取消",
+      "check_source": "Bloom Energy 4Q FY2026 法說財報 + 8-K 合約公告",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    }
+  ],
+
+  "investment_implications": {
+    "primary_beneficiary": [
+      {
+        "ticker": "GEV",
+        "reason": "Prolec GE 完整收購後北美最大變壓器整合商，Electrification BTB 2.5，積壓 1,630 億，供不應求格局下定價能力最強"
+      },
+      {
+        "ticker": "VRT",
+        "reason": "AI 數據中心電力整合純粹純玩，積壓 150 億（YoY +109%），液冷 CDU 市占領先，量化最透明"
+      },
+      {
+        "ticker": "CEG",
+        "reason": "核電 AI PPA 雙寡頭之一，Microsoft + Meta 各 20 年合約，稀缺資產不可複製"
+      }
+    ],
+    "secondary_beneficiary": [
+      {
+        "ticker": "BE",
+        "reason": "離網燃料電池繞過電網積壓瓶頸，2026 年合約規模爆發，但技術執行風險與客戶集中度較高"
+      },
+      {
+        "ticker": "VST",
+        "reason": "核電 AI PPA 雙寡頭之一，Q1 2026 YoY +43%，但業務組合包含傳統燃媒電廠"
+      },
+      {
+        "ticker": "ETN",
+        "reason": "垂直整合覆蓋多層，積壓訂單 YoY +44%，但各子市場均非市占最大，相對 GEV / VRT 分散"
+      }
+    ],
+    "avoid": [
+      {
+        "ticker": "傳統風冷 CRAC/CRAH 廠商（Stulz / Airedale）",
+        "reason": "液冷滲透率從 14% 快速升至 33% 且仍在加速，傳統風冷市場遭受系統性替代"
+      },
+      {
+        "ticker": "中小型獨立變壓器廠",
+        "reason": "大型訂單集中於具備產能擴張承諾的前五大廠商，中小型廠商無法承諾交期導致份額流失"
+      }
+    ]
+  },
+
+  "analyst_notes": "四棒分析整合完成。最大不確定性集中在技術維度（CPO GPU 端量產時間軸，confidence 0.78），建議以 NVIDIA GTC 2027 為論點主要驗證節點。論點定為「強」的依據：三個維度（需求 0.88、供給 0.92、競爭 0.83）均超過 0.7 閾值，且 2 個 critical kill switch 的 12 個月觸發機率均為低至低中，無迫近的護城河威脅。"
+}

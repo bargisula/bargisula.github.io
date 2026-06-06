@@ -1,0 +1,199 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "dimension": "供給",
+  "step": 2,
+  "analyst": "industry-supply",
+  "analyzed_at": "2026-06-07",
+  "upstream_demand_slope": "加速（需求斜率 0.88；美國數據中心用電 2024→2027 年 25GW→92GW，CAGR 17-20%；電網互聯積壓 2,600 GW，中位等候 5 年）",
+
+  "supply_structure": [
+    {
+      "layer": "電網連接層",
+      "item": "電網互聯審批與輸電容量",
+      "key_suppliers": [
+        "PJM（東部主要 ISO）",
+        "ERCOT（德州）",
+        "MISO、CAISO（次要 ISO）"
+      ],
+      "capacity_elasticity": "very_low",
+      "capex_to_production_months": 60,
+      "notes": "監管審批 + 輸電基礎建設擴充週期長達 5-7 年；ERCOT 大型負載隊列 410 GW，數據中心佔 87%；PJM 2025 年 8 月啟動快速審查計畫但效果有限",
+      "bottleneck": true
+    },
+    {
+      "layer": "升壓/降壓變壓器層",
+      "item": "大型電力變壓器（LPT）及發電機升壓變壓器（GSU）",
+      "key_suppliers": [
+        "Hitachi Energy（美）",
+        "Siemens Energy（德）",
+        "GE Vernova / GE Grid Solutions（美）",
+        "Eaton（愛爾蘭/美）",
+        "SPX（美）",
+        "ABB（瑞士）"
+      ],
+      "market_concentration": "前 5 廠商約佔 50% 出貨量，中度集中",
+      "capacity_elasticity": "low",
+      "capex_to_production_months": 24,
+      "current_lead_time_weeks": "128-208 週（3-4 年）",
+      "notes": "Wood Mackenzie Q2 2025：標準變壓器均值 128 週，GSU 144 週。部分大型特規品報價 4 年。2025-2026 年供給短缺估約 30%。各廠新產線預計 2027-2028 落地（Hitachi Virginia 廠、Siemens Charlotte 廠）",
+      "bottleneck": true
+    },
+    {
+      "layer": "配電開關設備層",
+      "item": "中壓/高壓開關櫃、斷路器",
+      "key_suppliers": [
+        "Schneider Electric（法）",
+        "Eaton（愛爾蘭/美）",
+        "ABB（瑞士）",
+        "Siemens（德）"
+      ],
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 12,
+      "notes": "交期延長至 18-24 個月（原 6-12 月），瓶頸嚴重度低於變壓器；廠商正擴產中",
+      "bottleneck": false
+    },
+    {
+      "layer": "不斷電電源 / 儲能層",
+      "item": "UPS 系統（大型模組化）",
+      "key_suppliers": [
+        "Schneider Electric（市佔 11%+，領先）",
+        "Vertiv（約 10%）",
+        "Eaton",
+        "Huawei",
+        "ABB"
+      ],
+      "market_size_2025_usd_bn": 6.12,
+      "market_cagr_percent": 7.5,
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 9,
+      "notes": "UPS 市場競爭激烈，前 5 廠合計 40-42%；交期偏長但尚不至關鍵瓶頸；Vertiv 加速擴產並收購 Strategic Thermal Labs",
+      "bottleneck": false
+    },
+    {
+      "layer": "備用發電機層",
+      "item": "大型柴油/天然氣發電機組（>2 MW）",
+      "key_suppliers": [
+        "Caterpillar（Cat）",
+        "Cummins",
+        "Rolls-Royce Power Systems（MTU）",
+        "Generac（中型）"
+      ],
+      "capacity_elasticity": "low",
+      "capex_to_production_months": 18,
+      "notes": "AI 數據中心 GPU 機架功率密度暴升帶動 N+1/2N 備援需求；Cat 與 Vertiv 宣布整合預設計方案；Generac FY2026 數據中心客戶收入 YoY +10%；交期 12-18 個月",
+      "bottleneck": true
+    },
+    {
+      "layer": "液冷/散熱層",
+      "item": "直接液冷（DLC）系統、CDU 分配單元",
+      "key_suppliers": [
+        "Vertiv（市佔 11.3%，領先）",
+        "Schneider Electric",
+        "CoolIT Systems",
+        "Rittal",
+        "Stulz",
+        "Boyd"
+      ],
+      "market_size_2025_usd_bn": 4.8,
+      "market_cagr_percent": 18.2,
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 12,
+      "notes": "機架功耗 50-100 kW+ 推升直接液冷滲透率；CoolIT 2024 底擴廠並推出 CHx1000（>100 kW），市場成長快但供給方也在快速投資；瓶頸程度中等，客製化工程能力是門檻",
+      "bottleneck": false
+    }
+  ],
+
+  "bottlenecks": [
+    {
+      "component": "電網互聯與輸電容量",
+      "severity": "高",
+      "lead_time": "24-72 個月審批等候（中位 5 年）",
+      "constraints": [
+        "2,600 GW 積壓，FERC 843 規則僅初步改善",
+        "輸電線路新建審批跨州協調困難",
+        "地方反對、土地取得、環評各自排隊"
+      ],
+      "relief_timeline": "2028-2030（PJM fast-track 2025 試行，大規模效果 2028+ 才顯現）",
+      "relief_condition": "FERC 監管改革加速 + 輸電基礎建設大規模投資落地",
+      "key_suppliers": ["PJM", "ERCOT", "MISO", "監管機構 FERC"],
+      "pricing_power_shift": "定價權在地主與能源開發商，數據中心被迫自建電廠或長期PPA綁定",
+      "confirmed_by": ["LBL Queued Up 2025 報告", "EnkiAI 2026 分析"]
+    },
+    {
+      "component": "大型電力變壓器（LPT / GSU）",
+      "severity": "高",
+      "lead_time": "128-208 週（Wood Mackenzie Q2 2025 調查）",
+      "constraints": [
+        "矽鋼片、變壓器油等原材料集中採購競爭激烈",
+        "高度客製化，換廠成本高",
+        "美國國內製造產能嚴重不足，高度依賴進口",
+        "Wood Mackenzie 估 2025 年供給短缺 ~30%"
+      ],
+      "relief_timeline": "2027-2028Q4（Hitachi Virginia 廠 2028 量產、Siemens Charlotte 廠 2027 起步）",
+      "relief_condition": "Hitachi Virginia 大型變壓器廠投產 + Siemens Charlotte 擴產線 + Eaton South Carolina 廠落地",
+      "key_suppliers": [
+        "Hitachi Energy（2025 底宣佈 4.57 億美元 Virginia 廠）",
+        "Siemens Energy（1 億 5,000 萬美元 Charlotte 廠）",
+        "GE Vernova",
+        "Eaton（3.4 億美元 Jonesville SC 廠）"
+      ],
+      "capex_committed_usd_bn": 2.0,
+      "pricing_power_shift": "強烈上移至 Hitachi Energy / Siemens Energy / GE Vernova；供需缺口下定價權維持至 2028",
+      "confirmed_by": [
+        "Wood Mackenzie Q2 2025 變壓器調查",
+        "pv-magazine-usa 2026-05-11 報導（4 年交期）",
+        "IndustrialSage 報導"
+      ]
+    },
+    {
+      "component": "大型備用發電機組（>2 MW）",
+      "severity": "中",
+      "lead_time": "12-18 個月",
+      "constraints": [
+        "GPU 功率密度飆升驅動需求超預期",
+        "Cat/Cummins 工廠排程已滿至 2026 底",
+        "天然氣管道接入另有瓶頸"
+      ],
+      "relief_timeline": "2026Q4-2027Q2（Cat/Cummins 排程外加班及小幅擴產）",
+      "relief_condition": "Cat 與 Vertiv 聯合設計方案量產 + Cummins 新產線",
+      "key_suppliers": [
+        "Caterpillar（Cat）",
+        "Cummins",
+        "Rolls-Royce Power Systems（MTU）"
+      ],
+      "pricing_power_shift": "上移至 Cat / Cummins，但程度低於變壓器",
+      "confirmed_by": [
+        "Caterpillar & Vertiv 戰略合作聲明（2025）",
+        "Generac FY2026 8-K（數據中心收入 +10%）"
+      ]
+    }
+  ],
+
+  "supply_verdict": "電力基礎設施供給嚴重供不應求，電網互聯積壓（2,600 GW）與大型變壓器交期（3-4 年）是雙重高嚴重度瓶頸，緩解至少需至 2027-2028 年，當前週期定價權集中在少數變壓器製造商與電網准入持有者手中。",
+
+  "supply_demand_balance": "供不應求",
+  "supply_demand_confidence": 0.92,
+  "pricing_power": "強",
+  "pricing_power_holder": "大型電力變壓器製造商（Hitachi Energy / Siemens Energy / GE Vernova）；電網准入持有者（PJM、ERCOT 轄區地主及能源開發商）",
+
+  "verifiable_by": {
+    "metric": "Hitachi Energy 大型變壓器業務毛利率 & 訂單積壓量（backlog）",
+    "prediction": "Hitachi Energy FY2027 大型電力變壓器訂單積壓較 FY2026 再增 15%+ 且平均售價繼續上升",
+    "check_date": "2027-02-01",
+    "check_source": "Hitachi Energy / ABB 財報電話會議 + Wood Mackenzie 季度變壓器調查"
+  },
+
+  "data_sources": [
+    "Wood Mackenzie Q2 2025 電力變壓器交期調查（128/144 週）",
+    "pv-magazine-usa 2026-05-11：美國變壓器市場交期延至 4 年",
+    "LBL Queued Up 2025：電網互聯積壓 2,600 GW",
+    "EnkiAI 2026：AI 數據中心電力與 PJM 計畫",
+    "GM Insights：數據中心 UPS 市場 2025（USD 6.12B）",
+    "GM Insights：液冷市場 2025（USD 4.8B，CAGR 18.2%）",
+    "GlobeNewswire：美國變壓器市場 2025-2030 研究報告（GE Vernova / Eaton / Siemens 領先）",
+    "Caterpillar & Vertiv 合作聲明（2025）",
+    "Generac FY2026 8-K（數據中心收入 +10%）",
+    "Vertiv FY2026 8-K（擴產及液冷收購）"
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "dimension": "技術替代",
+  "step": 4,
+  "analyst": "industry-technology",
+  "analyzed_at": "2026-06-07",
+
+  "current_tech": {
+    "power_supply": {
+      "name": "大型電力變壓器（LPT / GSU）+ 柴油備援發電機 + 電網互聯",
+      "ceiling": "交期 128-208 週、主動導磁鋼需求超過現有供應鏈上限；柴油機在超高密度機架（>50 kW/rack）下備援容量不足",
+      "ip_holders": ["GE Vernova", "Hitachi Energy", "Siemens Energy", "Eaton"],
+      "cost_structure": "LPT 材料成本佔 45-55%（導磁鋼、銅繞組），製造成本佔 30-35%，整合成本佔 15-20%"
+    },
+    "cooling": {
+      "name": "風冷（CRAC / CRAH）為主流，液冷滲透率 2024 年約 14%",
+      "ceiling": "傳統風冷上限 ~15 kW/rack；NVIDIA GB200 NVL72 需 130-140 kW/rack，風冷物理上不可行",
+      "ip_holders": ["Vertiv", "Schneider Electric", "Stulz", "Airedale（已入 Johnson Controls）"],
+      "cost_structure": "設備採購佔 40%，基礎設施改造佔 35%，運維佔 25%"
+    }
+  },
+
+  "substitutes": [
+    {
+      "tech_name": "SMR（小型模組化核反應爐）",
+      "stage": "EVT",
+      "commercial_timeline": "2030-2035",
+      "confirmed_by": "NRC 施工許可審核進行中（GE Hitachi BWRX-300、X-energy）；Ontario Power Darlington 目標 2029 首機；TVA Clinch River 目標 2030 早期；AWS-Talen Susquehanna 傳統前置電廠協議（非 SMR）已運行",
+      "stage_rationale": "全球仍無 SMR 商業量產機組；加拿大 Darlington 為最接近量產的單案，但 2029 仍為樂觀估計；NRC 尚未核發美國首張施工許可",
+      "threat_target": "CEG / VST 核電 AI PPA 壟斷地位（長期）；Bloom Energy 離網燃料電池（中長期）",
+      "impact_on_winners": {
+        "GEV": "中性偏正（SMR 廠內變壓器仍需採購，GEV 為潛在供應商）",
+        "VRT": "中性（SMR 配套冷卻與電力管理設備需求將提升）",
+        "BE": "負面（SMR 若量產成功，離網清潔電力替代燃料電池）",
+        "CEG_VST": "中長期負面（SMR 打破核電稀缺性溢價，但 2030 前影響極有限）"
+      },
+      "moat_erosion": "CEG / VST 護城河侵蝕風險：低（時間軸 > 48 個月，且 SMR 首批成本仍遠高於現有核電延壽方案）",
+      "risk_level": "低",
+      "risk_rationale": "仍在 EVT 階段；首個商業機組最快 2029 年（加拿大），美國不早於 2032；首批 SMR LCOE 估計 $120-150/MWh，高於 CEG / VST 現有核電 $40-60/MWh；無客戶 confirmed 直連 AI 資料中心 SMR 商業合約",
+      "kill_switch_condition": "若 SMR 在 2028 年前完成 NRC 施工許可並取得超過 3 個 AI 超大規模客戶簽署商業 PPA（含交電日期），CEG / VST 長期成長論點開始折價"
+    },
+    {
+      "tech_name": "固態電池大規模儲能（替代 UPS + 備援柴油機）",
+      "stage": "研究室（Grid/UPS 應用）",
+      "commercial_timeline": "2028-2032",
+      "confirmed_by": "2026 年固態電池主力量產仍以 EV 小電芯為目標（Toyota、Samsung SDI）；Sunwoda 展示 625 Ah 儲能電芯但未確認資料中心 UPS 客戶；無超大規模客戶 LTA 或 tape-out 等效確認",
+      "stage_rationale": "固態電池 2026 年才剛進入 EV 小批量，儲能級（MWh 規模）UPS 應用至少落後 EV 應用 3-5 年",
+      "threat_target": "Eaton UPS 業務；Caterpillar / Cummins 備援柴油發電機；APC by Schneider UPS",
+      "impact_on_winners": {
+        "GEV": "中性（與電源側無直接關聯）",
+        "VRT": "長期負面（Vertiv 液冷 CDU 業務不受影響，但 UPS / 電力模組可能面臨更高能量密度替代）",
+        "BE": "長期正面（若固態電池取代柴油機，BE 燃料電池在 1-72 小時持續供電的定位更清晰，競爭格局縮小）",
+        "CEG_VST": "中性"
+      },
+      "moat_erosion": "Eaton / Cummins UPS + 發電機護城河侵蝕風險：低（2030 前無量產資料中心級產品）",
+      "risk_level": "低",
+      "risk_rationale": "現有半固態（semi-solid）電池已商用，但能量密度、循環次數（目標 6,000 次）、成本仍不及鋰離子於 UPS 應用的成熟度；資料中心 UPS 需要 99.9999% 可靠度認證（Class F），固態電池無相關認證路徑；2026-2027 時間軸仍屬研究室",
+      "kill_switch_condition": "若 2028 年前任一固態電池廠商取得 Uptime Institute 或等效 Tier IV UPS 認證並獲超大規模客戶採購訂單，Eaton UPS 成長論點開始受壓"
+    },
+    {
+      "tech_name": "高溫超導輸電（HTS Cable）",
+      "stage": "EVT（商業試點）",
+      "commercial_timeline": "2030+（主流基礎設施替代）",
+      "confirmed_by": "Nexans / American Superconductor（AMSC）有小規模商業試點（公里級）；全球 HTS 市場 2024 年約 12 億美元；無超大規模 AI 資料中心採購 HTS 作為電網接入的公開 LTA 或合約",
+      "stage_rationale": "HTS 電纜需要液氮冷卻基礎設施，建設成本高昂；目前僅有城市電網密集段試點（紐約 LIPA 計畫、德國電網試驗）；資料中心園區級部署需要全新設計規範，在監管與工程標準未建立前無法規模化",
+      "threat_target": "傳統 GIS 開關設備（ABB、Siemens）；變壓器輸電段（從長距離輸電繞過升壓/降壓需求）",
+      "impact_on_winners": {
+        "GEV": "長期潛在負面（若 HTS 繞過升壓變壓器需求，但時間軸 > 2030；且配電變壓器段不受影響）",
+        "VRT": "中性（園區內配電段 HTS 仍早期）",
+        "BE": "中性",
+        "CEG_VST": "中性"
+      },
+      "moat_erosion": "GEV / Hitachi 長距離 LPT 護城河侵蝕風險：低（時間軸 > 2030；HTS 基礎設施 CAPEX 遠高於傳統變壓器；資料中心所在地的短距離配電段替代效益有限）",
+      "risk_level": "低",
+      "risk_rationale": "HTS 市場規模 2024 年僅 12 億美元（全球）；液氮冷卻系統 OPEX 是傳統電纜 3-5 倍；資料中心典型傳輸距離 <5 公里，HTS 成本優勢通常在 >20 公里長距離才顯現；主要競爭對象是老舊城市電網，不是 AI 資料中心新建園區",
+      "kill_switch_condition": "若 AMSC 或 Nexans 在 2027 年前取得任一 >500 MW 資料中心園區接入的 HTS 合約，GEV 升壓變壓器論點局部受壓"
+    },
+    {
+      "tech_name": "CPO（共封裝光學，Co-Packaged Optics）",
+      "stage": "DV（設計驗證期，進入早期量產）",
+      "commercial_timeline": "2026-2028（漸進滲透）",
+      "confirmed_by": "NVIDIA Quantum-X InfiniBand 交換器 2026H1 商業出貨；NVIDIA Spectrum-X Ethernet 2026H2 商業出貨；Broadcom Taurus 400G-per-lane DSP 於 OFC 2026 達商業可用；Ayar Labs + NVIDIA 長期合作已公開；IDTechEx 預測 CPO 市場 2026-2036 快速擴張",
+      "stage_rationale": "NVIDIA 已確認在交換器層導入 CPO，非 GPU 端。GPU 端 CPO 整合（直接降低 GPU TDP）屬下一代架構，預計 2028-2029 才進入量產",
+      "threat_target": "可插拔光模組廠商（Coherent COHR、Lumentum、Fabrinet）；風冷機架廠商（間接影響：功耗降低 → 散熱需求下降）；長期降低總電力需求增速",
+      "impact_on_winners": {
+        "GEV": "中性偏負（若 CPO 使每 rack 功耗降低 20-30%，變壓器需求增量放緩；但現有 1,630 億積壓訂單提供 3+ 年緩衝）",
+        "VRT": "雙向影響：液冷 CDU 業務受益（CPO 仍產生熱，且 GPU 仍高功耗）；若電力管理 UPS 模組收入與 MWh 部署掛鉤，密度降低略有負面；整體偏中性",
+        "BE": "潛在負面（若 AI 算力總功耗增速放緩，離網電力需求成長率下修；但 2026-2027 影響量化難）",
+        "CEG_VST": "潛在負面（同上，長期電力需求增速假設若下修，核電 PPA 溢價收窄）"
+      },
+      "moat_erosion": "功耗降低效率技術，不直接侵蝕電力基礎設施護城河，但影響需求斜率假設。現有贏家論點建立在 17-20% CAGR 電力需求基礎上；若 CPO 廣泛部署使需求斜率降至 12-15%，估值溢價收窄",
+      "risk_level": "中",
+      "risk_rationale": "CPO 在交換器層已進入 DV/早期量產，是五項技術中商業化最近的；但對電力需求的實際衝擊取決於：(1) GPU 端 CPO（2028+）何時量產，(2) AI 算力需求同步在增長是否抵消效率改善。TrendForce 與 IDTechEx 共識：CPO 在 2028 前的功耗削減主要在互連層（~5-8%），GPU 端要等到 2029+，整體衝擊中等",
+      "kill_switch_condition": "若 NVIDIA 在 2027 GTC 確認下一代 GPU 架構（Rubin Ultra / 繼任者）整合 GPU 端 CPO 並宣布 2028 量產，GEV / VRT / BE 需求斜率假設需下修 10-15%，相關論點承壓"
+    },
+    {
+      "tech_name": "直接液冷（DLC）/ 浸沒式液冷普及",
+      "stage": "MP（量產，快速滲透中）",
+      "commercial_timeline": "2025-2027（主流 AI GPU 機架標準配置）",
+      "confirmed_by": "TrendForce 2025-08：液冷資料中心滲透率 2024 年 14% → 2025 年 33%；NVIDIA GB200 NVL72（130-140 kW/rack）物理上要求液冷；Vertiv CDU 市占 11.3% 領先且積壓訂單 150 億；Schneider、Eaton 均已推出液冷解決方案；超大規模建置標準正從風冷轉向液冷",
+      "stage_rationale": "液冷已是量產且快速規模化的技術，非替代技術威脅，而是格局重塑因素：風冷廠商份額向液冷廠商轉移",
+      "threat_target": "傳統風冷 CRAC/CRAH 設備廠（Stulz、Airedale、舊式 Schneider 風冷產品線）；未轉型的空調型資料中心設備整合商",
+      "impact_on_winners": {
+        "GEV": "中性（變壓器需求與冷卻方式無關）",
+        "VRT": "正面（Vertiv 液冷 CDU 市占 11.3% 領先，且液冷滲透每加速 1%，Vertiv 設備收入提升比傳統風冷更高，因單價更高）",
+        "BE": "中性",
+        "CEG_VST": "中性"
+      },
+      "moat_erosion": "侵蝕傳統風冷廠商；強化 Vertiv 液冷護城河。與其說是替代威脅，不如說是 Vertiv 的 tailwind",
+      "risk_level": "中（對傳統風冷廠商為高風險，對 Vertiv 為機遇）",
+      "risk_rationale": "液冷滲透率從 14%（2024）快速爬升至 33%（2025 估）且仍在加速；NVIDIA Blackwell 後所有高密度 AI GPU 機架均為液冷優先；這是已進入量產且有客戶確認的技術轉移，非遠期威脅。主要問題是轉型速度，而非是否發生",
+      "kill_switch_condition": "若浸沒式液冷（Immersion Cooling，LiquidStack、GRC、Submer）在 2026 年底取得超大規模客戶標準化部署合約（>10 MW 單案），CDU 廠商（Vertiv）可能在下一代方案遭到邊緣化；但現有 150 億積壓訂單已鎖定 2027-2028 交付"
+    }
+  ],
+
+  "kill_switches": [
+    {
+      "id": "KS-01",
+      "condition": "NVIDIA 2027 GTC 確認 GPU 端 CPO 量產時間表（2028 年出貨）",
+      "victim_thesis": "GEV / VRT / BE / CEG / VST 的高成長需求假設（17-20% CAGR）；若功耗削減 20%+，需求斜率下修",
+      "probability": "中（CPO 交換器層已 DV，GPU 端技術難度更高，2028 樂觀）",
+      "time_horizon": "影響從 2028 開始量化，2030 才顯著"
+    },
+    {
+      "id": "KS-02",
+      "condition": "SMR 於 2028 年前取得 NRC 施工許可 + 3 個以上 AI 超大規模客戶簽署含交電日期的商業 PPA",
+      "victim_thesis": "CEG / VST 核電 AI PPA 稀缺性溢價；SMR 打破雙寡頭壟斷",
+      "probability": "低（NRC 許可審核至少 2026-2027 年，施工完成不早於 2029-2032；首批 SMR LCOE 遠高於現有核電）",
+      "time_horizon": "2032 年前影響 CEG / VST 論點機率 < 15%"
+    },
+    {
+      "id": "KS-03",
+      "condition": "浸沒式液冷廠商（LiquidStack / GRC）在 2026 年底前取得 >10 MW 超大規模標準化部署合約",
+      "victim_thesis": "Vertiv CDU 液冷市占領先論點；若浸沒式成為新標準，Vertiv 需要重新競標",
+      "probability": "低中（浸沒式 2026 年仍屬試點，超大規模採購仍以 CDU 為主；Vertiv 已推出浸沒式產品線，具備因應能力）",
+      "time_horizon": "2027-2028 若發生，Vertiv CDU 論點需要重新評估"
+    },
+    {
+      "id": "KS-04",
+      "condition": "Bloom Energy SOFC 出現大規模可靠性事故（>10 MW 機組非計畫停機）或主要合約客戶取消",
+      "victim_thesis": "BE 離網燃料電池先行者論點；76.5 億美元合約轉換為實際收入需要 2-5 年",
+      "probability": "低中（SOFC 技術成熟度已證實，但大規模部署仍有工程風險）",
+      "time_horizon": "若 2026-2027 部署加速期出現事故，合約轉換率下降"
+    }
+  ],
+
+  "technology_verdict": "五項技術中僅 CPO（交換器層）與液冷普及屬實際進行中的格局重塑：液冷已是量產技術（滲透率 33%，2025）且正在加速，強化 Vertiv 護城河同時淘汰傳統風冷；CPO 在交換器層進入 DV / 早期量產，2027-2028 前對電力需求斜率影響量化有限；SMR、固態電池、HTS 三項均處於研究室或 EVT 階段，3-5 年內不構成對現有贏家（GEV / VRT / BE / CEG / VST）的實際商業威脅。現有護城河在 2028 年前穩固。",
+
+  "overall_risk_level": "低（2026-2027）；中（2028-2030，主要來自 CPO GPU 端量產時間軸）",
+
+  "beneficiary_map": {
+    "liquid_cooling_acceleration": ["VRT（最直接）", "Eaton（次要）"],
+    "cpo_adoption": ["COHR（CPO 核心光子IC）", "Ayar Labs（矽光子）", "NVIDIA（功耗改善）"],
+    "smr_commercialization": ["GEV（SMR 配套變壓器）", "VRT（SMR 配套冷卻）", "新進核電廠商（Oklo、TerraPower）"],
+    "solid_state_battery_grid": ["AMSC", "QuantumScape（若成功）", "潛在 VRT（新型 UPS 模組）"]
+  },
+
+  "hedge_ideas": [
+    {
+      "current_holding": "GEV（變壓器）",
+      "watch_tech": "CPO GPU 端量產進度",
+      "watch_company": "Ayar Labs（私有）/ Coherent COHR",
+      "trigger": "NVIDIA GTC 2027 GPU 端 CPO roadmap 確認"
+    },
+    {
+      "current_holding": "CEG / VST（核電 PPA）",
+      "watch_tech": "SMR NRC 許可進度",
+      "watch_company": "NuScale（已上市，SMR 先行者）/ X-energy（Ares 支持）",
+      "trigger": "美國 NRC 核發首張 SMR 施工許可"
+    },
+    {
+      "current_holding": "VRT（液冷 CDU）",
+      "watch_tech": "浸沒式液冷標準化",
+      "watch_company": "LiquidStack（私有）/ GRC（私有）",
+      "trigger": "超大規模客戶（MSFT / AMZN / GOOG）宣布浸沒式為新建資料中心標準"
+    }
+  ],
+
+  "verifiable_by": {
+    "metric_1": {
+      "metric": "NVIDIA GTC 2027 是否宣布 GPU 端 CPO 量產時間表",
+      "prediction": "2027 GTC（預計 2027 年 3 月）不包含 GPU 端 CPO 量產宣告；CPO 仍限於交換器層",
+      "check_date": "2027-04-30",
+      "source": "NVIDIA GTC 2027 keynote / 技術部落格 / 供應商法說"
+    },
+    "metric_2": {
+      "metric": "液冷資料中心滲透率（TrendForce 年度報告）",
+      "prediction": "2026 年液冷滲透率達 40-45%（來自 2025 年 33% 基礎繼續加速）",
+      "check_date": "2026-12-31",
+      "source": "TrendForce 2026 Global Cloud Data Center Liquid Cooling Report"
+    },
+    "metric_3": {
+      "metric": "NRC SMR 施工許可核發進度",
+      "prediction": "2026 年底前 NRC 尚未核發任何 SMR 施工許可（BWRX-300 審核仍在進行）",
+      "check_date": "2026-12-31",
+      "source": "NRC 官網 Licensing / Applications 頁面"
+    }
+  },
+
+  "data_sources": [
+    "TrendForce 2025-08：液冷滲透率 14%（2024）→ 33%（2025）",
+    "EDN 2026：CPO 技術現況報告（交換器層進入商業出貨）",
+    "NVIDIA Technical Blog：Scaling AI Factories with CPO",
+    "IDTechEx：CPO (2026-2036) 市場預測報告",
+    "Yale Clean Energy Forum 2026-04：SMR 商業化分析",
+    "IDTechEx：SMR Market 2026-2046 報告",
+    "Davis Graham：SMR + Data Center 監管現況（2026）",
+    "Ontario Power Generation：Darlington BWRX-300 計畫",
+    "IDTechEx：Battery Storage for Data Centers 2026-2036",
+    "Bonnen Batteries / XT Battery：固態電池 2026 現狀",
+    "Fortune Business Insights / Verified Market Reports：HTS Cable 市場",
+    "Nexans：HTS 高溫超導電纜商業現況",
+    "MarketsandMarkets / Grand View Research：液冷市場規模 2026",
+    "Morningstar / Future Market Insights：AI 資料中心液冷市場",
+    "Build.inc：Data Center Cooling 2026 技術選項報告"
+  ]
+}

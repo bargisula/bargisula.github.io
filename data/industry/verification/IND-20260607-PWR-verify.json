@@ -1,0 +1,70 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "created_at": "2026-06-07",
+  "verification_status": "pending",
+  "checkpoints": [
+    {
+      "id": "VCP-IND-IND-20260607-PWR-001",
+      "dimension": "需求",
+      "check_date": "2027-03-31",
+      "prediction": "hyperscaler 四大（MSFT/AMZN/GOOGL/META）2026 年合計 capex >= 6,500 億美元",
+      "threshold": "通過 >= 6,500 億；失敗 < 6,000 億",
+      "check_source": "MSFT / AMZN / GOOGL / META 2026 全年財報",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-002",
+      "dimension": "供給",
+      "check_date": "2027-02-01",
+      "prediction": "Hitachi Energy 大型電力變壓器訂單積壓 YoY >= 15% 且 ASP 持續上升",
+      "threshold": "通過：積壓 YoY >= 15% 且 ASP 上升；失敗：積壓 YoY < 5% 或 ASP 下降",
+      "check_source": "Hitachi Energy / ABB 財報 + Wood Mackenzie 季度調查",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-003",
+      "dimension": "競爭",
+      "check_date": "2026-10-31",
+      "prediction": "GEV Electrification book-to-bill >= 2.0（Q3 2026）；VRT 積壓訂單 >= 175 億美元",
+      "threshold": "通過：GEV BTB >= 2.0 AND VRT 積壓 >= 175 億；失敗：GEV BTB < 1.5 OR VRT 積壓 < 150 億",
+      "check_source": "GEV Q3 2026 法說 + VRT Q3 2026 8-K（預計 2026 年 10 月）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-004",
+      "dimension": "技術",
+      "check_date": "2027-04-30",
+      "prediction": "NVIDIA GTC 2027 不宣布 GPU 端 CPO 量產路線圖（CPO 仍限交換器層）",
+      "threshold": "通過：無 GPU 端 CPO 量產宣告；失敗：確認 2028 量產且功耗削減 > 20%",
+      "check_source": "NVIDIA GTC 2027 keynote / NVIDIA 技術部落格",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-005",
+      "dimension": "需求（離網電源）",
+      "check_date": "2026-12-31",
+      "prediction": "Bloom Energy FY2026 年底產能 >= 2 GW/年，全年數據中心合約金額 > 50 億美元",
+      "threshold": "通過：產能 >= 2 GW 且合約 > 50 億；失敗：產能 < 1.5 GW 或主要合約取消",
+      "check_source": "Bloom Energy 4Q FY2026 法說財報",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    }
+  ],
+  "overall_score": null,
+  "_instruction": "驗證時填寫 actual / verdict（CONFIRMED / PARTIAL / WRONG / INVALIDATED）/ score（1.0 / 0.5 / 0.0 / null）。完成後呼叫 /industry-verify IND-20260607-PWR。"
+}

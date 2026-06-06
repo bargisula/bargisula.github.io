@@ -1,0 +1,156 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "trigger_event": "主動分析（research-queue priority high，INS-004 電力瓶頸未定價）",
+  "analyzed_at": "2026-06-07",
+
+  "thesis_strength": "強",
+  "thesis_one_line": "電力基礎設施供給彈性極低（變壓器交期 3-4 年）對應 AI capex 結構性加速（CAGR 17-20%），贏家（GEV / VRT / BE / CEG / VST）積壓訂單與定價權將持續擴張至 2028 年",
+
+  "overall_confidence": 0.86,
+  "logic_score": 0.85,
+  "evidence_score": 0.87,
+
+  "dimensions": {
+    "demand": {
+      "verdict": "加速",
+      "confidence": 0.88,
+      "one_line": "AI 算力投資帶動電力需求 CAGR 17-20%，hyperscaler 合計 capex ~7,000 億美元已 guidance 鎖定，電網互聯積壓 2,600 GW"
+    },
+    "supply": {
+      "verdict": "供不應求",
+      "confidence": 0.92,
+      "one_line": "大型電力變壓器交期 128-208 週、供缺約 30%；電網互聯等候中位 5 年；緩解不早於 2027-2028"
+    },
+    "competition": {
+      "verdict": "多層寡占，贏家固化",
+      "confidence": 0.83,
+      "one_line": "GEV Electrification BTB 2.5 + 積壓 1,630 億；VRT 積壓 150 億（YoY +109%）；BE 2026 年前 90 天合約 76.5 億；CEG / VST 核電 PPA 雙寡頭各具 20 年鎖定"
+    },
+    "technology": {
+      "verdict": "替代風險低，CPO GPU 端 2028 前影響量化有限",
+      "confidence": 0.78,
+      "one_line": "SMR / 固態電池 / HTS 均在 EVT 階段；CPO 交換器層已 DV 但 GPU 端量產最快 2028-2029，2027 前功耗削減 < 5%"
+    }
+  },
+
+  "critical_kill_switches": 2,
+  "major_kill_switches": 2,
+  "minor_kill_switches": 1,
+
+  "kill_switch_digest": [
+    {
+      "id": "KS-001",
+      "severity": "critical",
+      "condition": "hyperscaler 合計 capex YoY 連續 2 季降幅 > 15%",
+      "probability_12m": "低"
+    },
+    {
+      "id": "KS-002",
+      "severity": "critical",
+      "condition": "NVIDIA GTC 2027 確認 GPU 端 CPO 量產（2028 出貨）且功耗削減 > 20%",
+      "probability_12m": "低中"
+    },
+    {
+      "id": "KS-003",
+      "severity": "major",
+      "condition": "大型電力變壓器交期縮短至 < 52 週（Hitachi / Siemens 廠房提前量產）",
+      "probability_12m": "極低"
+    },
+    {
+      "id": "KS-004",
+      "severity": "major",
+      "condition": "Bloom Energy SOFC > 50 MW 非計畫停機或 AEP / Brookfield 合約取消",
+      "probability_12m": "低中"
+    },
+    {
+      "id": "KS-005",
+      "severity": "minor",
+      "condition": "浸沒式液冷超大規模標準化採購合約 > 10 MW 在 2027 年前落地",
+      "probability_12m": "低"
+    }
+  ],
+
+  "key_tickers": [
+    { "ticker": "GEV", "role": "primary", "segment": "大型電力變壓器整合商" },
+    { "ticker": "VRT", "role": "primary", "segment": "電力基礎設施整合商 / 液冷" },
+    { "ticker": "CEG", "role": "primary", "segment": "核電 AI PPA" },
+    { "ticker": "BE",  "role": "secondary", "segment": "離網燃料電池" },
+    { "ticker": "VST", "role": "secondary", "segment": "核電 AI PPA" },
+    { "ticker": "ETN", "role": "secondary", "segment": "垂直整合電力管理" }
+  ],
+
+  "checkpoints": [
+    {
+      "id": "VCP-IND-IND-20260607-PWR-001",
+      "dimension": "需求",
+      "check_date": "2027-03-31",
+      "prediction": "hyperscaler 四大 2026 年合計 capex >= 6,500 億美元",
+      "threshold": "通過 >= 6,500 億；失敗 < 6,000 億",
+      "source": "MSFT / AMZN / GOOGL / META 2026 全年財報",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-002",
+      "dimension": "供給",
+      "check_date": "2027-02-01",
+      "prediction": "Hitachi Energy 大型電力變壓器訂單積壓 YoY >= 15% 且 ASP 上升",
+      "threshold": "通過：積壓 YoY >= 15% 且 ASP 上升；失敗：積壓 YoY < 5% 或 ASP 下降",
+      "source": "Hitachi Energy / ABB 財報 + Wood Mackenzie 季度調查",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-003",
+      "dimension": "競爭",
+      "check_date": "2026-10-31",
+      "prediction": "GEV Electrification book-to-bill >= 2.0 至 2026Q3；VRT 積壓訂單達 175 億美元以上",
+      "threshold": "通過：GEV BTB >= 2.0 AND VRT 積壓 >= 175 億；失敗：GEV BTB < 1.5 OR VRT 積壓 < 150 億",
+      "source": "GEV Q3 2026 法說 + VRT Q3 2026 8-K",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-004",
+      "dimension": "技術",
+      "check_date": "2027-04-30",
+      "prediction": "NVIDIA GTC 2027 不宣布 GPU 端 CPO 量產路線圖；CPO 仍限交換器層",
+      "threshold": "通過：無 GPU 端 CPO 量產宣告；失敗：確認 2028 量產且功耗削減 > 20%",
+      "source": "NVIDIA GTC 2027 keynote / 技術部落格",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-PWR-005",
+      "dimension": "需求",
+      "check_date": "2026-12-31",
+      "prediction": "Bloom Energy FY2026 年底產能達 2 GW/年，全年數據中心合約金額 > 50 億美元",
+      "threshold": "通過：產能 >= 2 GW 且合約 > 50 億；失敗：產能 < 1.5 GW 或主要合約取消",
+      "source": "Bloom Energy 4Q FY2026 法說財報",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    }
+  ],
+
+  "next_catalysts": [
+    { "event": "GEV Q2 2026 法說（預計 2026 年 7-8 月）", "watch": "Electrification 訂單 book-to-bill 是否維持 >= 2.0" },
+    { "event": "VRT Q2 2026 8-K（預計 2026 年 7-8 月）", "watch": "積壓訂單是否突破 175 億美元" },
+    { "event": "BE 4Q FY2026 法說（預計 2027 年 2 月）", "watch": "產能是否達 2 GW/年，合約轉換率" },
+    { "event": "NVIDIA GTC 2027（預計 2027 年 3 月）", "watch": "GPU 端 CPO 量產宣告（KS-002 主要觸發節點）" }
+  ],
+
+  "pipeline_status": {
+    "01_demand": "completed",
+    "02_supply": "completed",
+    "03_competition": "completed",
+    "04_technology": "completed",
+    "05_thesis": "completed",
+    "06_summary": "completed"
+  }
+}

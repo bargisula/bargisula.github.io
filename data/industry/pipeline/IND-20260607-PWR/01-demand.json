@@ -1,0 +1,120 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "dimension": "需求",
+  "step": 1,
+  "analyst": "industry-demand",
+  "analyzed_at": "2026-06-07",
+  "trigger_insight": "INS-2026-05-25-004",
+  "data_quality": "medium-high",
+  "data_quality_note": "總量數字來自 IEA、Goldman Sachs、Morgan Stanley 等機構報告；rack 密度數字來自產業媒體彙整；hyperscaler capex 分項來自法說與分析師估算，非完整原始數據",
+
+  "market_size": {
+    "current_gw": 25,
+    "current_gw_year": 2024,
+    "current_gw_source": "IEA Energy and AI Report 2024；PJM 2026 load forecast",
+    "2027_forecast_gw": 92,
+    "2028_forecast_gw": 74,
+    "2028_forecast_note": "Morgan Stanley 估 74 GW（美國），Goldman Sachs 估 92 GW（美國，2027）；兩者口徑略有差異",
+    "2030_forecast_gw": 200,
+    "2030_forecast_source": "多機構共識（IEA、Goldman Sachs、Deloitte），全球口徑",
+    "us_2030_forecast_gw": 80,
+    "us_2030_source": "PJM 2026 load forecast；WRI",
+    "cagr_2024_2030": "~17-20%",
+    "cagr_source": "Goldman Sachs AI Data Center Power Report；Morgan Stanley Energy Market Outlook 2026",
+    "cumulative_new_capacity_2025_2030_gw": 97,
+    "capex_to_2030_usd_trillion": 3.0
+  },
+
+  "demand_drivers": [
+    {
+      "driver": "GPU 訓練叢集部署加速",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "H100 每片 700W，B200 每片 1,200W；訓練 rack 密度達 100-200 kW，極端前沿系統逼近 1 MW/rack；五大 hyperscaler 2026 年合計 capex 約 6,900-7,000 億美元，其中約 1/3（~2,100 億）流入數據中心建物與電力基礎設施",
+      "tc_reference": "TC-004（AI capex → 電力密度）"
+    },
+    {
+      "driver": "Rack 功率密度結構性上移",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "平均 rack 密度從 2023 年 36 kW 升至 2027 年估計 50 kW（一般 AI workload）；前沿訓練已達 100-200 kW；Introl/OCP 2025 報告揭示 100 kW+ 設計已量產",
+      "tc_reference": "TC-004"
+    },
+    {
+      "driver": "Hyperscaler capex 超循環",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "Amazon ~2,000 億、Microsoft ~1,900 億、Alphabet ~1,800-1,900 億、Meta ~1,250-1,450 億（2026 guidance），四家合計 ~7,000 億美元，多數綁定電力基礎設施",
+      "tc_reference": "TC-001（Hyperscaler AI 投資週期）"
+    },
+    {
+      "driver": "電網瓶頸推動離網/自備電力需求",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "電網互聯申請積壓 2,600 GW（2026 年初），中位等候時間逼近 5 年，部分案例達 12 年；Bloom Energy 與 AEP 簽署最高 1 GW SOFC 協議、與 Brookfield 50 億美元全球部署協議；2026 年前 90 天燃料電池交易額達 76.5 億美元；2030 年預計 1/3 數據中心將完全離網",
+      "tc_reference": "TC-007（電力瓶頸 → 替代電源）"
+    },
+    {
+      "driver": "推理工作負載快速擴張",
+      "type": "cyclical",
+      "strength": "medium",
+      "evidence": "訓練投資帶出持續推理需求；McKinsey 分析顯示推理份額在 2026 年起超越訓練，推理用 GPU 密度雖低於訓練但規模更廣，維持持續功耗基底",
+      "tc_reference": "TC-004"
+    }
+  ],
+
+  "demand_ceiling": {
+    "current_binding_constraint": "電網互聯瓶頸（2,600 GW 積壓，等候 2-12 年）+ 變壓器交期（2026 年超過 160 週）",
+    "physical_ceiling": "美國現有電網尖峰約 1,100 GW，數據中心若達 80 GW 佔比 ~7%；短期瓶頸為電力取得速度，非總量上限",
+    "policy_ceiling": "部分州開始設定數據中心電力上限或要求 PPA 配比再生能源；PJM 電力容量不足風險（2027-2028 年 6.6 GW 缺口）",
+    "technology_ceiling": "CPO（Co-packaged Optics）等技術有望在 2027-2028 年將每 GPU 功耗壓低 20-30%，但總需求因規模擴大仍繼續成長",
+    "timeline_to_meaningful_slowdown": "2030-2032（全球 AI capex 成長率趨緩 + CPO 規模化 + 電網擴容落地之後）",
+    "ceiling_condition": "IF hyperscaler AI capex 年增率 < 10% AND 電網新增容量 > 數據中心新增需求 THEN 需求斜率轉向持平"
+  },
+
+  "slope": "加速",
+  "slope_confidence": 0.88,
+  "slope_rationale": "需求斜率目前高度確定為加速：（1）2024-2030 年全球 AI 數據中心電力需求 CAGR 估計 17-20%，遠超 2015-2023 年平均 10%；（2）rack 密度從 36 kW 升至 50-200 kW，同一機房的功耗倍增；（3）hyperscaler 2026 年合計 ~7,000 億美元 capex 已 guidance 確認，資本鎖定效果強；（4）電網瓶頸未解反而催生 Bloom Energy 等離網替代電源需求，屬需求外溢而非需求放緩。信心 0.88 而非更高，因 CPO 技術若提前成熟、或 AI 模型效率大幅提升（Chinchilla-style 效率躍升），單位算力功耗可能在 2027 年後顯著下降。",
+
+  "key_metrics": {
+    "rack_power_density_kw": "一般 AI workload：40-50 kW（2026）；前沿訓練：100-200 kW；極端系統：~1,000 kW（1 MW）",
+    "grid_interconnection_backlog_gw": "2,600 GW（美國，2026 年初，含發電與儲能，非純數據中心需求）",
+    "hyperscaler_power_capex_share": "約 1/3 總 capex 流向數據中心建物與電力基礎設施，2026 年估計 ~2,100 億美元（四大合計）",
+    "transformer_lead_time_weeks": "160+ 週（2026）",
+    "bloom_energy_deployed_mw": "400 MW（2026 年現有），目標 2026 年底產能擴至 2 GW/年",
+    "fuel_cell_deal_volume_2026_q1_usd_bn": 7.65,
+    "data_center_share_of_us_grid_2030": "~7%（80 GW / 1,100 GW）"
+  },
+
+  "terminal_demand_drivers": {
+    "tier_1_end_user": "AI 模型訓練（OpenAI、Anthropic、Google DeepMind、Meta AI）+ 推理服務（ChatGPT、Gemini、Copilot 等）",
+    "tier_2_intermediate": "Hyperscaler 雲端 GPU 租賃（AWS、Azure、GCP）+ 主機代管（CoreWeave、Lambda Labs）",
+    "incremental_vs_replacement": "目前以增量需求為主（新建 AI 資料中心），替換需求（老舊數據中心升級）佔比次要；2027 年後替換比例可能上升"
+  },
+
+  "verifiable_by": {
+    "metric_1": "Goldman Sachs 2027 美國數據中心電力需求 92 GW",
+    "check_date_1": "2027-06-30",
+    "source_1": "美國 EIA 電力月報 + hyperscaler 法說確認在線容量",
+    "metric_2": "Bloom Energy 2026 年底產能達 2 GW/年",
+    "check_date_2": "2026-12-31",
+    "source_2": "Bloom Energy (BE) 4Q FY2026 法說財報",
+    "metric_3": "hyperscaler 四大 2026 年合計 capex >= 6,500 億美元",
+    "check_date_3": "2027-03-31",
+    "source_3": "MSFT / AMZN / GOOGL / META 2026 全年財報"
+  },
+
+  "sources_used": [
+    "IEA Energy and AI Report",
+    "Goldman Sachs AI to Drive 165% Increase in Data Center Power Demand by 2030",
+    "Morgan Stanley Energy Markets Race to Solve the AI Power Bottleneck 2026",
+    "Lawrence Berkeley National Laboratory / LBNL Queued Up Report",
+    "EnkiAI: AI & Data Center Energy 2026, 2,600 GW Queue & PJM Plan",
+    "Bloom Energy 2026 Power Report (investor.bloomenergy.com)",
+    "Bloom Energy x Brookfield $5B partnership (Data Center Dynamics)",
+    "Introl Blog: High-Density Racks 100kW+ OCP 2025",
+    "Futurum: AI Capex 2026 $690B Infrastructure Sprint",
+    "PJM 2026 Load Forecast"
+  ]
+}

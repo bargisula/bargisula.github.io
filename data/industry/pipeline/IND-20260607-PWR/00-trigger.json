@@ -1,0 +1,10 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "trigger_event": "主動分析（research-queue priority high，INS-004 電力瓶頸未定價）",
+  "triggered_at": "2026-06-07",
+  "related_tickers": ["VRT", "ETN", "BE", "FSLR", "NEE", "CEG", "VST"],
+  "linked_dsmm_chains": ["TC-004"],
+  "linked_insights": ["INS-2026-05-25-004"],
+  "_note": "Leopold SALP 加碼 Bloom Energy 為間接觸發信號；電網互聯申請積壓 2,600+ GW 為需求底層數據"
+}

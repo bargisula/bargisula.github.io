@@ -1,0 +1,237 @@
+{
+  "run_id": "IND-20260607-PWR",
+  "industry": "AI 數據中心電力基礎設施",
+  "dimension": "競爭格局",
+  "step": 3,
+  "analyst": "industry-competition",
+  "analyzed_at": "2026-06-07",
+
+  "market_structure": "寡占（整體），子市場各異",
+  "market_structure_note": "整體電力基礎設施市場玩家眾多，但各子市場高度集中。大型電力變壓器為寡頭壟斷（前 5 家合計佔 50%），電力整合商為寡占（前 5 家佔 48%），備用電源為寡占（Cat/Cummins 合計約 60%+），核電 AI PPA 則高度集中於 CEG 與 VST 兩家。",
+
+  "segments": [
+    {
+      "segment": "大型電力變壓器（LPT / GSU）",
+      "structure": "寡頭壟斷",
+      "structure_note": "前 5 家（Hitachi Energy、Siemens Energy、GE Vernova、Eaton、ABB）合計約 50% 全球市占；供不應求格局下競爭重心已從價格轉移至交期保障與產能承諾",
+      "players": [
+        {
+          "name": "Hitachi Energy",
+          "ticker": "6501.T（日立母公司）",
+          "position": "winner",
+          "moat": "技術護城河（HVDC 與大型變壓器核心 IP）+ 擴產先行者優勢（Virginia 廠 4.57 億美元 + Quebec 廠 1.95 億美元）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "全球 LPT 市場領先廠商之一；2025 年宣布 Virginia 廠 4.57 億美元投資（2028 量產）、Quebec 廠追加 1.95 億美元擴產；交期 3-4 年環境下持有最長訂單積壓；Wood Mackenzie 認定為定價能力最強廠商之一",
+          "estimated": true
+        },
+        {
+          "name": "GE Vernova",
+          "ticker": "GEV",
+          "position": "winner",
+          "moat": "規模護城河（Prolec GE 完整收購→北美最大變壓器整合商）+ 技術護城河（電網解決方案垂直整合）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "2026-02-02 完整收購 Prolec GE（52.75 億美元），Q1 2026 Prolec 貢獻約 5 億美元營收、20%+ EBITDA 利潤率，並為積壓訂單增加 50 億美元；GEV Electrification 部門 Q1 2026 訂單有機成長 86%、book-to-bill 約 2.5；整體積壓訂單達 1,630 億美元紀錄高點",
+          "estimated": false
+        },
+        {
+          "name": "Siemens Energy",
+          "ticker": "ENR.DE",
+          "position": "winner",
+          "moat": "技術護城河 + 規模護城河（Charlotte 廠 4.21 億美元擴產計畫）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "2026 年宣布 10 億美元美國製造擴產計畫（涵蓋燃氣渦輪與電網設備）；Charlotte NC 廠 4.21 億美元、預計 2027 年投產；全球 LPT 市場前 3 廠商地位穩固；供不應求下毛利率持續擴張",
+          "estimated": true
+        },
+        {
+          "name": "Eaton",
+          "ticker": "ETN",
+          "position": "winner",
+          "moat": "垂直整合（從 LPT 到配電到 UPS 全棧）+ 規模護城河",
+          "moat_strength": "中",
+          "share_trend": "擴張",
+          "key_evidence": "Q1 2026 Electrical Americas 業務營收 36 億美元（紀錄高點）、積壓訂單 YoY +44%；Jonesville SC 廠 3.4 億美元投資；同時跨足變壓器、開關設備與 UPS，是唯一覆蓋多層的單一廠商；但 LPT 市占低於 Hitachi / GEV",
+          "estimated": false
+        }
+      ]
+    },
+    {
+      "segment": "電力基礎設施整合商（UPS / 配電 / 液冷）",
+      "structure": "寡占",
+      "structure_note": "前 5 家（Schneider Electric、Eaton、Vertiv、Caterpillar、Delta Electronics）合計約 48% 市占；AI 超密度機架推升 Vertiv 訂單成長最快",
+      "players": [
+        {
+          "name": "Vertiv",
+          "ticker": "VRT",
+          "position": "winner",
+          "moat": "客戶黏性（hyperscaler 長期設計合作）+ 技術護城河（液冷 CDU 市占 11.3% 領先）+ 規模護城河（積壓訂單 150 億美元）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "Q1 2026 淨銷售額 26.5 億美元（YoY +30%，有機成長 +23%）；全年 guidance 132.5-137.5 億美元；積壓訂單達 150 億美元（YoY +109%）；TTM 有機訂單成長 81%；Americas 有機成長 +44%；調整後營業利潤率擴張 430 bps；被視為 AI 數據中心電力基礎設施純粹純玩（pure-play）標竿",
+          "estimated": false
+        },
+        {
+          "name": "Eaton",
+          "ticker": "ETN",
+          "position": "winner",
+          "moat": "垂直整合 + 多元電力管理產品線",
+          "moat_strength": "中",
+          "share_trend": "擴張",
+          "key_evidence": "Electrical Americas Q1 2026 積壓訂單 YoY +44%；同時服務 LPT、配電、UPS 多層需求，但各層均非市場最大；相對 Vertiv 的專注度較分散",
+          "estimated": false
+        },
+        {
+          "name": "Schneider Electric",
+          "ticker": "SU.PA",
+          "position": "neutral",
+          "moat": "規模護城河（UPS 市占 11%+ 領先）+ EcoStruxure 平台客戶黏性",
+          "moat_strength": "中",
+          "share_trend": "持平",
+          "key_evidence": "UPS 市場市占率第一（11%+）；整體數據中心電力基礎設施市占亦居首；但成長速度低於 Vertiv；未披露獨立數據中心業務財報數字；液冷市占遜於 Vertiv",
+          "estimated": true
+        }
+      ]
+    },
+    {
+      "segment": "備用 / 分散電源（發電機 + 燃料電池）",
+      "structure": "寡占（柴油機）+ 早期成長（燃料電池）",
+      "structure_note": "傳統柴油備援發電機由 Caterpillar 與 Cummins 主導（合計估 60%+）；燃料電池進入 AI 數據中心場景，Bloom Energy 已取得先行者地位，2026 年合約規模爆發至 76.5 億美元",
+      "players": [
+        {
+          "name": "Bloom Energy",
+          "ticker": "BE",
+          "position": "winner",
+          "moat": "技術護城河（SOFC 固體氧化物燃料電池專利）+ 政策許可（離網電力不需電網審批）+ 先行者優勢（2026 年最大燃料電池數據中心合約集中度）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "2026 年前 90 天燃料電池數據中心合約達 76.5 億美元（含 Brookfield 50 億美元全球部署、AEP 26.5 億美元最高 1 GW 協議、Oracle 擴大至 2.8 GW）；現有部署 400 MW；產能目標 2026 年底 2 GW/年；離網特性直接繞過 2,600 GW 電網積壓瓶頸，成長邏輯強",
+          "estimated": false
+        },
+        {
+          "name": "Cummins",
+          "ticker": "CMI",
+          "position": "neutral",
+          "moat": "規模護城河（備用發電機全球第二，僅次於 Caterpillar）+ 品牌護城河",
+          "moat_strength": "中",
+          "share_trend": "持平",
+          "key_evidence": "AI 數據中心備援需求驅動訂單上升但產線已滿至 2026 底；12-18 個月交期；天然氣發電機組需求隨電網離網趨勢受益；但面臨 Bloom Energy 燃料電池的技術替代壓力（長期）；2026 無重大新合約公告",
+          "estimated": true
+        },
+        {
+          "name": "Caterpillar",
+          "ticker": "CAT",
+          "position": "neutral",
+          "moat": "規模護城河（備用發電機全球市占領先）+ 客戶黏性（與 Vertiv 整合設計方案）",
+          "moat_strength": "中",
+          "share_trend": "持平",
+          "key_evidence": "與 Vertiv 合作推出預整合備援設計方案；數據中心訂單排程已滿至 2026 底；受益於超高密度機架備援升級需求；但天然氣發電機長期面臨燃料電池替代風險",
+          "estimated": true
+        }
+      ]
+    },
+    {
+      "segment": "AI 電力 PPA（電力公用事業）",
+      "structure": "高度集中（核電 AI PPA 寡頭）",
+      "structure_note": "能提供穩定、乾淨基載電力並搭配長期 PPA 的玩家極少；核電資產稀缺，CEG 與 VST 合計持有美國最大核電機組群，已形成事實性雙寡頭；再生能源 PPA 則更分散",
+      "players": [
+        {
+          "name": "Constellation Energy",
+          "ticker": "CEG",
+          "position": "winner",
+          "moat": "政策許可（美國最大核電運營商，21 GW）+ 客戶黏性（20 年 PPA 合約鎖定）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "已簽 Microsoft 20 年 PPA（Three Mile Island 1 號機 835 MW 復活，重命名 Crane Clean Energy Center）+ Meta 20 年 PPA（Clinton Clean Energy Center 1.1 GW）；資本計畫約 39 億美元，含核電增量 ~1 GW；長期乾淨能源協議超過 5,650 MW",
+          "estimated": false
+        },
+        {
+          "name": "Vistra",
+          "ticker": "VST",
+          "position": "winner",
+          "moat": "政策許可（美國第二大核電運營商）+ 客戶黏性（Meta、AWS 長期 PPA）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "key_evidence": "Q1 2026 營收 56.3 億美元（YoY +43.4%）、淨利潤 10.3 億美元；與 Meta 及 AWS 簽 PPA 合計達 2,600 MW（PJM 核電站）；計畫收購 Cogentrix 天然氣組合（5,500 MW）進一步擴大容量；Meta 新核能 RFP 涵蓋 Vistra、Oklo、TerraPower 最高 6.6 GW",
+          "estimated": false
+        }
+      ]
+    }
+  ],
+
+  "overall_winner": [
+    "GE Vernova（GEV）：Prolec GE 完整收購後成為北美最大變壓器整合商，Electrification 訂單有機成長 86%，book-to-bill 2.5，積壓訂單 1,630 億美元創紀錄",
+    "Vertiv（VRT）：AI 數據中心電力整合純粹純玩，積壓訂單 150 億美元（YoY +109%），全年 guidance 132-137 億美元，液冷市占領先",
+    "Bloom Energy（BE）：離網燃料電池繞過電網瓶頸，2026 年前 90 天合約 76.5 億美元，先行者地位確立",
+    "Constellation Energy（CEG）：核電 AI PPA 雙寡頭之一，Microsoft + Meta 各 20 年合約鎖定，稀缺資產不可複製"
+  ],
+
+  "share_shift_signals": [
+    {
+      "signal": "GE Vernova 完整收購 Prolec GE，北美變壓器市占大幅提升",
+      "beneficiary": "GEV",
+      "loser": "競爭對手變壓器廠（中小型）",
+      "confirmed": true,
+      "source": "GEV Q1 2026 8-K / 10-Q（SEC，2026-04）"
+    },
+    {
+      "signal": "Bloom Energy 2026 年前 90 天 76.5 億美元數據中心燃料電池合約爆發",
+      "beneficiary": "BE",
+      "loser": "傳統電網互聯排隊模式（PJM / ERCOT 候補）",
+      "confirmed": true,
+      "source": "EnkiAI / Introl Blog 2026 彙整；AEP + Brookfield + Oracle 公告"
+    },
+    {
+      "signal": "Vertiv 積壓訂單 YoY +109%，遠超同業 Schneider Electric 成長速度",
+      "beneficiary": "VRT",
+      "loser": "Schneider Electric（相對份額）",
+      "confirmed": true,
+      "source": "VRT Q1 2026 8-K（SEC，2026-04）"
+    },
+    {
+      "signal": "Meta、Microsoft、AWS 加速鎖定核電 PPA，推高 CEG 與 VST 電力資產溢價",
+      "beneficiary": "CEG、VST",
+      "loser": "傳統電網電力採購模式（現貨市場買電）",
+      "confirmed": true,
+      "source": "ESG Dive / Utility Dive 2026；CEG Microsoft PPA；VST Meta 8-K"
+    },
+    {
+      "signal": "GEV Electrification 訂單 book-to-bill 2.5，意味未來 2-3 年收入鎖定",
+      "beneficiary": "GEV",
+      "loser": "中小型變壓器廠（無法承諾交期）",
+      "confirmed": true,
+      "source": "GEV Q1 2026 法說（Yahoo Finance / TipRanks 2026-04）"
+    }
+  ],
+
+  "competition_verdict": "AI 數據中心電力基礎設施競爭格局呈現「多層寡占 + 各層贏家固化」：變壓器層 GE Vernova 因 Prolec 收購一躍成為最強整合商，Hitachi Energy 與 Siemens Energy 跟進擴產；電力整合層 Vertiv 積壓訂單暴增確立領先；離網電源層 Bloom Energy 以燃料電池繞過電網瓶頸搶佔先機；核電 AI PPA 層 CEG 與 VST 坐擁稀缺資產形成雙寡頭。供不應求格局下，所有主要贏家均具備訂單能見度高、定價權上升、毛利率擴張的共同特徵，份額向少數具備產能擴張承諾的廠商集中。",
+
+  "key_risks": [
+    "電網瓶頸若提前緩解，Bloom Energy 的離網溢價將收窄",
+    "GEV Prolec 整合若出現執行風險（系統整合、文化、產能協調），份額優勢可能延遲兌現",
+    "核電機組延壽審批若遭遇監管阻礙，CEG / VST 的 PPA 擴張計畫將受限",
+    "CPO（Co-packaged Optics）等技術若提前使單位算力功耗下降 20-30%，總需求斜率可能在 2027 後放緩"
+  ],
+
+  "verifiable_by": {
+    "metric": "GE Vernova Electrification 季度 book-to-bill 比率 + Vertiv 積壓訂單成長率（作為整合商領先指標）",
+    "prediction": "GEV Electrification book-to-bill 維持 2.0+ 至 2026Q3；VRT 積壓訂單達 175 億美元以上（YoY +50%+）",
+    "check_date": "2026-10-31",
+    "source": "GEV Q3 2026 法說 + VRT Q3 2026 8-K"
+  },
+
+  "data_sources": [
+    "GE Vernova Q1 2026 10-Q / 8-K（SEC EDGAR，2026-04）",
+    "Vertiv Q1 2026 8-K（SEC EDGAR，2026-04）",
+    "Eaton Q1 2026 Electrical Americas 數據（法說）",
+    "Vistra Q1 2026 8-K（SEC EDGAR）",
+    "EnkiAI：Bloom Energy 2026 燃料電池數據中心合約彙整",
+    "EnkiAI：Siemens Energy Charlotte NC 廠 4.21 億美元",
+    "Utility Dive / ESG Dive：Meta 核電 PPA（Vistra / Oklo / TerraPower）",
+    "Yahoo Finance：Constellation Energy + Microsoft PPA",
+    "MarketsandMarkets / GMInsights：變壓器市場前 5 廠合計 50% 市占",
+    "GlobeNewswire：美國變壓器市場 2025-2030 研究報告（1.49B 市場）",
+    "Wood Mackenzie Q2 2025：LPT 交期 128-208 週（援自 02-supply.json）"
+  ]
+}
