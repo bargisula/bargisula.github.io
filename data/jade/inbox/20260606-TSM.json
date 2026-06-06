@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "scan_date": "2026-06-06",
+  "candidate_ticker": "TSM",
+  "candidate_name": "Taiwan Semiconductor Manufacturing Company",
+  "trigger_source": {
+    "ticker": "AVGO",
+    "name": "Broadcom Inc.",
+    "filing_type": "8-K",
+    "filing_date": "2026-06-03",
+    "accession": "0001730168-26-000051",
+    "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000051/avgo-05032026x8kxex99.htm"
+  },
+  "trigger_keywords_hit": {
+    "demand_acceleration": ["stronger than expected (paraphrase: 'above our forecast')"],
+    "supply_tightness": []
+  },
+  "trigger_context": "Q2 AI semiconductor revenue $10.8B grew 143% YoY, 'above our forecast, driven by increasing demand for custom AI accelerators and AI networking.' Q3 guidance: AI revenue >200% YoY to $16.0B; total revenue $29.4B (+84% YoY).",
+  "edge_relationship": {
+    "from": "AVGO",
+    "to": "TSM",
+    "type": "manufactures_at",
+    "weight": 0.85,
+    "note": "ASIC + 網路交換晶片，TSM N5/N3 製程"
+  },
+  "thesis": "AVGO Q3 AI revenue guide of $16B (+200% YoY) implies accelerating CoWoS/N3 wafer demand at TSM. AVGO is ~11-12% of TSM revenue; this ramp points to continued capacity utilization pressure and potential upside to TSM AI/HPC segment.",
+  "quick_screen": {
+    "recent_spike": false,
+    "major_negative": false,
+    "note": "TSM trades ~$220, up ~30% YTD. No major near-term negative. Next earnings late July 2026."
+  },
+  "status": "pending_review",
+  "priority": "high"
+}

@@ -14,6 +14,20 @@ description: >
 
 ---
 
+## Step 0（自找模式）：未指定主題時自動選題
+
+**觸發條件：** 被呼叫但未指定分析主題（例：晨會墊檔、直接呼叫 industry-analyst 無參數）
+
+1. 讀取 `data/knowledge/research-queue.json`
+2. 從 `queue` 陣列中選取：`priority: "high"` 優先，其次取 `last_analyzed` 最舊（或 `null`）的產業
+3. 宣告：「自動選題：[industry display_name]，理由：[priority 說明 + last_analyzed 狀態]」
+4. 以選出的產業為主題，繼續執行 Step 0a 以下的完整分析流程
+5. 分析完成後，更新 `research-queue.json` 中該產業的 `last_analyzed` 欄位為今日日期
+
+**若已指定主題：** 跳過此 Step，直接執行 Step 0a。
+
+---
+
 ## Step 0a：知識機制掃描（分析任務執行前）
 
 呼叫 `/wisdom`，確認當前已激活的知識機制。

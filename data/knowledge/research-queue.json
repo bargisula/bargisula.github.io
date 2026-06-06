@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "description": "待覆蓋產業優先序清單。industry-analyst 無指定主題時，自動取 priority 最高且 last_analyzed 最舊（或 null）的產業執行分析。分析完成後更新 last_analyzed。",
+  "priority_enum": {
+    "high":   "Regime 直接相關且從未覆蓋，或上次分析超過 12 週",
+    "medium": "Regime 間接相關，或上次分析超過 8 週",
+    "low":    "監控性覆蓋，每季一次即可"
+  },
+  "queue": [
+    {
+      "industry": "power_electronics",
+      "display_name": "AI 數據中心電力基礎設施",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": "INS-2026-05-25-004",
+      "priority": "high",
+      "last_analyzed": null,
+      "notes": "電力瓶頸 INS-004 是未定價的下一個窗口，VRT / ETN / Bloom Energy 等尚未完整覆蓋",
+      "suggested_tickers": ["VRT", "ETN", "BE", "FSLR", "NEE"]
+    },
+    {
+      "industry": "liquid_cooling",
+      "display_name": "液冷散熱系統",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": "INS-2026-05-25-002",
+      "priority": "high",
+      "last_analyzed": null,
+      "notes": "GPU 功耗密度上升推動數據中心從風冷轉液冷，Vertiv / CoolIT 等，市場定價不足",
+      "suggested_tickers": ["VRT", "SMCI", "ANET"]
+    },
+    {
+      "industry": "custom_asic_tier2",
+      "display_name": "第二梯隊 Custom ASIC 設計廠",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": "INS-2026-06-05-006",
+      "priority": "high",
+      "last_analyzed": null,
+      "notes": "MediaTek 搶 Google 推論 ASIC 驗證第二供應商進場，整個 tier-2 ASIC 生態尚未被充分分析",
+      "suggested_tickers": ["MRVL", "QCOM", "MediaTek 2454.TW"]
+    },
+    {
+      "industry": "optical_transceiver",
+      "display_name": "高速光收發模組（800G/1.6T）",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": "INS-2026-05-25-002",
+      "priority": "medium",
+      "last_analyzed": null,
+      "notes": "AI 集群機架間互連從銅纜轉光纖加速，COHR / II-VI 已轉型，但 1.6T 競爭格局尚未定型",
+      "suggested_tickers": ["COHR", "VIAV", "LITE", "FNSR"]
+    },
+    {
+      "industry": "pcb_substrate",
+      "display_name": "ABF 載板與玻璃基板封裝",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": null,
+      "priority": "medium",
+      "last_analyzed": null,
+      "notes": "先進封裝上游材料，ABF 載板（欣興、景碩）與玻璃基板（GLW + Intel HVM）的替代競爭",
+      "suggested_tickers": ["GLW", "IBIDEN.T", "SHINKO.T"]
+    },
+    {
+      "industry": "edge_inference",
+      "display_name": "端側 AI 推論（Edge Inference）",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": null,
+      "priority": "medium",
+      "last_analyzed": null,
+      "notes": "推理從雲端下沉到邊緣，QCOM Snapdragon X / Apple NPU / ARM 生態，換機週期驅動邏輯",
+      "suggested_tickers": ["QCOM", "ARM", "NVDA"]
+    },
+    {
+      "industry": "smr_nuclear",
+      "display_name": "小型模組化核電（SMR）",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": "INS-2026-05-25-004",
+      "priority": "medium",
+      "last_analyzed": null,
+      "notes": "數據中心電力長期解方，微軟 / Google 已簽署 SMR 電力合約，商業化時程 2028-2032",
+      "suggested_tickers": ["CEG", "VST", "NuScale"]
+    },
+    {
+      "industry": "hbm_supply_chain",
+      "display_name": "HBM 高頻寬記憶體供應鏈",
+      "regime_relevance": "AI_capex_cycle",
+      "insight_link": "INS-2026-05-25-002",
+      "priority": "low",
+      "last_analyzed": null,
+      "notes": "SK Hynix 主導、Micron 追趕、Samsung 落後，HBM4 時程與定價是下一個觀察點",
+      "suggested_tickers": ["MU", "INTC"]
+    }
+  ]
+}

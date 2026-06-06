@@ -17,6 +17,7 @@
 - `dni` agent：今日新聞，優先讀 `data/intel/` 快取
 - `secretary` agent：行事曆到期項目
 - `market-data` agent（美股 + 台股）：最近收盤日數字
+- `/jade-scan`：掃描 EDGAR 最新 8-K，產生璞玉候選至 `data/jade/inbox/`（背景執行，不等待，Step 3 時讀取結果）
 
 ---
 
@@ -83,9 +84,10 @@ Regime 名稱直接從 `data/regime/current.json` 讀取，不自行造詞。
 - 有 Insight 被新數據確認或挑戰 → 議題：是否調整 confidence / tier / status
 - 有財報或重要數據今日公布 → 議題：結果如何、影響哪條論點
 - 有待裁定事項 carry over 超過兩次 → 議題：今日需做 Yes/No
+- **`data/jade/inbox/` 有 `status: pending` 的候選檔** → 議題：璞玉候選評估，標題加註「【璞玉候選】」，列出 ticker / 觸發訊號 / 建議動作
 
-**若當日無自然議題（市場平靜、無財報、無新聞命中 Insight）：**
-調度 `industry-analyst`，自動選一個與當前 Regime 相關但尚未深挖的產業，作為墊檔討論。格式同上，標題加註「【墊檔產業討論】」。不要硬湊假議題，墊檔比空白好、比假議題更好。
+**若當日無自然議題（市場平靜、無財報、無新聞命中 Insight，且無璞玉候選）：**
+調度 `industry-analyst`，從 `data/knowledge/research-queue.json` 取 priority 最高且 last_analyzed 最舊（或 null）的產業，作為墊檔討論。格式同上，標題加註「【墊檔產業討論】」。不要硬湊假議題，墊檔比空白好、比假議題更好。
 
 ---
 

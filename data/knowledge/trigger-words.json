@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "description": "璞玉觸發關鍵詞清單。觸發規則：同一段落命中同類別 2 個以上，或跨類別各命中 1 個，才視為有效訊號，避免誤觸發。",
+  "trigger_rule": {
+    "same_category_threshold": 2,
+    "cross_category_threshold": 1,
+    "paragraph_window": 3
+  },
+  "categories": {
+    "supply_tightness": {
+      "description": "供給吃緊訊號——供應商說不夠賣、交期拉長、客戶搶先下單",
+      "keywords": [
+        "can only support so much",
+        "lead times extending",
+        "lead times have lengthened",
+        "backlog growing",
+        "backlog increased",
+        "allocation",
+        "sold out",
+        "capacity constrained",
+        "fully allocated",
+        "tight supply",
+        "cannot meet demand",
+        "supply limited"
+      ]
+    },
+    "demand_acceleration": {
+      "description": "需求加速訊號——客戶拉貨提前、訂單量超預期、需求強度超過預期",
+      "keywords": [
+        "unprecedented demand",
+        "demand has accelerated",
+        "pulling in orders",
+        "customers pulling in",
+        "stronger than expected",
+        "upside demand",
+        "demand visibility",
+        "robust demand",
+        "bookings accelerated",
+        "pipeline has grown",
+        "customers are placing orders earlier",
+        "above our forecast",
+        "above our guidance",
+        "exceeded our expectations",
+        "revenue more than doubled",
+        "revenue more than tripled",
+        "accelerating AI revenue",
+        "accelerating growth in AI",
+        "outperformed our expectations"
+      ]
+    },
+    "new_customer_signal": {
+      "description": "新客戶 / 新合約訊號——設計勝出、新地區、新垂直產業",
+      "keywords": [
+        "design win",
+        "design wins",
+        "awarded contract",
+        "new logo",
+        "new customer",
+        "new hyperscaler",
+        "new vertical",
+        "new geography",
+        "expanding relationship",
+        "strategic agreement",
+        "long-term supply agreement",
+        "qualified at"
+      ]
+    },
+    "tech_inflection": {
+      "description": "技術轉折訊號——新一代產品進入量產、替代技術認證、首次商業出貨",
+      "keywords": [
+        "ramp beginning",
+        "ramp has started",
+        "high volume manufacturing",
+        "HVM",
+        "first in industry",
+        "qualified for production",
+        "transition to",
+        "replacing legacy",
+        "next generation",
+        "production ready",
+        "initial shipments",
+        "customer qualification complete"
+      ]
+    }
+  },
+  "exclusion_list": [
+    "capacity constrained by macroeconomic",
+    "supply limited due to component shortage",
+    "demand has accelerated compared to prior year guidance"
+  ]
+}

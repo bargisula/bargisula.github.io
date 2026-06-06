@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "description": "jade-scan 去重記錄。每次掃描命中後寫入，下次掃描前先查此 log 避免重複觸發。",
+  "cooldown": {
+    "company_weeks": 8,
+    "industry_weeks": 4
+  },
+  "scanned": [
+    {
+      "scan_date": "2026-06-06",
+      "filings_checked": 10,
+      "date_range": "2026-06-01 to 2026-06-06",
+      "total_edgar_hits": 620,
+      "keyword_trigger_results": [
+        {"ticker": "AVGO", "hits": 0, "note": "Qualitative trigger: 'above our forecast' + AI +143% YoY. Strict keyword miss."},
+        {"ticker": "CIEN", "hits": 0, "note": "Qualitative trigger: +40% YoY, AI-driven demand language."},
+        {"ticker": "CRDO", "hits": 0, "note": "Revenue tripled YoY, strong but no exact keyword match."},
+        {"ticker": "IOT",  "hits": 2, "categories": ["demand_acceleration", "new_customer_signal"], "note": "Strict trigger met but context is operational IoT, not AI infra supply chain."},
+        {"ticker": "CRWD", "hits": 1, "categories": ["new_customer_signal"]},
+        {"ticker": "HPE",  "hits": 1, "categories": ["tech_inflection"], "note": "Hit was in risk factor boilerplate."},
+        {"ticker": "PANW", "hits": 1, "categories": ["new_customer_signal"], "note": "Hit in risk factor text."},
+        {"ticker": "RBRK", "hits": 1, "categories": ["new_customer_signal"]},
+        {"ticker": "GTLB", "hits": 0},
+        {"ticker": "GWRE", "hits": 0}
+      ],
+      "jade_candidates_generated": ["TSM", "COHR"],
+      "inbox_files": [
+        "data/jade/inbox/20260606-TSM.json",
+        "data/jade/inbox/20260606-COHR.json"
+      ],
+      "issues": [
+        "efts.sec.gov returns 403 to WebFetch tool (requires User-Agent header). Must use PowerShell/curl with 'bargisula@gmail.com jade-scan/1.0' UA.",
+        "Keyword list misses common earnings language: 'above our forecast', 'revenue more than tripled', 'accelerating growth'. Recommend adding these phrases to trigger-words.json demand_acceleration category."
+      ]
+    }
+  ]
+}

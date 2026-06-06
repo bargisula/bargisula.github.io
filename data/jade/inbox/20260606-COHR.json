@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "scan_date": "2026-06-06",
+  "candidate_ticker": "COHR",
+  "candidate_name": "Coherent Corp.",
+  "trigger_source": {
+    "ticker": "CIEN",
+    "name": "Ciena Corporation",
+    "filing_type": "8-K",
+    "filing_date": "2026-06-04",
+    "accession": "0001628280-26-040614",
+    "exhibit_url": "https://www.sec.gov/Archives/edgar/data/936395/000162828026040614/ex9912026q2earningspressre.htm"
+  },
+  "trigger_keywords_hit": {
+    "demand_acceleration": [],
+    "supply_tightness": []
+  },
+  "trigger_context": "Ciena Q2 FY2026 revenue $1.57B, +40% YoY. CEO: 'tightly aligned to the structural, multi-year opportunities created by AI-driven demand.' Raised FY2026 revenue guide to $6.3B (+32% YoY). Dynamic supply environment noted. HPE networking segment also +148% YoY to $2.7B in same week, confirming optical networking acceleration.",
+  "edge_relationship": {
+    "from": "NVDA",
+    "to": "COHR",
+    "type": "supplies_to",
+    "weight": 0.55,
+    "note": "800G/1.6T 光模組，NVDA 數據中心互連主要供應商 — COHR also supplies optical components to networking builds served by CIEN/HPE"
+  },
+  "thesis": "AI data center networking demand is confirmed by multiple Q2 reports (CIEN +40%, HPE networking +148%). COHR as 800G/1.6T transceiver supplier benefits from optical interconnect ramp. Watch for COHR earnings for demand visibility signals.",
+  "quick_screen": {
+    "recent_spike": false,
+    "major_negative": false,
+    "note": "COHR earnings typically in August. No major near-term negative flagged."
+  },
+  "status": "pending_review",
+  "priority": "medium",
+  "note": "Keyword trigger threshold NOT strictly met for CIEN (0 exact hits). Included as qualitative signal based on 40% revenue growth + AI-driven demand language."
+}

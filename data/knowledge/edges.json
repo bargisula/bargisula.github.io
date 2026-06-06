@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "description": "供應鏈關係邊清單。from → to 表示方向性關係，weight 為收入依賴程度（0-1），estimated 表示數字為推算非財報揭露。",
+  "edge_types": {
+    "supplies_to":      "上游供應商 → 下游客戶（客戶加速則供應商受益）",
+    "manufactures_at":  "設計公司 → 代工廠（訂單增加則代工廠受益）",
+    "competes_with":    "同市場競爭者（一個漲則另一個份額承壓）",
+    "replaces":         "新技術 → 被替代技術（新技術起量則舊技術失血）"
+  },
+  "last_updated": "2026-06-06",
+  "edges": [
+    {"from": "NVDA", "to": "TSM",  "type": "manufactures_at", "weight": 0.95, "note": "CoWoS + N4/N3 製程，NVDA 佔 TSM 晶圓收入約 11-13%"},
+    {"from": "NVDA", "to": "SKH",  "type": "supplies_to",     "weight": 0.85, "note": "HBM3e 主要供應商，SK Hynix HBM 約 50%+ 給 NVDA", "estimated": true},
+    {"from": "NVDA", "to": "MU",   "type": "supplies_to",     "weight": 0.40, "note": "HBM3e 次要供應商，Micron 切入 H200/B200", "estimated": true},
+    {"from": "NVDA", "to": "GLW",  "type": "supplies_to",     "weight": 0.35, "note": "數據中心光纖互連，32 億美元 NVDA 股權投資確認長期合作", "estimated": true},
+    {"from": "NVDA", "to": "COHR", "type": "supplies_to",     "weight": 0.55, "note": "800G/1.6T 光模組，NVDA 數據中心互連主要供應商", "estimated": true},
+    {"from": "NVDA", "to": "ANET", "type": "supplies_to",     "weight": 0.45, "note": "AI 數據中心乙太網路交換機，NVDA 生態系標配", "estimated": true},
+    {"from": "NVDA", "to": "VRT",  "type": "supplies_to",     "weight": 0.40, "note": "數據中心散熱與電源管理，NVDA GPU 密度推升需求", "estimated": true},
+
+    {"from": "AVGO", "to": "TSM",  "type": "manufactures_at", "weight": 0.85, "note": "ASIC + 網路交換晶片，TSM N5/N3 製程"},
+    {"from": "AVGO", "to": "GOOG", "type": "supplies_to",     "weight": 0.20, "note": "TPU v6/Sunfish 訓練 ASIC，財報揭露約 20% AI 營收"},
+    {"from": "AVGO", "to": "META", "type": "supplies_to",     "weight": 0.15, "note": "MTIA 推論 ASIC，持續合作", "estimated": true},
+
+    {"from": "MRVL", "to": "TSM",  "type": "manufactures_at", "weight": 0.80, "note": "custom ASIC + 光互連，TSM N5 製程"},
+    {"from": "MRVL", "to": "AMZN", "type": "supplies_to",     "weight": 0.30, "note": "Trainium / Inferentia ASIC 協力，MRVL 提供網路", "estimated": true},
+    {"from": "MRVL", "to": "MSFT", "type": "supplies_to",     "weight": 0.20, "note": "Azure AI 加速器供應鏈", "estimated": true},
+
+    {"from": "AMD",  "to": "TSM",  "type": "manufactures_at", "weight": 0.90, "note": "MI300X / EPYC，TSM N5/N4 製程"},
+    {"from": "AMD",  "to": "SKH",  "type": "supplies_to",     "weight": 0.30, "note": "HBM3 for MI300X", "estimated": true},
+
+    {"from": "TSM",  "to": "LRCX", "type": "supplies_to",     "weight": 0.20, "note": "薄膜沉積/蝕刻設備，TSM 約佔 LRCX 營收 20%"},
+    {"from": "TSM",  "to": "KLAC", "type": "supplies_to",     "weight": 0.18, "note": "晶圓缺陷檢測設備，TSM 約佔 KLAC 營收 18%"},
+    {"from": "TSM",  "to": "AMAT", "type": "supplies_to",     "weight": 0.22, "note": "沉積/蝕刻/CMP 設備，最大設備供應商"},
+    {"from": "TSM",  "to": "ASML", "type": "supplies_to",     "weight": 0.35, "note": "EUV 光刻機，TSM 最大 ASML 客戶"},
+
+    {"from": "GLW",  "to": "META", "type": "supplies_to",     "weight": 0.11, "note": "60 億美元多年光纖合約，財報揭露 11%"},
+    {"from": "GLW",  "to": "NVDA", "type": "supplies_to",     "weight": 0.08, "note": "32 億美元 NVDA 股權投資，美國產能 10 倍擴張", "estimated": true},
+    {"from": "COHR", "to": "GLW",  "type": "supplies_to",     "weight": 0.15, "note": "COHR 光模組需要 GLW 光纖作為原材料", "estimated": true},
+
+    {"from": "MRVL", "to": "AVGO", "type": "competes_with",   "weight": 0.70, "note": "Custom ASIC + 網路交換晶片市場直接競爭"},
+    {"from": "COHR", "to": "GLW",  "type": "competes_with",   "weight": 0.30, "note": "部分光互連產品重疊，但各有主場"},
+    {"from": "AMD",  "to": "NVDA", "type": "competes_with",   "weight": 0.55, "note": "AI 訓練 GPU 市場，MI300X vs H100/B200"},
+
+    {"from": "CPO",       "to": "PLUGGABLE_OPTICS", "type": "replaces", "weight": 0.60, "note": "共封裝光學替代插拔式光模組，2028-2030 規模化", "estimated": true},
+    {"from": "GLASS_SUB", "to": "ABF_SUB",           "type": "replaces", "weight": 0.50, "note": "玻璃基板替代 ABF 有機載板，Intel HVM 已啟動", "estimated": true},
+    {"from": "MAMBA_SSM", "to": "TRANSFORMER",       "type": "replaces", "weight": 0.25, "note": "SSM 架構在推理端成本潛力，尚未大規模驗證", "estimated": true}
+  ]
+}
