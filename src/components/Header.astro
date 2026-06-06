@@ -1,4 +1,4 @@
----
+﻿---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
@@ -13,6 +13,8 @@ import HeaderLink from './HeaderLink.astro';
       <HeaderLink href="/">首頁</HeaderLink>
       <HeaderLink href="/news">財經快訊</HeaderLink>
       <HeaderLink href="/notes">知識庫</HeaderLink>
+      <HeaderLink href="/dsmm">推演</HeaderLink>
+      <HeaderLink href="/industry">產業</HeaderLink>
       <HeaderLink href="/about">關於</HeaderLink>
     </div>
     <a href="https://github.com/bargisula" target="_blank" class="github-link" aria-label="GitHub">
@@ -32,7 +34,6 @@ import HeaderLink from './HeaderLink.astro';
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-
   nav {
     display: flex;
     align-items: center;
@@ -42,7 +43,6 @@ import HeaderLink from './HeaderLink.astro';
     padding: 0 1.5em;
     height: 60px;
   }
-
   .logo {
     display: flex;
     align-items: center;
@@ -52,7 +52,6 @@ import HeaderLink from './HeaderLink.astro';
     font-weight: 700;
     font-size: 1.1em;
   }
-
   .logo-icon {
     display: flex;
     align-items: center;
@@ -65,27 +64,15 @@ import HeaderLink from './HeaderLink.astro';
     font-size: 1em;
     font-weight: 700;
   }
-
-  .logo-text {
-    letter-spacing: -0.02em;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 0.5em;
-  }
-
+  .logo-text { letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 0.5em; }
   .github-link {
     color: rgb(var(--gray));
     display: flex;
     align-items: center;
     transition: color 0.2s;
   }
-
-  .github-link:hover {
-    color: rgb(var(--black));
-  }
-
+  .github-link:hover { color: rgb(var(--black)); }
   @media (max-width: 480px) {
     .logo-text { display: none; }
     nav { padding: 0 1em; }
