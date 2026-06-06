@@ -103,11 +103,12 @@
         { "asset": "COHR / GLW / CIEN",  "direction": "↑", "magnitude": "光互連二階受益" },
         { "asset": "VRT / EATON",        "direction": "↑", "magnitude": "電力基建受益" }
       ],
-      "confidence": 0.83,
+      "confidence": 0.88,
       "expires_if": "超大雲端 capex 指引連續兩季下修 OR AI ROI 敘事崩潰",
       "evidence": [
         { "date": "2026-05-22", "event": "Regime 設定 AI_capex_cycle，focus_sectors 含 AI_infrastructure", "source": "CMO" },
-        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：hyperscaler 2026 capex 上調，能見度延伸至 2027+；'increasingly larger proportion directed to network infrastructure'", "source": "CIEN 電話會議逐字稿" }
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：hyperscaler capex 上調，能見度至 2027+", "source": "CIEN 逐字稿" },
+        { "date": "2026-06-06", "event": "AVGO Q2 FY2026：AI $10.8B +143%，6 核心客戶（含 Anthropic/OpenAI），訂單/出貨 >3x，FY2027 $100B 目標重申，Q3 指引 $16B", "source": "AVGO 逐字稿" }
       ],
       "last_triggered": "2026-06-06",
       "audit_status": "audited"

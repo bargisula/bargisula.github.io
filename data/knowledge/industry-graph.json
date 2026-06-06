@@ -154,9 +154,9 @@
       "display_name": "AI 客製 ASIC",
       "theme": "AI_capex_cycle",
       "supply_demand": "需求加速",
-      "supply_demand_condition": "IF hyperscaler 在 AI 訓練支出中 ASIC 佔比 QoQ 增加 > 5% THEN AVGO / MRVL 訂單能見度維持",
+      "supply_demand_condition": "IF AVGO 核心 AI 客戶數 ≥ 4 AND AI 半導體訂單 > 出貨 2 倍 THEN 訂單能見度維持多季",
       "key_players": [
-        { "ticker": "AVGO", "role": "領導廠商（Google TPU / Meta MTIA）", "note": "網路層壟斷 + 訓練 ASIC 守城者" },
+        { "ticker": "AVGO", "role": "領導廠商", "note": "6 核心 AI 客戶（Google/Meta/Anthropic/OpenAI + 2）；AI 網路層 Tomahawk/Jericho 壟斷；FY2027 AI 半導體 $100B 目標重申" },
         { "ticker": "MRVL", "role": "追隨廠商（AWS Trainium 協力）" }
       ],
       "bottlenecks": [
@@ -167,19 +167,29 @@
         "threat": "Hyperscaler 完全自研（無需 AVGO）",
         "timeline": "2028+",
         "severity": "中",
+        "note": "6 客戶中包含 Anthropic/OpenAI（AI native，非傳統 hyperscaler），客戶擴張反而強化壟斷地位",
         "condition": "IF 自製 ASIC 訓練佔比 > 20% AND 2027 CoWoS 訂單 QoQ 連續下滑 THEN INS-002 kill switch 觸發"
       },
       "demand_drivers": [
         "Google TPU v6（Trillium）量產",
         "Meta MTIA 第二代部署",
-        "新 hyperscaler（Oracle / xAI）加入 ASIC 設計"
+        "Anthropic + OpenAI 加入（AI native 客戶，首次確認）",
+        "兩個新增客戶合計 60 億美元訂單（Q2 FY2026 法說）"
       ],
-      "confidence": 0.74,
-      "expires_if": "自製 ASIC 訓練佔比 > 20% OR CoWoS 訂單 QoQ 連續下滑（2027）",
+      "key_metrics": {
+        "ai_revenue_q2": "$10.8B (+143% YoY)",
+        "ai_revenue_q3_guidance": "$16.0B (+200%+ YoY, +48% QoQ)",
+        "ai_fy2027_target": "$100B+（重申）",
+        "booking_to_shipment_ratio": ">3x（結構性超額訂單）",
+        "ai_networking_share": "~40% Q2，正常化至 ~30%"
+      },
+      "confidence": 0.82,
+      "expires_if": "自製 ASIC 訓練佔比 > 20% AND CoWoS 訂單 QoQ 連續下滑（2027） OR 客戶數下降至 < 4",
       "source_events": [
-        { "date": "2026-06-06", "event": "INS-002 confidence 0.74，黃仁勳訪韓不改變核心邏輯", "source": "ai-infra-researcher" }
+        { "date": "2026-06-06", "event": "INS-002 confidence 0.74，黃仁勳訪韓不改變核心邏輯", "source": "ai-infra-researcher" },
+        { "date": "2026-06-06", "event": "AVGO Q2 FY2026：AI $10.8B +143%，6核心客戶（含Anthropic/OpenAI），$100B FY2027 重申，訂單/出貨 >3x", "source": "SEC EDGAR + Motley Fool transcript" }
       ],
-      "audit_status": "audited"
+      "audit_status": "pending"
     },
     {
       "id": "cpo_photonics",

@@ -1,0 +1,47 @@
+# SOURCE: Motley Fool https://www.fool.com/earnings/call-transcripts/2026/06/03/broadcom-avgo-q2-2026-earnings-transcript/
+# FETCHED: 2026-06-06
+# PERIOD: Q2 FY2026 (ended May 3, 2026), call date June 3, 2026
+# FALLBACK: false
+
+=== FINANCIAL RESULTS ===
+Revenue: $22.187B (+48% YoY)
+  Semiconductor solutions: $15.009B (68%, +79% YoY)
+  Infrastructure software (VMware): $7.178B (32%, +9% YoY)
+Non-GAAP EPS: $2.44 (+54% YoY)
+Adjusted EBITDA: $15.244B (69% of revenue, +52% YoY)
+Free cash flow: $10.262B (46% of revenue, +60% YoY)
+
+=== AI SEMICONDUCTOR ===
+Q2 AI semiconductor revenue: $10.8B (+143% YoY, "above our forecast")
+Q3 AI semiconductor guidance: $16.0B (+200%+ YoY, +48% QoQ)
+"AI semiconductor revenue guidance to be in excess of $100 billion" starting FY2027
+
+=== AI REVENUE BREAKDOWN ===
+AI networking: ~40% of Q2 AI revenue (~$4.3B)
+  → Normalizing to ~30% going forward
+Custom ASIC: ~60% of Q2 AI revenue (~$6.5B)
+
+=== CUSTOMERS ===
+"we have with our 6 core customers"
+Named: Google, Anthropic, OpenAI, Meta + 2 unidentified
+"$6 billion in AI orders booked" from two additional customers
+→ 客戶從 3-4 個擴展至 6 個，Anthropic/OpenAI 為新進 AI native 客戶
+
+=== BACKLOG / DEMAND VISIBILITY ===
+"Bookings for AI semiconductors now exceed three times quarterly shipments"
+Multi-year contracts with major hyperscaler customers
+→ 結構性需求加速，backlog 覆蓋 3 季以上
+
+=== Q3 GUIDANCE ===
+Revenue: ~$29.4B (+84% YoY)
+Non-GAAP operating margin: ~67%
+Adjusted EBITDA: ~68% of revenue
+
+=== THESIS RELEVANCE ===
+論點「網路層壟斷 + 訓練 ASIC 守城者」驗證：
+  ✅ AI networking 維持 ~40%（Tomahawk/Jericho 壟斷地位）
+  ✅ Custom ASIC 6 個核心客戶（從 3-4 個擴展）
+  ✅ $100B FY2027 目標重申
+  ✅ 訂單超出出貨 3 倍，結構性需求確認
+  ⚠️ MediaTek 競爭未被提及（不代表無威脅）
+  ⚠️ FUSION 具名客戶未提（可能仍在保密協議中）

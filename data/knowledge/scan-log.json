@@ -7,6 +7,20 @@
   },
   "raw_fetched": [
     {
+      "ticker": "AVGO",
+      "doc_type": "transcript",
+      "period": "Q2FY2026",
+      "fetch_date": "2026-06-06",
+      "file_path": "data/raw/AVGO/transcript-Q2FY2026.txt",
+      "source": "SEC EDGAR Exhibit 99.1 + Motley Fool transcript",
+      "fallback": false,
+      "next_fetch_not_before": "2026-09-01",
+      "analysis_done": {
+        "dsmm_analyst": "TC-004 confidence 0.83→0.88（三來源交叉確認）",
+        "industry_knowledge": "ai_custom_asic 大幅更新：6客戶確認、$100B目標、booking/shipment >3x、confidence 0.74→0.82"
+      }
+    },
+    {
       "ticker": "COHR",
       "doc_type": "transcript",
       "period": "Q3FY2026",
