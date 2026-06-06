@@ -8,6 +8,22 @@
   "scanned": [
     {
       "scan_date": "2026-06-06",
+      "scan_run": 2,
+      "filings_checked": 3,
+      "date_range": "2026-06-01 to 2026-06-06",
+      "method": "EDGAR curl + WebSearch",
+      "keyword_trigger_results": [
+        {"ticker": "PANW", "hits": 1, "categories": ["new_customer_signal"], "note": "hit in boilerplate, discarded"},
+        {"ticker": "TTMI", "hits": 0, "note": "Credit facility announcement, not earnings"},
+        {"ticker": "IOT",  "hits": 2, "categories": ["demand_acceleration", "supply_tightness"], "note": "Triggered but context is logistics IoT, not AI infra. No edges.json match."},
+        {"ticker": "CIEN", "hits": 4, "categories": ["supply_tightness","supply_tightness","new_customer_signal","supply_tightness"], "note": "STRONG: backlog $7.7B, book-to-bill 1.4, first hyperscaler multi-rail design win, lead times extending"}
+      ],
+      "jade_candidates_generated": ["COHR", "GLW"],
+      "inbox_files": ["data/jade/inbox/20260606-CIEN-trigger.json"],
+      "learning": "CIEN 本身是強璞玉候選（未在 edges.json），需要把 CIEN 加進圖譜"
+    },
+    {
+      "scan_date": "2026-06-06",
       "filings_checked": 10,
       "date_range": "2026-06-01 to 2026-06-06",
       "total_edgar_hits": 620,

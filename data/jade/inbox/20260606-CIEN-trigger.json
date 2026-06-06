@@ -1,0 +1,43 @@
+{
+  "date": "2026-06-06",
+  "scan_run": 2,
+  "trigger_company": "CIEN",
+  "trigger_company_name": "Ciena Corporation",
+  "trigger_source": "CIEN 8-K Q2 FY2026 Earnings Release (2026-06-03)",
+  "trigger_keywords": [
+    {"word": "lead times", "category": "supply_tightness"},
+    {"word": "backlog growing", "category": "supply_tightness"},
+    {"word": "design win", "category": "new_customer_signal"},
+    {"word": "capacity constrained", "category": "supply_tightness"}
+  ],
+  "trigger_snippets": [
+    "Backlog increased by over $600 million quarter-over-quarter to $7.7 billion, book-to-bill ratio of 1.4",
+    "Ciena awarded industry's first hyperscaler multi-rail opportunity with RLS Hyper-Rail",
+    "Demand is outstripping supply, resulting in multi-year visibility and longer lead times",
+    "Q2 revenue $1.6B, +40% YoY. Cloud provider revenue 46% of total, +70% YoY"
+  ],
+  "trigger_strength": "strong",
+  "candidates": [
+    {
+      "ticker": "COHR",
+      "company": "Coherent Corp",
+      "edge_path": "NVDA -> supplies_to -> COHR (w=0.55), COHR -> supplies_to -> GLW (w=0.15)",
+      "logic": "CIEN 光傳輸設備需求爆發，上游光模組（COHR）供不應求，800G/1.6T 需求加速",
+      "quick_scan": "pass",
+      "dedup_note": "已在今日 inbox（scan_run 1），降優先度",
+      "priority": "low"
+    },
+    {
+      "ticker": "GLW",
+      "company": "Corning Incorporated",
+      "edge_path": "COHR -> supplies_to -> GLW (w=0.15)",
+      "logic": "COHR 光模組需求帶動 GLW 光纖原材料需求，與現有 GLW 論點高度吻合",
+      "quick_scan": "pass",
+      "dedup_note": "已在今日 inbox（scan_run 1），降優先度",
+      "priority": "low"
+    }
+  ],
+  "status": "pending",
+  "suggested_action": "industry-analyst optical_transceiver 或直接 jade-report CIEN",
+  "analyst_note": "CIEN 本身值得直接評估：+40% YoY、backlog $7.7B、book-to-bill 1.4、首個 hyperscaler multi-rail 設計勝出。COHR/GLW 已有持倉論點，此訊號為強化確認。"
+}

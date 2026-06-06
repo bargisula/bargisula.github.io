@@ -27,10 +27,11 @@
         "4 月 CPI 3.8% YoY，Trump 關稅推升通膨 0.7pp"
       ],
       "duration_estimate": "6-8 週，至 FOMC 6/17 後市場形成定見",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "status": "active",
       "created": "2026-05-25",
       "expiry_check": "2026-06-30",
+      "confidence_update": "2026-06-06：NFP 5月 +172K（預期 +85K），超預期幅度 2x，直接強化「Fed 無降息藉口」因果鏈；第二次獨立事件支撐，接近 L1→L2 晉升門檻。從 0.65 升至 0.75。",
       "invalidation_signal": "Warsh 發表明確抗通膨強硬聲明 OR PCE 大幅降溫至 3.0% 以下使鷹派失去依據",
       "investment_implication": "高倍數科技股折現率上行壓力；若 10Y 破 4.8%，AI 基礎設施股 2027-2028 現金流估值壓縮",
       "source_meeting": "2026-05-25"
@@ -52,10 +53,11 @@
         "Vera Rubin 推理效能 5x、每 Token 成本降 10 倍，Jevons Paradox 加速 AS 轉折（2026-05-26 晨會更新）"
       ],
       "duration_estimate": "結構性，2026-2028+",
-      "confidence": 0.78,
+      "confidence": 0.74,
       "status": "active",
       "created": "2026-05-25",
       "expiry_check": "2026-09-30",
+      "confidence_update": "2026-06-06：AVGO 財報未上調 AI 展望，MediaTek 搶 Google TPU v8 推論工作量，份額集中假設受壓。需求總量假設（hyperscaler capex 多季度能見度）未被動搖。從 0.78 輕微降至 0.74，監測份額分散化趨勢是否加速。",
       "invalidation_signal": "超大規模雲端 capex 出現季度性暫停訊號 OR GPU ROI 未達預期導致強迫砍單",
       "investment_implication": "先進封裝鏈（台積電 CoWoS、日月光、欣興）多季度訂單能見度，非交易性題材",
       "source_meeting": "2026-05-23"
@@ -142,7 +144,9 @@
       ],
       "duration_estimate": "短期，5/29 後 1-2 週見分曉",
       "confidence": 0.72,
-      "status": "active",
+      "status": "expired",
+      "expired_date": "2026-06-06",
+      "expiry_reason": "失效條件觸發：5/29 後外資轉為賣超，6/5 單日賣超 756 億。主動型資金接棒命題不成立，台股動能未延續。命題結案。",
       "created": "2026-05-25",
       "expiry_check": "2026-06-10",
       "invalidation_signal": "5/29 後外資持續大量買超（日均 >300 億）代表主動型資金已接棒，台股動能延續",
