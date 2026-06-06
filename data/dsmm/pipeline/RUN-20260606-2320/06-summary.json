@@ -1,0 +1,181 @@
+{
+  "run_id": "RUN-20260606-2320",
+  "event_id": "EVT-20260605-001",
+  "event_title": "NFP 2026-06-05：+172K（預期 +85K），超預期 +87K",
+  "completed_at": "2026-06-06",
+  "pipeline_version": "1.0",
+
+  "impact_map": {
+    "金融市場": {
+      "impact_level": "high",
+      "direction": "殖利率↑、DXY↑、成長股估值輕微壓縮",
+      "time_horizon": "immediate（已發生，持續 3-5 交易日）",
+      "key_signal": "10Y 目標 4.60-4.65%（已在 4.55%，再 +5-10bp）"
+    },
+    "貨幣市場": {
+      "impact_level": "high",
+      "direction": "降息預期大幅後退，TC-002 加劇",
+      "time_horizon": "days（3-7 個交易日重定價）",
+      "key_signal": "FedWatch 2026-12 降息 1.5次 → 0.5-1.0次"
+    },
+    "商品市場": {
+      "impact_level": "medium（分裂）",
+      "direction": "AI capex 不受影響；房地產 -3-6%；一般 capex 邊際 -2-3%",
+      "time_horizon": "months（2-3個月後顯現）",
+      "key_signal": "TC-004 confidence 0.88 完全維持；房市首當其衝"
+    },
+    "勞動市場": {
+      "impact_level": "high（本事件來源）",
+      "direction": "過熱確認；薪資上行風險",
+      "time_horizon": "immediate（本事件即為信號）",
+      "key_signal": "下個月 NFP 是否維持 > 150K；AHE 是否 ≥ 0.3% MoM"
+    },
+    "財政動態": {
+      "impact_level": "low（短期）",
+      "direction": "稅收小升 vs 利息小升，近乎抵消；潛在財政-利率回路未觸發",
+      "time_horizon": "quarters",
+      "key_signal": "CPI 2026-06-10 是觸發回路的觀察點"
+    }
+  },
+
+  "top_asset_implications": [
+    {
+      "asset": "10Y 美債",
+      "direction": "殖利率↑",
+      "magnitude": "目標 4.60-4.65%（現 4.55%，再 +5-10bp）",
+      "confidence": 0.85,
+      "tc_reference": "TC-001"
+    },
+    {
+      "asset": "GLW（光纖）",
+      "direction": "進場條件收窄",
+      "magnitude": "進場上限 4.6%，目前距離僅 5bp，空間極小",
+      "confidence": 0.82,
+      "note": "industry-graph 的 optical_fiber 節點設定條件：進場需 10Y ≤ 4.6%"
+    },
+    {
+      "asset": "AVGO / COHR / CIEN",
+      "direction": "中性（TC-004 維持，不受利率影響）",
+      "magnitude": "AI capex 結構性需求不受 NFP 事件干擾",
+      "confidence": 0.88,
+      "tc_reference": "TC-004"
+    },
+    {
+      "asset": "高倍數成長股（整體）",
+      "direction": "輕微承壓",
+      "magnitude": "NTM P/E 壓縮 2-4%（折現率升高）",
+      "confidence": 0.72,
+      "tc_reference": "TC-001"
+    },
+    {
+      "asset": "房地產相關（REITs、建商）",
+      "direction": "↓",
+      "magnitude": "30Y 房貸利率升至 7.3%+，開工率 -3-6%（2-3個月後）",
+      "confidence": 0.72,
+      "note": "最直接的實體經濟受害者"
+    }
+  ],
+
+  "critical_next_event": {
+    "date": "2026-06-10",
+    "event": "CPI 數據公布",
+    "importance": "決定性",
+    "if_hot": "CPI 超預期 → 殖利率再升 → TC-003 MBS 機制警戒升高（距 25bp 閾值更近）→ 財政-利率回路風險升至 high",
+    "if_cool": "CPI 符合或低於預期 → 殖利率部分回吐 → 金融市場壓力緩解 → 本次 NFP 衝擊被局部抵消"
+  },
+
+  "feedback_loops_detected": [
+    {
+      "type": "財政-利率正反饋（TC-002 疊加）",
+      "status": "潛在，未觸發",
+      "conditions_met": 3,
+      "conditions_needed": 4,
+      "missing": "赤字惡化速度加快（目前稅收支撐中）"
+    }
+  ],
+
+  "verification_checkpoints": [
+    {
+      "id": "VCP-001",
+      "market": "金融市場",
+      "check_date": "2026-06-12",
+      "prediction": "10Y 殖利率維持 ≥ 4.60%",
+      "threshold": "^TNX ≥ 4.60%",
+      "check_source": "Yahoo Finance ^TNX 或 FRED DGS10",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-002",
+      "market": "貨幣市場",
+      "check_date": "2026-06-13",
+      "prediction": "CME FedWatch 2026-12 隱含降息次數 < 1.5 次",
+      "threshold": "FedWatch implied cuts < 1.5",
+      "check_source": "CME FedWatch Tool",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-003",
+      "market": "金融市場",
+      "check_date": "2026-06-10",
+      "prediction": "DXY 比事件前 +0.3% 以上",
+      "threshold": "DXY 比 2026-06-04 收盤 +0.3%",
+      "check_source": "Yahoo Finance DX-Y.NYB",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-004",
+      "market": "勞動市場",
+      "check_date": "2026-07-02",
+      "prediction": "2026年6月 NFP > 150K（勞動市場維持強勁）",
+      "threshold": "NFP > 150K",
+      "check_source": "BLS Employment Situation",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-005",
+      "market": "勞動市場",
+      "check_date": "2026-07-02",
+      "prediction": "2026年6月 AHE MoM ≥ 0.3%（薪資壓力維持）",
+      "threshold": "AHE MoM ≥ 0.3%",
+      "check_source": "BLS Employment Situation",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-006",
+      "market": "商品市場",
+      "check_date": "2026-08-19",
+      "prediction": "7月住宅新屋開工率 MoM < -3%（房市受殖利率壓制）",
+      "threshold": "Housing Starts MoM < -3%",
+      "check_source": "Census Bureau Housing Starts",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-007",
+      "market": "商品市場",
+      "check_date": "2026-09-15",
+      "prediction": "Q3 財報季 hyperscaler capex 指引至少 3/4 家維持 QoQ > 0%（TC-004 維持）",
+      "threshold": "MSFT/GOOG/META/AMZN 中 3家+ capex QoQ > 0%",
+      "check_source": "Q3 2026 財報電話會議",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    }
+  ],
+
+  "system_confidence": 0.78,
+  "_confidence_note": "加權平均：高信心信號（TC-001/TC-004，0.82-0.90）+ 中信心信號（薪資、房市、DXY，0.60-0.72）。整體偏高是因為此事件的金融和貨幣市場影響有成熟的 TC-001 路徑支撐。",
+  "wisdom_state": "pending_verification",
+  "_wisdom_note": "第一次流水線運行。驗證後系統累積推演能力。最近驗證點：VCP-001 + VCP-003（2026-06-10/12），距今 4-6 天。"
+}

@@ -1,0 +1,58 @@
+{
+  "run_id": "RUN-20260606-2320",
+  "market": "財政動態",
+  "step": 5,
+  "analyst": "market-fiscal",
+  "analyzed_at": "2026-06-06",
+  "event_id": "EVT-20260605-001",
+  "receives_signal": true,
+  "upstream_summary": "金融市場→殖利率重定價 +13-16bp；貨幣市場→降息路徑大幅後退；商品市場→AI capex 不受影響、房市 -3-6%；勞動市場→過熱確認、薪資上行風險。",
+  "analysis_logic": {
+    "channel_tax_revenue": "就業強勁 → 薪資稅（payroll tax）和所得稅收入上升。+87K 超預期就業人數，每位新增就業者平均年薪約 6-7 萬美元，payroll tax 稅率約 15%。單月超預期新增就業的年化稅收增量約 7-10 億美元。積累多月後有意義，但單月影響很小。",
+    "channel_interest_expense": "這是最重要的財政傳導路徑。美國公債存量約 35 兆美元，平均存續期約 6 年，每年需要滾動發行約 8-10 兆美元（含到期再融資）。若 10Y 殖利率上升 15bp（本事件後的目標區間），每年新發債利息成本增加約 120-150 億美元（8-10兆 × 0.15%）。累積 5 年效果約 700-800 億美元額外利息支出。不是立即的，但是確定的。",
+    "channel_deficit_debt_supply": "財政赤字 → 財政部必須增加國債供給 → 若同時殖利率上行，這是『赤字加壓供給+利率上行加壓需求』的雙向壓力。目前美國赤字/GDP 約 6-7%，國債淨供給每月約 2,000-3,000 億。殖利率上行後，若財政部繼續增加長端發行，TC-002（日本機構減碼）的效果會被放大。",
+    "channel_feedback_loop_risk": "財政-利率正反饋回路的條件評估：赤字/GDP > 6%（✅ 已成立）；10Y > 4.5%（✅ 已成立）；換匯成本 > 3.5%（✅ 已成立，TC-002 在作用）。三個條件同時成立，但目前還未到失控的『赤字↑→發債↑→殖利率↑→利息↑→赤字再↑』自我強化。原因：就業強 → 稅收好 → 赤字短期沒有顯著惡化。這個回路是潛在風險，不是當前現實。"
+  },
+  "signals": [
+    {
+      "indicator": "聯邦稅收收入（短期）",
+      "direction": "↑（輕微）",
+      "magnitude": "月度增量約 +5-10 億美元（相對於基準）",
+      "time_horizon": "months（季度數據才顯現）",
+      "confidence": 0.65,
+      "rationale": "就業超強 → payroll tax + 所得稅基礎擴大。效果累積後才有意義，單月不顯著。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-09-15",
+        "prediction": "2026Q2 聯邦稅收收入 YoY > +3%（就業強勁帶動）",
+        "threshold": "聯邦稅收 YoY > +3%",
+        "check_source": "Treasury Monthly Statement (MTS)"
+      }
+    },
+    {
+      "indicator": "國債利息支出",
+      "direction": "↑（中期結構性）",
+      "magnitude": "+120-150 億美元/年（若 15bp 殖利率上行持續）",
+      "time_horizon": "quarters（新發債滾動後逐漸顯現）",
+      "confidence": 0.75,
+      "rationale": "殖利率上行 → 每次滾動發行時利息成本鎖定在更高水準。不是立即的，但每次拍賣都在積累。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-12-15",
+        "prediction": "CBO 年度更新顯示 FY2027 利息支出預估上調 > 100 億美元（vs 前次）",
+        "threshold": "CBO 利息支出預估上調 > $100億",
+        "check_source": "CBO Budget and Economic Outlook（每年 1月 + 5月更新）"
+      }
+    }
+  ],
+  "feedback_loop": {
+    "detected": false,
+    "type": "財政-利率正反饋（潛在）",
+    "conditions_met": ["赤字/GDP > 6%", "10Y > 4.5%", "換匯成本 > 3.5%（TC-002）"],
+    "conditions_not_met": ["赤字惡化速度加快（目前稅收支撐，赤字未明顯惡化）"],
+    "risk_level": "medium（潛在，非當前）",
+    "trigger_to_watch": "若 CPI 2026-06-10 超預期 AND AHE 連續 2 個月 > 0.4% → 回路風險升至 high"
+  },
+  "passes_to": ["金融市場（回路，若回路觸發）"],
+  "key_conclusion": "財政動態目前是抵消作用：就業強→稅收好抵消部分利息支出增加。短期赤字不惡化，財政-利率回路處於『潛在但未觸發』狀態。關鍵觀察點：CPI 2026-06-10 和 AHE 趨勢。若通膨黏滯，財政動態將從緩衝轉為壓力源。"
+}

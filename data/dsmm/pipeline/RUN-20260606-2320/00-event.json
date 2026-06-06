@@ -1,0 +1,25 @@
+{
+  "event_id": "EVT-20260605-001",
+  "run_id": "RUN-20260606-2320",
+  "date": "2026-06-05",
+  "title": "NFP 2026-06-05：+172K（預期 +85K），超預期 +87K",
+  "category": "macro",
+  "shock_type": "demand",
+  "entry_market": "勞動市場",
+  "magnitude": "large",
+  "data": {
+    "raw": "美國勞工統計局（BLS）2026-06-05 公布五月非農就業報告",
+    "key_numbers": {
+      "NFP_actual": "+172K",
+      "NFP_consensus": "+85K",
+      "NFP_surprise": "+87K（+102% 超預期）",
+      "unemployment_rate": "未公布（需補填）",
+      "AHE_mom": "未公布（需補填）",
+      "prior_month_revision": "未公布（需補填）",
+      "immediate_market_reaction": "10Y UST +8bp → 4.55%（公布後 2 小時內）"
+    }
+  },
+  "source": "BLS（美國勞工統計局）",
+  "injected_by": "user",
+  "context_note": "台灣時間 2026-06-05，美股當日收盤前已消化此數據。截至分析時 10Y 已在 4.55%。"
+}

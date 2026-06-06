@@ -1,0 +1,96 @@
+{
+  "run_id": "RUN-20260606-2320",
+  "event_id": "EVT-20260605-001",
+  "event_title": "NFP 2026-06-05：+172K（預期 +85K）",
+  "pipeline_date": "2026-06-06",
+  "verification_status": "pending",
+  "checkpoints": [
+    {
+      "id": "VCP-001",
+      "market": "金融市場",
+      "check_date": "2026-06-12",
+      "prediction": "10Y 殖利率 ≥ 4.60%",
+      "threshold": "4.60%",
+      "check_source": "Yahoo Finance ^TNX",
+      "tc_reference": "TC-001",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-002",
+      "market": "貨幣市場",
+      "check_date": "2026-06-13",
+      "prediction": "FedWatch 2026-12 降息次數 < 1.5 次",
+      "threshold": "< 1.5 cuts",
+      "check_source": "CME FedWatch Tool",
+      "tc_reference": "TC-001",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-003",
+      "market": "金融市場",
+      "check_date": "2026-06-10",
+      "prediction": "DXY 比 2026-06-04 收盤 +0.3% 以上",
+      "threshold": "+0.3%",
+      "check_source": "Yahoo Finance DX-Y.NYB",
+      "tc_reference": null,
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-004",
+      "market": "勞動市場",
+      "check_date": "2026-07-02",
+      "prediction": "6月 NFP > 150K",
+      "threshold": "150K",
+      "check_source": "BLS Employment Situation",
+      "tc_reference": "TC-001",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-005",
+      "market": "勞動市場",
+      "check_date": "2026-07-02",
+      "prediction": "6月 AHE MoM ≥ 0.3%",
+      "threshold": "0.3%",
+      "check_source": "BLS Employment Situation",
+      "tc_reference": null,
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-006",
+      "market": "商品市場",
+      "check_date": "2026-08-19",
+      "prediction": "7月住宅開工率 MoM < -3%",
+      "threshold": "-3%",
+      "check_source": "Census Bureau Housing Starts",
+      "tc_reference": null,
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-007",
+      "market": "商品市場",
+      "check_date": "2026-09-15",
+      "prediction": "Q3 hyperscaler capex 4家中 3家 QoQ > 0%",
+      "threshold": "3/4 家達標",
+      "check_source": "Q3 2026 財報電話會議",
+      "tc_reference": "TC-004",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    }
+  ],
+  "overall_score": null,
+  "confidence_updates": [],
+  "_instruction": "驗證時填寫 actual / verdict（CONFIRMED / PARTIAL / WRONG / INVALIDATED）/ score（1.0 / 0.5 / 0.0 / null）。完成後呼叫 /dsmm-verify RUN-20260606-2320 更新傳導鏈信心值並計算系統推演準確率。"
+}

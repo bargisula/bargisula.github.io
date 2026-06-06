@@ -1,0 +1,97 @@
+{
+  "run_id": "RUN-20260606-2320",
+  "market": "金融市場",
+  "step": 1,
+  "analyst": "market-financial",
+  "analyzed_at": "2026-06-06",
+  "event_id": "EVT-20260605-001",
+  "receives_signal": true,
+  "overall_tone": "risk-off（局部）",
+  "analysis_logic": {
+    "channel_1_yields": "NFP 超預期 +87K → 就業市場過熱 → 降息預期下修 → 長端殖利率重定價。8bp 已在當日完成初步消化，但市場通常在後續 2-5 個交易日繼續調整。歷史上類似超預期幅度（+100% 以上）對應 10Y +8-15bp。",
+    "channel_2_equities": "殖利率上行 → 折現率升 → 成長股 NTM P/E 壓縮。NFP 本身是景氣良好的信號（就業強勁），但對高倍數股票而言，利率上行的壓縮效果大於景氣利好效果。科技股 NTM P/E 估計收縮 2-4%。",
+    "channel_3_dollar": "美債吸引力相對上升（殖利率高）→ 外資增持美元資產 → DXY 升值 0.3-0.8%。這會間接壓縮美元計價商品價格（短期）。",
+    "channel_4_credit": "就業強勁 → 企業現金流穩健 → 信用風險下降 → 信用利差實際上收窄（良性數據）。HY 利差不受壓，甚至輕微收窄。",
+    "channel_5_vix": "非危機性數據，VIX 不大幅上升。市場調整是有序的重定價，不是恐慌。VIX 可能從基準值輕微上升 1-2 點，但維持在 15-18 區間。",
+    "tc001_reference": "完全對應 TC-001（confidence 0.82）。觸發條件已達成：NFP +172K > 預期 +85K + 5萬人（=135K），超出 37K。"
+  },
+  "signals": [
+    {
+      "indicator": "10Y UST 殖利率",
+      "current_level": "4.55%（事件後即時反應）",
+      "direction": "↑",
+      "magnitude": "再 +5-8bp 額外上行壓力（總計事件後 +13-16bp）",
+      "time_horizon": "immediate（3-5 個交易日）",
+      "confidence": 0.85,
+      "rationale": "已完成 +8bp 初始消化，但類似歷史案例（NFP 超預期 > 80K）通常在後續幾個交易日繼續消化至 +12-18bp 總幅度。目前在 4.55%，目標區間 4.60-4.65%。",
+      "tc_reference": "TC-001",
+      "verifiable_by": {
+        "check_date": "2026-06-12",
+        "prediction": "10Y 殖利率維持 ≥ 4.60% 或觸及 4.65%",
+        "threshold": "4.60%",
+        "check_source": "Yahoo Finance ^TNX 或 FRED DGS10"
+      }
+    },
+    {
+      "indicator": "S&P 500 NTM P/E",
+      "current_level": "約 22-23x（估算）",
+      "direction": "↓",
+      "magnitude": "壓縮 2-4%（倍數，非指數點位）",
+      "time_horizon": "days（5-10 個交易日）",
+      "confidence": 0.72,
+      "rationale": "殖利率上行 → 折現率升 → 科技/成長股估值承壓。就業強勁的景氣利好部分抵消，淨效果為輕微壓縮。",
+      "tc_reference": "TC-001",
+      "verifiable_by": {
+        "check_date": "2026-06-20",
+        "prediction": "S&P 500 NTM P/E 低於事件前水準 1-3%",
+        "threshold": "NTM P/E < 事件前 -1%",
+        "check_source": "FactSet weekly earnings insight（P/E 追蹤）"
+      }
+    },
+    {
+      "indicator": "DXY 美元指數",
+      "current_level": "約 104-105（估算）",
+      "direction": "↑",
+      "magnitude": "+0.3-0.8%",
+      "time_horizon": "immediate（1-3 個交易日）",
+      "confidence": 0.78,
+      "rationale": "美日/美歐利差擴大 → 資金流向美元資產 → DXY 升值。此信號直接傳遞給貨幣市場（換匯成本分析）。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-06-10",
+        "prediction": "DXY > 104.5（若事件前 < 104.5）或維持升值趨勢",
+        "threshold": "DXY 比事件前 +0.3%",
+        "check_source": "Yahoo Finance DX-Y.NYB"
+      }
+    },
+    {
+      "indicator": "HY 信用利差（HYG-LQD 利差代理）",
+      "current_level": "估算 3.0-3.5%",
+      "direction": "↓（收窄，良性）",
+      "magnitude": "-5-10bp",
+      "time_horizon": "days",
+      "confidence": 0.68,
+      "rationale": "就業強勁 → 企業現金流穩健 → 違約風險降低 → HY 利差收窄。與殖利率上行的「壞消息」性質不同，這是景氣強勁帶來的良性信號。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-06-12",
+        "prediction": "ICE BofA HY 利差維持或收窄（不超過 +10bp 擴大）",
+        "threshold": "利差 < 事件前 +10bp",
+        "check_source": "FRED BAMLH0A0HYM2"
+      }
+    }
+  ],
+  "null_signals": [
+    {
+      "indicator": "VIX",
+      "reason": "NFP 超預期是景氣良好數據，不觸發系統性恐慌。VIX 可能輕微升 1-2 點但不跳升，不構成傳導信號。"
+    },
+    {
+      "indicator": "MBS 利差（TC-003 機制）",
+      "reason": "單次 +8bp 距離 TC-003 閾值 +25bp 仍有 17bp 緩衝，MBS 凸性機制尚未觸發。"
+    }
+  ],
+  "passes_to": ["貨幣市場", "商品市場（DXY 升值間接影響）"],
+  "does_not_propagate_to": ["財政動態（直接）"],
+  "key_conclusion": "殖利率重定價尚未結束，10Y 目標 4.60-4.65%。股市受折現率壓縮輕微承壓，但就業強勁維持景氣基調，不是 risk-off 崩跌。信用市場良性。"
+}

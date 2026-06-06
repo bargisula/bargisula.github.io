@@ -1,0 +1,91 @@
+{
+  "run_id": "RUN-20260606-2320",
+  "market": "商品市場",
+  "step": 3,
+  "analyst": "market-commodity",
+  "analyzed_at": "2026-06-06",
+  "event_id": "EVT-20260605-001",
+  "receives_signal": true,
+  "upstream_summary": "金融市場：10Y 4.55%（+8bp），目標 4.60-4.65%；DXY 升值。貨幣市場：降息預期從 1.5 次壓縮至 0.5-1.0 次；TC-002 延續。資本成本環境：高利率正常化。",
+  "analysis_logic": {
+    "channel_general_capex": "一般企業 capex 的邊際決策受融資成本影響。10Y 在 4.55-4.65% 時，IRR 低於 10% 的投資計畫會被延後。估計中小企業（floating rate 借貸）受衝擊較大，大型企業（已鎖定長期固定利率）短期免疫。整體 non-tech capex 邊際壓縮，幅度約 -2-3%，顯現時間 1-2 季後。",
+    "channel_ai_capex_tc004": "TC-004 邏輯：Hyperscaler 的 AI 資本支出由競爭性戰略驅動，不是 IRR 計算驅動。AVGO 法說（2026-06-06）確認訂單/出貨 > 3倍，CIEN backlog 77億美元創高，能見度延伸至 2027+。這些訂單在 NFP 數據公布前已簽訂，不受短期利率波動影響。TC-004 的 confidence 0.88 完全不動。",
+    "channel_housing": "最利率敏感的實體投資。10Y 升至 4.60-4.65% → 30Y 房貸利率可能升至 7.2-7.4%（現況約 7.0-7.1%）。每上升 25bp，房屋開工率估計下降 3-5%（有 2-3 個月落後）。這是最清晰的商品市場負面傳遞。",
+    "channel_commodities_usd": "DXY 升值 → 美元計價商品（油、銅、黃金）短期承壓。但這是技術性影響，不改變供需基本面。原油：NFP 強勁（景氣好）= 需求支撐；但美元升值 = 價格壓力。淨效果中性至輕微負面（-1-2%）。",
+    "channel_inventory": "就業強勁 → 消費者信心支撐 → 零售庫存去化速度維持 → 補庫存動作不加速也不減速。短期中性。"
+  },
+  "signals": [
+    {
+      "indicator": "AI / Hyperscaler Capex（TC-004）",
+      "direction": "↑ 不受影響",
+      "magnitude": "結構性需求維持，TC-004 confidence 0.88 不動",
+      "time_horizon": "immediate（已在進行）",
+      "confidence": 0.88,
+      "rationale": "AVGO Q2 FY2026 法說確認訂單/出貨 > 3倍；CIEN backlog 77億美元。NFP 數據不改變已簽訂的多年合約。AI capex 週期由戰略競爭驅動，對短期利率波動免疫。",
+      "tc_reference": "TC-004",
+      "verifiable_by": {
+        "check_date": "2026-09-15",
+        "prediction": "Q3 財報季 hyperscaler（MSFT/GOOG/META/AMZN）capex 指引維持 QoQ > 0%",
+        "threshold": "4家中至少3家 capex QoQ > 0%",
+        "check_source": "MSFT/GOOG/META/AMZN Q3 2026 財報電話會議"
+      }
+    },
+    {
+      "indicator": "房地產投資（住宅開工率）",
+      "direction": "↓",
+      "magnitude": "-3-6%（若 10Y 升至 4.65%，30Y 房貸升至 7.3%+）",
+      "time_horizon": "months（2-3 個月落後）",
+      "confidence": 0.72,
+      "rationale": "30Y 房貸利率是殖利率的直接下游。每 25bp 殖利率上升 → 房屋開工率估計下降 3-5%，有明確歷史實證。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-08-19",
+        "prediction": "7月美國住宅新屋開工率（Census Bureau）低於 6月 ≥ 3%",
+        "threshold": "住宅開工率 MoM < -3%",
+        "check_source": "Census Bureau Housing Starts（每月第三週公布）"
+      }
+    },
+    {
+      "indicator": "一般企業非科技 Capex 計畫",
+      "direction": "↓（邊際，延後非取消）",
+      "magnitude": "估計 -2-3% 邊際計畫延後",
+      "time_horizon": "months（1-2 季後才顯現）",
+      "confidence": 0.62,
+      "rationale": "中小企業 floating rate 借貸成本上升 → 邊際 IRR 低的計畫推後。大型企業有固定利率保護，受衝擊有限。顯現需要 1-2 季。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-08-01",
+        "prediction": "Fed Philadelphia 製造業調查中 capex 前景分項下降 OR ISM 製造業資本支出意願指標下降",
+        "threshold": "相關指標 MoM 下降",
+        "check_source": "Fed Philly Manufacturing Survey / ISM"
+      }
+    },
+    {
+      "indicator": "WTI 原油",
+      "direction": "↓（技術性，短暫）",
+      "magnitude": "-0.5-1.5%（DXY 升值的技術性壓力）",
+      "time_horizon": "immediate（1-2 天）",
+      "confidence": 0.60,
+      "rationale": "DXY 升值 0.3-0.8% → 美元計價原油技術性承壓。但基本面（就業強 = 需求好）抵消一部分。淨效果輕微負面，不持久。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-06-10",
+        "prediction": "WTI 原油 2026-06-10 比 2026-06-04 下跌 ≤ 2%",
+        "threshold": "WTI MoM -2% 以內",
+        "check_source": "Yahoo Finance CL=F"
+      }
+    }
+  ],
+  "null_signals": [
+    {
+      "indicator": "消費者支出（PCE）",
+      "reason": "就業強勁對消費是正面的。短期利率上行對消費影響有 3-6 個月落後期，此時無法判斷方向，中性處理。"
+    },
+    {
+      "indicator": "庫存週期",
+      "reason": "NFP 數據不直接影響庫存決策。中性。"
+    }
+  ],
+  "passes_to": ["勞動市場"],
+  "key_conclusion": "商品市場出現明顯分裂：AI capex（TC-004）完全不受利率影響，維持高速擴張；房地產投資是最直接的受害者（-3-6%，2-3個月後）；一般企業 capex 邊際壓縮但幅度小。整體實體經濟的傷害是局部的，不是廣泛性收縮。"
+}

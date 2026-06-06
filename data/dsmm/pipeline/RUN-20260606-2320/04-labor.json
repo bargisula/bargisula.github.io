@@ -1,0 +1,95 @@
+{
+  "run_id": "RUN-20260606-2320",
+  "market": "勞動市場",
+  "step": 4,
+  "analyst": "market-labor",
+  "analyzed_at": "2026-06-06",
+  "event_id": "EVT-20260605-001",
+  "receives_signal": true,
+  "note": "本事件的 entry_market 是勞動市場（NFP 數據本身即為勞動市場衝擊）。此 Agent 同時扮演兩個角色：(1) 分析事件本身代表的勞動市場狀態；(2) 接收商品市場傳來的 capex 變化對就業的下游效果。",
+  "upstream_summary": "商品市場：AI capex 維持（TC-004）；房地產投資 -3-6%（2-3月後）；一般 capex 邊際 -2-3%。高利率正常化環境。",
+  "analysis_logic": {
+    "channel_event_itself": "NFP +172K 本身的解讀：就業市場處於『過熱』狀態。預期 +85K 是符合人口自然成長的正常吸收速度，+172K 遠高於此，意味需求側（企業招募）仍非常旺盛。以下三個子問題：(1) 哪個行業在主導？(2) 薪資成長加速了嗎？(3) 參與率是否回升？（AHE 和參與率數據未公布，但從 NFP 幅度可做方向性推斷）",
+    "channel_wage_inflation": "NFP 超強 → 勞動市場緊張 → 薪資議價力向勞工傾斜。若 AHE 同時超預期（> 0.3% MoM），則薪資-通膨回路風險上升。就算這次 AHE 未超預期，後續幾個月的積累壓力仍在。此為傳向財政動態的核心信號。",
+    "channel_ai_labor": "TC-004 的勞動市場含義：AI capex 維持高速 → AI 工程師、資料中心維運人員、電力基礎設施工人需求上升。這是技術性人才的局部緊張，不代表廣義就業市場的狀態。但它會推升科技板塊的薪資中位數，這在財報電話會議中已有跡象。",
+    "channel_housing_labor": "房地產投資 -3-6% 的下游效果：建築業每 1% 開工率下降 → 約減少 8,000-12,000 個工作機會（有 2-3 個月落後）。規模有限，不足以改變整體 NFP 方向，但會在 2026Q3 的 NFP 數字中留下痕跡。"
+  },
+  "signals": [
+    {
+      "indicator": "勞動市場整體強度",
+      "direction": "強勁，維持過熱",
+      "magnitude": "+172K 是過熱信號，下個月 NFP 若仍 > 150K 則持續",
+      "time_horizon": "immediate（已發生）",
+      "confidence": 0.90,
+      "rationale": "數據本身即為信號，不需推斷。+172K vs +85K 預期，超幅 +102%。這是勞動市場「仍在擴張」的清晰確認。",
+      "tc_reference": "TC-001",
+      "verifiable_by": {
+        "check_date": "2026-07-02",
+        "prediction": "2026-07 公布的 6月 NFP > 150K（確認勞動市場維持強勁）",
+        "threshold": "NFP > 150K",
+        "check_source": "BLS Employment Situation（每月第一個週五）"
+      }
+    },
+    {
+      "indicator": "薪資成長壓力（AHE）",
+      "direction": "↑（上行風險）",
+      "magnitude": "AHE YoY > 4.0% 的可能性升高",
+      "time_horizon": "months（1-2 個月後公布數據）",
+      "confidence": 0.68,
+      "rationale": "NFP 過熱 → 勞動力需求大於供給 → 薪資議價力向勞工傾斜。但單一 NFP 數據不足以確認薪資加速，需看 AHE 實際數字。若 AHE > 0.4% MoM（= 4.8% 年化），則薪資-通膨回路正式確立。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-07-02",
+        "prediction": "6 月 AHE MoM ≥ 0.3%（維持薪資壓力）",
+        "threshold": "AHE MoM ≥ 0.3%",
+        "check_source": "BLS Employment Situation（同一份報告）"
+      }
+    },
+    {
+      "indicator": "科技/AI 人才薪資壓力",
+      "direction": "↑（結構性）",
+      "magnitude": "AI 工程師薪資 YoY +5-10%，高於整體市場",
+      "time_horizon": "months",
+      "confidence": 0.72,
+      "rationale": "TC-004 驅動 AI capex 維持 → AI 人才需求持續旺盛。NFP 數據確認整體就業強勁，AI 側的需求叠加，使技術人才薪資壓力高於整體市場。",
+      "tc_reference": "TC-004",
+      "verifiable_by": {
+        "check_date": "2026-08-01",
+        "prediction": "MSFT/GOOG/META Q2 財報提及技術人才成本壓力 OR R&D headcount 擴張",
+        "threshold": "三家中至少兩家提及",
+        "check_source": "Q2 2026 財報電話會議 transcript"
+      }
+    },
+    {
+      "indicator": "建築業就業（房地產下游）",
+      "direction": "↓（輕微，延後）",
+      "magnitude": "約 -8,000 至 -15,000 人（2-3 個月後）",
+      "time_horizon": "months",
+      "confidence": 0.60,
+      "rationale": "房地產開工率 -3-6% → 2-3個月後建築業就業減少。規模很小，不足以改變整體 NFP 方向。",
+      "tc_reference": null,
+      "verifiable_by": {
+        "check_date": "2026-09-04",
+        "prediction": "8月 NFP 建築業分項 < 7月，差距 > 5,000 人",
+        "threshold": "建築業就業 MoM < -5,000",
+        "check_source": "BLS NFP 行業分項"
+      }
+    }
+  ],
+  "wage_inflation_loop": {
+    "risk_level": "medium",
+    "conditions_monitored": [
+      "AHE MoM ≥ 0.4% 連續 2 個月",
+      "核心 PCE > 3.0% YoY"
+    ],
+    "if_triggered": "薪資-通膨回路啟動 → 傳給財政動態（通膨型稅收 vs 更高利息支出）"
+  },
+  "null_signals": [
+    {
+      "indicator": "整體失業率走向",
+      "reason": "NFP 數據強勁，失業率可能輕微下降或持平。但沒有失業率實際數字，無法確認方向。標記待補填。"
+    }
+  ],
+  "passes_to": ["財政動態"],
+  "key_conclusion": "勞動市場確認過熱。本事件（NFP +172K）既是信號來源也是最強信號本身。薪資壓力上行風險是傳給財政動態的核心：薪資升 → 稅收升（正面）；薪資升 → 通膨黏滯 → Fed 不敢降息 → 利息支出持續高位（負面）。"
+}
