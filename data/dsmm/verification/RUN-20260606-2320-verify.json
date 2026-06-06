@@ -37,9 +37,11 @@
       "threshold": "+0.3%",
       "check_source": "Yahoo Finance DX-Y.NYB",
       "tc_reference": null,
-      "actual": null,
-      "verdict": null,
-      "score": null
+      "actual": "100.07（+0.67% vs 基準 99.4，NFP 當天即觸發，2026-06-05）",
+      "verdict": "CONFIRMED",
+      "score": 1.0,
+      "verified_at": "2026-06-07",
+      "note": "NFP +172K 大超預期，DXY 當天從 99.4 跳升至 100.07，遠超 +0.3% 閾值"
     },
     {
       "id": "VCP-004",
@@ -91,6 +93,14 @@
     }
   ],
   "overall_score": null,
-  "confidence_updates": [],
+  "verified_count": 1,
+  "confidence_updates": [
+    {
+      "vcp_id": "VCP-003",
+      "verdict": "CONFIRMED",
+      "tc_reference": null,
+      "note": "VCP-003 無直接 TC 綁定，但與 TC-001 邏輯一致（強勁就業 → DXY 上行）。TC-001 信心值不更新，待 VCP-001（10Y）CONFIRMED 後再計算。"
+    }
+  ],
   "_instruction": "驗證時填寫 actual / verdict（CONFIRMED / PARTIAL / WRONG / INVALIDATED）/ score（1.0 / 0.5 / 0.0 / null）。完成後呼叫 /dsmm-verify RUN-20260606-2320 更新傳導鏈信心值並計算系統推演準確率。"
 }
