@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "description": "知識庫稽核記錄。每次稽核針對 transmission-chain.json 或 industry-graph.json 的一個條目，檢查邏輯一致性、條件具體性、來源完整性，並記錄修正指令。",
+  "audit_rules": {
+    "logic_check":   "傳導步驟方向是否一致（不可同一步驟同時出現矛盾方向）",
+    "condition_check": "trigger_condition 和 expires_if 必須具體可驗（不可是感覺描述）",
+    "source_check":  "每條 chain / industry 至少有一個 source_events 條目",
+    "confidence_check": "confidence 必須有 evidence 支撐，不可憑空填入",
+    "expires_check": "expires_if 必須至少一條（沒有失效條件的知識不是知識）"
+  },
+  "audits": []
+}

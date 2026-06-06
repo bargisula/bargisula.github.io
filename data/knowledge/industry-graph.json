@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "description": "產業結構知識圖譜。每個產業節點含供需狀態、瓶頸、替代風險，帶條件句與信心值。由 industry-knowledge agent 維護。",
+  "last_updated": "2026-06-06",
+  "updated_by": "industry-knowledge",
+  "industries": [
+    {
+      "id": "optical_transceiver",
+      "display_name": "光模組（800G/1.6T）",
+      "theme": "AI_capex_cycle",
+      "supply_demand": "供不應求",
+      "supply_demand_condition": "IF hyperscaler AI capex 維持年增 > 20% THEN 供不應求持續至 2027",
+      "key_players": [
+        { "ticker": "COHR",  "role": "領導廠商",  "share_est": 0.35, "estimated": true },
+        { "ticker": "FNSR",  "role": "主要競爭者", "share_est": 0.20, "estimated": true },
+        { "ticker": "CIEN",  "role": "系統整合商", "note": "下游客戶，非直接競爭" }
+      ],
+      "bottlenecks": [
+        { "item": "InP（磷化銦）晶片產能",  "severity": "高",  "note": "800G 以上光模組核心材料，台積電不生產，COHR 自有產線" },
+        { "item": "封裝測試產能",            "severity": "中",  "note": "高速光模組對位精度要求高，良率爬坡慢" }
+      ],
+      "substitution_risk": {
+        "threat": "CPO（共封裝光學）",
+        "timeline": "2028-2030",
+        "severity": "高",
+        "note": "CPO 成熟後插拔式光模組需求將大幅下降，COHR / FNSR 商業模式受威脅",
+        "condition": "IF 超大雲端 CPO 採購比例 > 15% THEN 插拔式市場開始萎縮"
+      },
+      "demand_drivers": [
+        "GPU cluster 800G/1.6T 後端網路互連",
+        "DCI（資料中心互連）擴張",
+        "hyperscaler multi-rail 架構設計勝出"
+      ],
+      "key_metrics": {
+        "backlog_signal": "CIEN book-to-bill 1.4（2026-Q2）→ 上游訂單持續增加",
+        "lead_time": "延長至 6-9 個月（supply_tightness 信號）"
+      },
+      "confidence": 0.75,
+      "expires_if": "CPO 提前量產 OR hyperscaler capex 下修 > 15%",
+      "source_events": [
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：backlog 7.7B，book-to-bill 1.4，首個 multi-rail 設計勝出", "source": "jade-scan" }
+      ],
+      "audit_status": "pending"
+    },
+    {
+      "id": "optical_fiber",
+      "display_name": "光纖（數據中心級）",
+      "theme": "AI_capex_cycle",
+      "supply_demand": "供應偏緊",
+      "supply_demand_condition": "IF GPU cluster 部署密度持續提升 THEN 高密度光纜（RocketRibbon 等）持續供不應求",
+      "key_players": [
+        { "ticker": "GLW",  "role": "全球最大光纖廠", "note": "META 60億美元多年合約，NVDA 32億美元股權投資" },
+        { "ticker": "PTON", "role": "次要競爭者",      "estimated": true }
+      ],
+      "bottlenecks": [
+        { "item": "美國本土光纖產能",  "severity": "中", "note": "GLW 宣布 10 倍擴產，但建設期 18-24 個月" }
+      ],
+      "substitution_risk": {
+        "threat": "自由空間光通訊（FSO）",
+        "timeline": "2030+",
+        "severity": "低",
+        "note": "技術成熟度低，短期無法替代實體光纖"
+      },
+      "demand_drivers": [
+        "GPU cluster 機架內/機架間佈線密度增加",
+        "資料中心園區擴建",
+        "美國製造政策補貼（CHIPS Act 延伸效應）"
+      ],
+      "key_metrics": {
+        "entry_condition": "10Y 殖利率 ≤ 4.6%（GLW 進場條件上限）",
+        "current_10y": "4.55%（2026-06-06）"
+      },
+      "confidence": 0.72,
+      "expires_if": "10Y > 4.6% 持續超過 4 週 OR GLW 毛利率連兩季下滑",
+      "source_events": [
+        { "date": "2026-05-22", "event": "Regime 設定 focus_sectors: optical_fiber", "source": "CMO" },
+        { "date": "2026-06-06", "event": "CIEN 展開：GLW DCI 架構需求確認", "source": "jade-report" }
+      ],
+      "audit_status": "pending"
+    },
+    {
+      "id": "ai_custom_asic",
+      "display_name": "AI 客製 ASIC",
+      "theme": "AI_capex_cycle",
+      "supply_demand": "需求加速",
+      "supply_demand_condition": "IF hyperscaler 在 AI 訓練支出中 ASIC 佔比持續上升 THEN AVGO / MRVL 訂單能見度維持",
+      "key_players": [
+        { "ticker": "AVGO", "role": "領導廠商（Google TPU / Meta MTIA）", "note": "網路層壟斷 + 訓練 ASIC 守城者" },
+        { "ticker": "MRVL", "role": "追隨廠商（AWS Trainium 協力）" }
+      ],
+      "bottlenecks": [
+        { "item": "CoWoS 先進封裝產能（TSM）", "severity": "高",  "note": "NVDA 與 ASIC 廠共搶產能，2026 年仍緊張" },
+        { "item": "HBM 供應（SK Hynix）",      "severity": "中",  "note": "NVDA 優先佔用，ASIC 廠次之" }
+      ],
+      "substitution_risk": {
+        "threat": "Hyperscaler 完全自研（無需 AVGO）",
+        "timeline": "2028+",
+        "severity": "中",
+        "condition": "IF 自製 ASIC 訓練佔比 > 20% AND 2027 CoWoS 訂單 QoQ 連續下滑 THEN INS-002 kill switch 觸發"
+      },
+      "demand_drivers": [
+        "Google TPU v6（Trillium）量產",
+        "Meta MTIA 第二代部署",
+        "新 hyperscaler（Oracle / xAI）加入 ASIC 設計"
+      ],
+      "confidence": 0.74,
+      "expires_if": "自製 ASIC 訓練佔比 > 20% OR CoWoS 訂單 QoQ 連續下滑（2027）",
+      "source_events": [
+        { "date": "2026-06-06", "event": "INS-002 confidence 0.74，黃仁勳訪韓不改變核心邏輯", "source": "ai-infra-researcher" }
+      ],
+      "audit_status": "pending"
+    }
+  ]
+}

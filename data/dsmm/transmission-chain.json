@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "description": "DSMM 五市場傳導鏈結構化存儲。每條 chain 是一個可被驗偽的因果路徑，帶觸發條件、方向、信心值、失效條件。由 dsmm-analyst agent 維護。",
+  "market_speed_order": [
+    "金融市場",
+    "貨幣市場",
+    "商品市場",
+    "勞動市場",
+    "財政動態"
+  ],
+  "last_updated": "2026-06-06",
+  "updated_by": "dsmm-analyst",
+  "chains": [
+    {
+      "id": "TC-001",
+      "name": "NFP 超預期 → 利率上行",
+      "trigger": "非農就業人數超預期",
+      "trigger_condition": "NFP 月增 > 市場預期 + 50K",
+      "entry_market": "勞動市場",
+      "steps": [
+        { "step": 1, "market": "勞動市場",  "signal": "就業強勁，失業率維持低檔",        "direction": "→" },
+        { "step": 2, "market": "貨幣市場",  "signal": "降息預期下降，Fed put 後退",       "direction": "→" },
+        { "step": 3, "market": "金融市場",  "signal": "長端殖利率上行，估值折現率升高",   "direction": "→" },
+        { "step": 4, "market": "商品市場",  "signal": "融資成本上升，資本支出計畫壓縮",   "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "10Y 美債",             "direction": "殖利率↑",  "magnitude": "8-15bp/event" },
+        { "asset": "高倍數成長股",          "direction": "估值壓縮", "magnitude": "5-10% NTM P/E 收縮" },
+        { "asset": "GLW / 光纖基建股",     "direction": "進場窗口縮窄", "magnitude": "接近 4.6% 上限" }
+      ],
+      "confidence": 0.82,
+      "expires_if": "Fed 明確啟動降息循環 OR 失業率突破 5%",
+      "evidence": [
+        { "date": "2026-06-05", "event": "NFP +172K（預期 +85K）", "10Y_move": "+8bp → 4.55%" }
+      ],
+      "last_triggered": "2026-06-05",
+      "audit_status": "pending"
+    },
+    {
+      "id": "TC-002",
+      "name": "日本結構性減碼美債",
+      "trigger": "BOJ 升息 + 日圓對沖成本 > 美債利差",
+      "trigger_condition": "JGB 殖利率 > 1.2% AND 美日換匯成本 > 3.5%",
+      "entry_market": "貨幣市場",
+      "steps": [
+        { "step": 1, "market": "貨幣市場",  "signal": "BOJ 升息，JGB 殖利率上升",          "direction": "→" },
+        { "step": 2, "market": "金融市場",  "signal": "日本機構美債實質報酬接近零（4.55%-4%=0.55% < JGB 1.5%）", "direction": "→" },
+        { "step": 3, "market": "金融市場",  "signal": "1.1 兆美元美債持倉結構性減碼，底層賣壓持續", "direction": "→" },
+        { "step": 4, "market": "貨幣市場",  "signal": "長端殖利率上行壓力疊加，非景氣循環驅動", "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "10Y 美債",    "direction": "殖利率↑", "magnitude": "結構性底部抬升，估計 15-30bp 貢獻" },
+        { "asset": "美元/日圓",   "direction": "日圓緩步升值", "magnitude": "每次 BOJ 升息後" }
+      ],
+      "confidence": 0.74,
+      "expires_if": "BOJ 暫停升息 OR 美日利差縮窄至換匯成本以下（美債殖利率 < 4%）",
+      "evidence": [
+        { "date": "2026-06-06", "event": "JGB 10Y 1.5%，換匯成本 4%+，實質報酬 0.55%", "source": "CMO 評估" }
+      ],
+      "last_triggered": "2026-06-06",
+      "audit_status": "pending"
+    },
+    {
+      "id": "TC-003",
+      "name": "MBS 凸性對沖自我強化",
+      "trigger": "長端殖利率上行觸發 MBS 存續期延長",
+      "trigger_condition": "10Y 殖利率單月上行 > 25bp",
+      "entry_market": "金融市場",
+      "steps": [
+        { "step": 1, "market": "金融市場",  "signal": "利率上行 → 屋主不提前還款 → MBS 現金流延後", "direction": "→" },
+        { "step": 2, "market": "金融市場",  "signal": "MBS 存續期自動延長 → 持有機構存續期超標",    "direction": "→" },
+        { "step": 3, "market": "金融市場",  "signal": "機構規則強制賣長債（避險操作）",               "direction": "→" },
+        { "step": 4, "market": "金融市場",  "signal": "長債供給增加 → 殖利率再升 → 循環",           "direction": "↻ 自我強化" }
+      ],
+      "asset_implications": [
+        { "asset": "30Y 美債",   "direction": "殖利率↑↑", "magnitude": "自我強化，每 25bp 觸發約 500-800 億機械賣出" },
+        { "asset": "MBS 資產",   "direction": "價格↓",    "magnitude": "負凸性放大跌幅" }
+      ],
+      "confidence": 0.68,
+      "expires_if": "Fed 宣布購買 MBS / 利率下行超過 30bp / 屋主還款率回升",
+      "evidence": [
+        { "date": "2026-06-06", "event": "10Y 4.55%，8bp 尚未達大規模閾值，CPI 06/10 為觀察點", "source": "CMO 評估" }
+      ],
+      "last_triggered": null,
+      "threshold_note": "目前 8bp，閾值約 25bp，尚未觸發大規模機制",
+      "audit_status": "pending"
+    },
+    {
+      "id": "TC-004",
+      "name": "AI Capex 擴張 → 供應鏈需求傳導",
+      "trigger": "超大型雲端業者 capex 指引上調",
+      "trigger_condition": "任一超大雲端（MSFT/GOOG/META/AMZN）單季 capex 指引 QoQ > 10%",
+      "entry_market": "商品市場",
+      "steps": [
+        { "step": 1, "market": "商品市場",  "signal": "Hyperscaler AI 資本支出加速",          "direction": "→" },
+        { "step": 2, "market": "商品市場",  "signal": "GPU / ASIC 訂單增加 → 光互連需求拉升", "direction": "→" },
+        { "step": 3, "market": "商品市場",  "signal": "光纖、先進封裝、電力設備供不應求",      "direction": "→" },
+        { "step": 4, "market": "金融市場",  "signal": "相關供應商股價重估，backlog 擴大",      "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "NVDA / AVGO",        "direction": "↑", "magnitude": "直接受益" },
+        { "asset": "COHR / GLW / CIEN",  "direction": "↑", "magnitude": "光互連二階受益" },
+        { "asset": "VRT / EATON",        "direction": "↑", "magnitude": "電力基建受益" }
+      ],
+      "confidence": 0.78,
+      "expires_if": "超大雲端 capex 指引連續兩季下修 OR AI ROI 敘事崩潰",
+      "evidence": [
+        { "date": "2026-05-22", "event": "Regime 設定 AI_capex_cycle，focus_sectors 含 AI_infrastructure", "source": "CMO" }
+      ],
+      "last_triggered": "2026-05-22",
+      "audit_status": "pending"
+    }
+  ]
+}
