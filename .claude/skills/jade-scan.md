@@ -36,12 +36,44 @@ https://efts.sec.gov/LATEST/search-index?q=%22%22&dateRange=custom&startdt=YYYY-
 優先抓有 99.1（earnings release）或 EX-99 附件的 8-K，這類通常含業績摘要或法說要點。
 
 ### Step 2：抓取申報文字內容
+
+**2a. EDGAR 文件（必做）**
+
 對每份 8-K，取以下段落（優先順序）：
 1. Exhibit 99.1 的前 3,000 字（業績摘要）
 2. 主文件的 Item 2.02（Results of Operations）
-3. 若有連結到法說逐字稿頁面，額外抓前 5,000 字
 
-若 EDGAR 無完整逐字稿，以 `{COMPANY} earnings call transcript {QUARTER}` 搜尋 Seeking Alpha 或公司 IR 官網補充。
+**2b. 電話會議逐字稿（Group A 觸發主力，盡力抓取）**
+
+按以下順序嘗試，成功即停止：
+
+① **Seeking Alpha**（最豐富，但需登入部分內容）：
+```
+WebSearch: "{COMPANY} Q{N} FY{YEAR} earnings call transcript site:seekingalpha.com"
+```
+若搜到文章 URL，用 WebFetch 抓前 8,000 字（含 Q&A 段）。
+
+② **公司 IR 官網**：
+```
+WebSearch: "{COMPANY} investor relations earnings call transcript {YEAR}"
+```
+找到官方 PDF 或 webcast 頁面後，取 Q&A 段落重點摘要。
+
+③ **Motley Fool / The Street 備援**：
+```
+WebSearch: "{COMPANY} earnings call transcript {QUARTER} {YEAR} site:fool.com OR site:thestreet.com"
+```
+
+④ **若全部失敗**：
+- 用 8-K Exhibit 99.1 的管理層聲明段（通常含業績摘要與展望）
+- 標記 `transcript_source: "8-K Exhibit 99.1（無完整逐字稿）"`
+
+**逐字稿重點段落（按觸發組需求）：**
+| 段落 | Group A 關注 | Group B 關注 | Group C 關注 |
+|---|---|---|---|
+| Prepared Remarks | 供需表述、設計勝出 | 指引砍幅、毛利警告 | Capex 計畫改變 |
+| Q&A | 客戶詢問強度、lead time | 主要客戶動向 | 新競爭者提問 |
+| 財務摘要 | Backlog 變化 | Major Customer 佔比 | 供應商關係 |
 
 ### Step 3：關鍵詞比對
 依 `trigger-words.json` 的規則掃描每份文件：

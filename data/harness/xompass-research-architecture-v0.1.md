@@ -1,8 +1,9 @@
 # Xompass 研究架構設計文件 v0.1
 
 **建立：** 2026-06-06
-**狀態：** 設計階段，待下次開工分配執行者
-**下次起點：** 把三個觸發組分配給具體的 agent / skill
+**更新：** 2026-06-06（第二節：分配執行者完成）
+**狀態：** 執行者已分配，Harness Verification 待建
+**下次起點：** 建 output-verification-schema.json + jade-report 試行驗證
 
 ---
 
@@ -126,24 +127,25 @@
 
 ## 下次開工的起點
 
-### 待定事項：分配執行者
-
-把三個觸發組對應到具體 agent / skill：
+### ✅ 執行者分配（2026-06-06 完成）
 
 ```
-Group A 機會訊號
-  → jade-scan 需要加電話會議逐字稿抓取能力
-  → 目前：用 8-K Exhibit 99.1 + WebSearch 補充（品質不穩定）
-  → 待建：標準電話會議逐字稿抓取流程
+Group A 機會訊號  →  jade-scan（已升級）
+  升級內容：Step 2b 電話會議逐字稿抓取
+  優先順序：Seeking Alpha → 公司 IR → Motley Fool → 8-K Exhibit 99.1
+  觸發動作：jade-scan → inbox → 晨會議題
 
-Group B 論點健檢
-  → earnings-analyst 需要「比對 bible 條件」的標準輸出
-  → 目前：財報分析輸出到對話，不存檔，不比對
-  → 待建：earnings-analyst 產出結構化 JSON，自動比對 bible
+Group B 論點健檢  →  earnings-analyst（已升級）
+  升級內容：Step 1b 逐字稿補充 + Step 3 存檔 + Step 4 自動回報
+  存檔位置：data/earnings/{TICKER}-{YYYYQQ}.json
+  存檔欄位：numbers / bible_comparison / group_b_flags / verdict
+  大變化門檻：confidence_delta >0.1 或 kill switch 接近 → 晨會升格
 
-Group C 知識庫更新
-  → 目前無執行者
-  → 待建：新 skill 或擴充 ai-infra-researcher
+Group C 知識庫更新  →  knowledge-update（新建 skill）
+  位置：.claude/skills/knowledge-update.md
+  觸發條件：capex 指引變化 / 新競爭者 / 供應商關係變化 / weight 失準
+  更新目標：edges.json（+ changelog + weight_history）
+  大變化時：flag CMO 重估 DSMM 傳導鏈
 ```
 
 ### 其他待補缺口

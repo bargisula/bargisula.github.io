@@ -59,6 +59,14 @@ WebSearch: "[TICKER] [季度] earnings results revenue EPS
 | 電動車 | 交車量、單車毛利、FSD 滲透率 |
 | 金融 | NIM、信用損失準備、資本適足率 |
 
+### Step 1b：電話會議逐字稿補充（Group B 自動觸發時必做）
+
+若本次分析是由 jade-scan Group B 觸發（指引砍幅 / Major Customer 變化 / 毛利逆轉），在讀財報數字前先抓電話會議逐字稿 Q&A：
+```
+WebSearch: "{TICKER} {QUARTER} earnings call transcript Q&A"
+```
+重點抓：管理層對客戶變化的措辭（「one of our top customers」「concentration」）、指引調降的解釋（「macro headwinds」vs「share loss」）。
+
 ### Step 2：逐項解析
 
 輸出以下格式：
@@ -96,8 +104,91 @@ WebSearch: "[TICKER] [季度] earnings results revenue EPS
 理由：[一到兩句，直接說為什麼]
 ```
 
+### Step 3：存檔（每次分析後必做）
+
+分析完成後，將結果寫入結構化 JSON，路徑為 `data/earnings/{TICKER}-{YYYYQQ}.json`：
+
+```json
+{
+  "ticker": "NVDA",
+  "period": "Q1FY2027",
+  "report_date": "2026-05-28",
+  "analyzed_date": "2026-05-28",
+  "trigger_source": "jade-scan Group B / 晨會指示 / 董事長直接呼叫",
+  "numbers": {
+    "eps_actual": 0.96,
+    "eps_estimate": 0.89,
+    "revenue_actual_b": 44.1,
+    "revenue_estimate_b": 43.2,
+    "gross_margin_pct": 73.5,
+    "data_center_revenue_b": 39.1,
+    "guidance_next_q_revenue_b": 45.0,
+    "guidance_estimate_b": 43.8
+  },
+  "transcript_source": "Seeking Alpha / 公司 IR / 8-K Exhibit 99.1",
+  "key_quotes": [
+    "demand for Blackwell remains exceptional",
+    "lead times extending into Q3"
+  ],
+  "bible_comparison": {
+    "conditions_checked": [
+      {
+        "id": "C1",
+        "description": "資料中心 QoQ 成長率 ≥ 10%",
+        "verdict": "✅ 成立",
+        "evidence": "資料中心 QoQ +18%"
+      }
+    ],
+    "kill_switches_checked": [
+      {
+        "id": "K1",
+        "description": "AMD MI 系列超大雲端佔比 >25%",
+        "triggered": false,
+        "evidence": "無跡象"
+      }
+    ],
+    "overall_verdict": "論點成立",
+    "confidence_delta": 0.02,
+    "notes": "指引高於預期，無新 kill switch"
+  },
+  "group_b_flags": {
+    "guidance_cut_pct": null,
+    "major_customer_change": false,
+    "margin_reversal_quarters": 0
+  },
+  "verdict": "持有論點成立",
+  "verdict_reason": "資料中心加速，指引超預期，無失效條件"
+}
+```
+
+**bible_comparison 填寫規則：**
+- 若 Step 0b 讀到 company bible，逐條對照 conditions 和 kill_switches
+- 若無 company bible，`bible_comparison` 欄位填 `null`，並備注「尚未建立覆蓋」
+- `confidence_delta`：正數=論點加強，負數=論點弱化；超過 ±0.1 須在晨會升格討論
+
+**group_b_flags 填寫規則：**
+- `guidance_cut_pct`：若指引砍幅超 10%，填具體百分比（如 `-0.15` 表示砍 15%）
+- `major_customer_change`：true/false，是否出現新主要客戶或舊主要客戶消失
+- `margin_reversal_quarters`：毛利連續下滑季數（≥2 季觸發 Group B 大變化）
+
+### Step 4：自動回報 Group B 狀態
+
+存檔後，依 `group_b_flags` 判斷是否需要升格：
+
+```
+若任一 flag 達到大變化門檻：
+  → 輸出「⚠️ Group B 大變化：[具體觸發內容]，建議晨會議題」
+  → 同時更新 data/insights/insights.json 對應條目的 confidence
+
+若全部 flag 正常：
+  → 輸出「✅ Group B 正常：論點條件維持，已存檔 data/earnings/{TICKER}-{YYYYQQ}.json」
+```
+
+---
+
 ## 規則
 - 所有數字要有來源，不捏造
 - 裁定要明確，不說「視情況而定」
 - 若找不到足夠數據，明說「數據不足，無法裁定」
-- 不超過 600 tokens，超出就壓縮
+- Step 3 存檔不可省略，每次分析必寫 JSON
+- 不超過 600 tokens（對話輸出），JSON 存檔不計入 token 限制
