@@ -1,0 +1,69 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "trigger_event": "CIEN Q2 FY2026 法說：hyperscaler 訂單爆發，backlog 創歷史新高；COHR NVDA 20億股權投資＋CPO LTA",
+  "analyzed_at": "2026-06-06",
+  "thesis_statement": "IF AI hyperscaler capex 維持年增 > 20% AND pump laser 瓶頸在 2026Q4 前未完全緩解 THEN COHR 定價能力持續上升、CIEN 訂單能見度維持高位 BECAUSE 需求加速 + 唯一關鍵零件供應商 + hyperscaler 設計勝出鎖定 + CPO 技術路線確認護城河",
+  "thesis_strength": "強",
+  "dimension_verdicts": {
+    "需求": "加速；AI 資料中心互連需求結構性成長，CIEN book-to-bill 1.4，Optical Networking YoY +46%",
+    "供給": "供不應求；pump laser（InP）瓶頸確認，COHR 掌握定價權，預計 2026Q4 前緊俏",
+    "競爭": "寡占；COHR 護城河因 CPO LTA 強化，CIEN 靠 multi-rail 設計勝出建立 hyperscaler 黏性",
+    "技術替代": "中等風險；CPO 是確定方向但時間軸 2027-2028，COHR 已佈局 CPO 側為受益者"
+  },
+  "key_tickers": ["COHR", "CIEN", "GLW"],
+  "critical_kill_switches": 1,
+  "major_kill_switches": 2,
+  "verification_checkpoints": [
+    {
+      "id": "VCP-IND-IND-20260606-OPT-001",
+      "dimension": "需求",
+      "check_date": "2026-09-10",
+      "prediction": "CIEN Q3 FY2026 book-to-bill 維持 > 1.2",
+      "threshold": "book-to-bill > 1.2",
+      "check_source": "CIEN Q3 FY2026 法說（預計 2026-09）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260606-OPT-002",
+      "dimension": "供給",
+      "check_date": "2026-08-15",
+      "prediction": "COHR Q4 FY2026 光傳輸業務毛利率 QoQ 持續擴張",
+      "threshold": "毛利率 QoQ > 0%",
+      "check_source": "COHR Q4 FY2026 財報電話會議（預計 2026-08）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260606-OPT-003",
+      "dimension": "競爭",
+      "check_date": "2026-09-10",
+      "prediction": "CIEN 毛利率 QoQ 持續擴張（設計勝出 → 議價能力）",
+      "threshold": "CIEN 毛利率 QoQ > 0%",
+      "check_source": "CIEN Q3 FY2026 財報電話會議（預計 2026-09）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260606-OPT-004",
+      "dimension": "技術替代",
+      "check_date": "2027-03-01",
+      "prediction": "NVDA 下代 GPU 規格中 CPO 仍非量產標配",
+      "threshold": "量產規格不含強制 CPO 要求",
+      "check_source": "NVDA GTC 2027 或供應商法說",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    }
+  ],
+  "overall_confidence": 0.82,
+  "next_catalyst": "COHR Q4 FY2026 財報（預計 2026-08）；CIEN Q3 FY2026 財報（預計 2026-09）"
+}

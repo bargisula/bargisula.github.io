@@ -1,0 +1,57 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "dimension": "技術替代",
+  "step": 4,
+  "analyst": "industry-technology",
+  "analyzed_at": "2026-06-06",
+  "current_tech": {
+    "name": "可插拔光模組（DR4+, FR4, LR4，400G/800G QSFP-DD）",
+    "ceiling": "1.6T 後散熱與功耗趨近物理極限（功耗 > 20W/port 時難以管理），封裝密度瓶頸約在 2027-2028",
+    "ip_holders": ["COHR（InP pump laser + 模組整合）", "Lumentum（VCSEL，3D sensing）", "MACOM（Si 光子試驗）"]
+  },
+  "substitutes": [
+    {
+      "tech_name": "共封裝光學（CPO，Co-Packaged Optics）",
+      "stage": "DV",
+      "commercial_timeline": "2027 年量產樣品，2028 年規模化（樂觀估計）",
+      "confirmed_by": "NVDA-COHR CPO LTA 簽訂（2026-05）；COHR CEO 法說確認 CPO 進入 DV 階段",
+      "threat_to": ["Lumentum（純插拔式光模組份額長期壓縮）", "Fabrinet（純插拔組裝廠受壓）"],
+      "benefit_to": ["COHR（已是 CPO 核心 pump laser + 模組供應商，護城河轉移而非消失）", "NVDA（GPU 功耗降低 20-30%）"],
+      "moat_erosion": "侵蝕「純插拔廠商」護城河；COHR 護城河因提前佈局 CPO 而增強，非削弱",
+      "risk_level": "中（時間軸 > 24 個月）",
+      "estimated": false
+    },
+    {
+      "tech_name": "矽光子（Silicon Photonics）整合光子 IC",
+      "stage": "EVT",
+      "commercial_timeline": "2029 年後才可能在高端資料中心規模化",
+      "confirmed_by": "尚無客戶 tape-out 或 LTA 確認；Intel、IBM 研究階段",
+      "threat_to": ["長期：所有 InP 基礎廠商的材料護城河"],
+      "benefit_to": ["長期：TSMC（若 Si 光子量產走 Fab 路線）"],
+      "moat_erosion": "長期威脅，6-10 年時間軸，目前不影響論點",
+      "risk_level": "低（EVT 階段，無客戶確認）",
+      "estimated": true
+    }
+  ],
+  "kill_switches": [
+    {
+      "condition": "CPO 量產時程提前至 2026 年底（NVDA 宣布下代 GPU 強制 CPO）",
+      "victim_thesis": "插拔式光模組成長論點（Lumentum）",
+      "probability": "極低（COHR CEO 明確 2028 才規模化）"
+    },
+    {
+      "condition": "COHR CPO 研發遇到技術障礙，NVDA 轉向其他 CPO 合作夥伴",
+      "victim_thesis": "COHR CPO 護城河論點",
+      "probability": "低（已簽 LTA，技術驗證進行中）"
+    }
+  ],
+  "technology_verdict": "替代風險中等：CPO 是確定方向但時間軸 2027-2028，COHR 已站在 CPO 側，技術更替對其是機會而非威脅",
+  "verifiable_by": {
+    "id": "VCP-IND-IND-20260606-OPT-004",
+    "check_date": "2027-03-01",
+    "prediction": "NVDA 下代 GPU 架構（Rubin 或後繼）規格中 CPO 仍非量產標配（插拔式仍是主力）",
+    "threshold": "NVDA GPU 量產規格表不含強制 CPO 要求",
+    "check_source": "NVDA GTC 2027 或供應商法說技術路線圖"
+  }
+}

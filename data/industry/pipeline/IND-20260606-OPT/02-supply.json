@@ -1,0 +1,69 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "dimension": "供給",
+  "step": 2,
+  "analyst": "industry-supply",
+  "analyzed_at": "2026-06-06",
+  "upstream_demand_slope": "加速（book-to-bill 1.4，YoY +46%）",
+  "supply_demand_balance": "供不應求",
+  "supply_structure": [
+    {
+      "layer": "零件層（核心）",
+      "item": "pump laser（InP 化合物半導體）",
+      "key_suppliers": ["COHR（主，市占 ~70-80%）", "Lumentum（次）"],
+      "capacity_elasticity": "low",
+      "capex_to_production_months": 18,
+      "bottleneck": true,
+      "note": "InP 磊晶生長設備交期長（12-18 個月），COHR 2025 年啟動擴產，預計 2026Q4 新產能投產"
+    },
+    {
+      "layer": "零件層（光纖）",
+      "item": "特種光纖（G.654、彎曲不敏感型）",
+      "key_suppliers": ["Corning（GLW）", "OFS（古河電工）", "Prysmian"],
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 12,
+      "bottleneck": false,
+      "note": "GLW 2025 年宣布擴產，2026 年底前可增加 20% 產能"
+    },
+    {
+      "layer": "次系統層",
+      "item": "光收發器模組（400G/800G QSFP-DD）",
+      "key_suppliers": ["COHR（垂直整合）", "Lumentum", "II-VI（已合併入 COHR）"],
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 9,
+      "bottleneck": false,
+      "note": "pump laser 是上游瓶頸，模組端本身可擴產"
+    },
+    {
+      "layer": "系統層",
+      "item": "光傳輸系統（WDM / ROADM）",
+      "key_suppliers": ["CIEN（市占 ~30%，hyperscaler 側）", "NOK/Infinera（~25%）", "Cisco（~15%）"],
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 6,
+      "bottleneck": false,
+      "note": "系統層可擴產，但受上游光模組供應影響"
+    }
+  ],
+  "bottlenecks": [
+    {
+      "item": "pump laser（InP 化合物半導體）",
+      "severity": "中",
+      "confirmed_by": [
+        "CIEN Q2 FY2026 法說：CEO 點名 pump laser 供應緊張",
+        "COHR Q3 FY2026 法說：InP 產能滿載，擴產進行中"
+      ],
+      "relief_timeline": "2026Q4 開始緩解（COHR InP 新產能投產），2027Q1 趨於平衡",
+      "relief_condition": "COHR InP 產能擴充完成（2026 年底目標翻倍）",
+      "pricing_power_shift": "定價能力上移至 COHR，下游 CIEN 等須提前鎖單"
+    }
+  ],
+  "supply_verdict": "供不應求：pump laser 瓶頸確認，COHR 掌握定價權，預計 2026Q4 前緊俏格局不變",
+  "verifiable_by": {
+    "id": "VCP-IND-IND-20260606-OPT-002",
+    "check_date": "2026-08-15",
+    "prediction": "COHR Q4 FY2026 光傳輸業務毛利率 QoQ 持續擴張（反映定價能力）",
+    "threshold": "毛利率 QoQ > 0%（擴張方向）",
+    "check_source": "COHR Q4 FY2026 財報電話會議（預計 2026 年 8 月）"
+  }
+}

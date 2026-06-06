@@ -1,0 +1,9 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "trigger_event": "CIEN Q2 FY2026 法說：hyperscaler 訂單爆發，backlog 創歷史新高；COHR NVDA 20億股權投資＋CPO LTA",
+  "triggered_at": "2026-06-06",
+  "related_tickers": ["CIEN", "COHR", "NVDA", "GLW", "NOK"],
+  "linked_dsmm_chains": ["TC-004"],
+  "_note": "此產業與 DSMM TC-004（AI capex→AD）直接相連。需求端由 hyperscaler AI 基礎設施 capex 驅動，供給端瓶頸在 pump laser（InP）層。"
+}

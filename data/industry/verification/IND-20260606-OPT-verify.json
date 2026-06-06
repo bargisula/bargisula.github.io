@@ -1,0 +1,58 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "created_at": "2026-06-06",
+  "verification_status": "pending",
+  "checkpoints": [
+    {
+      "id": "VCP-IND-IND-20260606-OPT-001",
+      "dimension": "需求",
+      "check_date": "2026-09-10",
+      "prediction": "CIEN Q3 FY2026 book-to-bill 維持 > 1.2",
+      "threshold": "book-to-bill > 1.2",
+      "check_source": "CIEN Q3 FY2026 法說（預計 2026-09）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260606-OPT-002",
+      "dimension": "供給",
+      "check_date": "2026-08-15",
+      "prediction": "COHR Q4 FY2026 光傳輸業務毛利率 QoQ 持續擴張",
+      "threshold": "毛利率 QoQ > 0%",
+      "check_source": "COHR Q4 FY2026 財報電話會議（預計 2026-08）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260606-OPT-003",
+      "dimension": "競爭",
+      "check_date": "2026-09-10",
+      "prediction": "CIEN 毛利率 QoQ 持續擴張（設計勝出 → 議價能力）",
+      "threshold": "CIEN 毛利率 QoQ > 0%",
+      "check_source": "CIEN Q3 FY2026 財報電話會議（預計 2026-09）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260606-OPT-004",
+      "dimension": "技術替代",
+      "check_date": "2027-03-01",
+      "prediction": "NVDA 下代 GPU 規格中 CPO 仍非量產標配",
+      "threshold": "量產規格不含強制 CPO 要求",
+      "check_source": "NVDA GTC 2027 或供應商法說",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    }
+  ],
+  "overall_score": null,
+  "_instruction": "驗證時填寫 actual / verdict（CONFIRMED / PARTIAL / WRONG / INVALIDATED）/ score（1.0 / 0.5 / 0.0 / null）。完成後呼叫 /industry-verify IND-20260606-OPT 更新論點信心值。"
+}

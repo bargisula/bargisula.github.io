@@ -1,0 +1,76 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "dimension": "論點",
+  "step": 5,
+  "analyst": "industry-thesis",
+  "analyzed_at": "2026-06-06",
+  "thesis_statement": "IF AI hyperscaler capex 維持年增 > 20% AND pump laser 瓶頸在 2026Q4 前未完全緩解 THEN COHR 定價能力持續上升、CIEN 訂單能見度維持高位 BECAUSE 需求加速 + 唯一關鍵零件供應商 + hyperscaler 設計勝出鎖定 + CPO 技術路線確認護城河",
+  "thesis_strength": "強",
+  "logic_tree": [
+    {
+      "node": "AI hyperscaler capex 年增 > 20%（需求加速）",
+      "confidence": 0.88,
+      "confirmed": true,
+      "source": "CIEN Q2 FY2026：Optical Networking +46% YoY，book-to-bill 1.4"
+    },
+    {
+      "node": "pump laser 供給瓶頸（供不應求）",
+      "confidence": 0.82,
+      "confirmed": true,
+      "source": "CIEN CEO 法說點名 + COHR InP 滿載確認；緩解時間 2026Q4"
+    },
+    {
+      "node": "COHR 護城河強化（競爭格局）",
+      "confidence": 0.85,
+      "confirmed": true,
+      "source": "NVDA 20億投資 + CPO LTA（2026-05 公告）"
+    },
+    {
+      "node": "CIEN 設計勝出積累黏性（競爭格局）",
+      "confidence": 0.80,
+      "confirmed": true,
+      "source": "CIEN multi-rail hyperscaler 設計勝出（Q2 FY2026）"
+    },
+    {
+      "node": "CPO 技術替代 > 24 個月（技術）",
+      "confidence": 0.75,
+      "confirmed": false,
+      "source": "COHR CEO：CPO DV 階段，量產 2027-2028（法說發言，非客觀可量測）"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "KS-001",
+      "severity": "critical",
+      "condition": "AI hyperscaler capex 年增率連續 2 季 < 10%（至少 3 家中 2 家下修）",
+      "breaks_node": "AI hyperscaler capex 年增 > 20%（需求加速）",
+      "leading_indicator": "Google / MSFT / Meta / AMZN Q 法說 capex guidance 下調 > 15%",
+      "probability_12m": "低（目前 Google +43%、MSFT +53% capex 指引）"
+    },
+    {
+      "id": "KS-002",
+      "severity": "major",
+      "condition": "競爭者（Lumentum 或新進入者）量產同規格 pump laser，COHR 市占 < 50%",
+      "breaks_node": "pump laser 供給瓶頸（供不應求）",
+      "leading_indicator": "Lumentum 或 MACOM 法說提到 InP 量產計畫並獲客戶確認",
+      "probability_12m": "極低（InP 磊晶設備交期 12-18 個月，競爭者目前無公開擴產計畫）"
+    },
+    {
+      "id": "KS-003",
+      "severity": "major",
+      "condition": "NVDA 轉向非 COHR 的 CPO 供應商，或 CPO 量產提前至 2026 年底",
+      "breaks_node": "COHR 護城河強化（競爭格局）",
+      "leading_indicator": "NVDA GTC 或法說宣布 CPO 供應商多元化",
+      "probability_12m": "極低（20億股權投資和 LTA 已鎖定）"
+    },
+    {
+      "id": "KS-004",
+      "severity": "minor",
+      "condition": "CIEN 丟失第二個 hyperscaler 設計勝出，或主要客戶轉向 NOK",
+      "breaks_node": "CIEN 設計勝出積累黏性（競爭格局）",
+      "leading_indicator": "CIEN 新客戶 design win 停滯 > 2 季",
+      "probability_12m": "低（認證週期長，目前在勝出軌道上）"
+    }
+  ]
+}

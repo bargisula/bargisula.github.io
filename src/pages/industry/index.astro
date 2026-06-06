@@ -1,0 +1,338 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const summaryModules = import.meta.glob(
+  '../../../data/industry/pipeline/*/06-summary.json',
+  { eager: true }
+);
+const verifyModules = import.meta.glob(
+  '../../../data/industry/verification/*-verify.json',
+  { eager: true }
+);
+
+type DimensionVerdict = { 需求?: string; 供給?: string; 競爭?: string; 技術替代?: string };
+type KillSwitch = { id: string; severity: string; condition: string; probability_12m?: string };
+type VCP = {
+  id: string; dimension: string; check_date: string; prediction: string;
+  threshold?: string; check_source?: string;
+  status?: string; actual: string | null; verdict: string | null; score: number | null;
+};
+type Summary = {
+  run_id: string; industry: string; trigger_event: string; analyzed_at: string;
+  thesis_statement: string; thesis_strength: string;
+  dimension_verdicts: DimensionVerdict;
+  key_tickers: string[];
+  critical_kill_switches: number;
+  major_kill_switches: number;
+  verification_checkpoints: VCP[];
+  overall_confidence: number;
+  next_catalyst?: string;
+};
+type VerifyFile = { run_id: string; checkpoints: VCP[]; overall_score: number | null };
+
+const rawSummaries: Summary[] = Object.values(summaryModules)
+  .map((m: any) => m.default ?? m)
+  .sort((a, b) => b.analyzed_at.localeCompare(a.analyzed_at));
+
+const verifyMap: Record<string, VerifyFile> = {};
+for (const raw of Object.values(verifyModules)) {
+  const v = (raw as any).default ?? raw as VerifyFile;
+  verifyMap[v.run_id] = v;
+}
+
+const DIMENSIONS = ['需求', '供給', '競爭', '技術替代'];
+const today = new Date();
+
+function strengthClass(s: string) {
+  if (s === '強') return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300';
+  if (s === '中等') return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
+  if (s === '弱') return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300';
+  return 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400';
+}
+function verdictClass(v: string | null) {
+  if (v === 'CONFIRMED')   return 'text-green-600 dark:text-green-400 font-bold';
+  if (v === 'PARTIAL')     return 'text-amber-600 dark:text-amber-400 font-bold';
+  if (v === 'WRONG')       return 'text-red-500 dark:text-red-400 font-bold';
+  if (v === 'INVALIDATED') return 'text-zinc-400';
+  return 'text-zinc-400 italic';
+}
+function confColor(c: number) {
+  if (c >= 0.75) return 'bg-green-500';
+  if (c >= 0.55) return 'bg-amber-400';
+  return 'bg-red-400';
+}
+function dimIcon(d: string) {
+  if (d === '需求')    return '📈';
+  if (d === '供給')    return '🏭';
+  if (d === '競爭')    return '⚔️';
+  if (d === '技術替代') return '🔬';
+  return '📊';
+}
+
+// Precompute all runs
+const runs = rawSummaries.map(s => {
+  const verify = verifyMap[s.run_id];
+  const checkpoints: (VCP & { isPast: boolean; duePending: boolean })[] = (
+    verify?.checkpoints ?? s.verification_checkpoints ?? []
+  ).map(c => ({
+    ...c,
+    isPast: new Date(c.check_date) <= today,
+    duePending: new Date(c.check_date) <= today && !c.verdict,
+  }));
+
+  const overdueCount = checkpoints.filter(c => c.duePending).length;
+  const confirmedCount = checkpoints.filter(c => c.verdict === 'CONFIRMED').length;
+  const totalVerified = checkpoints.filter(c => c.verdict != null && c.verdict !== 'INVALIDATED').length;
+
+  const dimEntries = DIMENSIONS.map(d => ({
+    name: d,
+    icon: dimIcon(d),
+    text: (s.dimension_verdicts as any)?.[d] ?? '—',
+  }));
+
+  const ksTotal = (s.critical_kill_switches ?? 0) + (s.major_kill_switches ?? 0);
+
+  return { s, checkpoints, overdueCount, confirmedCount, totalVerified, dimEntries, ksTotal };
+});
+
+const hasRuns = runs.length > 0;
+
+// Pipeline steps for header display
+const STEPS = [
+  { n: 1, label: '需求斜率', desc: '終端需求加速/持平/衰退', color: 'bg-blue-500' },
+  { n: 2, label: '供給瓶頸', desc: '誰是卡脖子環節', color: 'bg-indigo-500' },
+  { n: 3, label: '競爭格局', desc: '誰在贏、護城河深淺', color: 'bg-violet-500' },
+  { n: 4, label: '技術替代', desc: '顛覆風險與時間軸', color: 'bg-purple-500' },
+  { n: 5, label: '論點合成', desc: 'IF-THEN + Kill Switch', color: 'bg-fuchsia-600' },
+];
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <BaseHead title="産業分析 | Xompass" description="產業分析流水線：需求→供給→競爭→技術→論點" />
+  </head>
+  <body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen flex flex-col">
+    <Header />
+
+    <main class="flex-1 max-w-5xl mx-auto px-4 py-10 w-full">
+
+      <!-- ===== 頁首 ===== -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">🏭 産業分析流水線</h1>
+        <p class="text-zinc-500 dark:text-zinc-400 text-sm">
+          五維框架：需求斜率 → 供給瓶頸 → 競爭格局 → 技術替代 → 論點＋Kill Switch
+        </p>
+      </div>
+
+      <!-- ===== 流程說明 ===== -->
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl p-6 mb-8">
+        <h2 class="text-base font-semibold mb-4 text-zinc-700 dark:text-zinc-300">流程說明</h2>
+
+        <!-- 步驟條 -->
+        <div class="flex flex-wrap gap-2 mb-5">
+          {STEPS.map((st, i) => (
+            <div class="flex items-center gap-1">
+              <div class={`${st.color} text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0`}>
+                {st.n}
+              </div>
+              <div class="text-xs">
+                <span class="font-medium">{st.label}</span>
+                <span class="text-zinc-400 hidden sm:inline"> — {st.desc}</span>
+              </div>
+              {i < STEPS.length - 1 && <span class="text-zinc-300 dark:text-zinc-600 mx-1">→</span>}
+            </div>
+          ))}
+        </div>
+
+        <!-- 三欄說明 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4">
+            <div class="font-semibold mb-1 text-blue-600 dark:text-blue-400">為什麼是 5 維度</div>
+            <p class="text-zinc-600 dark:text-zinc-400 text-xs leading-relaxed">
+              需求講方向，供給講瓶頸，競爭講誰拿到，技術講護城河能維持多久，論點講整體邏輯和失效條件。缺任何一維都是盲點。
+            </p>
+          </div>
+          <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4">
+            <div class="font-semibold mb-1 text-violet-600 dark:text-violet-400">Kill Switch 是什麼</div>
+            <p class="text-zinc-600 dark:text-zinc-400 text-xs leading-relaxed">
+              讓整個論點失效的具體可測條件。「若 AI capex 年增 &lt; 10%」比「若宏觀惡化」更有用。提前知道殺手才能提前逃跑。
+            </p>
+          </div>
+          <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4">
+            <div class="font-semibold mb-1 text-fuchsia-600 dark:text-fuchsia-400">驗證 → 智慧</div>
+            <p class="text-zinc-600 dark:text-zinc-400 text-xs leading-relaxed">
+              每個預測都有 check_date 和 threshold。累積驗證結果，每個維度的準確率最終告訴你哪種邏輯在這個產業管用。
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-zinc-100 dark:border-zinc-700 text-xs text-zinc-400 font-mono">
+          呼叫：<code class="bg-zinc-100 dark:bg-zinc-800 px-1 rounded">/industry-pipeline 產業名稱 [觸發事件]</code>
+          &nbsp;｜&nbsp;驗證：<code class="bg-zinc-100 dark:bg-zinc-800 px-1 rounded">/industry-verify {"{run_id}"}</code>
+        </div>
+      </div>
+
+      <!-- ===== 無資料時的佔位 ===== -->
+      {!hasRuns && (
+        <div class="text-center py-20 text-zinc-400">
+          <div class="text-5xl mb-4">🏭</div>
+          <p class="text-lg font-medium mb-2">尚無分析記錄</p>
+          <p class="text-sm">呼叫 <code class="bg-zinc-100 dark:bg-zinc-800 px-1 rounded text-zinc-600 dark:text-zinc-300">/industry-pipeline 產業名稱</code> 開始第一次分析</p>
+        </div>
+      )}
+
+      <!-- ===== 每次分析 ===== -->
+      {runs.map(({ s, checkpoints, overdueCount, confirmedCount, totalVerified, dimEntries, ksTotal }) => (
+        <div class="mb-12 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl overflow-hidden">
+
+          <!-- 頂部 Header -->
+          <div class="bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-700 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-lg font-bold">{s.industry}</span>
+                <span class={`text-xs px-2 py-0.5 rounded-full font-semibold ${strengthClass(s.thesis_strength)}`}>
+                  論點：{s.thesis_strength}
+                </span>
+                {overdueCount > 0 && (
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 font-medium">
+                    ⚠️ {overdueCount} 個待驗證
+                  </span>
+                )}
+              </div>
+              <div class="text-xs text-zinc-400 mt-1">
+                <span class="font-mono">{s.run_id}</span>
+                &nbsp;·&nbsp;{s.analyzed_at}
+                {s.trigger_event && s.trigger_event !== '主動分析' && (
+                  <span>&nbsp;·&nbsp;觸發：{s.trigger_event}</span>
+                )}
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              {s.key_tickers.map(t => (
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-1 rounded font-mono font-semibold">
+                  {t}
+                </span>
+              ))}
+              <div class="text-right text-xs">
+                <div class="text-zinc-500 dark:text-zinc-400">信心</div>
+                <div class="font-bold text-base">{Math.round((s.overall_confidence ?? 0) * 100)}%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 py-5 space-y-6">
+
+            <!-- 論點主張 -->
+            <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4 border-l-4 border-fuchsia-400">
+              <div class="text-xs text-zinc-400 uppercase tracking-wider mb-1">論點</div>
+              <p class="text-sm font-medium leading-relaxed">{s.thesis_statement}</p>
+            </div>
+
+            <!-- 信心進度條 -->
+            <div>
+              <div class="flex justify-between text-xs text-zinc-400 mb-1">
+                <span>整體信心</span>
+                <span>{Math.round((s.overall_confidence ?? 0) * 100)}%</span>
+              </div>
+              <div class="h-2 bg-zinc-100 dark:bg-zinc-700 rounded-full overflow-hidden">
+                <div
+                  class={`h-full rounded-full transition-all ${confColor(s.overall_confidence ?? 0)}`}
+                  style={`width:${Math.round((s.overall_confidence ?? 0) * 100)}%`}
+                />
+              </div>
+            </div>
+
+            <!-- 四維結論卡片 -->
+            <div>
+              <div class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">四維結論</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {dimEntries.map(d => (
+                  <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-3">
+                    <div class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-1">
+                      {d.icon} {d.name}
+                    </div>
+                    <p class="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">{d.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Kill Switch 摘要 -->
+            {ksTotal > 0 && (
+              <div class="flex items-start gap-3 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+                <span class="text-xl">⚔️</span>
+                <div class="text-sm">
+                  <span class="font-semibold">Kill Switch：</span>
+                  {s.critical_kill_switches > 0 && (
+                    <span class="text-red-600 dark:text-red-400 font-bold mr-2">致命 {s.critical_kill_switches} 個</span>
+                  )}
+                  {s.major_kill_switches > 0 && (
+                    <span class="text-amber-600 dark:text-amber-400 font-semibold mr-2">重大 {s.major_kill_switches} 個</span>
+                  )}
+                  <span class="text-zinc-500 text-xs">· 詳見 05-thesis.json</span>
+                </div>
+              </div>
+            )}
+
+            <!-- 驗證檢查點 -->
+            {checkpoints.length > 0 && (
+              <div>
+                <div class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">
+                  驗證檢查點
+                  {totalVerified > 0 && (
+                    <span class="ml-2 normal-case text-zinc-400">
+                      （已驗 {totalVerified} / 通過 {confirmedCount}）
+                    </span>
+                  )}
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-xs border-collapse">
+                    <thead>
+                      <tr class="border-b border-zinc-200 dark:border-zinc-700">
+                        <th class="text-left py-2 pr-3 text-zinc-400 font-medium w-8">維度</th>
+                        <th class="text-left py-2 pr-3 text-zinc-400 font-medium">預測</th>
+                        <th class="text-left py-2 pr-3 text-zinc-400 font-medium w-24">到期日</th>
+                        <th class="text-left py-2 pr-3 text-zinc-400 font-medium w-20">實際值</th>
+                        <th class="text-left py-2 text-zinc-400 font-medium w-24">裁定</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {checkpoints.map(c => (
+                        <tr class={`border-b border-zinc-100 dark:border-zinc-800 ${c.duePending ? 'bg-amber-50/50 dark:bg-amber-900/5' : ''}`}>
+                          <td class="py-2 pr-3 font-medium text-zinc-500">{c.dimension ?? '—'}</td>
+                          <td class="py-2 pr-3 text-zinc-600 dark:text-zinc-300">
+                            {c.duePending && <span class="mr-1">⚠️</span>}
+                            {c.prediction}
+                          </td>
+                          <td class="py-2 pr-3 font-mono text-zinc-400">{c.check_date}</td>
+                          <td class="py-2 pr-3 font-mono text-zinc-500">{c.actual ?? '—'}</td>
+                          <td class={`py-2 ${verdictClass(c.verdict)}`}>
+                            {c.verdict ?? (c.isPast ? '待填入' : '待定')}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            <!-- 下個催化劑 -->
+            {s.next_catalyst && (
+              <div class="text-xs text-zinc-400 flex items-center gap-1">
+                <span>📅</span>
+                <span>下個催化劑：<span class="text-zinc-600 dark:text-zinc-300">{s.next_catalyst}</span></span>
+              </div>
+            )}
+
+          </div>
+        </div>
+      ))}
+
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,90 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "dimension": "競爭",
+  "step": 3,
+  "analyst": "industry-competition",
+  "analyzed_at": "2026-06-06",
+  "market_structure": "寡占",
+  "players": [
+    {
+      "ticker": "COHR",
+      "role": "光模組層領導廠商（垂直整合）",
+      "share_est": 0.35,
+      "share_confidence": "medium",
+      "moat_types": ["技術護城河（pump laser InP 獨家）", "客戶黏性（NVDA 20億股權投資＋CPO LTA）", "垂直整合（從 laser 到模組）"],
+      "moat_strength": "strong",
+      "recent_signal": "NVDA 20億股權投資確認戰略夥伴關係；CPO 長期供應協議簽訂（2026-05）",
+      "trend": "winner",
+      "estimated": false
+    },
+    {
+      "ticker": "CIEN",
+      "role": "光傳輸系統層領導廠商（hyperscaler 側）",
+      "share_est": 0.30,
+      "share_confidence": "medium",
+      "moat_types": ["客戶黏性（hyperscaler 認證週期長）", "技術護城河（WaveLogic 調製格式）"],
+      "moat_strength": "strong",
+      "recent_signal": "首個 hyperscaler multi-rail 架構設計勝出（Q2 FY2026 法說確認）；backlog 創歷史新高",
+      "trend": "winner",
+      "estimated": false
+    },
+    {
+      "ticker": "NOK（Nokia/Infinera）",
+      "role": "系統層主要競爭者",
+      "share_est": 0.25,
+      "share_confidence": "low",
+      "moat_types": ["規模護城河（電信運營商客戶基礎）"],
+      "moat_strength": "medium",
+      "recent_signal": "Nokia 收購 Infinera 整合進行中，電信客戶側穩定，但 hyperscaler 側被 CIEN 搶份額",
+      "trend": "neutral",
+      "estimated": true
+    },
+    {
+      "ticker": "GLW",
+      "role": "光纖層領導廠商",
+      "share_est": 0.40,
+      "share_confidence": "high",
+      "moat_types": ["規模護城河", "技術護城河（特種光纖配方）", "政策許可（部分客戶要求本土供應）"],
+      "moat_strength": "strong",
+      "recent_signal": "AI 資料中心光纖需求帶動 Optical Connectivity 業務強勁；2025 年宣布北美擴產",
+      "trend": "winner",
+      "estimated": false
+    },
+    {
+      "ticker": "Lumentum（LITE）",
+      "role": "光模組層次要競爭者",
+      "share_est": 0.15,
+      "share_confidence": "low",
+      "moat_types": ["技術護城河（VCSEL）"],
+      "moat_strength": "eroding",
+      "recent_signal": "3D sensing 業務（Apple VCSEL）下滑；光傳輸業務面臨 COHR 整合後的競爭壓力",
+      "trend": "loser",
+      "estimated": true
+    }
+  ],
+  "share_shift_signals": [
+    {
+      "signal": "CIEN 首個 hyperscaler multi-rail 架構設計勝出",
+      "beneficiary": "CIEN",
+      "loser": "NOK（Infinera）",
+      "confirmed": true,
+      "source": "CIEN Q2 FY2026 法說（2026-06 發布）"
+    },
+    {
+      "signal": "NVDA-COHR CPO 戰略合作 + 20億股權投資",
+      "beneficiary": "COHR",
+      "loser": "Lumentum（插拔式份額長期受壓）",
+      "confirmed": true,
+      "source": "COHR/NVDA 聯合公告（2026-05）"
+    }
+  ],
+  "competition_verdict": "寡占格局，COHR 和 CIEN 雙強勝出：COHR 靠 pump laser + CPO 技術護城河，CIEN 靠 hyperscaler 設計勝出積累客戶黏性",
+  "verifiable_by": {
+    "id": "VCP-IND-IND-20260606-OPT-003",
+    "check_date": "2026-09-10",
+    "prediction": "CIEN 毛利率 QoQ 持續擴張（設計勝出 → 議價能力提升）",
+    "threshold": "CIEN 毛利率 QoQ > 0%",
+    "check_source": "CIEN Q3 FY2026 財報電話會議（預計 2026-09）"
+  }
+}

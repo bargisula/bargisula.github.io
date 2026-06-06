@@ -1,0 +1,53 @@
+{
+  "run_id": "IND-20260606-OPT",
+  "industry": "光傳輸系統（光模組＋光傳輸網路）",
+  "dimension": "需求",
+  "step": 1,
+  "analyst": "industry-demand",
+  "analyzed_at": "2026-06-06",
+  "slope": "加速",
+  "slope_confidence": 0.90,
+  "drivers": [
+    {
+      "driver": "AI 資料中心 GPU cluster 互連需求爆發",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "CIEN Q2 FY2026 Optical Networking 收入 YoY +46%；backlog +600M QoQ 創歷史新高；hyperscaler 客戶 AI DC 部署加速",
+      "tc_reference": "TC-004"
+    },
+    {
+      "driver": "DCI（資料中心互聯）流量複合成長",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "400G/800G 光模組需求量 2025-2027 預計年均 CAGR 35%（Omdia 2025 報告）",
+      "tc_reference": "TC-004"
+    },
+    {
+      "driver": "400G → 800G → 1.6T 世代升級",
+      "type": "cyclical",
+      "strength": "medium",
+      "evidence": "COHR 800G 出貨量 2026 年開始規模化；1.6T 樣品測試中（CIEN 法說）",
+      "tc_reference": null
+    }
+  ],
+  "metrics": {
+    "yoy_growth": "CIEN Optical Networking +46%（Q2 FY2026）；COHR 光傳輸業務 +38% YoY",
+    "book_to_bill": "1.4（CIEN Q2 FY2026，管理層確認）",
+    "tam_estimate": "約 200-220 億美元（光模組＋光傳輸設備，2026E，IDC/Omdia 綜合）",
+    "penetration_rate": "AI 資料中心先進光傳輸（800G+）滲透率估計 20-25%，仍在早期加速階段"
+  },
+  "ceiling_analysis": {
+    "current_ceiling": "GPU cluster 部署速度 = 終端需求上限",
+    "timeline_to_ceiling": "2028-2029（CPO 規模化後光模組形態轉變，但總需求量不縮減）",
+    "ceiling_condition": "IF AI hyperscaler capex 年增率連續 2 季 < 10% THEN 需求斜率趨緩"
+  },
+  "data_quality": "high",
+  "demand_verdict": "需求加速：AI 資料中心互連需求結構性成長，book-to-bill 1.4 顯示未來 12 個月能見度高",
+  "verifiable_by": {
+    "id": "VCP-IND-IND-20260606-OPT-001",
+    "check_date": "2026-09-10",
+    "prediction": "CIEN 下季（Q3 FY2026）book-to-bill 維持 > 1.2",
+    "threshold": "book-to-bill > 1.2",
+    "check_source": "CIEN Q3 FY2026 法說（預計 2026 年 9 月）"
+  }
+}
