@@ -1,0 +1,52 @@
+---
+interface Props {
+  diagram: string;
+  caption?: string;
+}
+const { diagram, caption } = Astro.props;
+// Generate a unique ID for each diagram instance
+const uid = `mermaid-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<figure class="mermaid-figure my-6">
+  <div id={uid} class="mermaid-container overflow-x-auto rounded-lg bg-zinc-50 dark:bg-zinc-900 p-4 text-sm" data-diagram={diagram}>
+    <pre class="text-xs text-zinc-400 italic">載入圖表中…</pre>
+  </div>
+  {caption && <figcaption class="mt-2 text-center text-xs text-zinc-500 dark:text-zinc-400">{caption}</figcaption>}
+</figure>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: document.documentElement.classList.contains('dark') ? 'dark' : 'neutral',
+    flowchart: { curve: 'basis', useMaxWidth: true },
+    themeVariables: {
+      fontSize: '13px',
+    },
+  });
+
+  async function renderAll() {
+    const containers = document.querySelectorAll<HTMLElement>('.mermaid-container[data-diagram]');
+    for (const el of containers) {
+      const src = el.dataset.diagram;
+      if (!src || el.dataset.rendered) continue;
+      el.dataset.rendered = '1';
+      const id = el.id || `mermaid-auto-${Math.random().toString(36).slice(2,9)}`;
+      el.id = id;
+      try {
+        const { svg } = await mermaid.render(`${id}-svg`, src);
+        el.innerHTML = svg;
+      } catch (e) {
+        el.innerHTML = `<pre class="text-red-500 text-xs whitespace-pre-wrap">${src}</pre>`;
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderAll);
+  } else {
+    renderAll();
+  }
+</script>
