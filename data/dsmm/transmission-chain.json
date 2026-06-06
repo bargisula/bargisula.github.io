@@ -130,12 +130,39 @@
         { "asset": "CIEN",  "direction": "↑（短期）/⚠️（長期）", "magnitude": "短期 backlog 創高；長期受限於零件取得速度" }
       ],
       "confidence": 0.76,
-      "expires_if": "pump laser 新產能開出 OR hyperscaler DCI 支出轉向 CPO（共封裝光學）",
+      "expires_if": "pump laser 新產能開出（COHR InP 2026Q4 翻倍）OR hyperscaler DCI 支出轉向 CPO",
       "evidence": [
-        { "date": "2026-06-06", "event": "CIEN Q2 FY2026 逐字稿：backlog $7.7B（QoQ +$600M），pump laser 短缺點名，'demand outstripping supply'", "source": "Motley Fool transcript / SEC EDGAR Exhibit 99.1" }
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：backlog $7.7B（QoQ +$600M），pump laser 短缺點名", "source": "Motley Fool / SEC EDGAR" },
+        { "date": "2026-06-06", "event": "COHR Q3 FY2026：InP 產能 2026底翻倍、2027底再翻倍；短缺有解法但 2026 全年仍緊", "source": "Motley Fool transcript" }
       ],
+      "relief_timeline": "2026Q4 開始緩解，2027 底大幅改善",
       "last_triggered": "2026-06-06",
       "audit_status": "audited"
+    },
+    {
+      "id": "TC-006",
+      "name": "CPO 主動部署 → 插拔式光模組替代",
+      "trigger": "超大雲端與 GPU 廠商簽訂 CPO 長期協議",
+      "trigger_condition": "任一超大雲端或 GPU 廠商（NVDA/GOOG/META）宣布 CPO LTA 且金額 > 10億美元",
+      "entry_market": "商品市場",
+      "steps": [
+        { "step": 1, "market": "商品市場",  "signal": "NVDA-COHR CPO LTA 簽訂，量產協議確立",                   "direction": "→" },
+        { "step": 2, "market": "商品市場",  "signal": "Hyperscaler 新機架設計採用 CPO，舊插拔式採購比例下降",   "direction": "→" },
+        { "step": 3, "market": "商品市場",  "signal": "純插拔式廠商（非 COHR）訂單能見度下降",                  "direction": "→" },
+        { "step": 4, "market": "金融市場",  "signal": "插拔式廠商估值壓縮，COHR 因 CPO 轉型重估上行",           "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "COHR",               "direction": "↑（CPO 受益）",    "magnitude": "已站上 CPO 側，NVDA 投資確認地位" },
+        { "asset": "純插拔式競爭者",     "direction": "↓（長期壓力）",    "magnitude": "2027-2028 開始顯現，2026 仍供不應求" },
+        { "asset": "NVDA",               "direction": "中性（成本控制）",  "magnitude": "CPO 降低互連功耗，長期降低系統成本" }
+      ],
+      "confidence": 0.72,
+      "expires_if": "NVDA 取消 CPO 協議 OR GPU TDP 成長停滯 OR CPO 良率無法商業化",
+      "evidence": [
+        { "date": "2026-06-06", "event": "COHR Q3 FY2026：NVDA 20億股權投資 + CPO LTA 至本十年末；orders to CY2028", "source": "Motley Fool transcript" }
+      ],
+      "last_triggered": "2026-06-06",
+      "audit_status": "pending"
     }
   ]
 }

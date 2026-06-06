@@ -10,14 +10,16 @@
   "last_updated": "2026-06-06",
   "changelog": {
     "2026-06-06-a": "新增 CIEN 節點（jade-report 驗證後補入）",
-    "2026-06-06-b": "CIEN→COHR weight 0.30→0.45，estimated false（pump laser shortage 法說直接確認，非推算）"
+    "2026-06-06-b": "CIEN→COHR weight 0.30→0.45，estimated false（pump laser shortage 法說直接確認）",
+    "2026-06-06-c": "NVDA→COHR estimated false（20億投資+CPO LTA 直接確認）",
+    "2026-06-06-d": "新增 CPO→COHR_PLUGGABLE replaces 邊（COHR 已轉型 CPO 供應商，舊 CPO→PLUGGABLE_OPTICS 邊補充）"
   },
   "edges": [
     {"from": "NVDA", "to": "TSM",  "type": "manufactures_at", "weight": 0.95, "note": "CoWoS + N4/N3 製程，NVDA 佔 TSM 晶圓收入約 11-13%"},
     {"from": "NVDA", "to": "SKH",  "type": "supplies_to",     "weight": 0.85, "note": "HBM3e 主要供應商，SK Hynix HBM 約 50%+ 給 NVDA", "estimated": true},
     {"from": "NVDA", "to": "MU",   "type": "supplies_to",     "weight": 0.40, "note": "HBM3e 次要供應商，Micron 切入 H200/B200", "estimated": true},
     {"from": "NVDA", "to": "GLW",  "type": "supplies_to",     "weight": 0.35, "note": "數據中心光纖互連，32 億美元 NVDA 股權投資確認長期合作", "estimated": true},
-    {"from": "NVDA", "to": "COHR", "type": "supplies_to",     "weight": 0.55, "note": "800G/1.6T 光模組，NVDA 數據中心互連主要供應商", "estimated": true},
+    {"from": "NVDA", "to": "COHR", "type": "supplies_to",     "weight": 0.55, "note": "800G/1.6T 光模組 + CPO 多年協議；NVDA 20億美元股權投資（2026-05），LTA 延伸至本十年末", "estimated": false, "weight_history": [{"date": "2026-06-06", "old_weight": 0.55, "new_weight": 0.55, "reason": "weight 維持，但 estimated 改 false：NVDA 20億投資+CPO LTA 直接確認，非推算"}]},
     {"from": "NVDA", "to": "ANET", "type": "supplies_to",     "weight": 0.45, "note": "AI 數據中心乙太網路交換機，NVDA 生態系標配", "estimated": true},
     {"from": "NVDA", "to": "VRT",  "type": "supplies_to",     "weight": 0.40, "note": "數據中心散熱與電源管理，NVDA GPU 密度推升需求", "estimated": true},
 
@@ -48,6 +50,7 @@
     {"from": "CPO",       "to": "PLUGGABLE_OPTICS", "type": "replaces", "weight": 0.60, "note": "共封裝光學替代插拔式光模組，2028-2030 規模化", "estimated": true},
     {"from": "GLASS_SUB", "to": "ABF_SUB",           "type": "replaces", "weight": 0.50, "note": "玻璃基板替代 ABF 有機載板，Intel HVM 已啟動", "estimated": true},
     {"from": "MAMBA_SSM", "to": "TRANSFORMER",       "type": "replaces", "weight": 0.25, "note": "SSM 架構在推理端成本潛力，尚未大規模驗證", "estimated": true},
+    {"from": "CPO",       "to": "COHR_PLUGGABLE",    "type": "replaces", "weight": 0.70, "note": "COHR 已轉型為 CPO 供應商（NVDA 20億投資+LTA），CPO 替代插拔式影響其他廠商，COHR 自身已站在 CPO 側", "estimated": false, "added_date": "2026-06-06", "trigger_source": "COHR Q3 FY2026 法說 + NVDA-COHR CPO 協議"},
 
     {"from": "CIEN", "to": "COHR", "type": "supplies_to",    "weight": 0.45, "note": "CIEN 光傳輸系統使用 COHR pump laser + InP 光模組；Q2 FY2026 法說直接點名 pump laser shortage，COHR 為主要供應商", "estimated": false, "weight_history": [{"date": "2026-06-06", "old_weight": 0.30, "new_weight": 0.45, "reason": "CIEN Q2 FY2026 法說直接點名 pump laser shortage，從推算升格為財報確認"}]},
     {"from": "CIEN", "to": "GLW",  "type": "supplies_to",    "weight": 0.20, "note": "CIEN DCI 架構需要 GLW 高密度光纜佈線（RocketRibbon 系列）", "estimated": true},

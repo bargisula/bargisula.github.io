@@ -18,9 +18,10 @@
       "bottlenecks": [
         {
           "item": "pump laser（InP 磷化銦激光器）",
-          "severity": "高",
-          "note": "CIEN Q2 FY2026 法說直接點名 pump laser shortage；COHR 是主要 pump laser 供應商，自有產線，短期難快速擴產",
-          "confirmed_by": "CIEN 電話會議 2026-06-04"
+          "severity": "中（下降中）",
+          "note": "CIEN Q2 FY2026 點名短缺；但 COHR Q3 FY2026 確認 InP 產能 2026 底翻倍、2027 底再翻倍（2年4倍）。短缺有解法，但 2026 全年仍緊張",
+          "confirmed_by": "CIEN 電話會議 2026-06-04 + COHR 電話會議 2026-05-06",
+          "relief_timeline": "2026Q4 開始緩解，2027 底大幅改善"
         },
         {
           "item": "modem / CDM 模組",
@@ -36,10 +37,11 @@
       ],
       "substitution_risk": {
         "threat": "CPO（共封裝光學）",
-        "timeline": "2028-2030",
+        "timeline": "2026-2028（提前）",
         "severity": "高",
-        "note": "CPO 成熟後插拔式光模組需求將大幅下降；但 CIEN 法說確認 hyperscaler 仍大量採購現有插拔式方案，2028 前替代壓力有限",
-        "condition": "IF 超大雲端 CPO 採購比例 > 15% THEN 插拔式市場開始萎縮"
+        "note": "NVDA 20億美元投資 COHR + CPO LTA 至本十年末（2026-05確認），CPO 時間軸從 2028-2030 提前至 2026 年已進入主動量產協議。但 COHR 本身已轉型 CPO 側，受衝擊的是其他純插拔廠商。1.6T 仍是 2026-2027 主力，CPO 過渡期兩者並行",
+        "condition": "IF 超大雲端 CPO 採購比例 > 15% THEN 純插拔式廠商市場開始萎縮（COHR 不在此列，已轉型）",
+        "timeline_updated": "2026-06-06，COHR Q3 FY2026 法說確認 NVDA-COHR CPO 協議"
       },
       "demand_drivers": [
         "GPU cluster 800G/1.6T 後端網路互連",
@@ -55,9 +57,9 @@
       "confidence": 0.82,
       "expires_if": "CPO 提前量產 OR hyperscaler capex 下修 > 15% OR pump laser 新產能大規模開出",
       "source_events": [
-        { "date": "2026-06-06", "event": "CIEN Q2 FY2026 法說：backlog $7.7B（QoQ +$600M），pump laser + modem 短缺，首個 multi-rail hyperscaler 設計勝出", "source": "SEC EDGAR 8-K + Motley Fool transcript" }
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026 法說：backlog $7.7B（QoQ +$600M），pump laser + modem 短缺，首個 multi-rail hyperscaler 設計勝出", "source": "SEC EDGAR 8-K + Motley Fool transcript" },
+        { "date": "2026-06-06", "event": "COHR Q3 FY2026 法說：InP 產能 2026 底翻倍、2027 底再翻倍；pump laser 短缺 2026Q4 開始緩解", "source": "Motley Fool transcript" }
       ],
-      "edges_flag": "⚑ edges.json 建議確認：COHR 作為 pump laser 供應商給 CIEN，weight 可從 0.30 升至 0.45",
       "audit_status": "audited"
     },
     {
@@ -178,6 +180,44 @@
         { "date": "2026-06-06", "event": "INS-002 confidence 0.74，黃仁勳訪韓不改變核心邏輯", "source": "ai-infra-researcher" }
       ],
       "audit_status": "audited"
+    },
+    {
+      "id": "cpo_photonics",
+      "display_name": "共封裝光學（CPO）",
+      "theme": "AI_capex_cycle",
+      "supply_demand": "需求加速（進入主動部署協議）",
+      "supply_demand_condition": "IF 超大雲端 GPU cluster TDP > 1000W AND 插拔式光模組佈線複雜度超過機械極限 THEN CPO 採購比例 QoQ > 5%",
+      "key_players": [
+        { "ticker": "COHR", "role": "領導廠商（NVDA 主要 CPO 供應商）", "note": "NVDA 20億美元股權投資 + LTA 至本十年末；high-power CW laser 為核心元件" },
+        { "ticker": "MRVL", "role": "CPO 晶片整合廠商", "note": "Marvell 提供 CPO 用光子晶片" },
+        { "ticker": "INTC", "role": "矽光子技術（Intel Silicon Photonics）", "note": "Intel 自有矽光子，但 CPO 商業化進度落後" }
+      ],
+      "bottlenecks": [
+        { "item": "系統整合複雜度", "severity": "高", "note": "CPO 需重新設計機架，hyperscaler 需要大量工程驗證，2026-2027 仍在爬坡" },
+        { "item": "高功率 CW laser 良率", "severity": "中", "note": "COHR 正在擴產，2026 底 InP 翻倍有助緩解" }
+      ],
+      "substitution_risk": {
+        "threat": "自由空間光通訊（FSO）超長距替代",
+        "timeline": "2030+",
+        "severity": "低",
+        "condition": "技術成熟度遠低於 CPO，短期不構成替代"
+      },
+      "demand_drivers": [
+        "NVDA Blackwell / Vera Rubin GPU TDP 持續提升，插拔式光模組佈線達物理極限",
+        "NVDA-COHR 多年供應協議確認 CPO 量產路線",
+        "Hyperscaler DCI 帶寬需求 + 低延遲要求"
+      ],
+      "key_metrics": {
+        "nvda_investment": "20億美元股權投資（2026-05）",
+        "lta_duration": "至本十年末（LTA）",
+        "cohr_inp_expansion": "2026底翻倍，2027底再翻倍（4x over 2 years）"
+      },
+      "confidence": 0.78,
+      "expires_if": "NVDA 轉向其他 CPO 供應商 OR GPU TDP 成長停滯 OR 插拔式光模組出現突破性小型化",
+      "source_events": [
+        { "date": "2026-06-06", "event": "COHR Q3 FY2026：NVDA 20億投資 + CPO LTA 至本十年末；orders reaching CY2028，record bookings", "source": "Motley Fool transcript + SEC EDGAR" }
+      ],
+      "audit_status": "pending"
     }
   ]
 }

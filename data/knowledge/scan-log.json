@@ -7,6 +7,21 @@
   },
   "raw_fetched": [
     {
+      "ticker": "COHR",
+      "doc_type": "transcript",
+      "period": "Q3FY2026",
+      "fetch_date": "2026-06-06",
+      "file_path": "data/raw/COHR/transcript-Q3FY2026.txt",
+      "source": "Motley Fool + SEC EDGAR Exhibit 99.1",
+      "fallback": false,
+      "next_fetch_not_before": "2026-08-01",
+      "analysis_done": {
+        "dsmm_analyst": "TC-005 updated (InP relief timeline added), TC-006 new (CPO deployment chain)",
+        "industry_knowledge": "optical_transceiver CPO timeline updated (提前至 2026), pump laser severity 高→中, cpo_photonics new node",
+        "edges": "NVDA→COHR estimated false, CPO→COHR_PLUGGABLE new edge"
+      }
+    },
+    {
       "ticker": "CIEN",
       "doc_type": "transcript",
       "period": "Q2FY2026",

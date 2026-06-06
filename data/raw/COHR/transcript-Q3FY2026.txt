@@ -1,0 +1,49 @@
+# SOURCE: Motley Fool https://www.fool.com/earnings/call-transcripts/2026/05/06/coherent-cohr-q3-2026-earnings-transcript/
+# FETCHED: 2026-06-06
+# PERIOD: Q3 FY2026 (ended March 31, 2026), call date May 6, 2026
+# FALLBACK: false
+
+=== FINANCIAL RESULTS ===
+Revenue: $1.806B (+20.5% YoY, +7.1% QoQ)
+Non-GAAP gross margin: 39.6% (+105bps YoY)
+Non-GAAP EPS: $1.41 (+$0.50 YoY)
+Operating margin (GAAP): 11.1% (+633bps YoY)
+
+Datacom & Communications: 75% of revenue, +41% YoY, +37% YoY DataCenter segment, second consecutive quarter of double-digit sequential growth
+
+=== Q4 FY2026 GUIDANCE ===
+Revenue: $1.91B - $2.05B (QoQ +5% to +13%)
+Non-GAAP gross margin: 39%-41%
+Non-GAAP EPS: $1.52 - $1.72
+
+=== 1.6T TRANSCEIVER ===
+"1.6T transceivers ramp rapidly through the balance of this calendar year and into next year as a broad range of customers adopt 1.6T"
+"1.6T pricing is higher than 800G" → margin accretive
+"1.6T to be beneficial to transceiver gross margin"
+"EML and SiPho 1.6T transceivers offer similar gross margin profiles"
+
+=== NVDA STRATEGIC PARTNERSHIP ===
+"NVIDIA's $2 billion equity investment in Coherent, Inc. and a multiyear supply agreement extending through the end of the decade"
+Agreement covers "multiple CPO-related products including our high-power CW laser"
+→ COHR becomes NVDA's primary CPO supplier
+
+=== CPO TIMELINE ===
+Orders reaching into CY2028, LTAs (long-term agreements) to end of decade
+→ CPO timeline pulled forward from "2028-2030" to active ramp now
+
+=== InP CAPACITY EXPANSION (pump laser relief) ===
+"Double internal indium phosphide output capacity by end of calendar 2026"
+"More than double again by end of calendar 2027"
+→ 4x InP capacity over 2 years (2026-2027)
+→ Pump laser shortage has a defined relief timeline
+
+=== SUPPLY CHAIN ===
+"Most of the components that go into our transceivers are internally sourced, which provides a buffer against external price increases"
+→ Vertical integration shields COHR from upstream cost pressure
+→ But this also means CIEN's pump laser shortage depends on COHR's own expansion pace
+
+=== BACKLOG / VISIBILITY ===
+"Record bookings"
+"Customer LTAs extending to the end of the decade"
+"Orders now reaching into calendar 2028"
+→ Multi-year demand visibility confirmed
