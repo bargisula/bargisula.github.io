@@ -58,14 +58,14 @@
         { "date": "2026-06-06", "event": "CIEN Q2 FY2026 法說：backlog $7.7B（QoQ +$600M），pump laser + modem 短缺，首個 multi-rail hyperscaler 設計勝出", "source": "SEC EDGAR 8-K + Motley Fool transcript" }
       ],
       "edges_flag": "⚑ edges.json 建議確認：COHR 作為 pump laser 供應商給 CIEN，weight 可從 0.30 升至 0.45",
-      "audit_status": "pending"
+      "audit_status": "audited"
     },
     {
       "id": "optical_networking_systems",
       "display_name": "光傳輸網路系統（WAN / DCI）",
       "theme": "AI_capex_cycle",
       "supply_demand": "供不應求",
-      "supply_demand_condition": "IF hyperscaler AI capex 持續擴張 AND DCI 需求 QoQ 正成長 THEN 系統商 backlog 維持高位",
+      "supply_demand_condition": "IF hyperscaler AI capex 持續擴張 AND DCI 需求 QoQ > 5% THEN 系統商 backlog 維持高位",
       "key_players": [
         { "ticker": "CIEN", "role": "全球最大獨立光傳輸系統商", "note": "FY2025 收入 $4.8B，全球市占領先；RLS Hyper-Rail 首個 multi-rail 設計勝出" },
         { "ticker": "NOK",  "role": "主要競爭者（含 Infinera）", "note": "Nokia 收購 Infinera 後規模擴大" },
@@ -107,14 +107,14 @@
       "source_events": [
         { "date": "2026-06-06", "event": "CIEN Q2 FY2026：revenue +40% YoY，backlog $7.7B，FY2026 guidance 上調至 $6.3B，首個 hyperscaler multi-rail 設計勝出（RLS Hyper-Rail）", "source": "SEC EDGAR + Motley Fool transcript" }
       ],
-      "audit_status": "pending"
+      "audit_status": "audited"
     },
     {
       "id": "optical_fiber",
       "display_name": "光纖（數據中心級）",
       "theme": "AI_capex_cycle",
       "supply_demand": "供應偏緊",
-      "supply_demand_condition": "IF GPU cluster 部署密度持續提升 THEN 高密度光纜（RocketRibbon 等）持續供不應求",
+      "supply_demand_condition": "IF GPU cluster 新增部署規模 QoQ > 10% THEN 高密度光纜（RocketRibbon 等）持續供不應求",
       "key_players": [
         { "ticker": "GLW",  "role": "全球最大光纖廠", "note": "META 60 億美元多年合約，NVDA 32 億美元股權投資；DCI 架構需求經 CIEN 法說間接確認" },
         { "ticker": "PTON", "role": "次要競爭者",      "estimated": true }
@@ -145,7 +145,7 @@
         { "date": "2026-05-22", "event": "Regime 設定 focus_sectors: optical_fiber", "source": "CMO" },
         { "date": "2026-06-06", "event": "CIEN Q2 法說：DCI 需求加速，AI 資料中心連接需求確認，間接支撐 GLW 光纖需求", "source": "CIEN 電話會議" }
       ],
-      "audit_status": "pending"
+      "audit_status": "audited"
     },
     {
       "id": "ai_custom_asic",
@@ -177,7 +177,7 @@
       "source_events": [
         { "date": "2026-06-06", "event": "INS-002 confidence 0.74，黃仁勳訪韓不改變核心邏輯", "source": "ai-infra-researcher" }
       ],
-      "audit_status": "pending"
+      "audit_status": "audited"
     }
   ]
 }

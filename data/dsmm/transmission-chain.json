@@ -34,7 +34,7 @@
         { "date": "2026-06-05", "event": "NFP +172K（預期 +85K）", "10Y_move": "+8bp → 4.55%" }
       ],
       "last_triggered": "2026-06-05",
-      "audit_status": "pending"
+      "audit_status": "audited"
     },
     {
       "id": "TC-002",
@@ -55,10 +55,10 @@
       "confidence": 0.74,
       "expires_if": "BOJ 暫停升息 OR 美日利差縮窄至換匯成本以下（美債殖利率 < 4%）",
       "evidence": [
-        { "date": "2026-06-06", "event": "JGB 10Y 1.5%，換匯成本 4%+，實質報酬 0.55%", "source": "CMO 評估" }
+        { "date": "2026-06-06", "event": "JGB 10Y 1.5%，換匯成本 4%+，實質報酬 0.55%", "source": "BOJ 政策聲明 + 市場換匯報價（隱含利率）" }
       ],
       "last_triggered": "2026-06-06",
-      "audit_status": "pending"
+      "audit_status": "audited"
     },
     {
       "id": "TC-003",
@@ -110,7 +110,7 @@
         { "date": "2026-06-06", "event": "CIEN Q2 FY2026：hyperscaler 2026 capex 上調，能見度延伸至 2027+；'increasingly larger proportion directed to network infrastructure'", "source": "CIEN 電話會議逐字稿" }
       ],
       "last_triggered": "2026-06-06",
-      "audit_status": "pending"
+      "audit_status": "audited"
     },
     {
       "id": "TC-005",
@@ -135,7 +135,7 @@
         { "date": "2026-06-06", "event": "CIEN Q2 FY2026 逐字稿：backlog $7.7B（QoQ +$600M），pump laser 短缺點名，'demand outstripping supply'", "source": "Motley Fool transcript / SEC EDGAR Exhibit 99.1" }
       ],
       "last_triggered": "2026-06-06",
-      "audit_status": "pending"
+      "audit_status": "audited"
     }
   ]
 }

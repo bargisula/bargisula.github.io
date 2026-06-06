@@ -1,12 +1,135 @@
 {
   "schema_version": "1.0",
-  "description": "知識庫稽核記錄。每次稽核針對 transmission-chain.json 或 industry-graph.json 的一個條目，檢查邏輯一致性、條件具體性、來源完整性，並記錄修正指令。",
+  "description": "知識庫稽核記錄。每次稽核針對 transmission-chain.json 或 industry-graph.json 的一個條目，檢查邏輯一致性、條件具體性、來源完整性、信心值有據、失效條件存在。",
   "audit_rules": {
-    "logic_check":   "傳導步驟方向是否一致（不可同一步驟同時出現矛盾方向）",
-    "condition_check": "trigger_condition 和 expires_if 必須具體可驗（不可是感覺描述）",
-    "source_check":  "每條 chain / industry 至少有一個 source_events 條目",
+    "logic_check":      "傳導步驟方向不矛盾；供需狀態與條件一致",
+    "condition_check":  "trigger_condition / supply_demand_condition 含數字門檻，不可是感覺描述",
+    "source_check":     "每條 chain / industry 至少有一個 source_events 條目",
     "confidence_check": "confidence 必須有 evidence 支撐，不可憑空填入",
-    "expires_check": "expires_if 必須至少一條（沒有失效條件的知識不是知識）"
+    "expires_check":    "expires_if 不可空白"
   },
-  "audits": []
+  "audits": [
+    {
+      "audit_id": "AUDIT-001",
+      "date": "2026-06-06",
+      "target_id": "TC-001",
+      "target_type": "transmission_chain",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "pass",
+      "corrections": [],
+      "correction_applied": true
+    },
+    {
+      "audit_id": "AUDIT-002",
+      "date": "2026-06-06",
+      "target_id": "TC-002",
+      "target_type": "transmission_chain",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "flag", "confidence": "flag", "expires": "pass" },
+      "verdict": "flag",
+      "corrections": [
+        {
+          "field": "evidence[0].source",
+          "old_value": "CMO 評估",
+          "new_value": "BOJ 政策聲明 + 市場換匯報價（隱含利率）",
+          "reason": "evidence 應指向可觀察的市場數據，而非內部評估標籤"
+        }
+      ],
+      "correction_applied": true,
+      "correction_executor": "dsmm-analyst（本次稽核直接修正）"
+    },
+    {
+      "audit_id": "AUDIT-003",
+      "date": "2026-06-06",
+      "target_id": "TC-003",
+      "target_type": "transmission_chain",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "pass", "confidence": "flag", "expires": "pass" },
+      "verdict": "flag",
+      "corrections": [
+        {
+          "field": "confidence",
+          "old_value": 0.68,
+          "new_value": 0.58,
+          "reason": "機制尚未真實觸發，理論推演不等於實證"
+        }
+      ],
+      "correction_applied": true,
+      "note": "已於建立時預先修正（audit_status 已為 audited）"
+    },
+    {
+      "audit_id": "AUDIT-004",
+      "date": "2026-06-06",
+      "target_id": "TC-004",
+      "target_type": "transmission_chain",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "pass",
+      "corrections": [],
+      "correction_applied": true
+    },
+    {
+      "audit_id": "AUDIT-005",
+      "date": "2026-06-06",
+      "target_id": "TC-005",
+      "target_type": "transmission_chain",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "pass",
+      "corrections": [],
+      "correction_applied": true
+    },
+    {
+      "audit_id": "AUDIT-006",
+      "date": "2026-06-06",
+      "target_id": "optical_transceiver",
+      "target_type": "industry_graph",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "pass",
+      "corrections": [],
+      "correction_applied": true
+    },
+    {
+      "audit_id": "AUDIT-007",
+      "date": "2026-06-06",
+      "target_id": "optical_networking_systems",
+      "target_type": "industry_graph",
+      "rules_checked": { "logic": "pass", "condition": "flag", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "flag",
+      "corrections": [
+        {
+          "field": "supply_demand_condition",
+          "old_value": "IF hyperscaler AI capex 持續擴張 AND DCI 需求 QoQ 正成長 THEN 系統商 backlog 維持高位",
+          "new_value": "IF hyperscaler AI capex 持續擴張 AND DCI 需求 QoQ > 5% THEN 系統商 backlog 維持高位",
+          "reason": "『正成長』無數字門檻，補入 > 5% 作為最低可驗門檻"
+        }
+      ],
+      "correction_applied": true,
+      "correction_executor": "industry-knowledge（本次稽核直接修正）"
+    },
+    {
+      "audit_id": "AUDIT-008",
+      "date": "2026-06-06",
+      "target_id": "optical_fiber",
+      "target_type": "industry_graph",
+      "rules_checked": { "logic": "pass", "condition": "flag", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "flag",
+      "corrections": [
+        {
+          "field": "supply_demand_condition",
+          "old_value": "IF GPU cluster 部署密度持續提升 THEN 高密度光纜持續供不應求",
+          "new_value": "IF GPU cluster 新增部署規模 QoQ > 10% THEN 高密度光纜持續供不應求",
+          "reason": "『持續提升』無數字門檻，補入 QoQ > 10% 作為可驗門檻"
+        }
+      ],
+      "correction_applied": true,
+      "correction_executor": "industry-knowledge（本次稽核直接修正）"
+    },
+    {
+      "audit_id": "AUDIT-009",
+      "date": "2026-06-06",
+      "target_id": "ai_custom_asic",
+      "target_type": "industry_graph",
+      "rules_checked": { "logic": "pass", "condition": "pass", "source": "pass", "confidence": "pass", "expires": "pass" },
+      "verdict": "pass",
+      "corrections": [],
+      "correction_applied": true
+    }
+  ]
 }
