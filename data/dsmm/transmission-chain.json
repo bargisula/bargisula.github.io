@@ -1,16 +1,20 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "description": "DSMM 五市場傳導鏈結構化存儲。每條 chain 是一個可被驗偽的因果路徑，帶觸發條件、方向、信心值、失效條件。由 dsmm-analyst agent 維護。",
-  "market_speed_order": [
-    "金融市場",
-    "貨幣市場",
-    "商品市場",
-    "勞動市場",
-    "財政動態"
-  ],
-  "last_updated": "2026-06-06",
-  "updated_by": "dsmm-pipeline 架構重構（TC-005/TC-006 移至 industry-graph，傳導鏈僅保留跨市場宏觀路徑）",
-  "_scope_note": "傳導鏈只紀錄跨市場宏觀傳遞（金融↔貨幣↔商品↔勞動↔財政）。產業上下游動態（pump laser 短缺、CPO 替代）屬商品市場內部微觀，存於 data/knowledge/industry-graph.json。",
+  "_confidence_schema": {
+    "logic_score": "因果推理品質（0-1），由分析師/稽核員設定，反映邏輯嚴密度與機制可信度",
+    "evidence_score": "實證驗證程度（0-1），由 dsmm-verify 更新，反映 VCP 累積確認率",
+    "confidence": "展示用綜合分數 = logic_score * 0.7 + evidence_score * 0.3（evidence_score=0時等於 logic_score * 0.7）",
+    "update_rule": {
+      "CONFIRMED": "evidence_score = evidence_score * 0.9 + 1.0 * 0.1",
+      "WRONG": "evidence_score = evidence_score * 0.8",
+      "PARTIAL": "不動"
+    }
+  },
+  "market_speed_order": ["金融市場","貨幣市場","商品市場","勞動市場","財政動態"],
+  "last_updated": "2026-06-07",
+  "updated_by": "C-1 修正：confidence 拆分為 logic_score + evidence_score",
+  "_scope_note": "傳導鏈只紀錄跨市場宏觀傳遞（金融↔貨幣↔商品↔勞動↔財政）。產業上下游動態存於 data/knowledge/industry-graph.json。",
   "chains": [
     {
       "id": "TC-001",
@@ -29,10 +33,14 @@
         { "asset": "高倍數成長股",          "direction": "估值壓縮", "magnitude": "5-10% NTM P/E 收縮" },
         { "asset": "GLW / 光纖基建股",     "direction": "進場窗口縮窄", "magnitude": "接近 4.6% 上限" }
       ],
-      "confidence": 0.82,
+      "logic_score": 0.85,
+      "evidence_score": 0.10,
+      "confidence": 0.62,
+      "_confidence_note": "logic_score 高（NFP→利率傳導機制清晰）；evidence_score 低（僅 VCP-003 DXY CONFIRMED，VCP-001/002 待驗）",
       "expires_if": "Fed 明確啟動降息循環 OR 失業率突破 5%",
       "evidence": [
-        { "date": "2026-06-05", "event": "NFP +172K（預期 +85K）", "10Y_move": "+8bp → 4.55%" }
+        { "date": "2026-06-05", "event": "NFP +172K（預期 +85K）", "10Y_move": "+8bp → 4.55%" },
+        { "date": "2026-06-07", "event": "VCP-003 DXY CONFIRMED（+0.67% vs 閾值 +0.3%）", "verdict": "CONFIRMED" }
       ],
       "last_triggered": "2026-06-05",
       "audit_status": "audited"
@@ -44,16 +52,19 @@
       "trigger_condition": "JGB 殖利率 > 1.2% AND 美日換匯成本 > 3.5%",
       "entry_market": "貨幣市場",
       "steps": [
-        { "step": 1, "market": "貨幣市場",  "signal": "BOJ 升息，JGB 殖利率上升",          "direction": "→" },
+        { "step": 1, "market": "貨幣市場",  "signal": "BOJ 升息，JGB 殖利率上升",                              "direction": "→" },
         { "step": 2, "market": "金融市場",  "signal": "日本機構美債實質報酬接近零（4.55%-4%=0.55% < JGB 1.5%）", "direction": "→" },
-        { "step": 3, "market": "金融市場",  "signal": "1.1 兆美元美債持倉結構性減碼，底層賣壓持續", "direction": "→" },
-        { "step": 4, "market": "貨幣市場",  "signal": "長端殖利率上行壓力疊加，非景氣循環驅動", "direction": "→" }
+        { "step": 3, "market": "金融市場",  "signal": "1.1 兆美元美債持倉結構性減碼，底層賣壓持續",             "direction": "→" },
+        { "step": 4, "market": "貨幣市場",  "signal": "長端殖利率上行壓力疊加，非景氣循環驅動",                 "direction": "→" }
       ],
       "asset_implications": [
-        { "asset": "10Y 美債",    "direction": "殖利率↑", "magnitude": "結構性底部抬升，估計 15-30bp 貢獻" },
+        { "asset": "10Y 美債",    "direction": "殖利率↑",     "magnitude": "結構性底部抬升，估計 15-30bp 貢獻" },
         { "asset": "美元/日圓",   "direction": "日圓緩步升值", "magnitude": "每次 BOJ 升息後" }
       ],
-      "confidence": 0.74,
+      "logic_score": 0.78,
+      "evidence_score": 0.00,
+      "confidence": 0.55,
+      "_confidence_note": "logic_score 中高（機制清晰但依賴 BOJ 政策路徑）；evidence_score 0（尚無 VCP 驗證）",
       "expires_if": "BOJ 暫停升息 OR 美日利差縮窄至換匯成本以下（美債殖利率 < 4%）",
       "evidence": [
         { "date": "2026-06-06", "event": "JGB 10Y 1.5%，換匯成本 4%+，實質報酬 0.55%", "source": "BOJ 政策聲明 + 市場換匯報價（隱含利率）" }
@@ -68,23 +79,26 @@
       "trigger_condition": "10Y 殖利率單月上行 > 25bp",
       "entry_market": "金融市場",
       "steps": [
-        { "step": 1, "market": "金融市場",  "signal": "利率上行 → 屋主不提前還款 → MBS 現金流延後", "direction": "→" },
-        { "step": 2, "market": "金融市場",  "signal": "MBS 存續期自動延長 → 持有機構存續期超標",    "direction": "→" },
-        { "step": 3, "market": "金融市場",  "signal": "機構規則強制賣長債（避險操作）",               "direction": "→" },
-        { "step": 4, "market": "金融市場",  "signal": "長債供給增加 → 殖利率再升 → 循環",           "direction": "↻ 自我強化" }
+        { "step": 1, "market": "金融市場",  "signal": "利率上行 → 屋主不提前還款 → MBS 現金流延後",  "direction": "→" },
+        { "step": 2, "market": "金融市場",  "signal": "MBS 存續期自動延長 → 持有機構存續期超標",     "direction": "→" },
+        { "step": 3, "market": "金融市場",  "signal": "機構規則強制賣長債（避險操作）",                "direction": "→" },
+        { "step": 4, "market": "金融市場",  "signal": "長債供給增加 → 殖利率再升 → 循環",            "direction": "↻ 自我強化" }
       ],
       "asset_implications": [
         { "asset": "30Y 美債",   "direction": "殖利率↑↑", "magnitude": "自我強化，每 25bp 觸發約 500-800 億機械賣出" },
         { "asset": "MBS 資產",   "direction": "價格↓",    "magnitude": "負凸性放大跌幅" }
       ],
-      "confidence": 0.58,
+      "logic_score": 0.72,
+      "evidence_score": 0.00,
+      "confidence": 0.50,
+      "_confidence_note": "logic_score 中（機制真實但閾值條件嚴苛，目前 8bp 遠未達 25bp）；evidence_score 0（從未真實觸發）",
       "expires_if": "Fed 宣布購買 MBS / 利率下行超過 30bp / 屋主還款率回升",
       "evidence": [
-        { "date": "2026-06-06", "event": "10Y 4.55%，8bp 尚未達大規模閾值，CPI 06/10 為觀察點", "source": "CMO 評估" }
+        { "date": "2026-06-06", "event": "10Y 4.55%，8bp 尚未達大規模閾值", "source": "CMO 評估" }
       ],
       "last_triggered": null,
       "threshold_note": "目前 8bp，閾值約 25bp，尚未觸發大規模機制",
-      "audit_note": "confidence 已按稽核規則調降（機制尚未真實觸發，理論推演不等於實證）",
+      "audit_note": "logic_score 保守設定：機制尚未真實觸發，理論推演不等於實證",
       "audit_status": "audited"
     },
     {
@@ -94,30 +108,34 @@
       "trigger_condition": "任一超大雲端（MSFT/GOOG/META/AMZN）單季 capex 指引 QoQ > 10%",
       "entry_market": "商品市場",
       "steps": [
-        { "step": 1, "market": "商品市場",  "signal": "Hyperscaler AI 資本支出加速",          "direction": "→" },
-        { "step": 2, "market": "商品市場",  "signal": "GPU / ASIC 訂單增加 → 光互連需求拉升", "direction": "→" },
-        { "step": 3, "market": "商品市場",  "signal": "光纖、先進封裝、電力設備供不應求",      "direction": "→" },
-        { "step": 4, "market": "金融市場",  "signal": "相關供應商股價重估，backlog 擴大",      "direction": "→" }
+        { "step": 1, "market": "商品市場",  "signal": "Hyperscaler AI 資本支出加速",           "direction": "→" },
+        { "step": 2, "market": "商品市場",  "signal": "GPU / ASIC 訂單增加 → 光互連需求拉升",  "direction": "→" },
+        { "step": 3, "market": "商品市場",  "signal": "光纖、先進封裝、電力設備供不應求",       "direction": "→" },
+        { "step": 4, "market": "金融市場",  "signal": "相關供應商股價重估，backlog 擴大",       "direction": "→" }
       ],
       "asset_implications": [
         { "asset": "NVDA / AVGO",        "direction": "↑", "magnitude": "直接受益" },
         { "asset": "COHR / GLW / CIEN",  "direction": "↑", "magnitude": "光互連二階受益" },
         { "asset": "VRT / EATON",        "direction": "↑", "magnitude": "電力基建受益" }
       ],
-      "confidence": 0.88,
+      "logic_score": 0.88,
+      "evidence_score": 0.15,
+      "confidence": 0.66,
+      "_confidence_note": "logic_score 高（capex→backlog 傳導多法說確認）；evidence_score 低（VCP-007 Q3 hyperscaler capex 尚未到期，間接佐證多）",
+      "linked_industry_runs": ["IND-20260606-OPT"],
       "expires_if": "超大雲端 capex 指引連續兩季下修 OR AI ROI 敘事崩潰",
       "evidence": [
-        { "date": "2026-05-22", "event": "Regime 設定 AI_capex_cycle，focus_sectors 含 AI_infrastructure", "source": "CMO" },
+        { "date": "2026-05-22", "event": "Regime 設定 AI_capex_cycle", "source": "CMO" },
         { "date": "2026-06-06", "event": "CIEN Q2 FY2026：hyperscaler capex 上調，能見度至 2027+", "source": "CIEN 逐字稿" },
-        { "date": "2026-06-06", "event": "AVGO Q2 FY2026：AI $10.8B +143%，6 核心客戶（含 Anthropic/OpenAI），訂單/出貨 >3x，FY2027 $100B 目標重申，Q3 指引 $16B", "source": "AVGO 逐字稿" }
+        { "date": "2026-06-06", "event": "AVBO Q2 FY2026：AI $10.8B +143%，Q3 指引 $16B", "source": "AVGO 逐字稿" }
       ],
       "last_triggered": "2026-06-06",
       "audit_status": "audited"
     }
   ],
   "_archived": {
-    "_note": "TC-005/TC-006 已於 2026-06-06 移出傳導鏈，原因：兩條鏈均為商品市場內部微觀動態（產業上下游），不涉及跨市場宏觀傳遞，應存於 data/knowledge/industry-graph.json 的 optical_transceiver / cpo_photonics 節點。",
-    "TC-005_moved_to": "industry-graph.json > optical_transceiver > bottlenecks + TC-005 remains as industry knowledge",
-    "TC-006_moved_to": "industry-graph.json > cpo_photonics > substitution_risk + edges.json > CPO→COHR_PLUGGABLE"
+    "_note": "TC-005/TC-006 已於 2026-06-06 移出傳導鏈，存於 data/knowledge/industry-graph.json。",
+    "TC-005_moved_to": "industry-graph.json > optical_transceiver",
+    "TC-006_moved_to": "industry-graph.json > cpo_photonics"
   }
 }

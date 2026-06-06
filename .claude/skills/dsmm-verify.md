@@ -66,18 +66,56 @@ overall_score = sum(score for score not null) / count(score not null)
 
 ### Step 3：更新傳導鏈信心值
 
-讀取 `data/dsmm/transmission-chain.json`。
+讀取 `data/dsmm/transmission-chain.json`（schema v2.0，有 `logic_score` + `evidence_score`）。
 
-對每個有 `tc_reference` 的已驗證 checkpoint：
+對每個有 `tc_reference` 的已驗證 checkpoint，更新對應 TC 的 `evidence_score`：
 
 ```
-CONFIRMED → tc.confidence = tc.confidence * 0.95 + 1.0 * 0.05（小幅上調）
-WRONG     → tc.confidence = tc.confidence * 0.90（下調，幅度較大）
+CONFIRMED → evidence_score = evidence_score * 0.9 + 1.0 * 0.1
+WRONG     → evidence_score = evidence_score * 0.8
 PARTIAL   → 不動
 INVALIDATED → 不動
 ```
 
-更新 transmission-chain.json 中對應 chain 的 `confidence` 和 `evidence` 欄位（新增驗證事件記錄）。
+同步重算 `confidence`（展示用）：
+```
+confidence = logic_score * 0.7 + evidence_score * 0.3
+```
+
+更新 transmission-chain.json 中對應 chain 的 `evidence_score`、`confidence` 和 `evidence` 欄位（新增驗證事件記錄）。
+
+### Step 3b：跨流水線信號輸出（C-2）
+
+若此次有任何 TC-004 相關 VCP 被裁定（CONFIRMED 或 WRONG），寫入跨流水線信號：
+
+```bash
+# 寫入 data/dsmm/cross-signals.json
+```
+
+```json
+{
+  "last_updated": "YYYY-MM-DD",
+  "signals": [
+    {
+      "source_run": "{run_id}",
+      "tc": "TC-004",
+      "vcp_id": "VCP-007",
+      "verdict": "CONFIRMED",
+      "signal_date": "YYYY-MM-DD",
+      "adjustment_for_industry": {
+        "dimension": "需求",
+        "direction": "+0.02",
+        "reason": "TC-004 Q3 hyperscaler capex CONFIRMED，強化光傳輸需求斜率"
+      },
+      "linked_industry_runs": ["IND-20260606-OPT"]
+    }
+  ]
+}
+```
+
+若 `cross-signals.json` 已存在，**新增**到 `signals` 陣列，不覆蓋舊記錄。
+
+`/industry-verify` 會自動讀取此檔，對 `linked_industry_runs` 內的產業論點套用 `adjustment`。
 
 ### Step 4：系統智慧指標（每 5 次驗證觸發一次）
 
