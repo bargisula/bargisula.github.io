@@ -1,0 +1,47 @@
+# SOURCE: Motley Fool https://www.fool.com/earnings/call-transcripts/2026/06/05/ciena-cien-q2-2026-earnings-transcript/
+# FETCHED: 2026-06-06
+# PERIOD: Q2 FY2026 (ended May 2, 2026), call date June 4, 2026
+# FALLBACK: false
+
+=== FINANCIAL RESULTS ===
+Revenue: $1.57B (+40% YoY, vs $1.13B Q2 FY2025)
+Adjusted EPS: $1.64 (+290% YoY)
+Gross margin (non-GAAP): 44.9% (+3.9pp YoY)
+Operating margin (non-GAAP): 19.5% (+11.3pp YoY)
+EBITDA (non-GAAP): $341.8M (+192.9% YoY)
+
+Revenue by segment:
+- Optical Networking: $1,099.8M (70.0% of total, vs 68.7% prior year)
+- Routing and Switching: $174.2M (11.1%)
+- Platform Software: $93.9M (6.0%)
+- Global Services: $179.4M (11.4%)
+
+Customer concentration: Two customers >10% of revenue = 34.0% combined
+
+=== GUIDANCE ===
+Q3 FY2026: $1.625B ±$50M revenue; non-GAAP gross margin 45% ±50bps; op margin 19-20%
+FY2026 raised: $6.3B ±$100M (+32% YoY at midpoint); non-GAAP gross margin 44.5-45%; op margin ~19%
+Capex: $250-275M planned
+
+=== BACKLOG & SUPPLY-DEMAND ===
+Backlog: $7.7B (record), QoQ +$600M from Q1 FY2026
+"Management expects backlog to reach even higher levels by year-end"
+"We continue to see an imbalance of supply not keeping pace with demand"
+"As soon as we get them [components], they're going out the door"
+Supply constraints: modem/CDM shortages, ongoing pump laser shortages
+80%+ of hardware backlog converts to revenue within 12 months → visibility into 2027
+
+=== HYPERSCALER / AI DEMAND ===
+"The largest hyperscalers have increased their 2026 capital expenditures with indications of continued expansion into 2027 and beyond"
+"An increasingly larger proportion of that spend will be directed towards network infrastructure" for AI workloads including "model training, data ingestion and inference"
+DCI (data center interconnect) gaining momentum — customers connecting AI data centers to monetize investments
+
+=== KEY TECHNOLOGY WIN ===
+"Awarded the industry's first multi-rail opportunity using Ciena's RLS Hyper-Rail solution to connect training data centers over distance"
+→ Hyperscaler multi-rail design win confirmed
+
+=== SUPPLY CHAIN SIGNALS (for edges.json / industry-graph) ===
+- Pump laser shortages → upstream constraint at InP laser suppliers (COHR is major pump laser supplier)
+- Modem/CDM shortages → component supply tightness
+- "Demand is outstripping supply, resulting in multi-year visibility and longer lead times"
+- Supply not keeping pace with demand across optical networking

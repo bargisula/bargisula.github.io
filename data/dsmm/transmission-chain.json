@@ -9,7 +9,7 @@
     "財政動態"
   ],
   "last_updated": "2026-06-06",
-  "updated_by": "dsmm-analyst",
+  "updated_by": "dsmm-analyst（CIEN Q2 FY2026 逐字稿觸發）",
   "chains": [
     {
       "id": "TC-001",
@@ -76,14 +76,15 @@
         { "asset": "30Y 美債",   "direction": "殖利率↑↑", "magnitude": "自我強化，每 25bp 觸發約 500-800 億機械賣出" },
         { "asset": "MBS 資產",   "direction": "價格↓",    "magnitude": "負凸性放大跌幅" }
       ],
-      "confidence": 0.68,
+      "confidence": 0.58,
       "expires_if": "Fed 宣布購買 MBS / 利率下行超過 30bp / 屋主還款率回升",
       "evidence": [
         { "date": "2026-06-06", "event": "10Y 4.55%，8bp 尚未達大規模閾值，CPI 06/10 為觀察點", "source": "CMO 評估" }
       ],
       "last_triggered": null,
       "threshold_note": "目前 8bp，閾值約 25bp，尚未觸發大規模機制",
-      "audit_status": "pending"
+      "audit_note": "confidence 已按稽核規則調降（機制尚未真實觸發，理論推演不等於實證）",
+      "audit_status": "audited"
     },
     {
       "id": "TC-004",
@@ -102,12 +103,38 @@
         { "asset": "COHR / GLW / CIEN",  "direction": "↑", "magnitude": "光互連二階受益" },
         { "asset": "VRT / EATON",        "direction": "↑", "magnitude": "電力基建受益" }
       ],
-      "confidence": 0.78,
+      "confidence": 0.83,
       "expires_if": "超大雲端 capex 指引連續兩季下修 OR AI ROI 敘事崩潰",
       "evidence": [
-        { "date": "2026-05-22", "event": "Regime 設定 AI_capex_cycle，focus_sectors 含 AI_infrastructure", "source": "CMO" }
+        { "date": "2026-05-22", "event": "Regime 設定 AI_capex_cycle，focus_sectors 含 AI_infrastructure", "source": "CMO" },
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：hyperscaler 2026 capex 上調，能見度延伸至 2027+；'increasingly larger proportion directed to network infrastructure'", "source": "CIEN 電話會議逐字稿" }
       ],
-      "last_triggered": "2026-05-22",
+      "last_triggered": "2026-06-06",
+      "audit_status": "pending"
+    },
+    {
+      "id": "TC-005",
+      "name": "光傳輸供應瓶頸 → 上游定價權上移",
+      "trigger": "光傳輸系統商 backlog 創新高且供應商零件短缺",
+      "trigger_condition": "光傳輸系統商 backlog QoQ > +$500M AND 點名零件短缺（pump laser / modem）",
+      "entry_market": "商品市場",
+      "steps": [
+        { "step": 1, "market": "商品市場",  "signal": "系統商（CIEN 等）backlog 創高，供不應求",              "direction": "→" },
+        { "step": 2, "market": "商品市場",  "signal": "上游零件（pump laser / InP / modem）持續短缺",        "direction": "→" },
+        { "step": 3, "market": "商品市場",  "signal": "上游供應商（COHR pump laser）交期延長，定價能力升",   "direction": "→" },
+        { "step": 4, "market": "金融市場",  "signal": "COHR / GLW 毛利率擴張預期，股價重估",                "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "COHR",  "direction": "↑", "magnitude": "pump laser 供應商，直接定價受益" },
+        { "asset": "GLW",   "direction": "↑", "magnitude": "光纖材料，DCI 架構需求確認" },
+        { "asset": "CIEN",  "direction": "↑（短期）/⚠️（長期）", "magnitude": "短期 backlog 創高；長期受限於零件取得速度" }
+      ],
+      "confidence": 0.76,
+      "expires_if": "pump laser 新產能開出 OR hyperscaler DCI 支出轉向 CPO（共封裝光學）",
+      "evidence": [
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026 逐字稿：backlog $7.7B（QoQ +$600M），pump laser 短缺點名，'demand outstripping supply'", "source": "Motley Fool transcript / SEC EDGAR Exhibit 99.1" }
+      ],
+      "last_triggered": "2026-06-06",
       "audit_status": "pending"
     }
   ]

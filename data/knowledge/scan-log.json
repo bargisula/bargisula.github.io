@@ -5,6 +5,23 @@
     "company_weeks": 8,
     "industry_weeks": 4
   },
+  "raw_fetched": [
+    {
+      "ticker": "CIEN",
+      "doc_type": "transcript",
+      "period": "Q2FY2026",
+      "fetch_date": "2026-06-06",
+      "file_path": "data/raw/CIEN/transcript-Q2FY2026.txt",
+      "source": "Motley Fool + SEC EDGAR Exhibit 99.1 + 99.2",
+      "fallback": false,
+      "char_count": 4200,
+      "next_fetch_not_before": "2026-08-01",
+      "analysis_done": {
+        "dsmm_analyst": "TC-004 updated (confidence 0.78→0.83), TC-005 new",
+        "industry_knowledge": "optical_transceiver updated (confidence 0.75→0.82), optical_networking_systems new node added"
+      }
+    }
+  ],
   "scanned": [
     {
       "scan_date": "2026-06-06",

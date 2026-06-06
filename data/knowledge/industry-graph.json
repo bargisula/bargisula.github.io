@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "description": "產業結構知識圖譜。每個產業節點含供需狀態、瓶頸、替代風險，帶條件句與信心值。由 industry-knowledge agent 維護。",
   "last_updated": "2026-06-06",
-  "updated_by": "industry-knowledge",
+  "updated_by": "industry-knowledge（CIEN Q2 FY2026 逐字稿觸發）",
   "industries": [
     {
       "id": "optical_transceiver",
@@ -13,32 +13,99 @@
       "key_players": [
         { "ticker": "COHR",  "role": "領導廠商",  "share_est": 0.35, "estimated": true },
         { "ticker": "FNSR",  "role": "主要競爭者", "share_est": 0.20, "estimated": true },
-        { "ticker": "CIEN",  "role": "系統整合商", "note": "下游客戶，非直接競爭" }
+        { "ticker": "CIEN",  "role": "下游系統整合商", "note": "客戶角色，pump laser / modem 短缺影響交期" }
       ],
       "bottlenecks": [
-        { "item": "InP（磷化銦）晶片產能",  "severity": "高",  "note": "800G 以上光模組核心材料，台積電不生產，COHR 自有產線" },
-        { "item": "封裝測試產能",            "severity": "中",  "note": "高速光模組對位精度要求高，良率爬坡慢" }
+        {
+          "item": "pump laser（InP 磷化銦激光器）",
+          "severity": "高",
+          "note": "CIEN Q2 FY2026 法說直接點名 pump laser shortage；COHR 是主要 pump laser 供應商，自有產線，短期難快速擴產",
+          "confirmed_by": "CIEN 電話會議 2026-06-04"
+        },
+        {
+          "item": "modem / CDM 模組",
+          "severity": "高",
+          "note": "CIEN 同場法說點名 modem/CDM shortages，與光模組瓶頸並列",
+          "confirmed_by": "CIEN 電話會議 2026-06-04"
+        },
+        {
+          "item": "封裝測試產能",
+          "severity": "中",
+          "note": "高速光模組對位精度要求高，良率爬坡慢"
+        }
       ],
       "substitution_risk": {
         "threat": "CPO（共封裝光學）",
         "timeline": "2028-2030",
         "severity": "高",
-        "note": "CPO 成熟後插拔式光模組需求將大幅下降，COHR / FNSR 商業模式受威脅",
+        "note": "CPO 成熟後插拔式光模組需求將大幅下降；但 CIEN 法說確認 hyperscaler 仍大量採購現有插拔式方案，2028 前替代壓力有限",
         "condition": "IF 超大雲端 CPO 採購比例 > 15% THEN 插拔式市場開始萎縮"
       },
       "demand_drivers": [
         "GPU cluster 800G/1.6T 後端網路互連",
-        "DCI（資料中心互連）擴張",
-        "hyperscaler multi-rail 架構設計勝出"
+        "DCI（資料中心互連）擴張——CIEN 確認 AI data center 連接需求加速",
+        "hyperscaler multi-rail 架構（CIEN Hyper-Rail 首個設計勝出）"
       ],
       "key_metrics": {
-        "backlog_signal": "CIEN book-to-bill 1.4（2026-Q2）→ 上游訂單持續增加",
-        "lead_time": "延長至 6-9 個月（supply_tightness 信號）"
+        "cien_backlog": "$7.7B（QoQ +$600M，2026-Q2，記錄高位）",
+        "cien_backlog_conversion": "80%+ 預計 12 個月內轉為營收（能見度延伸至 2027）",
+        "lead_time": "multi-year visibility，零件短缺導致交期持續延長",
+        "revenue_growth_yoy": "CIEN Q2 +40% YoY，Optical Networking +42% YoY"
       },
-      "confidence": 0.75,
-      "expires_if": "CPO 提前量產 OR hyperscaler capex 下修 > 15%",
+      "confidence": 0.82,
+      "expires_if": "CPO 提前量產 OR hyperscaler capex 下修 > 15% OR pump laser 新產能大規模開出",
       "source_events": [
-        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：backlog 7.7B，book-to-bill 1.4，首個 multi-rail 設計勝出", "source": "jade-scan" }
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026 法說：backlog $7.7B（QoQ +$600M），pump laser + modem 短缺，首個 multi-rail hyperscaler 設計勝出", "source": "SEC EDGAR 8-K + Motley Fool transcript" }
+      ],
+      "edges_flag": "⚑ edges.json 建議確認：COHR 作為 pump laser 供應商給 CIEN，weight 可從 0.30 升至 0.45",
+      "audit_status": "pending"
+    },
+    {
+      "id": "optical_networking_systems",
+      "display_name": "光傳輸網路系統（WAN / DCI）",
+      "theme": "AI_capex_cycle",
+      "supply_demand": "供不應求",
+      "supply_demand_condition": "IF hyperscaler AI capex 持續擴張 AND DCI 需求 QoQ 正成長 THEN 系統商 backlog 維持高位",
+      "key_players": [
+        { "ticker": "CIEN", "role": "全球最大獨立光傳輸系統商", "note": "FY2025 收入 $4.8B，全球市占領先；RLS Hyper-Rail 首個 multi-rail 設計勝出" },
+        { "ticker": "NOK",  "role": "主要競爭者（含 Infinera）", "note": "Nokia 收購 Infinera 後規模擴大" },
+        { "ticker": "CSCO", "role": "路由層競爭者",               "note": "部分 DCI 場景重疊" }
+      ],
+      "bottlenecks": [
+        {
+          "item": "pump laser 供應（上游 COHR）",
+          "severity": "高",
+          "note": "系統商被迫等待上游零件，'as soon as we get them, they're going out the door'"
+        },
+        {
+          "item": "modem / CDM 晶片供應",
+          "severity": "高",
+          "note": "DSP modem 為光傳輸系統核心，短缺與 pump laser 並列"
+        }
+      ],
+      "substitution_risk": {
+        "threat": "Hyperscaler 自建光網路（白牌方案）",
+        "timeline": "2029+",
+        "severity": "低",
+        "note": "光傳輸複雜度高，軟體 + 硬體整合難度大，短期 hyperscaler 仍依賴系統商",
+        "condition": "IF 超大雲端自建 DCI 佔比 > 30% THEN CIEN 市占承壓"
+      },
+      "demand_drivers": [
+        "AI 訓練資料中心 → 互連（multi-rail 架構）",
+        "AI 推論部署 → DCI 帶寬需求爆增",
+        "Hyperscaler 2026 capex 上調，能見度延伸至 2027+"
+      ],
+      "key_metrics": {
+        "backlog": "$7.7B（2026-Q2，記錄高位）",
+        "backlog_qoq_change": "+$600M",
+        "revenue_fy2026_guidance": "$6.3B（+32% YoY）",
+        "customer_concentration": "兩客戶合計 34%（各 > 10%）",
+        "gross_margin": "44.9%（non-GAAP，+3.9pp YoY）"
+      },
+      "confidence": 0.80,
+      "expires_if": "hyperscaler capex 連兩季下修 OR NOK/Infinera 搶走主要設計勝出 OR CPO 使系統商角色邊緣化",
+      "source_events": [
+        { "date": "2026-06-06", "event": "CIEN Q2 FY2026：revenue +40% YoY，backlog $7.7B，FY2026 guidance 上調至 $6.3B，首個 hyperscaler multi-rail 設計勝出（RLS Hyper-Rail）", "source": "SEC EDGAR + Motley Fool transcript" }
       ],
       "audit_status": "pending"
     },
@@ -49,7 +116,7 @@
       "supply_demand": "供應偏緊",
       "supply_demand_condition": "IF GPU cluster 部署密度持續提升 THEN 高密度光纜（RocketRibbon 等）持續供不應求",
       "key_players": [
-        { "ticker": "GLW",  "role": "全球最大光纖廠", "note": "META 60億美元多年合約，NVDA 32億美元股權投資" },
+        { "ticker": "GLW",  "role": "全球最大光纖廠", "note": "META 60 億美元多年合約，NVDA 32 億美元股權投資；DCI 架構需求經 CIEN 法說間接確認" },
         { "ticker": "PTON", "role": "次要競爭者",      "estimated": true }
       ],
       "bottlenecks": [
@@ -63,18 +130,20 @@
       },
       "demand_drivers": [
         "GPU cluster 機架內/機架間佈線密度增加",
+        "DCI 連接 AI 資料中心（CIEN Hyper-Rail 設計勝出確認此路線）",
         "資料中心園區擴建",
-        "美國製造政策補貼（CHIPS Act 延伸效應）"
+        "美國製造政策補貼"
       ],
       "key_metrics": {
         "entry_condition": "10Y 殖利率 ≤ 4.6%（GLW 進場條件上限）",
-        "current_10y": "4.55%（2026-06-06）"
+        "current_10y": "4.55%（2026-06-06）",
+        "buffer_remaining": "5bp"
       },
-      "confidence": 0.72,
+      "confidence": 0.74,
       "expires_if": "10Y > 4.6% 持續超過 4 週 OR GLW 毛利率連兩季下滑",
       "source_events": [
         { "date": "2026-05-22", "event": "Regime 設定 focus_sectors: optical_fiber", "source": "CMO" },
-        { "date": "2026-06-06", "event": "CIEN 展開：GLW DCI 架構需求確認", "source": "jade-report" }
+        { "date": "2026-06-06", "event": "CIEN Q2 法說：DCI 需求加速，AI 資料中心連接需求確認，間接支撐 GLW 光纖需求", "source": "CIEN 電話會議" }
       ],
       "audit_status": "pending"
     },
@@ -83,7 +152,7 @@
       "display_name": "AI 客製 ASIC",
       "theme": "AI_capex_cycle",
       "supply_demand": "需求加速",
-      "supply_demand_condition": "IF hyperscaler 在 AI 訓練支出中 ASIC 佔比持續上升 THEN AVGO / MRVL 訂單能見度維持",
+      "supply_demand_condition": "IF hyperscaler 在 AI 訓練支出中 ASIC 佔比 QoQ 增加 > 5% THEN AVGO / MRVL 訂單能見度維持",
       "key_players": [
         { "ticker": "AVGO", "role": "領導廠商（Google TPU / Meta MTIA）", "note": "網路層壟斷 + 訓練 ASIC 守城者" },
         { "ticker": "MRVL", "role": "追隨廠商（AWS Trainium 協力）" }
