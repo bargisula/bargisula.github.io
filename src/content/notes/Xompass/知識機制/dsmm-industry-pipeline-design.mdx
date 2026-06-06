@@ -164,6 +164,157 @@ Kill Switch：1 個 critical（AI capex 年增 < 10%）、2 個 major。
 
 ---
 
+## 自動抓資料：每個 Agent 如何取得數據
+
+分析流水線裡的數據來自三個層次，各自有不同的工具：
+
+### 層次一：靜態知識庫（本地 JSON）
+
+Agent 啟動時第一件事是讀本地 JSON，這是已沉澱的知識，不需要網路：
+
+```
+data/dsmm/transmission-chain.json    ← 傳導鏈結構與信心值
+data/knowledge/industry-graph.json   ← 產業上下游節點
+data/knowledge/edges.json            ← 節點間的因果邊
+data/dsmm/pipeline/{run_id}/*.json   ← 上游 agent 的輸出
+```
+
+這一層是「記憶」：過去分析的結論、傳導鏈的累積信心值、產業圖譜的已知邊。
+
+### 層次二：即時市場數據（WebSearch / WebFetch）
+
+驗證和即時分析需要抓外部數據。Agent 定義裡明確指定去哪裡取：
+
+| 數據 | 來源 | 用於 |
+|---|---|---|
+| 10Y 殖利率 | Yahoo Finance `^TNX` | VCP-001 驗證 |
+| DXY 美元指數 | Yahoo Finance `DX-Y.NYB` | VCP-003 驗證 |
+| FedWatch 降息預期 | CME FedWatch Tool | VCP-002 驗證 |
+| NFP / AHE 就業數據 | BLS Employment Situation | VCP-004/005 驗證 |
+| 住宅開工率 | Census Bureau Housing Starts | VCP-006 驗證 |
+| Hyperscaler capex | 財報電話會議（WebSearch） | VCP-007 / TC-004 更新 |
+| 財報逐字稿 | `data/raw/{TICKER}/` 或 WebSearch | 產業分析各棒 |
+
+<Callout type="data">
+**實際執行方式：** Agent 在需要外部數據時，直接呼叫 WebSearch 工具查詢（例如「DXY June 10 2026 closing price」），或用 WebFetch 抓取特定頁面。查到的數值填入 JSON 的 `actual` 欄位，再對照 `threshold` 判斷 CONFIRMED / WRONG。VCP-003 驗證（DXY）就是這樣完成的：搜尋到「NFP 後 DXY 跳升至 100.07」，計算 +0.67% > 閾值 +0.3%，裁定 CONFIRMED。
+</Callout>
+
+### 層次三：財報逐字稿（半結構化）
+
+產業分析的核心數據來源是法說會議逐字稿。Agent 需要從中挖出：
+
+- 管理層對需求能見度的表述（book-to-bill、backlog）
+- 供給瓶頸的點名（「我們的 pump laser 供應商產能有限」）
+- 設計勝出確認（「我們贏得了某 hyperscaler 的 multi-rail 合約」）
+- 技術路線圖（「CPO 預計 2027 進入量產」）
+
+逐字稿若已存在 `data/raw/{TICKER}/`，直接讀取；若無，由 WebSearch 補充關鍵片段。Agent 定義明確要求：法說引文必須標注出處，不能只說「管理層提到」。
+
+### 數據流完整圖
+
+```
+外部世界
+  BLS / CME / Yahoo Finance / 法說
+        ↓ WebSearch / WebFetch
+Agent 讀取並解析
+        ↓ 結構化寫入
+data/ 目錄 JSON（本地持久化）
+        ↓ import.meta.glob
+Astro 靜態頁面（build 時讀取）
+        ↓ git push
+GitHub Pages（公開可看）
+```
+
+---
+
+## 如何呼叫：兩種觸發方式
+
+### 方式一：Skill（slash command）——主動觸發
+
+Skill 是流水線的**入口**，存在 `.claude/skills/` 目錄。在 Claude Code 對話裡輸入：
+
+```bash
+/dsmm-pipeline NFP 2026-07-02：+188K（預期 +160K）
+/industry-pipeline 光傳輸系統 "CIEN 法說：backlog 創新高"
+/dsmm-verify RUN-20260606-2320
+```
+
+Skill 的角色是**編排器**：它建立 run ID、寫觸發事件 JSON、然後依序呼叫各 agent。它本身不做分析，只負責把正確的輸入交給正確的 agent、確認輸出後再往下傳。
+
+### 方式二：Agent（直接呼叫）——單棒執行
+
+Agent 存在 `.claude/agents/` 目錄。可以直接叫單一 agent 重跑某棒：
+
+```bash
+# 重跑競爭分析（例如有新法說數據進來）
+呼叫 industry-competition agent，重跑 IND-20260606-OPT 第 3 棒
+
+# 直接驗證特定 VCP
+呼叫 dsmm-verify，只更新 VCP-001
+```
+
+Agent 是**執行者**：它讀定義好的分析框架（`.md` 文件裡的指示），讀輸入 JSON，做分析，寫輸出 JSON。每個 agent 是無狀態的——每次呼叫從頭讀 `.md` 定義，不記得上次的分析細節。
+
+### 兩者的關係
+
+```
+使用者說：/dsmm-pipeline NFP +172K
+              ↓
+    dsmm-pipeline skill（編排器）
+    ├── 建立 run ID
+    ├── 寫 00-event.json
+    ├── 呼叫 market-financial agent → 讀事件，寫 01-financial.json
+    ├── 呼叫 market-monetary agent  → 讀 00+01，寫 02-monetary.json
+    ├── 呼叫 market-commodity agent → 讀 00+01+02，寫 03-commodity.json
+    ├── 呼叫 market-labor agent    → 讀 00~03，寫 04-labor.json
+    └── 呼叫 market-fiscal agent   → 讀 00~04，寫 05+06-summary.json
+              ↓
+    建立 verification JSON，顯示摘要
+```
+
+<Callout type="insight">
+**設計選擇：Skill vs Agent 分離的好處**是可以單獨重跑任何一棒，也可以跳過 skill 直接叫 agent 做一次性任務（例如重新分析某個 VCP 的數據，不需要跑完整流水線）。Skill 是工作流，Agent 是工具，分開讓系統更模組化。
+</Callout>
+
+### 檔案位置速查
+
+```
+.claude/
+  skills/
+    dsmm-pipeline.md      ← /dsmm-pipeline 的完整流程定義
+    dsmm-verify.md        ← /dsmm-verify 的驗證邏輯
+    industry-pipeline.md  ← /industry-pipeline 的完整流程定義
+  agents/
+    market-financial.md   ← 金融市場 agent 定義
+    market-monetary.md    ← 貨幣市場 agent 定義
+    market-commodity.md   ← 商品市場 agent 定義
+    market-labor.md       ← 勞動市場 agent 定義
+    market-fiscal.md      ← 財政動態 agent 定義
+    industry-demand.md    ← 需求斜率 agent 定義
+    industry-supply.md    ← 供給瓶頸 agent 定義
+    industry-competition.md ← 競爭格局 agent 定義
+    industry-technology.md  ← 技術替代 agent 定義
+    industry-thesis.md    ← 論點合成 agent 定義
+
+data/
+  dsmm/
+    pipeline/{run_id}/    ← 每次推演的 JSON（00~06）
+    verification/         ← VCP 驗證狀態
+    transmission-chain.json ← 傳導鏈結構與累積信心值
+  industry/
+    pipeline/{run_id}/    ← 每次產業分析的 JSON（00~06）
+    verification/         ← 產業 VCP 驗證狀態
+  knowledge/
+    industry-graph.json   ← 產業節點
+    edges.json            ← 因果邊
+
+src/pages/
+  dsmm/index.astro       ← DSMM 儀表板（/dsmm）
+  industry/index.astro   ← 產業分析儀表板（/industry）
+```
+
+---
+
 ## 兩條流水線的關係
 
 兩條線不是獨立的，它們在 TC-004 這個節點交會：
