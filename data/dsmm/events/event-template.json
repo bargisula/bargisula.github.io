@@ -1,0 +1,18 @@
+{
+  "_comment": "事件輸入模板。複製此檔，填寫後存為 EVT-YYYYMMDD-NNN.json，交給 dsmm-pipeline 處理。",
+  "event_id": "EVT-YYYYMMDD-001",
+  "date": "YYYY-MM-DD",
+  "title": "事件標題（30字內）",
+  "category": "macro|policy|earnings|geopolitical|technology|credit",
+  "shock_type": "demand|supply|monetary|fiscal|technology|geopolitical",
+  "entry_market": "金融市場|貨幣市場|商品市場|勞動市場|財政動態",
+  "magnitude": "small|medium|large",
+  "data": {
+    "raw": "原始數字或引文",
+    "key_numbers": {
+      "指標名": "數值 vs 預期"
+    }
+  },
+  "source": "BLS|Fed|ECB|BOJ|SEC|Bloomberg|Reuters|earnings call|other",
+  "injected_by": "user|secretary|news-scan|jade-scan"
+}
