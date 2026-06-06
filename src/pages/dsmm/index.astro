@@ -1,0 +1,277 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const summaryModules = import.meta.glob(
+  '../../../data/dsmm/pipeline/*/06-summary.json',
+  { eager: true }
+);
+const verifyModules = import.meta.glob(
+  '../../../data/dsmm/verification/*-verify.json',
+  { eager: true }
+);
+
+type CP = {
+  id: string; market: string; check_date: string; prediction: string;
+  actual: string | null; verdict: string | null; score: number | null;
+  tc_reference?: string;
+};
+type AssetImpl = { asset: string; direction: string; magnitude: string; confidence: number };
+type MarketInfo = { impact_level: string; time_horizon: string; key_signal: string };
+type CriticalEvent = { date: string; event: string; if_hot: string; if_cool: string };
+type Summary = {
+  run_id: string; event_title: string; completed_at: string;
+  system_confidence: number;
+  impact_map: Record<string, MarketInfo>;
+  top_asset_implications: AssetImpl[];
+  verification_checkpoints: CP[];
+  critical_next_event?: CriticalEvent;
+};
+type VerifyFile = { run_id: string; checkpoints: CP[]; overall_score: number | null };
+
+const rawSummaries: Summary[] = Object.values(summaryModules)
+  .map((m: any) => m.default ?? m)
+  .sort((a, b) => b.completed_at.localeCompare(a.completed_at));
+
+const verifyMap: Record<string, VerifyFile> = {};
+for (const raw of Object.values(verifyModules)) {
+  const v = (raw as any).default ?? raw as VerifyFile;
+  verifyMap[v.run_id] = v;
+}
+
+const MARKETS = ['金融市場', '貨幣市場', '商品市場', '勞動市場', '財政動態'];
+const today = new Date();
+
+function impactClass(level: string) {
+  const l = (level ?? '').split('（')[0].toLowerCase();
+  if (l.includes('high') || l === '高') return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300';
+  if (l.includes('medium') || l === '中' || l.includes('分裂')) return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
+  if (l.includes('low') || l === '低') return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300';
+  return 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400';
+}
+function verdictClass(v: string | null) {
+  if (v === 'CONFIRMED')   return 'text-green-600 dark:text-green-400 font-bold';
+  if (v === 'PARTIAL')     return 'text-amber-600 dark:text-amber-400 font-bold';
+  if (v === 'WRONG')       return 'text-red-500 dark:text-red-400 font-bold';
+  if (v === 'INVALIDATED') return 'text-zinc-400';
+  return 'text-zinc-400 italic';
+}
+function scoreClass(score: number | null) {
+  if (score == null) return 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400';
+  if (score >= 0.8)  return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300';
+  if (score >= 0.5)  return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
+  return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300';
+}
+function dirClass(d: string) {
+  if (d.includes('↑')) return 'text-green-600 dark:text-green-400';
+  if (d.includes('↓')) return 'text-red-500 dark:text-red-400';
+  return 'text-zinc-500';
+}
+
+// 預計算每個 run 所需的所有資料（template 只做展示，不做計算）
+const runs = rawSummaries.map(s => {
+  const verify = verifyMap[s.run_id];
+  const checkpoints: CP[] = verify?.checkpoints ?? s.verification_checkpoints ?? [];
+  const score = verify?.overall_score ?? null;
+  const done = checkpoints.filter(c => c.verdict !== null);
+  const confirmed = done.filter(c => c.verdict === 'CONFIRMED').length;
+
+  const enrichedCPs = checkpoints.map(c => ({
+    ...c,
+    isPast: new Date(c.check_date) <= today,
+    duePending: new Date(c.check_date) <= today && !c.verdict,
+  }));
+
+  const marketCards = MARKETS.map(m => {
+    const info = s.impact_map?.[m];
+    return {
+      name: m,
+      info,
+      badgeClass: info ? impactClass(info.impact_level) : '',
+      badgeLabel: info ? info.impact_level.split('（')[0] : '',
+    };
+  });
+
+  return {
+    s,
+    score,
+    scoreLabel: score !== null ? `驗證 ${Math.round(score * 100)}%` : `待驗證 ${done.length}/${checkpoints.length}`,
+    scoreCls: scoreClass(score),
+    confLabel: `信心 ${Math.round(s.system_confidence * 100)}%`,
+    marketCards,
+    enrichedCPs,
+    confirmed,
+    totalCPs: checkpoints.length,
+    doneCnt: done.length,
+    assets: (s.top_asset_implications ?? []).map(a => ({
+      ...a,
+      dirCls: dirClass(a.direction),
+      confPct: Math.round(a.confidence * 100),
+    })),
+    critical: s.critical_next_event,
+  };
+});
+---
+
+<html lang="zh-TW">
+<head>
+  <BaseHead title="DSMM 流水線儀表板" description="DSMM 五市場傳導流水線執行記錄與驗證狀態。" />
+</head>
+<body class="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+  <Header />
+  <main class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- 標題 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">📡</span>
+        <h1 class="text-2xl font-bold">DSMM 五市場流水線</h1>
+      </div>
+      <p class="text-zinc-500 dark:text-zinc-400 text-sm">
+        事件 → 金融 → 貨幣 → 商品 → 勞動 → 財政 → 驗證 ｜ 共 {runs.length} 次執行
+      </p>
+    </div>
+
+    <!-- Run 列表 -->
+    {runs.map(r => (
+      <section class="mb-12 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden">
+
+        <!-- Run header -->
+        <div class="bg-zinc-50 dark:bg-zinc-900 px-5 py-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-start justify-between gap-2">
+          <div>
+            <span class="text-xs font-mono text-zinc-400 mr-2">{r.s.run_id}</span>
+            <span class="text-sm font-semibold">{r.s.event_title}</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs flex-wrap">
+            <span class="text-zinc-400">{r.s.completed_at}</span>
+            <span class={`px-2 py-0.5 rounded-full font-mono font-bold ${r.scoreCls}`}>{r.scoreLabel}</span>
+            <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-mono">{r.confLabel}</span>
+          </div>
+        </div>
+
+        <div class="px-5 py-4 space-y-5">
+
+          <!-- 五市場衝擊卡 -->
+          <div>
+            <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">五市場衝擊</p>
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+              {r.marketCards.map(mc => (
+                <div class="rounded-lg border border-zinc-100 dark:border-zinc-800 p-3">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-xs font-medium text-zinc-600 dark:text-zinc-300">{mc.name}</span>
+                    {mc.info && <span class={`text-xs px-1.5 py-0.5 rounded ${mc.badgeClass}`}>{mc.badgeLabel}</span>}
+                  </div>
+                  {mc.info
+                    ? <Fragment>
+                        <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-snug">{mc.info.key_signal}</p>
+                        <p class="text-xs text-zinc-400 mt-1">{mc.info.time_horizon}</p>
+                      </Fragment>
+                    : <p class="text-xs text-zinc-300 dark:text-zinc-600">—</p>
+                  }
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- 資產含義 -->
+          {r.assets.length > 0 && (
+            <div>
+              <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">資產含義</p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm border-collapse">
+                  <thead>
+                    <tr class="border-b border-zinc-200 dark:border-zinc-700">
+                      <th class="text-left py-1.5 pr-4 text-xs font-medium text-zinc-500">資產</th>
+                      <th class="text-left py-1.5 pr-4 text-xs font-medium text-zinc-500">方向</th>
+                      <th class="text-left py-1.5 pr-4 text-xs font-medium text-zinc-500">幅度 / 說明</th>
+                      <th class="text-right py-1.5 text-xs font-medium text-zinc-500">信心</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {r.assets.map(a => (
+                      <tr class="border-b border-zinc-100 dark:border-zinc-800/50">
+                        <td class="py-1.5 pr-4 font-mono text-xs font-semibold">{a.asset}</td>
+                        <td class={`py-1.5 pr-4 text-xs font-medium ${a.dirCls}`}>{a.direction}</td>
+                        <td class="py-1.5 pr-4 text-xs text-zinc-500 dark:text-zinc-400 max-w-xs leading-snug">{a.magnitude}</td>
+                        <td class="py-1.5 text-right font-mono text-xs text-zinc-400">{a.confPct}%</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          <!-- 驗證檢查點 -->
+          {r.enrichedCPs.length > 0 && (
+            <div>
+              <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">
+                驗證檢查點 <span class="font-normal normal-case">{r.confirmed}/{r.doneCnt} 已確認（共 {r.totalCPs} 個）</span>
+              </p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm border-collapse">
+                  <thead>
+                    <tr class="border-b border-zinc-200 dark:border-zinc-700">
+                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">ID</th>
+                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">市場</th>
+                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">驗證日</th>
+                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">預測</th>
+                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">實際值</th>
+                      <th class="text-center py-1.5 text-xs font-medium text-zinc-500">結果</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {r.enrichedCPs.map(c => (
+                      <tr class="border-b border-zinc-100 dark:border-zinc-800/50">
+                        <td class="py-1.5 pr-3 font-mono text-xs text-zinc-400">{c.id}</td>
+                        <td class="py-1.5 pr-3 text-xs text-zinc-500">{c.market}</td>
+                        <td class={`py-1.5 pr-3 font-mono text-xs ${c.duePending ? 'text-amber-500 font-semibold' : 'text-zinc-400'}`}>
+                          {c.check_date}{c.duePending ? ' ⚠️' : ''}
+                        </td>
+                        <td class="py-1.5 pr-3 text-xs text-zinc-600 dark:text-zinc-300 max-w-xs leading-snug">{c.prediction}</td>
+                        <td class="py-1.5 pr-3 text-xs text-zinc-500 dark:text-zinc-400">{c.actual ? c.actual : '—'}</td>
+                        <td class={`py-1.5 text-center text-xs ${verdictClass(c.verdict)}`}>
+                          {c.verdict ? c.verdict : (c.duePending ? '待填入' : '尚未到期')}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          <!-- 關鍵觀察點 -->
+          {r.critical && (
+            <div class="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 p-3">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-xs font-semibold text-amber-700 dark:text-amber-400">🔑 關鍵觀察點</span>
+                <span class="font-mono text-xs text-amber-600 dark:text-amber-500">{r.critical.date}</span>
+                <span class="text-xs text-amber-600 dark:text-amber-500">{r.critical.event}</span>
+              </div>
+              <p class="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
+                <span class="font-medium">若超預期：</span>{r.critical.if_hot}
+              </p>
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mt-0.5">
+                <span class="font-medium">若符合預期：</span>{r.critical.if_cool}
+              </p>
+            </div>
+          )}
+
+        </div>
+      </section>
+    ))}
+
+    {runs.length === 0 && (
+      <div class="text-center py-20 text-zinc-400">
+        <p class="text-4xl mb-3">📭</p>
+        <p>尚無流水線執行記錄</p>
+        <p class="text-sm mt-1 font-mono">/dsmm-pipeline &lt;事件&gt;</p>
+      </div>
+    )}
+
+  </main>
+  <Footer />
+</body>
+</html>
