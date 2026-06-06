@@ -9,7 +9,8 @@
   },
   "last_updated": "2026-06-06",
   "changelog": {
-    "2026-06-06": "新增 CIEN 節點（jade-report 驗證後補入）"
+    "2026-06-06-a": "新增 CIEN 節點（jade-report 驗證後補入）",
+    "2026-06-06-b": "CIEN→COHR weight 0.30→0.45，estimated false（pump laser shortage 法說直接確認，非推算）"
   },
   "edges": [
     {"from": "NVDA", "to": "TSM",  "type": "manufactures_at", "weight": 0.95, "note": "CoWoS + N4/N3 製程，NVDA 佔 TSM 晶圓收入約 11-13%"},
@@ -48,7 +49,7 @@
     {"from": "GLASS_SUB", "to": "ABF_SUB",           "type": "replaces", "weight": 0.50, "note": "玻璃基板替代 ABF 有機載板，Intel HVM 已啟動", "estimated": true},
     {"from": "MAMBA_SSM", "to": "TRANSFORMER",       "type": "replaces", "weight": 0.25, "note": "SSM 架構在推理端成本潛力，尚未大規模驗證", "estimated": true},
 
-    {"from": "CIEN", "to": "COHR", "type": "supplies_to",    "weight": 0.30, "note": "CIEN 光傳輸系統使用 COHR 800G/1.6T InP 光模組作為核心元件", "estimated": true},
+    {"from": "CIEN", "to": "COHR", "type": "supplies_to",    "weight": 0.45, "note": "CIEN 光傳輸系統使用 COHR pump laser + InP 光模組；Q2 FY2026 法說直接點名 pump laser shortage，COHR 為主要供應商", "estimated": false, "weight_history": [{"date": "2026-06-06", "old_weight": 0.30, "new_weight": 0.45, "reason": "CIEN Q2 FY2026 法說直接點名 pump laser shortage，從推算升格為財報確認"}]},
     {"from": "CIEN", "to": "GLW",  "type": "supplies_to",    "weight": 0.20, "note": "CIEN DCI 架構需要 GLW 高密度光纜佈線（RocketRibbon 系列）", "estimated": true},
     {"from": "CIEN", "to": "NOK",  "type": "competes_with",  "weight": 0.60, "note": "Nokia（含收購 Infinera）是 CIEN 在長距光傳輸市場的主要競爭者"}
   ]
