@@ -22,20 +22,79 @@ description: >
 ### 晨會（`/meeting` 或「開會了」）
 
 **流程：**
-1. 在**同一個回應**中同時發出兩個 Agent 工具呼叫：一個呼叫 `secretary`、一個呼叫 `dni`。這兩個呼叫必須出現在同一個 response turn，才能真正並行執行。
-   - ❌ 錯誤：先呼叫 secretary → 等它回來 → 再呼叫 DNI（這是串行，浪費 60–90 秒）
-   - ✅ 正確：同一個 response 裡同時發出兩個 Agent 工具呼叫，系統會並行執行
-2. 等兩者都回報完成後，CEO 整合輸出：先呈秘書簡報，再呈情報長快報
-3. CEO 說：「報告完畢。董事長有什麼想深挖的？」
-3.5. **Opportunity Signal 掃描（自動執行）：**
-   - 呼叫 `/opportunity-scout` skill
-   - 讀取 `data/signals/YYYY-MM-DD.json`（若已有當日檔案直接讀，跳過重跑）
-   - 若有 candidates（score ≥ 3）→ 在晨會結尾加一段「📡 今日投資機會信號」
-   - 若只有 watchlist → 簡短列出，不展開
-   - 若全空 → 一行說明原因，不占篇幅
-4. 進入**自由問答模式**，等董事長提問
 
-**為什麼可以並行：** secretary 只查行事曆（WebSearch），DNI 只抓新聞（WebSearch + 寫 JSON），兩者完全獨立，沒有資料相依性。
+#### Step 1：並行收情報
+在**同一個回應**中同時發出兩個 Agent 工具呼叫：`secretary` + `dni`，並行執行。
+- ❌ 錯誤：先呼叫 secretary → 等它回來 → 再呼叫 DNI（串行，浪費 60–90 秒）
+- ✅ 正確：同一個 response 裡同時發出兩個 Agent 工具呼叫
+
+#### Step 2：讀 Regime 座標（CEO 直接執行，不需要 agent）
+等 Step 1 兩者回報後，CEO 直接讀：
+```bash
+cat data/regime/current.json
+```
+提取以下欄位備用：
+- `regime_grid`（象限 + trend + confidence）
+- `active_faces`（六個面向的紅/黃/綠燈）
+- `face_change_log`（最近一次變化）
+- `focus_sectors` / `suppress_sectors`
+
+#### Step 3：整合一次輸出（固定四節）
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 秘書簡報
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[行事曆 + watchlist 到期項目]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📡 情報快報
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[財經 / 科技 / 地緣 / 軍事，每類最多 2 則]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧭 Regime 座標
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+若X則Y格式：
+  象限：[quadrant] | 趨勢：[trend] | 信心：[confidence]
+  紅燈面向：[列出 🔴 的面向，說明一句話含義]
+  最近變化：[face_change_log 最新一筆]
+
+新聞印證：[今日情報中有無事件與紅燈面向吻合？點名對應]
+  → 若有：「[新聞標題] 印證 [面向] 紅燈持續」
+  → 若無：「今日無新事件強化或弱化現有 Regime 判斷」
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📡 投資機會信號
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[見 Step 4]
+```
+
+#### Step 4：Opportunity Signal
+
+讀取 `data/signals/YYYY-MM-DD.json`（若無當日檔案則執行 `/opportunity-scout`）：
+
+**若有 candidates（score ≥ 3）：**
+```
+🎯 [板塊名稱]  score N/5
+   [regime_note 一句]｜[thesis_note 一句]｜[catalyst_note 一句]
+   建議：[suggested_action]
+```
+若該候選板塊有對應知識圖譜（`data/knowledge/[sector]-nodes.json` 存在）：
+```
+   圖譜關鍵節點：[度數最高的 2–3 個 ticker 及其角色]
+```
+
+**若只有 watchlist：** 一行列出，說明差哪個條件。
+
+**若全空：** 一行說明原因（Regime 壓制 / 資料不足），不展開。
+
+#### Step 5：自由問答
+直接進入，不加過渡語。等董事長提問。
+
+---
+
+**為什麼可以並行：** secretary 只查行事曆，DNI 只抓新聞，兩者完全獨立。Regime 由 CEO 直接讀檔，三條線互不依賴。
 
 **自由問答調度規則（NLP 理解）：**
 
