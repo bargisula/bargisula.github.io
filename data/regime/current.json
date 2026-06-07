@@ -1,36 +1,70 @@
 {
   "regime": "AI_capex_cycle",
-  "regime_desc": "超大型雲端業者 AI 資本支出持續擴張，驅動半導體、光纖、電力基礎設施需求",
+  "regime_desc": "超大型雲端業者 AI 資本支出持續擴張，驅動半導體、光纖、電力基礎設施需求；AI ASIC 份額競爭加劇（AVGO 面臨 MediaTek 搶推論工作量），但總需求敘事未改變",
   "regime_grid": {
     "quadrant": "Overheat",
     "trend": "right",
-    "confidence": "medium"
+    "confidence": "medium",
+    "note": "象限向「滯脹邊界」靠近——NFP 超預期關閉 Q3 降息視窗，通膨/利率壓力強化；但成長韌性（非農健康）尚未轉弱，未跨入滯脹象限"
   },
   "risk_posture": "risk-on",
   "active_faces": {
-    "fed_cycle":        "🟡",
-    "credit_cycle":     "🟢",
+    "fed_cycle": "🔴",
+    "credit_cycle": "🟢",
     "growth_inflation": "🔴",
-    "geographic_spill": "🟡",
-    "domino_risk":      "🟢",
-    "external_shock":   "🟡"
+    "geographic_spill": "🔴",
+    "domino_risk": "🟡",
+    "external_shock": "🟡"
   },
-  "updated": "2026-05-26",
-  "updated_by": "CMO",
+  "face_change_log": {
+    "2026-06-06": {
+      "fed_cycle": "🟡→🔴：NFP 5月 +172K（預期 +85K），超預期 2x；10Y 4.55% 上行 8bp；Warsh 6/17 FOMC 前鷹派路徑強化",
+      "domino_risk": "🟢→🟡：SOX -8.71% 單日暴跌觸發情緒骨牌臨界點；AVGO 份額壓縮傳導至光通訊/封裝確信度低，但短期情緒壓力需監測 1-2 週"
+    },
+    "2026-06-07": {
+      "geographic_spill": "🟡→🔴：10Y 高位持久化（4.55-4.60%，距4.80%僅20bp），美元利差驅動 KA 外逃壓力對 EM 形成系統性衝擊；土耳其/阿根廷/印尼最脆弱；若 10Y 突破 4.80% 則 EM 危機風險升高"
+    }
+  },
+  "updated": "2026-06-07",
+  "updated_by": "DSMM",
   "bible_anchor": "AI 外生變數正處 AD 衝擊階段（2022-2026 Capex 潮），AS 衝擊（生產力通縮）預計 2027-2029 浮現；長期實質利率均衡受此路徑約束",
-  "insight_signal": "INS-002（封裝需求多季度能見度，L2 高確信）強化 Regime 核心；INS-004（電力瓶頸未定價，L1 待驗證）為 Regime 下一個定價窗口；INS-001（Warsh 公信力，L1 認知型）為 Regime 的最大外生風險",
+  "insight_signal": "INS-001（Warsh 鷹派路徑）confidence 升至 0.75，NFP 超預期第二次事件支撐，接近 L2；INS-002（AI capex 多季度能見度）confidence 降至 0.74，份額集中假設受 AVGO/MediaTek 壓力；INS-004（電力瓶頸）未受影響，維持定價窗口敘事",
   "focus_sectors": [
-    {"sector": "AI_infrastructure",  "reason": "hyperscaler capex 上升，NVDA/AVGO/QCOM 直接受益", "added": "2026-05-22"},
-    {"sector": "optical_fiber",      "reason": "GPU cluster 機架間互連需求帶動光纜採購",          "added": "2026-05-22"},
-    {"sector": "power_grid",         "reason": "數據中心電力需求推升電網設備與備援電源採購",      "added": "2026-05-22"}
+    {
+      "sector": "AI_infrastructure",
+      "reason": "hyperscaler capex 上升，NVDA/AVGO/QCOM 直接受益；注意 ASIC 份額分散化趨勢",
+      "added": "2026-05-22"
+    },
+    {
+      "sector": "optical_fiber",
+      "reason": "GPU cluster 機架間互連需求帶動光纜採購，對應總量而非單廠商，AVGO 事件不改變此邏輯",
+      "added": "2026-05-22"
+    },
+    {
+      "sector": "power_grid",
+      "reason": "數據中心電力需求推升電網設備與備援電源採購；電力瓶頸為下一個定價窗口（INS-004）",
+      "added": "2026-05-22"
+    }
   ],
   "suppress_sectors": [
-    {"sector": "long_duration_growth", "reason": "10Y yield 4.59%，估值壓力仍在；Warsh 鷹派壓力使利率尾部風險上升", "added": "2026-05-22"}
+    {
+      "sector": "long_duration_growth",
+      "reason": "10Y yield 4.55% 且動能上行；NFP 超預期關閉 Q3 降息視窗；Warsh 首次 FOMC 6/17 鷹派風險上升",
+      "added": "2026-05-22"
+    }
   ],
   "trigger_keywords": [
-    "AI capex", "data center", "hyperscaler", "fiber demand",
-    "GPU interconnect", "power infrastructure", "cloud spending"
+    "AI capex",
+    "data center",
+    "hyperscaler",
+    "fiber demand",
+    "GPU interconnect",
+    "power infrastructure",
+    "cloud spending",
+    "ASIC share",
+    "MediaTek TPU",
+    "Warsh FOMC"
   ],
-  "next_review": "2026-06-06",
-  "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。"
+  "next_review": "2026-06-13",
+  "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。2026-06-06 更新：fed_cycle 升 🔴、domino_risk 升 🟡；INS-001 confidence 0.65→0.75、INS-002 confidence 0.78→0.74。"
 }

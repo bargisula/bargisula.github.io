@@ -35,6 +35,12 @@
       "direction": "rB_g↑ 直接衝擊；Y↓ → T↓；財政-利率正反饋距臨界最近",
       "time_horizon": "immediate（利息支出即時）+ quarters（稅基）",
       "key_signal": "CBO 年度利息支出預測是否突破 1.1 兆美元；10Y 是否突破後維持 > 4.80%"
+    },
+    "新興市場溢出": {
+      "impact_level": "high",
+      "direction": "KA 資本外逃 → EM 本幣貶值 → EM 央行被迫升息 → EM 成長↓；DS↑ 脆弱國家趨近危機閾值",
+      "time_horizon": "weeks-months（資本流動即時；EM 升息 2-8 週；DS 惡化 1-2 季）",
+      "key_signal": "EM 貨幣 ETF（EEM）跌幅；EMBI+ 信用利差是否擴大 > 50bp；土耳其/阿根廷 CDS"
     }
   },
   "top_asset_implications": [
@@ -69,6 +75,13 @@
       "direction": "↓（非線性風險）",
       "magnitude": "NTM P/E 壓縮 4-7%；若 r 持續上行則壓縮幅度加倍",
       "confidence": 0.75
+    },
+    {
+      "asset": "EM 股票 / 債券（EEM / EMB）",
+      "direction": "↓",
+      "magnitude": "KA 外逃 + EM 央行升息 → EEM 估值壓縮 8-15%；EMB 信用利差擴大",
+      "confidence": 0.78,
+      "note": "脆弱度排序：土耳其 > 阿根廷 > 印尼 > 南非；若 EM 危機爆發則傳染至美國 ρ↑"
     }
   ],
   "critical_next_event": {
@@ -94,6 +107,15 @@
       "status": "收斂（量縮先於價格，時差 2-3 季）",
       "conditions_met": 2,
       "conditions_needed": 4
+    },
+    {
+      "type": "EM 危機 → 全球風險情緒（R3）",
+      "path": "r_us↑ → KA 外逃 → EM e 貶 → EM 央行升息 → EM Y↓ → ρ_em↑ → 全球 ρ↑ → US P_s 再承壓",
+      "status": "潛在，未觸發",
+      "conditions_met": 2,
+      "conditions_needed": 4,
+      "missing": "EM DS > DS* 尚未發生；大型 EM（印度/中國）目前有足夠外匯儲備緩衝",
+      "counter_path": "EM 危機避險 → 資金回流美債 → 10Y 下行（部分自抵銷）"
     }
   ],
   "verification_checkpoints": [
@@ -126,6 +148,17 @@
       "prediction": "CBO 年度利息支出預測上修至 ≥ 1.1 兆美元",
       "threshold": "CBO interest outlays forecast ≥ 1.1T USD",
       "check_source": "CBO Budget and Economic Outlook",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-10Y-004",
+      "market": "新興市場溢出",
+      "check_date": "2026-07-15",
+      "prediction": "EMBI+ 新興市場主權債利差擴大 > 50bp（基準為 2026-06-07 水位）",
+      "threshold": "EMBI+ spread widening > 50bp",
+      "check_source": "JP Morgan EMBI+ 或 EMB ETF 信用利差",
       "status": "pending",
       "actual": null,
       "verdict": null
