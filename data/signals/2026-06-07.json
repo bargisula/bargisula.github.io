@@ -3,32 +3,33 @@
   "generated": "2026-06-07",
   "regime_snapshot": "Overheat → Stagflation boundary | risk-on | trend: down-right",
   "health_check": {
-    "positions_count": 1,
-    "positions_files": ["tw-drone"],
+    "positions_count": 2,
+    "positions_files": ["tw-drone", "power_electronics"],
     "queue_last_updated": "2026-05-22",
     "regime_last_updated": "2026-06-07",
     "dsmm_runs_available": ["RUN-20260607-10Y480", "RUN-20260607-TARIFF", "RUN-20260606-2320"],
     "stale_warning": false,
-    "health_notes": "positions 僅覆蓋 1 個板塊，建議補建 power_electronics、optical_fiber 的 position 檔以提升評分精度"
+    "health_notes": "2026-06-07 補建 power_electronics position 檔，positions 覆蓋升至 2 個板塊"
   },
   "candidates": [
     {
       "id": "power_electronics",
       "label": "AI 數據中心電力基礎設施",
-      "score": 4,
+      "score": 5,
       "score_breakdown": {
         "regime_alignment": 2,
-        "thesis_conditions": 1,
+        "thesis_conditions": 2,
         "catalyst": 1
       },
-      "regime_note": "明確列入 focus_sectors（power_grid），理由：數據中心電力需求推升電網設備與備援電源採購；電力瓶頸為下一個定價窗口（INS-004）",
-      "thesis_note": "尚無 positions 檔（+0），僅依 Regime 得 1 分。補建後若 kill switch 未觸發可達 +2，總分升至 5",
-      "catalyst_note": "RUN-20260607-10Y480：impact_map 商品市場「I_h 急凍，但 AI capex 中性，電力需求不受高利率影響」→ AI 電力需求確認不受利率週期直接衝擊",
+      "regime_note": "明確列入 focus_sectors（power_grid），INS-004 電力瓶頸確認",
+      "thesis_note": "positions 檔已建立：K1–K4 全部未觸發（+1）；C1/C3/C4 成立，C2/C5 待確認但不影響基本分（+1）",
+      "catalyst_note": "RUN-20260607-10Y480：AI capex 鏈確認不受高利率直接影響（confidence 0.85）；RUN-20260607-TARIFF：電力基礎設施美國本土為主，關稅暴露有限",
       "suggested_tickers": ["VRT", "ETN", "GEV", "BE", "PWR", "HUBB"],
-      "suggested_action": "本週深挖，排入 research-queue 最高優先。優先讀 VRT / GEV 最近一季法說，確認交貨週期與訂單能見度",
-      "confidence": "medium",
+      "suggested_action": "立即深挖：呼叫 industry-analyst 執行 power_electronics 完整產業分析，優先確認 VRT backlog + GEV 交貨週期",
+      "confidence": "high",
       "score_ceiling": 5,
-      "gap_to_ceiling": "補建 positions/sectors/power_electronics.md → +1 分"
+      "gap_to_ceiling": null,
+      "updated": "2026-06-07 補建 position 檔後由 4→5"
     },
     {
       "id": "AI_infrastructure",
@@ -92,6 +93,6 @@
     }
   ],
   "null_reason": null,
-  "summary_for_meeting": "📡 今日投資機會信號：2 個候選（AI 電力基礎設施、AI 半導體）score=4，均因缺 position 檔差 1 分達滿分。建議優先補建 power_electronics position 檔，並確認 VRT/GEV 訂單能見度。",
+  "summary_for_meeting": "📡 今日投資機會信號：AI 電力基礎設施 score=5（滿分），建議立即深挖 VRT/GEV/ETN；AI 半導體 score=4，已有 company bible 覆蓋，確認 AVBO 份額動態即可。",
   "feedback": {}
 }
