@@ -6,41 +6,44 @@ import graphData from '../../data/knowledge/supply-chain-nodes.json';
 
 const { title, subtitle, version, last_updated, nodes, edges, legend } = graphData;
 
-// ── 硬編碼排版位置（季度更新只改 JSON，不動這裡）──────────────────────
-const NW = 138;           // node width
-const NH = 52;            // node height
-const NW2 = NW / 2;       // half width
-const NH2 = NH / 2;       // half height
+// ── 節點排版位置（季度更新只改 JSON 的 desc，不動這裡）────────────────────
+const NW = 130;         // node width
+const NH = 52;          // node height
+const NW2 = NW / 2;
+const NH2 = NH / 2;
 
+// Layer 1A 三節點在左半（x=0..460），1B 三節點在右半（x=460..960）
+// Layer 1A slot = 460/3 ≈ 153px；centers ≈ 77, 230, 383
 const pos: Record<string, { cx: number; cy: number }> = {
-  // Layer 0  (band y=30..120, node cy=75)
+  // Layer 0 (band y=28..122, cy=75) — 5 節點，slot=192
   TSMC:    { cx: 96,  cy: 75  },
   SKH:     { cx: 288, cy: 75  },
   Samsung: { cx: 480, cy: 75  },
   MU:      { cx: 672, cy: 75  },
-  AMKR:   { cx: 864, cy: 75  },
-  // Layer 1A  (band y=152..300, sublayer cy=195)
-  NVDA:    { cx: 155, cy: 195 },
-  AMD:     { cx: 315, cy: 195 },
-  // Layer 1B  (same band, sublayer cy=268)
-  AVGO:    { cx: 505, cy: 268 },
-  MRVL:    { cx: 672, cy: 268 },
-  QCOM:    { cx: 848, cy: 268 },
-  // Layer 2  (band y=358..458, node cy=408)
-  GOOG:    { cx: 80,  cy: 408 },
-  META:    { cx: 240, cy: 408 },
-  AMZN:    { cx: 400, cy: 408 },
-  MSFT:    { cx: 560, cy: 408 },
-  xAI:     { cx: 720, cy: 408 },
-  ORCL:    { cx: 880, cy: 408 },
-  // Layer 3  (band y=476..570, node cy=523)
-  COHR:    { cx: 120, cy: 523 },
-  GLW:     { cx: 360, cy: 523 },
-  ANET:    { cx: 600, cy: 523 },
-  VRT:     { cx: 840, cy: 523 },
+  AMKR:    { cx: 864, cy: 75  },
+  // Layer 1A (band y=148..310, cy=200) — 3 節點，左半 0-460
+  NVDA:    { cx: 90,  cy: 200 },
+  AMD:     { cx: 235, cy: 200 },
+  INTC:    { cx: 378, cy: 200 },
+  // Layer 1B (band y=148..310, cy=268) — 3 節點，右半 460-960
+  AVGO:    { cx: 540, cy: 268 },
+  MRVL:    { cx: 700, cy: 268 },
+  QCOM:    { cx: 858, cy: 268 },
+  // Layer 2 (band y=350..458, cy=404) — 6 節點，slot=160
+  GOOG:    { cx: 80,  cy: 404 },
+  META:    { cx: 240, cy: 404 },
+  AMZN:    { cx: 400, cy: 404 },
+  MSFT:    { cx: 560, cy: 404 },
+  xAI:     { cx: 720, cy: 404 },
+  ORCL:    { cx: 880, cy: 404 },
+  // Layer 3 (band y=475..578, cy=527) — 4 節點，slot=240
+  COHR:    { cx: 120, cy: 527 },
+  GLW:     { cx: 360, cy: 527 },
+  ANET:    { cx: 600, cy: 527 },
+  VRT:     { cx: 840, cy: 527 },
 };
 
-// ── 邊線樣式 ────────────────────────────────────────────────────────────
+// ── 邊線樣式 ────────────────────────────────────────────────────────────────
 const edgeStyle: Record<string, {
   stroke: string; width: number; dash: string; marker: string;
 }> = {
@@ -50,7 +53,7 @@ const edgeStyle: Record<string, {
   competition:     { stroke: '#dc2626', width: 1.5, dash: '5 3', marker: 'url(#arr-red)'    },
 };
 
-// ── 節點顏色（依 layer / sublayer）──────────────────────────────────────
+// ── 節點顏色 ─────────────────────────────────────────────────────────────────
 const nodeColor: Record<string, { fill: string; stroke: string; text: string }> = {
   '0':  { fill: '#f0fdf4', stroke: '#16a34a', text: '#14532d' },
   '1A': { fill: '#eff6ff', stroke: '#2563eb', text: '#1e3a8a' },
@@ -64,23 +67,19 @@ function getColor(n: typeof nodes[0]) {
   return nodeColor[key] ?? nodeColor['3'];
 }
 
-// ── 邊線路徑計算 ────────────────────────────────────────────────────────
+// ── 邊線路徑 ─────────────────────────────────────────────────────────────────
 function edgePath(fromId: string, toId: string, type: string): string {
   const s = pos[fromId];
   const t = pos[toId];
   if (!s || !t) return '';
-
   if (type === 'competition') {
-    // 同層弧線，往下突出
-    const arc = Math.max(s.cy, t.cy) + 46;
+    const arc = Math.max(s.cy, t.cy) + 44;
     return `M ${s.cx} ${s.cy + NH2} C ${s.cx} ${arc} ${t.cx} ${arc} ${t.cx} ${t.cy + NH2}`;
   }
   if (type === 'investment') {
-    // 同層弧線，往上突出
-    const arc = Math.min(s.cy, t.cy) - 38;
+    const arc = Math.min(s.cy, t.cy) - 36;
     return `M ${s.cx + NW2} ${s.cy} C ${s.cx + NW2 + 50} ${arc} ${t.cx - NW2 - 50} ${arc} ${t.cx - NW2} ${t.cy}`;
   }
-  // 跨層：底部 → 頂部的 bezier
   const x1 = s.cx, y1 = s.cy + NH2;
   const x2 = t.cx, y2 = t.cy - NH2;
   const dy = (y2 - y1) * 0.42;
@@ -99,71 +98,82 @@ function edgePath(fromId: string, toId: string, type: string): string {
       body { background: #f9fafb; }
       main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-      .page-header { margin-bottom: 1.75rem; }
+      /* ── Page header ── */
+      .page-header { margin-bottom: 1.5rem; }
       .page-header h1 {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #111827;
-        margin: 0 0 0.35rem;
-        letter-spacing: -0.03em;
+        font-size: 1.6rem; font-weight: 800; color: #111827;
+        margin: 0 0 0.35rem; letter-spacing: -0.03em;
       }
-      .subtitle {
-        color: #6b7280;
-        font-size: 0.9rem;
-        margin: 0 0 0.6rem;
-      }
+      .subtitle { color: #6b7280; font-size: 0.9rem; margin: 0 0 0.6rem; }
       .meta {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.78rem;
-        color: #9ca3af;
+        display: flex; align-items: center; gap: 0.4rem;
+        font-size: 0.78rem; color: #9ca3af;
       }
       .version {
-        background: #e0f2fe;
-        color: #0369a1;
-        padding: 0.15rem 0.5rem;
-        border-radius: 20px;
-        font-weight: 600;
-        font-size: 0.72rem;
+        background: #e0f2fe; color: #0369a1;
+        padding: 0.15rem 0.5rem; border-radius: 20px;
+        font-weight: 600; font-size: 0.72rem;
       }
       .sep { color: #d1d5db; }
 
-      .graph-container {
-        background: #ffffff;
+      /* ── Description panel ── */
+      .description {
+        background: #fff;
         border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 1rem;
+        border-left: 4px solid #6366f1;
+        border-radius: 8px;
+        padding: 1.1rem 1.4rem;
+        margin-bottom: 1.4rem;
+        font-size: 0.875rem;
+        color: #374151;
+        line-height: 1.75;
+      }
+      .description p { margin: 0 0 0.7rem; }
+      .description p:last-child { margin: 0; }
+      .description .layers {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 0.6rem;
+        margin-top: 0.9rem;
+      }
+      .layer-chip {
+        display: flex; align-items: flex-start; gap: 0.5rem;
+        background: #f9fafb; border: 1px solid #e5e7eb;
+        border-radius: 6px; padding: 0.55rem 0.75rem;
+        font-size: 0.8rem; line-height: 1.5;
+      }
+      .layer-chip .dot {
+        width: 10px; height: 10px; border-radius: 50%;
+        flex-shrink: 0; margin-top: 3px;
+      }
+      .layer-chip strong { display: block; font-size: 0.78rem; color: #111827; }
+      .layer-chip span { color: #6b7280; font-size: 0.77rem; }
+
+      /* ── Graph container ── */
+      .graph-container {
+        background: #fff; border: 1px solid #e5e7eb;
+        border-radius: 12px; padding: 1rem;
         overflow-x: auto;
         box-shadow: 0 1px 3px rgba(0,0,0,.06);
       }
-      .graph-container svg { display: block; min-width: 720px; }
+      .graph-container svg { display: block; min-width: 760px; }
 
+      /* ── Legend ── */
       .legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.2rem;
-        margin-top: 1.2rem;
-        padding: 0.9rem 1.2rem;
-        background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 10px;
-        font-size: 0.8rem;
-        color: #374151;
+        display: flex; flex-wrap: wrap; gap: 1.2rem;
+        margin-top: 1.2rem; padding: 0.9rem 1.2rem;
+        background: #fff; border: 1px solid #e5e7eb;
+        border-radius: 10px; font-size: 0.8rem; color: #374151;
       }
       .legend-item { display: flex; align-items: center; gap: 0.45rem; }
       .legend-item svg { flex-shrink: 0; }
 
-      .note {
-        margin-top: 1rem;
-        font-size: 0.75rem;
-        color: #9ca3af;
-        text-align: right;
-      }
+      .note { margin-top: 1rem; font-size: 0.75rem; color: #9ca3af; text-align: right; }
 
       @media (max-width: 640px) {
         main { padding: 1rem 0.75rem 3rem; }
         .page-header h1 { font-size: 1.2rem; }
+        .description .layers { grid-template-columns: 1fr 1fr; }
       }
     </style>
   </head>
@@ -171,6 +181,7 @@ function edgePath(fromId: string, toId: string, type: string): string {
     <Header />
     <main>
 
+      <!-- ── Page header ── -->
       <div class="page-header">
         <h1>{title}</h1>
         <p class="subtitle">{subtitle}</p>
@@ -183,9 +194,56 @@ function edgePath(fromId: string, toId: string, type: string): string {
         </div>
       </div>
 
+      <!-- ── Description ── -->
+      <div class="description">
+        <p>
+          本圖呈現 AI 算力產業的四層供應鏈結構，<strong>由上而下代表生產流向</strong>：
+          上游晶片製造端的產能決定了整條鏈的天花板，下游需求端的 capex 指引則是最核心的領先指標。
+          理解各節點之間的依賴關係，有助於判斷「哪個環節卡住、誰先受益、誰有定價權」。
+        </p>
+        <div class="layers">
+          <div class="layer-chip">
+            <span class="dot" style="background:#16a34a;"></span>
+            <div>
+              <strong>Layer 0 — 製造 ／ 記憶體</strong>
+              <span>晶片代工（TSMC 幾乎壟斷先進製程）與 HBM 記憶體（SK Hynix 龍頭），是整條鏈的物理瓶頸。</span>
+            </div>
+          </div>
+          <div class="layer-chip">
+            <span class="dot" style="background:#2563eb;"></span>
+            <div>
+              <strong>Layer 1A — GPU</strong>
+              <span>通用 AI 加速器（NVIDIA 主導，AMD / Intel 追趕），一顆 H100 約 3 萬美元，訂單即指標。</span>
+            </div>
+          </div>
+          <div class="layer-chip">
+            <span class="dot" style="background:#7c3aed;"></span>
+            <div>
+              <strong>Layer 1B — Custom ASIC</strong>
+              <span>由 Hyperscaler 委託 Broadcom / Marvell 設計的客製晶片，成本低但開發週期長，GPU 的長期替代力量。</span>
+            </div>
+          </div>
+          <div class="layer-chip">
+            <span class="dot" style="background:#c2410c;"></span>
+            <div>
+              <strong>Layer 2 — 需求商</strong>
+              <span>六大 Hyperscaler 的合計 capex 是整條鏈最大的定錨點，季報法說會是最重要的情報來源。</span>
+            </div>
+          </div>
+          <div class="layer-chip">
+            <span class="dot" style="background:#475569;"></span>
+            <div>
+              <strong>Layer 3 — 互聯 ／ 電力</strong>
+              <span>光模組、光纖、交換機、電源管理是 GPU 集群的「神經系統」，需求放大倍數高、交期長。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Graph ── -->
       <div class="graph-container">
         <svg
-          viewBox="0 0 960 615"
+          viewBox="0 0 960 618"
           width="100%"
           xmlns="http://www.w3.org/2000/svg"
           role="img"
@@ -193,68 +251,58 @@ function edgePath(fromId: string, toId: string, type: string): string {
           style="font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;"
         >
           <defs>
-            <!-- Arrow markers, one per colour -->
-            <marker id="arr-green"  viewBox="0 0 10 8" refX="9" refY="4"
-                    markerWidth="5" markerHeight="5" orient="auto">
+            <marker id="arr-green"  viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
               <path d="M0 0L10 4L0 8z" fill="#16a34a"/>
             </marker>
-            <marker id="arr-gray"   viewBox="0 0 10 8" refX="9" refY="4"
-                    markerWidth="5" markerHeight="5" orient="auto">
+            <marker id="arr-gray"   viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
               <path d="M0 0L10 4L0 8z" fill="#9ca3af"/>
             </marker>
-            <marker id="arr-orange" viewBox="0 0 10 8" refX="9" refY="4"
-                    markerWidth="5" markerHeight="5" orient="auto">
+            <marker id="arr-orange" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
               <path d="M0 0L10 4L0 8z" fill="#ea580c"/>
             </marker>
-            <marker id="arr-red"    viewBox="0 0 10 8" refX="9" refY="4"
-                    markerWidth="5" markerHeight="5" orient="auto">
+            <marker id="arr-red"    viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
               <path d="M0 0L10 4L0 8z" fill="#dc2626"/>
             </marker>
           </defs>
 
-          <!-- ── Layer bands ──────────────────────────────────────────── -->
-          <!-- Layer 0 -->
+          <!-- Layer 0 band -->
           <rect x="10" y="26" width="940" height="96" rx="10"
                 fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
-          <text x="20" y="44" font-size="8.5" fill="#16a34a" font-weight="700"
-                letter-spacing="0.08em">
+          <text x="20" y="44" font-size="8.5" fill="#16a34a" font-weight="700" letter-spacing="0.08em">
             LAYER 0 — 製造 ／ 記憶體
           </text>
 
-          <!-- Layer 1 -->
-          <rect x="10" y="148" width="940" height="162" rx="10"
+          <!-- Layer 1 band -->
+          <rect x="10" y="148" width="940" height="164" rx="10"
                 fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-          <text x="20" y="166" font-size="8.5" fill="#6d28d9" font-weight="700"
-                letter-spacing="0.08em">
+          <text x="20" y="166" font-size="8.5" fill="#6d28d9" font-weight="700" letter-spacing="0.08em">
             LAYER 1 — GPU ／ Custom ASIC
           </text>
-          <!-- Sublayer vertical divider -->
-          <line x1="428" y1="160" x2="428" y2="300"
+          <!-- 1A / 1B 分隔線 -->
+          <line x1="455" y1="160" x2="455" y2="302"
                 stroke="#c4b5fd" stroke-width="1" stroke-dasharray="4 3"/>
-          <text x="215" y="304" text-anchor="middle" font-size="8" fill="#2563eb">
+          <text x="225" y="306" text-anchor="middle" font-size="8" fill="#2563eb">
             1A — GPU
           </text>
-          <text x="665" y="304" text-anchor="middle" font-size="8" fill="#7c3aed">
+          <text x="690" y="306" text-anchor="middle" font-size="8" fill="#7c3aed">
             1B — Custom ASIC
           </text>
 
-          <!-- Layer 2 -->
-          <rect x="10" y="352" width="940" height="100" rx="10"
+          <!-- Layer 2 band -->
+          <rect x="10" y="350" width="940" height="100" rx="10"
                 fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
-          <text x="20" y="370" font-size="8.5" fill="#c2410c" font-weight="700"
-                letter-spacing="0.08em">
+          <text x="20" y="368" font-size="8.5" fill="#c2410c" font-weight="700" letter-spacing="0.08em">
             LAYER 2 — 需求商（Hyperscaler）
           </text>
 
-          <!-- Layer 3 -->
-          <rect x="10" y="472" width="940" height="106" rx="10"
+          <!-- Layer 3 band -->
+          <rect x="10" y="472" width="940" height="108" rx="10"
                 fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-          <text x="20" y="490" font-size="8.5" fill="#475569" font-weight="700"
-                letter-spacing="0.08em">
+          <text x="20" y="490" font-size="8.5" fill="#475569" font-weight="700" letter-spacing="0.08em">
             LAYER 3 — 互聯 ／ 電力基礎設施
           </text>
 
-          <!-- ── Edges（先渲染，節點蓋在上方）──────────────────────── -->
+          <!-- Edges（先渲染，節點蓋上方） -->
           {edges.map((e: any) => {
             const st = edgeStyle[e.type] ?? edgeStyle.supplies_to;
             const d = edgePath(e.from, e.to, e.type);
@@ -267,19 +315,18 @@ function edgePath(fromId: string, toId: string, type: string): string {
                 stroke-width={st.width}
                 stroke-dasharray={st.dash || undefined}
                 marker-end={st.marker}
-                opacity="0.55"
+                opacity="0.5"
               />
             );
           })}
 
-          <!-- ── Nodes ────────────────────────────────────────────────── -->
+          <!-- Nodes -->
           {nodes.map((n: any) => {
             const p = pos[n.id];
             if (!p) return null;
             const c = getColor(n);
             const nx = p.cx - NW2;
             const ny = p.cy - NH2;
-            // Ticker badge (only if ticker differs from id)
             const showTicker = n.ticker && n.ticker !== n.id && n.ticker !== n.name;
             return (
               <g>
@@ -298,7 +345,7 @@ function edgePath(fromId: string, toId: string, type: string): string {
           })}
 
           <!-- Xompass watermark -->
-          <text x="950" y="610" text-anchor="end"
+          <text x="950" y="613" text-anchor="end"
                 font-size="8" fill="#d1d5db" letter-spacing="0.05em">
             © Xompass Research
           </text>
@@ -311,22 +358,22 @@ function edgePath(fromId: string, toId: string, type: string): string {
           <div class="legend-item">
             <svg width="36" height="12" viewBox="0 0 36 12" fill="none">
               {item.dash
-                ? <line x1="0" y1="6" x2="36" y2="6"
+                ? <line x1="0" y1="6" x2="32" y2="6"
                         stroke={item.color} stroke-width="2" stroke-dasharray="7 3"/>
-                : <line x1="0" y1="6" x2="36" y2="6"
+                : <line x1="0" y1="6" x2="32" y2="6"
                         stroke={item.color} stroke-width="2"/>
               }
-              <polygon points="30,3 36,6 30,9" fill={item.color}/>
+              <polygon points="29,3 36,6 29,9" fill={item.color}/>
             </svg>
             <span>{item.label}</span>
           </div>
         ))}
-        <div class="legend-item" style="margin-left: auto; color: #9ca3af; font-size: 0.72rem;">
+        <div style="margin-left: auto; color: #9ca3af; font-size: 0.72rem; display:flex; align-items:center;">
           資料來源：公開財報、產業研究 — 僅供參考，不構成投資建議
         </div>
       </div>
 
-      <p class="note">每季更新 · 節點說明如有疑問請來信 bargisula@gmail.com</p>
+      <p class="note">每季更新 · 如有疑問請來信 bargisula@gmail.com</p>
 
     </main>
     <Footer />

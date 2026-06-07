@@ -1,0 +1,198 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// ── 未來新增圖譜：在這裡加一筆 ──────────────────────────────────────────
+// 不需要改 Header.astro，導覽永遠指向這頁
+const maps = [
+  {
+    slug: '/supply-chain',
+    title: 'AI 算力供應鏈',
+    description: '四層結構：製造記憶體 → GPU/ASIC → Hyperscaler → 互聯電力基礎設施，共 21 個節點、22 條邊。',
+    version: '2026-Q2',
+    nodeCount: 21,
+    scope: 'AI 半導體 · 基礎設施',
+    color: '#6366f1',
+  },
+  // 未來範例（先隱藏）：
+  // {
+  //   slug: '/maps/ai-pc',
+  //   title: 'AI PC 產業鏈',
+  //   description: '端側 AI 推論：NPU 晶片、平台、記憶體、OEM。',
+  //   version: '待建立',
+  //   nodeCount: 0,
+  //   scope: 'PC · 端側 AI',
+  //   color: '#0ea5e9',
+  //   coming_soon: true,
+  // },
+];
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <BaseHead
+      title="知識圖譜 — Xompass"
+      description="產業關係視覺化：以圖譜形式呈現供應鏈結構、競爭格局與資金流向。"
+    />
+    <style>
+      body { background: #f9fafb; }
+      main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+      .page-header { margin-bottom: 2rem; }
+      .page-header h1 {
+        font-size: 1.8rem; font-weight: 800; color: #111827;
+        margin: 0 0 0.5rem; letter-spacing: -0.04em;
+      }
+      .page-header p { color: #6b7280; font-size: 0.9rem; margin: 0; }
+
+      /* ── Design principle note ── */
+      .design-note {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-left: 4px solid #f59e0b;
+        border-radius: 8px;
+        padding: 0.9rem 1.2rem;
+        margin-bottom: 2rem;
+        font-size: 0.82rem;
+        color: #78350f;
+        line-height: 1.65;
+      }
+      .design-note strong { color: #92400e; }
+
+      /* ── Map cards ── */
+      .map-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.2rem;
+      }
+      .map-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.4rem;
+        text-decoration: none;
+        color: inherit;
+        transition: box-shadow 0.15s, border-color 0.15s;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .map-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,.08);
+        border-color: #d1d5db;
+      }
+      .map-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--card-color, #6366f1);
+        border-radius: 12px 12px 0 0;
+      }
+      .map-card.coming-soon { opacity: 0.55; pointer-events: none; cursor: default; }
+      .card-title {
+        font-size: 1.05rem; font-weight: 700; color: #111827;
+        margin: 0;
+      }
+      .card-desc { font-size: 0.83rem; color: #6b7280; line-height: 1.6; margin: 0; }
+      .card-meta {
+        display: flex; flex-wrap: wrap; gap: 0.4rem;
+        margin-top: auto; padding-top: 0.5rem;
+      }
+      .chip {
+        font-size: 0.72rem; padding: 0.2rem 0.55rem;
+        border-radius: 20px; background: #f3f4f6; color: #374151;
+        font-weight: 500;
+      }
+      .chip.version { background: #e0f2fe; color: #0369a1; }
+      .arrow {
+        position: absolute; right: 1.2rem; top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af; font-size: 1.1rem;
+      }
+      .coming-label {
+        position: absolute; right: 1rem; top: 0.9rem;
+        font-size: 0.7rem; background: #f3f4f6; color: #9ca3af;
+        padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600;
+      }
+
+      /* ── How to add section ── */
+      .how-to {
+        margin-top: 3rem;
+        padding: 1.4rem;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+      }
+      .how-to h2 {
+        font-size: 0.95rem; font-weight: 700; color: #374151;
+        margin: 0 0 0.9rem; display: flex; align-items: center; gap: 0.4rem;
+      }
+      .how-to ol {
+        margin: 0; padding-left: 1.3rem;
+        font-size: 0.82rem; color: #6b7280; line-height: 2;
+      }
+      .how-to code {
+        background: #f3f4f6; padding: 0.1rem 0.35rem;
+        border-radius: 4px; font-size: 0.78rem; color: #374151;
+      }
+
+      @media (max-width: 480px) {
+        main { padding: 1.5rem 0.75rem 3rem; }
+        .map-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="page-header">
+        <h1>🗺 知識圖譜</h1>
+        <p>以視覺化方式呈現產業供應鏈結構、競爭關係與資金流向。每季更新。</p>
+      </div>
+
+      <div class="design-note">
+        <strong>導覽架構說明</strong>：所有知識圖譜都從這個入口進入，Header 永遠只有「圖譜」一個連結。
+        新增圖譜只需要在 <code>src/pages/maps.astro</code> 的 <code>maps</code> 陣列加一筆，
+        並建立對應的 <code>src/pages/[slug].astro</code>，不需要改導覽列。
+      </div>
+
+      <div class="map-grid">
+        {maps.map((m: any) => (
+          <a
+            href={m.slug}
+            class={`map-card${m.coming_soon ? ' coming-soon' : ''}`}
+            style={`--card-color: ${m.color}`}
+          >
+            {m.coming_soon && <span class="coming-label">即將推出</span>}
+            <h2 class="card-title">{m.title}</h2>
+            <p class="card-desc">{m.description}</p>
+            <div class="card-meta">
+              <span class="chip version">{m.version}</span>
+              <span class="chip">{m.scope}</span>
+              {m.nodeCount > 0 && <span class="chip">{m.nodeCount} 節點</span>}
+            </div>
+            {!m.coming_soon && <span class="arrow">→</span>}
+          </a>
+        ))}
+      </div>
+
+      <!-- ── 如何新增圖譜 ── -->
+      <div class="how-to">
+        <h2>📌 如何新增圖譜</h2>
+        <ol>
+          <li>建立 <code>data/knowledge/[主題]-nodes.json</code>（節點定義 + 邊）</li>
+          <li>建立 <code>src/pages/[slug].astro</code>（照 supply-chain.astro 改）</li>
+          <li>在本頁 <code>maps</code> 陣列加一筆（slug / title / description / version / scope / color）</li>
+          <li>commit + push → GitHub Actions 自動 build + deploy</li>
+        </ol>
+      </div>
+
+    </main>
+    <Footer />
+  </body>
+</html>

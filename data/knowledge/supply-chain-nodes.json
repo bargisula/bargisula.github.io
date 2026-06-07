@@ -66,6 +66,15 @@
       "sublayer_label": "GPU"
     },
     {
+      "id": "INTC",
+      "name": "Intel",
+      "ticker": "INTC",
+      "desc": "Gaudi 3 AI 加速器，代工廠轉型中",
+      "layer": "1",
+      "sublayer": "1A",
+      "sublayer_label": "GPU"
+    },
+    {
       "id": "AVGO",
       "name": "Broadcom",
       "ticker": "AVGO",
