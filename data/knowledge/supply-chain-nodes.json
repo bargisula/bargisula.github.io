@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "title": "AI 算力供應鏈圖譜",
+  "subtitle": "四層產業結構：製造／記憶體 → GPU／ASIC → 需求商 → 互聯與基礎設施",
+  "version": "2026-Q2",
+  "last_updated": "2026-06-07",
+  "updated_by": "Xompass Research",
+  "_note": "季度更新：修改各節點 desc 或新增/移除 nodes 陣列項目，重新 build 即自動反映。edge 資料在 edges.json。",
+  "nodes": [
+    {
+      "id": "TSMC",
+      "name": "TSMC",
+      "ticker": "TSM",
+      "desc": "全球唯一 3nm/2nm AI 晶片代工廠",
+      "layer": "0",
+      "sublayer": null
+    },
+    {
+      "id": "SKH",
+      "name": "SK Hynix",
+      "ticker": null,
+      "desc": "HBM 龍頭，市佔約 55%",
+      "layer": "0",
+      "sublayer": null
+    },
+    {
+      "id": "Samsung",
+      "name": "Samsung",
+      "ticker": null,
+      "desc": "HBM 二號廠，約 25% 市佔",
+      "layer": "0",
+      "sublayer": null
+    },
+    {
+      "id": "MU",
+      "name": "Micron",
+      "ticker": "MU",
+      "desc": "美國唯一 HBM 廠，約 20%",
+      "layer": "0",
+      "sublayer": null
+    },
+    {
+      "id": "AMKR",
+      "name": "Amkor",
+      "ticker": "AMKR",
+      "desc": "CoWoS 先進封裝服務商",
+      "layer": "0",
+      "sublayer": null
+    },
+    {
+      "id": "NVDA",
+      "name": "NVIDIA",
+      "ticker": "NVDA",
+      "desc": "AI GPU 訓練推論市場定義者",
+      "layer": "1",
+      "sublayer": "1A",
+      "sublayer_label": "GPU"
+    },
+    {
+      "id": "AMD",
+      "name": "AMD",
+      "ticker": "AMD",
+      "desc": "MI300X，唯一量產 GPU 競爭者",
+      "layer": "1",
+      "sublayer": "1A",
+      "sublayer_label": "GPU"
+    },
+    {
+      "id": "AVGO",
+      "name": "Broadcom",
+      "ticker": "AVGO",
+      "desc": "Google TPU／Meta MTIA ASIC 夥伴",
+      "layer": "1",
+      "sublayer": "1B",
+      "sublayer_label": "Custom ASIC"
+    },
+    {
+      "id": "MRVL",
+      "name": "Marvell",
+      "ticker": "MRVL",
+      "desc": "AWS Trainium 核心，FUSION 成員",
+      "layer": "1",
+      "sublayer": "1B",
+      "sublayer_label": "Custom ASIC"
+    },
+    {
+      "id": "QCOM",
+      "name": "Qualcomm",
+      "ticker": "QCOM",
+      "desc": "Snapdragon X，端側 AI 推論",
+      "layer": "1",
+      "sublayer": "1B",
+      "sublayer_label": "Custom ASIC"
+    },
+    {
+      "id": "GOOG",
+      "name": "Google",
+      "ticker": "GOOGL",
+      "desc": "TPU 自製為主，規模最大",
+      "layer": "2",
+      "sublayer": null
+    },
+    {
+      "id": "META",
+      "name": "Meta",
+      "ticker": "META",
+      "desc": "MTIA 自製，多元供應鏈先行",
+      "layer": "2",
+      "sublayer": null
+    },
+    {
+      "id": "AMZN",
+      "name": "AWS",
+      "ticker": "AMZN",
+      "desc": "Trainium 自製，雲端 AI 第一",
+      "layer": "2",
+      "sublayer": null
+    },
+    {
+      "id": "MSFT",
+      "name": "Microsoft",
+      "ticker": "MSFT",
+      "desc": "NVDA 最大單一採購商",
+      "layer": "2",
+      "sublayer": null
+    },
+    {
+      "id": "xAI",
+      "name": "xAI",
+      "ticker": null,
+      "desc": "Colossus 100K+ GPU 集群",
+      "layer": "2",
+      "sublayer": null
+    },
+    {
+      "id": "ORCL",
+      "name": "Oracle",
+      "ticker": "ORCL",
+      "desc": "Stargate 合作夥伴，快速擴張",
+      "layer": "2",
+      "sublayer": null
+    },
+    {
+      "id": "COHR",
+      "name": "Coherent",
+      "ticker": "COHR",
+      "desc": "800G/1.6T 光模組，NVDA 投資",
+      "layer": "3",
+      "sublayer": null
+    },
+    {
+      "id": "GLW",
+      "name": "Corning",
+      "ticker": "GLW",
+      "desc": "光纖原材料，NVDA 32 億投資",
+      "layer": "3",
+      "sublayer": null
+    },
+    {
+      "id": "ANET",
+      "name": "Arista",
+      "ticker": "ANET",
+      "desc": "AI 數據中心乙太網路交換機",
+      "layer": "3",
+      "sublayer": null
+    },
+    {
+      "id": "VRT",
+      "name": "Vertiv",
+      "ticker": "VRT",
+      "desc": "電源管理與液冷，積壓 150 億",
+      "layer": "3",
+      "sublayer": null
+    }
+  ],
+  "edges": [
+    { "from": "TSMC",    "to": "NVDA",  "type": "manufactures_at" },
+    { "from": "TSMC",    "to": "AMD",   "type": "manufactures_at" },
+    { "from": "TSMC",    "to": "AVGO",  "type": "manufactures_at" },
+    { "from": "TSMC",    "to": "MRVL",  "type": "manufactures_at" },
+    { "from": "SKH",     "to": "NVDA",  "type": "supplies_to",    "label": "HBM" },
+    { "from": "MU",      "to": "NVDA",  "type": "supplies_to",    "label": "HBM" },
+    { "from": "NVDA",    "to": "GOOG",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "META",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "AMZN",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "MSFT",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "xAI",   "type": "supplies_to" },
+    { "from": "NVDA",    "to": "ORCL",  "type": "supplies_to" },
+    { "from": "AVGO",    "to": "GOOG",  "type": "supplies_to" },
+    { "from": "AVGO",    "to": "META",  "type": "supplies_to" },
+    { "from": "MRVL",    "to": "AMZN",  "type": "supplies_to" },
+    { "from": "MRVL",    "to": "MSFT",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "COHR",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "GLW",   "type": "supplies_to" },
+    { "from": "NVDA",    "to": "ANET",  "type": "supplies_to" },
+    { "from": "NVDA",    "to": "MRVL",  "type": "investment",     "label": "$20億入股" },
+    { "from": "NVDA",    "to": "AMD",   "type": "competition" },
+    { "from": "META",    "to": "MRVL",  "type": "supplies_to",    "label": "預期" }
+  ],
+  "legend": [
+    { "type": "manufactures_at", "label": "製造委託",    "color": "#16a34a", "dash": false },
+    { "type": "supplies_to",     "label": "供應關係",    "color": "#6b7280", "dash": false },
+    { "type": "investment",      "label": "股權投資",    "color": "#ea580c", "dash": true  },
+    { "type": "competition",     "label": "競爭替代威脅", "color": "#dc2626", "dash": true  }
+  ]
+}
