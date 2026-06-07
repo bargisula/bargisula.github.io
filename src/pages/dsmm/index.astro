@@ -205,6 +205,16 @@ const runs = rawSummaries.map((s, ri) => {
     .chip-red    { background: #b91c1c; color: #fecaca; }
     .chip-gray   { background: #334155; color: #cbd5e1; }
 
+    /* ── Scenario description ── */
+    .scenario {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0; border-top: none;
+      padding: .9rem 1.1rem;
+      font-size: .84rem; color: #374151; line-height: 1.75;
+    }
+    .scenario p { margin: 0 0 .6rem; }
+    .scenario p:last-child { margin: 0; }
+
     /* ── Chain container ── */
     .chain-wrap {
       background: #fff;
@@ -345,6 +355,15 @@ const runs = rawSummaries.map((s, ri) => {
             }
           </div>
         </div>
+
+        {/* ── 情境說明 ── */}
+        {(r.s as any).scenario && (
+          <div class="scenario">
+            {((r.s as any).scenario as string).split('\n\n').map((para: string) => (
+              <p>{para}</p>
+            ))}
+          </div>
+        )}
 
         {/* ── SVG 傳導鏈 ── */}
         <div class="chain-wrap">
