@@ -1,0 +1,141 @@
+{
+  "run_id": "RUN-20260607-TARIFF",
+  "event_id": "EVT-20260607-TARIFF",
+  "event_title": "美國對主要貿易夥伴再加徵 10% 關稅",
+  "completed_at": "2026-06-07",
+  "pipeline_version": "1.0",
+  "scenario": "美國對主要貿易夥伴（歐盟、中國、日本、韓國等）宣布再加徵統一 10% 關稅，商品市場入口。核心邏輯：進口品 P↑ → AS 成本推升（輕微左移）+ π^e 上升 → Fed 陷入「供給側通膨」兩難，傾向暫停觀望而非升息。\n\n假設：有限報復（對方保留談判空間）、美元輕微升值、國內替代能力中等。\n\n滯脹壓力成因：Y 輕微↓（AD 受不確定性壓制）+ P↑（進口品漲價）。短期財政因 T_trade↑ 略改善，但中期被 rB_g↑ 與稅基收縮抵消。\n\n關鍵觀察點：報復升級是否演變為全面貿易戰（若升級則 Y 下行幅度翻倍）；Fed 是否打破觀望（若主動升息則觸發 R1 財政-利率正反饋）。",
+  "impact_map": {
+    "金融市場": {
+      "impact_level": "high",
+      "direction": "P_s 整體承壓（EPS 下修 + ρ↑）；農業出口股、低毛利零售首當其衝；AI capex 股相對抗跌",
+      "time_horizon": "immediate（宣示當日提前定價）",
+      "key_signal": "S&P EPS 共識預估是否下修 2-3%；VIX 是否突破 20"
+    },
+    "貨幣市場": {
+      "impact_level": "medium",
+      "direction": "降息預期再度後退；Fed 暫停觀望；r 維持高位或輕微上移",
+      "time_horizon": "weeks（市場重定價 2-4 週）",
+      "key_signal": "FedWatch 次季降息機率是否跌破 30%；10Y 是否因通膨預期走高突破 4.70%"
+    },
+    "商品市場": {
+      "impact_level": "medium（滯脹壓力）",
+      "direction": "P↑（進口品通膨）+ Y 輕微↓；T_trade 短期增收但中期稅基縮減",
+      "time_horizon": "months（CPI 傳導 1-3 個月；投資觀望即時）",
+      "key_signal": "核心 CPI 是否連 2 個月超預期；非農就業是否反映出口業裁員"
+    },
+    "勞動市場": {
+      "impact_level": "low（方向不確定）",
+      "direction": "製造業 L^d 輕微↑（保護）vs 農業/出口業 L^d↓（報復）；名目工資↑ 但落後通膨",
+      "time_horizon": "months（3-6 個月後顯現）",
+      "key_signal": "農業州 / 出口製造業就業是否轉弱；AHE 實質增速是否轉負"
+    },
+    "財政動態": {
+      "impact_level": "low（短期正面，中期惡化）",
+      "direction": "T_trade↑（短期）vs rB_g↑ + 稅基↓（中期）；財政螺旋條件部分成立",
+      "time_horizon": "quarters（稅收影響 1-2 季後顯現）",
+      "key_signal": "CBO 赤字預測是否上修；美債 10Y 是否因財政擔憂突破 4.80%"
+    }
+  },
+  "top_asset_implications": [
+    {
+      "asset": "農業出口股（Archer Daniels / Bunge）",
+      "direction": "↓",
+      "magnitude": "報復關稅直接打擊出口，EPS 下修 5-10%",
+      "confidence": 0.78
+    },
+    {
+      "asset": "低毛利零售商（Target / Dollar General）",
+      "direction": "↓",
+      "magnitude": "進口商品成本↑，毛利率壓縮 1-2%",
+      "confidence": 0.75
+    },
+    {
+      "asset": "NVDA / AVGO / VRT（AI capex 鏈）",
+      "direction": "中性",
+      "magnitude": "國內需求為主，貿易戰影響有限；但整體 P_s 承壓環境下估值倍數有輕微壓縮",
+      "confidence": 0.82,
+      "tc_reference": "TC-004"
+    },
+    {
+      "asset": "美元 DXY",
+      "direction": "↑",
+      "magnitude": "進口需求↓ + 避險需求；預計 +1-2%",
+      "confidence": 0.7
+    },
+    {
+      "asset": "10Y 美債",
+      "direction": "殖利率↑（通膨預期）",
+      "magnitude": "4.60% → 4.70-4.75% 區間，加速向 4.80% 靠近",
+      "confidence": 0.72,
+      "tc_reference": "TC-001"
+    }
+  ],
+  "critical_next_event": {
+    "date": "2026-07-01",
+    "event": "貿易夥伴報復措施公布",
+    "importance": "關鍵分岔點",
+    "if_hot": "全面貿易戰路徑 → Y 下行加速 → Regime 轉滯脹；ρ↑ → P_s 非線性承壓",
+    "if_cool": "有限衝擊收斂 → 滯脹壓力緩解 → Regime 維持 Overheat 右偏"
+  },
+  "feedback_loops_detected": [
+    {
+      "type": "財政-利率正反饋（R1）",
+      "path": "r↑ → rB_g↑ → B_g↑ → ρ↑ → r↑",
+      "status": "輕微，收斂中",
+      "conditions_met": 2,
+      "conditions_needed": 4,
+      "missing": "主權風險 ρ 尚未明顯上升；財政赤字增速仍可控"
+    },
+    {
+      "type": "通膨-工資螺旋（R2）",
+      "path": "P↑ → 工資議價↑ → 成本↑ → P 再↑",
+      "status": "輕微，收斂",
+      "conditions_met": 1,
+      "conditions_needed": 3,
+      "missing": "工資市場不確定性壓制大幅上行；就業淨效果方向未定"
+    }
+  ],
+  "verification_checkpoints": [
+    {
+      "id": "VCP-TARIFF-001",
+      "market": "商品市場",
+      "check_date": "2026-07-15",
+      "prediction": "CPI MoM ≥ 0.4%（連續 2 個月）",
+      "threshold": "CPI MoM ≥ 0.4%",
+      "check_source": "BLS CPI",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-TARIFF-002",
+      "market": "金融市場",
+      "check_date": "2026-07-10",
+      "prediction": "S&P 500 EPS 共識預估較 6/7 下修 ≥ 2%",
+      "threshold": "EPS consensus revision ≤ -2%",
+      "check_source": "Bloomberg / FactSet consensus",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-TARIFF-003",
+      "market": "貨幣市場",
+      "check_date": "2026-07-30",
+      "prediction": "10Y 殖利率突破 4.70%（通膨預期推動）",
+      "threshold": "^TNX ≥ 4.70%",
+      "check_source": "Yahoo Finance ^TNX",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    }
+  ],
+  "regime_implication": {
+    "direction": "down-right",
+    "quadrant_pressure": "Overheat → Stagflation 邊界",
+    "note": "本場景單獨不足以改變 Regime，但與 NFP 超預期疊加，加速向滯脹象限靠近。若報復升級則 Regime 轉換。"
+  },
+  "system_confidence": 0.72,
+  "wisdom_state": "pending_verification"
+}
