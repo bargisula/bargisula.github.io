@@ -1,0 +1,164 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "dimension": "論點",
+  "step": 5,
+  "analyst": "industry-thesis",
+  "analyzed_at": "2026-06-07",
+  "thesis_statement": "IF 端側 AI 殺手應用未出現 AND Vera Rubin 雲端 API 成本在 2026 Q4 降至現價 1/5 以下 THEN 現有 AIPC 晶片廠（QCOM/INTC/AMD）高溢價論點失效、NPU 商品化加速 BECAUSE 端側差異性前提（成本優勢 + 效能門檻）被雙向侵蝕：雲端 API 極度便宜使本地推論失去成本邏輯，RTX Spark 重新定義高端 AIPC 天花板；但平台層（MSFT/AAPL）與記憶體層（Samsung/SK Hynix/Micron）因護城河結構不同而持續受益",
+  "thesis_strength": "中等",
+  "thesis_notes": "這是一個分層論點，非單一多空。晶片層（負面）與平台層（正面）護城河深度差異是核心，不可混為一談。",
+  "layer_thesis": {
+    "chip_layer": {
+      "tickers": ["QCOM", "INTC", "AMD"],
+      "direction": "負面",
+      "summary": "NPU 商品化已完成，40 TOPS 成為基本配備而非差異優勢；Nvidia RTX Spark 攪局高端、Vera Rubin 壓低端側需求，定價能力持續收縮",
+      "confidence": 0.72
+    },
+    "platform_layer": {
+      "tickers": ["MSFT", "AAPL"],
+      "direction": "正面",
+      "summary": "Copilot+ 認證體系與 Apple Intelligence 垂直整合定義市場標準，無論晶片競賽誰贏均受益；訂閱 + 生態護城河不受 NPU 商品化影響",
+      "confidence": 0.82
+    },
+    "memory_layer": {
+      "tickers": ["Samsung（005930.KS）", "SK Hynix（000660.KS）", "MU"],
+      "direction": "正面（短期）",
+      "summary": "LPDDR5X / LPCAMM2 短缺持續至 2027 H1，HBM 優先效應維持定價權；RTX Spark 128GB 需求更進一步拉升 LPDDR5X 需求",
+      "confidence": 0.75
+    },
+    "new_entrant": {
+      "tickers": ["NVDA"],
+      "direction": "正面（高端攪局者）",
+      "summary": "RTX Spark 以 CUDA 生態 + 128GB 統一記憶體重新定義 AIPC 天花板；2026 年份額為零，2027 年起顛覆高端格局",
+      "confidence": 0.70
+    }
+  },
+  "logic_tree": [
+    {
+      "node": "需求持平偏加速（結構上行、總量受壓）",
+      "confidence": 0.62,
+      "confirmed": true,
+      "source": "01-demand.json：NPU 滲透率快速攀升，但 W10 EOL 催化劑已完成，殺手應用未出現，定義膨脹風險高",
+      "implication": "AIPC 出貨量增長主要來自規格替換而非真實新需求，絕對出貨不超過 160M 台（2026）"
+    },
+    {
+      "node": "供給結構分裂（NPU 供過於求 / 記憶體供不應求）",
+      "confidence": 0.75,
+      "confirmed": true,
+      "source": "02-supply.json：NPU 三路競爭無定價權；LPDDR5X 交期 26-39 週，緩解至 2027 H1",
+      "implication": "定價能力集中在記憶體三強，AIPC 系統層 OEM 毛利受兩頭擠壓"
+    },
+    {
+      "node": "晶片層護城河商品化，平台層護城河強化",
+      "confidence": 0.78,
+      "confirmed": true,
+      "source": "03-competition.json：QCOM 先發優勢窗口收窄（獨家協議到期）；MSFT/AAPL 雙寡頭壟斷 OS 層；Nvidia RTX Spark 全家桶確認",
+      "implication": "INTC 長期份額下行不可逆；QCOM 面臨 Nvidia 入場壓力；MSFT/AAPL 無論誰贏均受益"
+    },
+    {
+      "node": "技術替代高風險（兩項量產確認，24 個月內衝擊）",
+      "confidence": 0.78,
+      "confirmed": true,
+      "source": "04-technology.json：Vera Rubin 10x token 成本下降（2H 2026）；RTX Spark（秋 2026）；LPCAMM2 正向但不足以扭轉",
+      "implication": "現有 40-50 TOPS NPU 平台差異性在 2027 年前接近歸零；AIPC 溢價 $50 以下論點成立"
+    },
+    {
+      "node": "晶片廠（QCOM/INTC/AMD）AIPC 溢價論點失效",
+      "confidence": 0.72,
+      "confirmed": false,
+      "source": "上述四節點邏輯鏈合成",
+      "implication": "不宜單押 AIPC 晶片廠作為 AIPC 題材；但平台層和記憶體層論點仍成立"
+    }
+  ],
+  "kill_switches": [
+    {
+      "id": "KS-001",
+      "severity": "critical",
+      "condition": "端側 AI 殺手應用在 2026 Q4 前出現，帶動消費端 AIPC 主動換機率顯著上升（季出貨 YoY > 20%，且消費端佔比 > 40%）",
+      "breaks_node": "需求持平偏加速（結構上行、總量受壓）",
+      "leading_indicator": "Apple Intelligence 或 Microsoft Recall 出現病毒式傳播應用場景，App Store / Microsoft Store 下載量單季 > 5000 萬次",
+      "probability_12m": "低（Dell/HP 管理層均承認消費端未引起共鳴）"
+    },
+    {
+      "id": "KS-002",
+      "severity": "critical",
+      "condition": "Vera Rubin 部署後 2026 Q4 主流 API（GPT-5/Claude 4）定價未如預期降至現價 1/5，雲端成本維持現有水準",
+      "breaks_node": "技術替代高風險（兩項量產確認）",
+      "leading_indicator": "Anthropic/OpenAI 未在 2026 Q3-Q4 宣布大規模降價；AWS/GCP Vera Rubin 部署延遲",
+      "probability_12m": "低中（API 定價競爭激烈，但時間點不確定）"
+    },
+    {
+      "id": "KS-003",
+      "severity": "major",
+      "condition": "Nvidia RTX Spark 秋 2026 出貨嚴重受阻（LPDDR5X 短缺導致供給極其有限，2026 全年出貨 < 50 萬台）",
+      "breaks_node": "晶片層護城河商品化，平台層護城河強化",
+      "leading_indicator": "Nvidia RTX Spark 頁面顯示等待名單或嚴重缺貨；Samsung/SK Hynix 128GB LPDDR5X 模組交期進一步拉長",
+      "probability_12m": "中（LPDDR5X 短缺本身是既有確認問題，128GB 需求更大）"
+    },
+    {
+      "id": "KS-004",
+      "severity": "major",
+      "condition": "Intel 18A 製程良率突破 + Panther Lake 供給正常化，OEM 移單回流 Intel，INTC 客戶端 CPU 市占止跌回升至 > 60%",
+      "breaks_node": "晶片層護城河商品化，平台層護城河強化（Intel 輸家定論）",
+      "leading_indicator": "Intel 法說提到 18A 良率達到量產水準（> 70%）；Core Ultra Series 3 交期縮短至 2 週以內",
+      "probability_12m": "低（Intel 自述 2026 Q2 改善但未量化，18A 良率問題持續）"
+    },
+    {
+      "id": "KS-005",
+      "severity": "major",
+      "condition": "LPDDR5X 短缺在 2026 H2 提前緩解（三星/Micron 新廠提前量產，HBM 需求意外降溫），記憶體三強定價能力喪失",
+      "breaks_node": "供給結構分裂（記憶體供不應求）",
+      "leading_indicator": "Samsung / SK Hynix 法說提到 LPDDR5X 交期縮短至 < 12 週；DRAM 現貨價格 2026 H2 連續兩季下滑",
+      "probability_12m": "低（Samsung/SK Hynix 均已表示先進封裝產能滿載至 2026 年底）"
+    }
+  ],
+  "verification_checkpoints": [
+    {
+      "id": "VCP-IND-AIPC-001",
+      "dimension": "需求",
+      "check_date": "2027-02-01",
+      "prediction": "2026 全年 AIPC 出貨量 130-160M 台，全球 PC 總出貨年減 8-12%，消費端 AIPC 主動換機率維持低迷（<15% 受訪者認為 AI 功能是換機主因）",
+      "threshold": "通過：AIPC 出貨 < 160M 台 AND 消費端換機動機非 AI 功能主導；失敗：AIPC 出貨 > 180M 台 OR 消費端換機動機調查 AI 功能佔比 > 30%",
+      "check_source": "IDC Quarterly PC Tracker Q4 2026 / Canalys Q4 2026 / Gartner 消費者調查",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-AIPC-002",
+      "dimension": "供給",
+      "check_date": "2027-02-01",
+      "prediction": "LPDDR5X 現貨交期 2026 Q4 仍 > 16 週，記憶體三強（Samsung/SK Hynix/Micron）DRAM ASP QoQ 持平或上升",
+      "threshold": "通過：交期 > 16 週 AND DRAM ASP QoQ ≥ 0%；失敗：交期縮短至 < 12 週 OR DRAM ASP QoQ < -5%",
+      "check_source": "Samsung / SK Hynix Q4 FY2026 法說（記憶體 ASP guidance）/ Tom's Hardware 交期追蹤",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-AIPC-003",
+      "dimension": "競爭",
+      "check_date": "2026-11-01",
+      "prediction": "ARM 客戶端 CPU 份額 Q3 2026 升至 16-18%；Nvidia RTX Spark 首批機種 10 月上市但供給受限；QCOM QCT PC segment 毛利率 QoQ 下滑",
+      "threshold": "通過：ARM 份額 > 16% AND RTX Spark 如期上市；失敗：ARM 份額 < 14% OR RTX Spark 延遲至 2027",
+      "check_source": "Mercury Research Q3 2026 / Nvidia 出貨公告 / QCOM Q4 FY2026 法說（2026 年 11 月）",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-AIPC-004",
+      "dimension": "技術",
+      "check_date": "2026-12-31",
+      "prediction": "Vera Rubin 部署後主流 LLM API（GPT-5 / Claude 4）定價出現至少一次 30%+ 降幅；RTX Spark 機種在高端 AIPC（>1500 USD）進入前三暢銷榜",
+      "threshold": "通過：API 定價降幅 ≥ 30% OR RTX Spark 高端佔比 > 10%；失敗：API 定價無顯著變動 AND RTX Spark 僅小眾供給",
+      "check_source": "OpenAI/Anthropic 官方定價頁 / Artificial Analysis API 價格追蹤 / IDC AIPC 出貨數據",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    }
+  ],
+  "overall_confidence": 0.74,
+  "confidence_rationale": "三個維度 confidence > 0.7（供給 0.75、競爭 0.78、技術 0.78），需求偏低（0.62）；有 2 個 critical Kill Switch 但觸發概率均低；技術替代時間軸 < 24 個月（Vera Rubin 2H 2026、RTX Spark 秋 2026），降至中等論點。論點複雜度高（分層），單一評級不足以反映分層差異。"
+}

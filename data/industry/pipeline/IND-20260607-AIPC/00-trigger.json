@@ -1,0 +1,10 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "trigger_event": "主動分析（研究隊列 edge_inference，董事長指定）",
+  "triggered_at": "2026-06-07",
+  "related_tickers": ["QCOM", "INTC", "AMD", "NVDA", "ARM", "AAPL", "MSFT"],
+  "linked_dsmm_chains": ["TC-004"],
+  "linked_insights": ["INS-2026-05-25-002"],
+  "_note": "端側 AI 推論從雲端下沉，QCOM Snapdragon X Elite、Intel Core Ultra、AMD Ryzen AI 主要玩家；換機週期 + NPU 規格升級是核心驅動力"
+}

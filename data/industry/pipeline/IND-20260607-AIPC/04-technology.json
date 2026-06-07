@@ -1,0 +1,116 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "dimension": "技術替代",
+  "step": 4,
+  "analyst": "industry-technology",
+  "analyzed_at": "2026-06-07",
+  "current_tech": {
+    "name": "x86 CPU + 獨立 NPU 插拔式架構（SO-DIMM LPDDR5X）",
+    "description": "主流 AIPC 架構：Intel Core Ultra / AMD Ryzen AI x86 CPU、獨立 NPU 模組（40-50 TOPS）、SO-DIMM LPDDR5X 記憶體（最高 7500 MT/s）。平台三方分離：CPU 廠商（Intel/AMD）、NPU IP（Intel/AMD/Qualcomm 各自）、記憶體模組（SK Hynix/Samsung/Micron）。",
+    "ceiling": {
+      "bandwidth": "SO-DIMM LPDDR5X 峰值理論頻寬約 120-140 GB/s（雙通道），實際可用低於 100 GB/s；30B 4-bit 模型推論需 200+ GB/s 才可達 60 tok/s 以上，現有架構卡死在 <30 tok/s",
+      "thermal": "薄型筆電（15W TDP 封裝）下 NPU + CPU 搶同一功耗預算，NPU 持續推論時 CPU 降頻",
+      "density": "SO-DIMM 實體規格最大 64GB，擴充上限制約 70B+ 模型本地運行",
+      "npu_tops": "商品化使 NPU TOPS 數字失去差異性；40-50 TOPS 在 Copilot+ 基礎門檻之上幾乎無軟體需求增量"
+    },
+    "ip_holders": ["Intel（x86 + NPU Meteor Lake）", "AMD（x86 + XDNA NPU）", "Qualcomm（ARM + Hexagon NPU）", "SK Hynix/Samsung/Micron（LPDDR5X）"]
+  },
+  "substitutes": [
+    {
+      "tech_name": "LPCAMM2（Low-Power Compression Attached Memory Module 2）",
+      "description": "取代 SO-DIMM 的新記憶體介面規格，單模組最高 96GB LPDDR5X-8533 MT/s，雙通道可達 ~270 GB/s（對比 SO-DIMM 約 120 GB/s），同時縮小主板佔位面積 60%。",
+      "stage": "MP",
+      "commercial_timeline": "2026-2027",
+      "confirmed_by": "Lenovo ThinkBook 14+/16+ 2026（Intel Core Ultra Series 3）量產出貨；Framework Laptop 13 Pro（LPCAMM2 主板）2026 Q2 量產；Samsung 96GB 模組 2H 2026 量產驗證；CXMT（中芯記憶體）LPCAMM2 進入 Lenovo ThinkBook 2026 供應鏈",
+      "threat_to": ["SO-DIMM 規格模組廠商（Crucial/Kingston 商用型號）", "僅設計 SO-DIMM 擴充槽的 OEM 平台（HP Spectre、Dell XPS 舊平台）"],
+      "benefit_to": ["Samsung（96GB 模組首發）", "SK Hynix（8533 MT/s 技術領先）", "Intel（Series 3 LPCAMM2 平台深度綁定）", "Lenovo（先發 OEM 形象）"],
+      "moat_erosion": "輕微侵蝕 SO-DIMM 模組規格廠商短尾產品線；但主要記憶體大廠（三星/海力士）均已轉向 LPCAMM2，護城河整體增強而非侵蝕。關鍵影響在平台層：LPCAMM2 讓記憶體頻寬瓶頸部分解除，使 20-30B 本地模型推論可行性提升，間接強化端側 AI 論點。",
+      "risk_level": "低（對現有主要廠商）；對端側 AI 論點為正向催化劑",
+      "bandwidth_impact": "270 GB/s 可支援 30B 4-bit 模型達 ~60-80 tok/s，跨越「可用」門檻；70B 仍需 128GB+ 容量（96GB LPCAMM2 模組可達）"
+    },
+    {
+      "tech_name": "Nvidia RTX Spark（ARM CPU + Blackwell GPU 統一記憶體架構）",
+      "description": "Computex 2026 發表，ARM 20 核心 CPU + Blackwell GPU 6144 CUDA cores + 128GB LPDDR5X 統一記憶體，300 GB/s 頻寬，1 petaflop AI 效能。可本地運行 120B 參數模型（4-bit）。秋季 2026 出貨，2027 Gen2 升級至 Vera CPU + LPDDR6 更高頻寬。",
+      "stage": "MP",
+      "commercial_timeline": "2026（秋季出貨）-2027（Gen2）",
+      "confirmed_by": "Computex 2026 正式發表（2026-06）；ASUS、Dell、HP、Lenovo、Microsoft Surface、MSI 確認出貨；NVIDIA 官方規格頁已上線",
+      "threat_to": [
+        "Qualcomm Snapdragon X Elite 高端 ARM Windows 市場",
+        "Intel Core Ultra x86 高端平台",
+        "AMD Ryzen AI 高端平台",
+        "純 SO-DIMM 架構的現有 AIPC 平台（記憶體頻寬瓶頸直接被繞過）"
+      ],
+      "benefit_to": ["Nvidia（進入 PC 晶片市場，完整 GPU+CPU 生態）", "MediaTek（ARM CPU 授權合作夥伴）", "Microsoft（深度合作，Windows ARM 生態加速）", "LPDDR5X/LPDDR6 大廠（128GB 統一記憶體需求大增）"],
+      "moat_erosion": "高度侵蝕 Intel/AMD/Qualcomm x86 及現有 ARM NPU 護城河。128GB 統一記憶體 + Blackwell 直接解除端側 LLM 瓶頸，使現有 40-50 TOPS NPU 平台的 AI 差異性歸零。x86 生態鎖定護城河仍在，但高端用戶遷移誘因強。",
+      "risk_level": "高（時間軸 ≤6 個月即量產，威脅 Intel/AMD/QCOM 高端 AIPC 論點）"
+    },
+    {
+      "tech_name": "端側 30B+ 本地 LLM（量化推論技術成熟化）",
+      "description": "30B 模型 4-bit 量化（Q4_K_M）需 16-20GB VRAM，配合 300 GB/s+ 頻寬可達 60-90 tok/s 實用速度。技術本身不是新替代品，而是「記憶體頻寬 + 容量門檻跨越」後自然解鎖的能力。",
+      "stage": "EVT（硬體解鎖中；軟體生態 DV 階段）",
+      "commercial_timeline": "2026（30B 可用）-2028（70B 規模普及）",
+      "confirmed_by": "RTX Spark 128GB 統一記憶體（120B 本地運行官方確認）；LPCAMM2 96GB 模組量產（70B 技術可行）；Ollama / LMStudio 生態 2026 年支援 Q4 量化 30B 廣泛部署",
+      "threat_to": ["雲端 AI 訂閱服務（ChatGPT Plus、Copilot Pro 等）", "低功耗端側需求若無殺手應用仍無法落地"],
+      "benefit_to": ["Nvidia（RTX Spark 成為 30B+ 本地 LLM 最優平台）", "MSFT（Windows + Copilot+ 本地化生態）", "開源 LLM 生態（Meta Llama、Mistral 等）"],
+      "moat_erosion": "威脅雲端 AI 訂閱商業模式（僅限隱私敏感 / 離線需求場景），但殺手應用仍未出現，需求端制約比技術端更嚴峻",
+      "risk_level": "中（技術可行性已確認，商業普及受限於應用場景定義不清）"
+    },
+    {
+      "tech_name": "雲端推論成本崩落（Vera Rubin 10x token 成本下降）",
+      "description": "Nvidia Vera Rubin NVL72 承諾相比 Blackwell 降低 10x 推論 token 成本，2H 2026 進入雲端供應商（AWS/GCP/Azure/OCI）量產部署，直接壓低 API 調用價格，改變端雲成本平衡點。",
+      "stage": "MP（2H 2026 出貨，已確認供應商）",
+      "commercial_timeline": "2026 下半年量產",
+      "confirmed_by": "CES 2026 NVIDIA 正式發表；AWS/GCP/Azure/OCI/CoreWeave/Lambda 確認為首批部署方；Tom's Hardware 報導 2H 2026 量產時程",
+      "threat_to": ["端側 AI 差異性論點（若雲端極度便宜，端側隱私/延遲優勢價值縮水）", "AIPC 溢價定價（用戶問：為什麼要多付 300 美元買本地 NPU？）"],
+      "benefit_to": ["Nvidia（雲端 + 端側雙贏）", "雲端 AI 服務商（API 成本降低，用量提升）", "開發者（更便宜 API 加速雲端 SaaS 採用）"],
+      "moat_erosion": "間接侵蝕 AIPC 高溢價論點。若 GPT-5 / Claude 4 等雲端 API 成本降至目前 1/10，端側本地推論的「省成本」邏輯失效，僅剩隱私與離線場景支撐端側需求。此為 AIPC 需求端最大潛在殺手。",
+      "risk_level": "高（量產時程確認，2H 2026 直接衝擊 AIPC 差異化論點）"
+    },
+    {
+      "tech_name": "ARM 架構全面滲透（x86 生命週期壓縮）",
+      "description": "ARM 筆電市場份額 2029 年預計達 40%（出貨量）/52%（營收），從 2026 Q1 約 14.4% 快速擴張。RTX Spark 進入確認 ARM + Windows 生態已無技術障礙。Qualcomm 獨家協議到期後，Nvidia/MediaTek/Apple 均可自由競逐 ARM Windows。",
+      "stage": "Mass（Apple Silicon）/ MP（Qualcomm）/ MP（Nvidia RTX Spark）",
+      "commercial_timeline": "2026-2029",
+      "confirmed_by": "Mercury Research Q1 2026 ARM 客戶端 CPU 14.4% 份額；Tom's Hardware 分析師預測 2029 年 40% 筆電份額；Nvidia RTX Spark Computex 2026 量產確認",
+      "threat_to": ["Intel x86 客戶端 CPU 市場（Core Ultra Series）", "AMD x86 筆電 CPU（Ryzen AI）"],
+      "benefit_to": ["ARM Holdings（IP 授權收益擴大）", "Nvidia（RTX Spark ARM 平台）", "Qualcomm（先發優勢，但壁壘降低）", "Apple（M 系列持續領跑效能/功耗）"],
+      "moat_erosion": "中度侵蝕 Intel 和 AMD 筆電 CPU 市場份額；Intel 最脆弱（已面臨市占下滑 + 製程落後 + RTX Spark 搶高端），AMD 因 x86 伺服器護城河強而緩衝較多",
+      "risk_level": "中（時間軸 3-4 年規模化，但方向確認度高）"
+    }
+  ],
+  "kill_switches": [
+    {
+      "condition": "Vera Rubin 部署後 API token 成本在 2026 Q4 降至 GPT-4o 現價 1/5 以下",
+      "victim_thesis": "AIPC 「本地推論省成本」高溢價論點；40-50 TOPS NPU 差異化論點",
+      "probability": "中高（NVIDIA 已確認 10x cost reduction，部分可能在 2026 Q4 反映在 API 定價）",
+      "timeline": "2026 Q4-2027 Q1"
+    },
+    {
+      "condition": "Nvidia RTX Spark 2026 秋季出貨後進入高端 AIPC 榜單前三，附帶 120B 本地 LLM 使用案例廣泛報導",
+      "victim_thesis": "Qualcomm Snapdragon X Elite 高端 AIPC 差異化論點；Intel Core Ultra 高端溢價論點",
+      "probability": "中高（OEM 陣容已確認，Microsoft Surface 旗艦款加持）",
+      "timeline": "2026 Q4-2027 Q1"
+    },
+    {
+      "condition": "Intel 2026-2027 無法推出具競爭力的 ARM 架構或統一記憶體平台",
+      "victim_thesis": "Intel AIPC 市場份額反彈論點",
+      "probability": "高（Intel 無短期 ARM 路線圖；Panther Lake 仍 x86）",
+      "timeline": "2026-2027"
+    }
+  ],
+  "technology_verdict": "AIPC 最大技術威脅是雙頭夾擊：雲端端（Vera Rubin 10x token 成本下降）侵蝕端側差異性、硬體端（RTX Spark 128GB 統一記憶體）直接繞過現有 x86+NPU 架構瓶頸——兩者皆在 2026 年內量產，現有 Intel/AMD/QCOM 平台溢價護城河在 2027 年前面臨實質考驗；LPCAMM2 為正向催化劑但不足以扭轉格局。",
+  "overall_risk_level": "高",
+  "risk_rationale": "兩項高風險技術（Vera Rubin token 成本崩落 + RTX Spark 架構替代）均已確認量產時程在 24 個月內，且均直接衝擊現有 AIPC 差異化論點的核心前提（端側 AI 有成本/效能優勢）。",
+  "verifiable_by": {
+    "metric_1": "Vera Rubin 部署後 OpenAI/Anthropic API 定價是否在 2026 Q4 出現 50%+ 降幅",
+    "check_date_1": "2026-12-31",
+    "source_1": "OpenAI/Anthropic 官方定價頁、Artificial Analysis API 價格追蹤",
+    "metric_2": "Nvidia RTX Spark 2026 秋季出貨後，2026 Q4 AIPC 市場高端層（售價 >1500 USD）是否出現 RTX Spark 機種佔比 >10%",
+    "check_date_2": "2027-01-31",
+    "source_2": "IDC/Canalys AIPC 出貨數據、OEM 法說（Lenovo/HP/Dell Q4 FY2026）",
+    "metric_3": "LPCAMM2 是否在 2026 底達到主流筆電（售價 800-1200 USD）10% 以上滲透率",
+    "check_date_3": "2027-01-31",
+    "source_3": "Lenovo/HP 產品發表、JEDEC LPCAMM2 採用廠商清單"
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "dimension": "競爭格局",
+  "step": 3,
+  "analyst": "industry-competition",
+  "analyzed_at": "2026-06-07",
+  "market_structure": "寡占（三層結構各自寡占）",
+  "market_structure_note": "AIPC 市場為三層垂直結構：NPU 晶片層三路寡占（QCOM / Intel / AMD + 新進者 Nvidia）、OEM 系統層五強分散（Lenovo > HP > Dell > Apple > ASUS，但 AIPC 份額分化）、OS/平台層雙寡頭（Microsoft Copilot+ / Apple Intelligence）。各層護城河深度不同，晶片層最弱（商品化快速），平台層最強（生態鎖定）。",
+  "segments": [
+    {
+      "segment": "NPU 晶片層",
+      "structure": "寡占（3+1 路競爭，Nvidia 為 2026 新進者）",
+      "structure_note": "原三路（QCOM / Intel / AMD）競爭已使 NPU 算力供過於求、定價能力弱；2026 年 6 月 Computex 發表的 Nvidia RTX Spark（ARM CPU + Blackwell GPU + 128GB LPDDR5X，秋季出貨）將成第四路，加速商品化。ARM 份額已達客戶端 CPU 14.4%（Q1 2026，Mercury Research），QoQ 繼續擴張。",
+      "players": [
+        {
+          "name": "Qualcomm（Snapdragon X Elite / X2 / X Plus）",
+          "ticker": "QCOM",
+          "position": "winner",
+          "moat": "ARM 首發優勢（45 TOPS NPU 最早量產）、Microsoft Copilot+ 深度合作、功耗效率（20 小時以上電池壽命）、Snapdragon X2（80 TOPS）路線圖",
+          "moat_strength": "中",
+          "share_trend": "擴張",
+          "share_est": 0.30,
+          "share_confidence": "medium",
+          "estimated": true,
+          "key_evidence": "ARM 客戶端 CPU 份額 Q1 2026 達 14.4%（Mercury Research），QoQ +0.5pp；QCOM Q1 FY2026 創紀錄營收 123 億美元；Snapdragon X Elite 相比同規格 Intel 機種便宜 200-300 美元，OEM 接受度高。但獨家 Copilot+ 協議已於 2025 年到期，Nvidia / AMD / MediaTek 均可進入 Windows ARM 市場，壁壘降低。",
+          "risk": "Nvidia RTX Spark（秋 2026）直接搶高端 ARM-Windows 份額；Snapdragon X2 受 TSMC N2 配額限制，初期供給不足"
+        },
+        {
+          "name": "Intel（Core Ultra Series 2 / Series 3 Panther Lake）",
+          "ticker": "INTC",
+          "position": "neutral",
+          "moat": "x86 生態相容性（軟體庫最廣）、企業 vPro 認證、資料中心 AI（Google 長約）帶來轉型動能",
+          "moat_strength": "中",
+          "share_trend": "萎縮",
+          "share_est": 0.45,
+          "share_confidence": "medium",
+          "estimated": true,
+          "key_evidence": "Intel Q1 2026 營收 135.8 億美元超預期，股價單日+20%；但 Core Ultra 200HX Plus 初期交期 8-12 週（最長 6 個月），OEM 供應受限。Steam 硬體調查 2026 年 1 月首度止跌微反彈，但整體市占仍在長期下行通道。Intel 18A 製程良率風險尚未解除。供給排擠（AI 伺服器 vs 客戶端 CPU）是短期最大隱患。",
+          "risk": "ARM 滲透加速（x86 從 87% 長期往下走）；Panther Lake 量產時間表延誤風險"
+        },
+        {
+          "name": "AMD（Ryzen AI 300 / Ryzen AI Max）",
+          "ticker": "AMD",
+          "position": "neutral",
+          "moat": "Ryzen AI Max 最高 96GB 可定址記憶體（工作站/創作者利基）、x86 相容性、AMD 在 x86 市占從 27.1% 升至 32.6%（YoY +5.6pp）",
+          "moat_strength": "中",
+          "share_trend": "持平",
+          "share_est": 0.18,
+          "share_confidence": "low",
+          "estimated": true,
+          "key_evidence": "AMD x86 市占 Q1 2026 達 32.6%（YoY +5.6pp，Mercury Research），主因 Intel 供給受限；Ryzen AI Max 鎖定高記憶體需求工作站市場。但主流 AIPC（消費/商業筆電）市場中，AMD 品牌號召力弱於 QCOM（ARM）與 Intel（vPro 企業），且 TSMC 晶圓配額優先分給 AI GPU。Gorgon（下代）對決 Snapdragon X Elite Gen 2，勝負未定。",
+          "risk": "兩面夾擊：ARM 侵蝕 x86 消費市場；Intel 在企業端反彈"
+        },
+        {
+          "name": "Nvidia（RTX Spark，Computex 2026 新發表）",
+          "ticker": "NVDA",
+          "position": "winner",
+          "moat": "Blackwell GPU（CUDA 生態最強）+ ARM CPU + 128GB LPDDR5X 統一記憶體、Microsoft Surface Ultra 合作、MediaTek 協同設計（CPU 效能）、三代路線圖（Rubin → Rosa Feynman）公開承諾",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "share_est": 0.0,
+          "share_confidence": "low",
+          "estimated": true,
+          "key_evidence": "Computex 2026（2026-06-01）發表 RTX Spark Superchip：20 ARM CPU 核心、6144 CUDA 核心、128GB LPDDR5X、300 GB/s 頻寬；Dell / HP / Lenovo / Asus / MSI + Microsoft Surface Ultra 均宣布採用，秋 2026 出貨。Intel / AMD / QCOM 股價聞訊下跌。Nvidia 定位為「本地 AI 代理（agentic AI）」平台而非傳統 PC，敘事層級更高。",
+          "risk": "秋 2026 才出貨，2026 年全年份額為零；定價預期偏高端（128GB 記憶體成本），量走不起來；LPDDR5X 短缺直接衝擊供給"
+        }
+      ]
+    },
+    {
+      "segment": "OEM 系統層",
+      "structure": "分散（五強競爭，AIPC 份額分化中）",
+      "structure_note": "傳統 PC OEM 在 AIPC 浪潮中主要扮演管道角色，晶片選擇決定競爭力。Lenovo 最積極（AI 機種 >30% 出貨佔比）；HP 商業端強但消費端謹慎；Dell 商業 AI-Ready 定位；Apple 自有晶片生態獨立；ASUS 鎖定創作/遊戲利基。Nvidia RTX Spark 全家桶（HP / Dell / Lenovo / ASUS / MSI）可能加速 OEM 去差異化。",
+      "players": [
+        {
+          "name": "Lenovo",
+          "ticker": "992.HK",
+          "position": "winner",
+          "moat": "AIPC 出貨佔比最高（>30%，目標年底 50%）、ThinkPad AI 企業品牌、Intel vPro + QCOM 雙軌並行、Q1 2026 出貨成長高於市場均值",
+          "moat_strength": "中",
+          "share_trend": "擴張",
+          "share_est": 0.24,
+          "share_confidence": "medium",
+          "estimated": false,
+          "key_evidence": "Gartner Q1 2026：Lenovo 出貨 YoY 成長顯著高於市場均值（+4% vs 市場均值）；AIPC 機種佔整體出貨超過 30%；同時是 Core Ultra 200HX Plus 與 Snapdragon X 的首批 OEM 合作夥伴。"
+        },
+        {
+          "name": "HP Inc.",
+          "ticker": "HPQ",
+          "position": "neutral",
+          "moat": "商業筆電（Elite / ProBook）Copilot+ 認證早、企業客戶黏性強",
+          "moat_strength": "中",
+          "share_trend": "持平",
+          "share_est": 0.21,
+          "share_confidence": "medium",
+          "estimated": false,
+          "key_evidence": "Gartner Q1 2026：HP 是前五大 OEM 中唯一出貨量下滑者；但商業筆電部門 Q1 2026 YoY +11%，AI PC 佔 HP 出貨 35%，年底目標 50%。消費端 AIPC 推銷共鳴低（管理層承認）。RTX Spark 合作夥伴（秋 2026 機種）可能是回升催化劑。"
+        },
+        {
+          "name": "Dell Technologies",
+          "ticker": "DELL",
+          "position": "neutral",
+          "moat": "企業大單採購能力、AI-Ready 工作站定位（Precision + Alienware）、整套 IT 更新方案",
+          "moat_strength": "中",
+          "share_trend": "擴張",
+          "share_est": 0.17,
+          "share_confidence": "medium",
+          "estimated": false,
+          "key_evidence": "Q1 2026 成長高於市場均值；管理層 CES 2026 承認消費端 AIPC 推銷「未能引起共鳴」，轉而加碼企業 AI-Ready 工作站；RTX Spark 合作夥伴（Dell XPS / Precision）。消費端份額承壓，企業端反彈。"
+        },
+        {
+          "name": "Apple（MacBook Pro/Air M4/M5 系列）",
+          "ticker": "AAPL",
+          "position": "winner",
+          "moat": "垂直整合（M 系列 SoC 自研）、Apple Intelligence 深度整合、macOS 生態閉環、NPU 效能領先（M4 Pro：38 TOPS，M4 Max：以 ANE 計算更高）、隱私差異化",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "share_est": 0.12,
+          "share_confidence": "medium",
+          "estimated": false,
+          "key_evidence": "Gartner Q1 2026：Apple 在前五大 OEM 中維持正成長；不用 AIPC 標籤但實際是最高規格 AI PC；Apple Intelligence（macOS Sequoia）本地 AI 整合最完整；Private Cloud Compute 差異化隱私主張；M4 Ultra 可配置 192GB 統一記憶體（遠超 Nvidia RTX Spark 的 128GB）。"
+        },
+        {
+          "name": "ASUS",
+          "ticker": "2357.TW",
+          "position": "neutral",
+          "moat": "遊戲（ROG）+ 創作者（ProArt）利基、NPU 本地 AI 行銷激進、RTX Spark 合作夥伴",
+          "moat_strength": "弱",
+          "share_trend": "持平",
+          "share_est": 0.07,
+          "share_confidence": "low",
+          "estimated": true,
+          "key_evidence": "積極佈局遊戲/創作者 AIPC（ROG Zephyrus AI、ProArt Studiobook），NPU 本地 AI 推廣力度大；但主流消費筆電份額有限。RTX Spark 合作夥伴將提供高端差異化機種。"
+        }
+      ]
+    },
+    {
+      "segment": "OS / 軟體平台層",
+      "structure": "寡頭壟斷（雙巨頭，Windows + macOS 合計 >98% PC OS 份額）",
+      "structure_note": "這一層護城河最深。Microsoft 透過 Copilot+ PC 認證（40 TOPS NPU 門檻）將 AI 功能與硬體規格綁定，形成「硬體認證-軟體功能-企業訂閱」三層鎖定。Apple 透過 M 系列 SoC 自研實現軟硬垂直整合，Apple Intelligence 功能與裝置硬代深度耦合。兩者均不依賴第三方 NPU 廠商的競爭動態。",
+      "players": [
+        {
+          "name": "Microsoft（Windows 11 Copilot+ / Copilot+ PC 認證）",
+          "ticker": "MSFT",
+          "position": "winner",
+          "moat": "Copilot+ PC 認證體系（40 TOPS 門檻定義市場）、Office 365 + Azure AI 訂閱綁定、企業 IT 管理（Intune + vPro）、跨 OEM 生態（Dell / HP / Lenovo / ASUS / RTX Spark Surface）",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "share_est": 0.75,
+          "share_confidence": "high",
+          "estimated": false,
+          "key_evidence": "超過 38 款 OEM 機種已獲 Copilot+ 認證（HP / Lenovo / Dell / ASUS / Acer / Microsoft Surface Ultra）；商業 AI PC 出貨 2027 年預估超過 60% 為 Copilot+ 認證機種；RTX Spark 直接由微軟與 Nvidia 聯合發表（Build 2026 + Computex 2026），Microsoft 是 ARM-Windows 架構的共同推手。企業端 AI 功能（Recall / Cocreator / Live Captions）形成轉換成本。"
+        },
+        {
+          "name": "Apple（macOS + Apple Intelligence）",
+          "ticker": "AAPL",
+          "position": "winner",
+          "moat": "軟硬垂直整合（M 系列 ANE）、Private Cloud Compute 隱私差異化、iPhone/iPad/Mac 三端 AI 協同、設計師/創作者忠誠度極高",
+          "moat_strength": "強",
+          "share_trend": "擴張",
+          "share_est": 0.15,
+          "share_confidence": "medium",
+          "estimated": false,
+          "key_evidence": "Apple Intelligence 隨 macOS Sequoia 深度整合 Mail / Messages / Notes / Siri；Private Cloud Compute（端側+雲側）主張企業隱私合規；M4 系列 ANE（Apple Neural Engine）效能與 Qualcomm Hexagon NPU 並列最強；企業 IT 指南（2026 企業版）已出現專章說明如何管控 Apple Intelligence，顯示企業滲透已成真實課題。"
+        }
+      ]
+    }
+  ],
+  "arm_x86_shift": {
+    "arm_client_cpu_share_q1_2026": "14.4%（Mercury Research，QoQ +0.5pp）",
+    "x86_share_q1_2026": "85.6%（Intel + AMD 合計）",
+    "amd_x86_share": "32.6%（YoY +5.6pp，Intel 流失）",
+    "intel_x86_share": "53.0%（估算，Mercury Research x86 sub-total）",
+    "trend_verdict": "ARM 侵蝕正在發生但速度漸進。14.4% 是重要里程碑，但 85.6% 的 x86 份額顯示短期不會翻轉。Nvidia RTX Spark 秋 2026 上市後，ARM 在高端筆電的份額可能 2027 年突破 20%。關鍵變數：Windows on ARM 軟體相容性（x86 模擬層效能損失是否被 NPU/GPU 效能補回）。",
+    "qualcomm_exclusivity_expiry": "2025 年底到期，Nvidia / AMD / MediaTek 均可進入 Windows ARM 市場，QCOM 首發優勢窗口正在收窄"
+  },
+  "overall_winner": [
+    {
+      "name": "Nvidia",
+      "ticker": "NVDA",
+      "rationale": "以 RTX Spark 一舉切入最高端 AIPC 市場，Blackwell GPU 生態 + ARM CPU + 128GB 統一記憶體定義新天花板；微軟/主要 OEM 全面背書；多代路線圖鎖定未來。2026 年全年份額幾乎為零，但 2027 年起有機會顛覆現有格局。"
+    },
+    {
+      "name": "Microsoft",
+      "ticker": "MSFT",
+      "rationale": "Copilot+ PC 認證體系定義 AIPC 市場標準，無論哪個晶片贏都是微軟贏。AI 功能訂閱（Microsoft 365 Copilot）疊加硬體升級週期，受益最確定。"
+    },
+    {
+      "name": "Apple",
+      "ticker": "AAPL",
+      "rationale": "垂直整合護城河最深，M 系列 SoC + Apple Intelligence + 三端協同生態，AIPC 浪潮中份額穩健擴張，不受 NPU 商品化影響。"
+    }
+  ],
+  "overall_loser": [
+    {
+      "name": "Intel",
+      "ticker": "INTC",
+      "rationale": "供給排擠（AI 伺服器搶走客戶端 CPU 產能）、ARM 侵蝕 x86、18A 製程良率風險三重壓力。短期財報超預期不改變長期份額下行軌跡。"
+    }
+  ],
+  "share_shift_signals": [
+    {
+      "signal": "Nvidia RTX Spark Computex 2026 全家桶發表，Dell / HP / Lenovo / ASUS / MSI + Microsoft Surface Ultra 同步宣布",
+      "beneficiary": "NVDA, MSFT",
+      "loser": "INTC, AMD, QCOM",
+      "confirmed": true,
+      "source": "Nvidia Newsroom / Tom's Hardware 2026-06-01"
+    },
+    {
+      "signal": "ARM 客戶端 CPU 份額 Q1 2026 達 14.4%（Mercury Research），QoQ +0.5pp，首度突破 14%",
+      "beneficiary": "QCOM, NVDA（未來）",
+      "loser": "INTC",
+      "confirmed": true,
+      "source": "Mercury Research Q1 2026 / Heise Online"
+    },
+    {
+      "signal": "AMD x86 市占 YoY +5.6pp（27.1%→32.6%），主因 Intel 供給受限，OEM 移單",
+      "beneficiary": "AMD",
+      "loser": "INTC",
+      "confirmed": true,
+      "source": "Mercury Research Q1 2026 / Heise Online"
+    },
+    {
+      "signal": "Qualcomm 獨家 Windows ARM 協議 2025 年底到期，Nvidia / AMD / MediaTek 可進入",
+      "beneficiary": "NVDA, MediaTek",
+      "loser": "QCOM",
+      "confirmed": true,
+      "source": "TechInsights / Windows News 2026"
+    },
+    {
+      "signal": "Lenovo AI 機種佔比突破 30%，是前五大 OEM 中最高；HP 是唯一下滑的前五大 OEM（Q1 2026）",
+      "beneficiary": "Lenovo",
+      "loser": "HPQ",
+      "confirmed": true,
+      "source": "Gartner Q1 2026 PC 出貨報告 / Counterpoint Research"
+    }
+  ],
+  "competition_verdict": "AIPC 競爭格局呈現三層分化：晶片層已商品化（NPU 算力供過於求，QCOM 先發優勢正被 Nvidia RTX Spark 顛覆）、OEM 層以 Lenovo 領先但無人有強護城河（Nvidia RTX Spark 全家桶將加速 OEM 去差異化）、平台層由 Microsoft + Apple 雙寡頭壟斷（護城河最深，無論晶片競賽誰贏兩者均受益）。中期最大結構性轉變是 ARM 侵蝕 x86：已從 0% 爬升至 14.4%，Nvidia 入場後 2027 年有望突破 20%，Intel 長期份額下行不可逆。",
+  "verifiable_by": {
+    "metric": "ARM 客戶端 CPU 份額 Q3 2026（Mercury Research）是否突破 17%；Nvidia RTX Spark 機種是否如期秋 2026 出貨；Qualcomm 2026 全年 QCT PC segment 營收 YoY 成長是否放緩",
+    "check_date": "2026-11-01",
+    "prediction": "ARM 份額 Q3 2026 升至 16-18%；Nvidia RTX Spark 首批機種 10 月上市但供給受限（LPDDR5X 短缺）；QCOM 面臨 Nvidia 進場後 ASP 壓力，PC segment 毛利率下滑",
+    "source": "Mercury Research Q3 2026 / Nvidia / QCOM Q4 FY2026 法說（2026 年 11 月）"
+  }
+}

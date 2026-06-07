@@ -1,0 +1,70 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "created_at": "2026-06-07",
+  "verification_status": "pending",
+  "checkpoints": [
+    {
+      "id": "VCP-IND-IND-20260607-AIPC-001",
+      "dimension": "需求",
+      "check_date": "2026-12-31",
+      "prediction": "2026 全年 AIPC 實際出貨量落在 1.2-1.5 億台（定義：具 40+ TOPS NPU）",
+      "threshold": "通過：1.2-1.5 億台；失敗：< 1.0 億或 > 1.8 億（定義膨脹訊號）",
+      "check_source": "IDC / Gartner / Canalys 全年報告",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-AIPC-002",
+      "dimension": "供給",
+      "check_date": "2026-10-31",
+      "prediction": "AIPC 硬體溢價收縮：Q4 2026 旗艦 AIPC 均價較 Q4 2025 下降 5% 以上",
+      "threshold": "通過：ASP YoY -5% 以上；失敗：ASP 持平或上漲",
+      "check_source": "IDC PC Tracker / OEM 財報法說 ASP 數字",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-AIPC-003",
+      "dimension": "競爭",
+      "check_date": "2026-11-30",
+      "prediction": "ARM 客戶端 CPU 份額突破 17%（Q3 2026，Mercury Research）",
+      "threshold": "通過：ARM 份額 >= 17%；失敗：< 15%（ARM 滲透放緩）",
+      "check_source": "Mercury Research Q3 2026 客戶端 CPU 份額報告",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-AIPC-004",
+      "dimension": "技術",
+      "check_date": "2026-12-31",
+      "prediction": "NVIDIA RTX Spark 2026 年出貨量 >= 50 萬台（攪局效應確認）",
+      "threshold": "通過：>= 50 萬台；失敗：< 20 萬台（供給受阻，攪局無效）",
+      "check_source": "NVIDIA 財報 / OEM 法說 / 供應鏈追蹤報告",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-IND-IND-20260607-AIPC-005",
+      "dimension": "需求（殺手應用）",
+      "check_date": "2027-06-30",
+      "prediction": "2027 H1 前無端側 AI 殺手應用出現（定義：消費端換機季 YoY > 20%）",
+      "threshold": "通過：換機 YoY < 15%，無殺手應用；失敗：YoY > 20% 且可歸因端側 AI",
+      "check_source": "IDC Q2 2027 PC Tracker",
+      "status": "pending",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    }
+  ],
+  "overall_score": null,
+  "_instruction": "驗證時填寫 actual / verdict（CONFIRMED / PARTIAL / WRONG / INVALIDATED）/ score。完成後呼叫 /industry-verify IND-20260607-AIPC。"
+}

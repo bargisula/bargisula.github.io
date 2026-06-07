@@ -1,0 +1,115 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "trigger_event": "Nvidia RTX Spark Computex 2026 發表（2026-06-01），全面攪動 AIPC 晶片格局",
+  "analyzed_at": "2026-06-07",
+  "thesis_strength": "中等",
+  "thesis_one_line": "AIPC 晶片層商品化加速（QCOM/INTC/AMD 論點偏負），平台層（MSFT/AAPL）與記憶體層（三強）護城河在晶片競賽中不受影響、持續受益",
+  "overall_confidence": 0.74,
+  "logic_score": 0.76,
+  "evidence_score": 0.73,
+  "dimensions": {
+    "demand": {
+      "verdict": "持平偏加速（0.62）：結構加速但總量受壓",
+      "confidence": 0.62,
+      "one_line": "NPU 滲透率快速上升，但 W10 EOL 催化劑已完成、殺手應用未出現、定義膨脹風險高，實際增量遠低於滲透率數字"
+    },
+    "supply": {
+      "verdict": "結構分裂（0.75）：NPU 供過於求，記憶體供不應求",
+      "confidence": 0.75,
+      "one_line": "LPDDR5X 交期 26-39 週、HBM 優先效應持續至 2027 H1；NPU 三路競爭定價權歸零；記憶體三強掌握定價能力"
+    },
+    "competition": {
+      "verdict": "三層分化（0.78）：晶片商品化，平台護城河強，Nvidia 入場攪局高端",
+      "confidence": 0.78,
+      "one_line": "MSFT/AAPL 平台層雙寡頭壟斷護城河最深；Nvidia RTX Spark 全家桶確認，QCOM 先發優勢窗口收窄；Intel 三重壓力為輸家"
+    },
+    "technology": {
+      "verdict": "高風險（0.78）：兩項確認量產技術在 24 個月內衝擊現有架構",
+      "confidence": 0.78,
+      "one_line": "Vera Rubin token 成本 -90%（2H 2026）侵蝕端側差異性論點；RTX Spark 128GB 統一記憶體直接繞過 SO-DIMM 瓶頸；LPCAMM2 正向但不足以扭轉格局"
+    }
+  },
+  "layer_summary": {
+    "chip_layer": {
+      "tickers": ["QCOM", "INTC", "AMD"],
+      "direction": "負面",
+      "confidence": 0.72,
+      "note": "NPU 已商品化，Nvidia 入場重定義天花板，INTC 長期份額下行不可逆"
+    },
+    "platform_layer": {
+      "tickers": ["MSFT", "AAPL"],
+      "direction": "正面",
+      "confidence": 0.82,
+      "note": "Copilot+ 認證體系與 Apple Intelligence 護城河不受 NPU 競賽影響，受益確定性最高"
+    },
+    "memory_layer": {
+      "tickers": ["005930.KS", "000660.KS", "MU"],
+      "direction": "正面（短期）",
+      "confidence": 0.75,
+      "note": "LPDDR5X 短缺至 2027 H1，RTX Spark 128GB 需求更進一步拉升 LPDDR5X 吸力"
+    },
+    "new_entrant": {
+      "tickers": ["NVDA"],
+      "direction": "正面（高端攪局）",
+      "confidence": 0.70,
+      "note": "RTX Spark 2026 份額為零，2027 起顛覆高端；CUDA 生態護城河最強"
+    }
+  },
+  "critical_kill_switches": 2,
+  "major_kill_switches": 3,
+  "critical_ks_summary": [
+    "KS-001：端側 AI 殺手應用出現（觸發概率低）",
+    "KS-002：Vera Rubin 部署後 API 未降價（觸發概率低中）"
+  ],
+  "key_tickers": ["MSFT", "AAPL", "NVDA", "MU", "QCOM", "INTC", "AMD"],
+  "key_tickers_note": "MSFT/AAPL/MU 為正面論點標的；NVDA 為 2027 高端攪局者；QCOM/INTC/AMD 為晶片層商品化受壓標的",
+  "checkpoints": [
+    {
+      "id": "VCP-IND-AIPC-001",
+      "dimension": "需求",
+      "check_date": "2027-02-01",
+      "prediction": "2026 全年 AIPC 出貨 130-160M 台，全球 PC 總出貨年減 8-12%",
+      "threshold": "通過：AIPC 出貨 < 160M 台；失敗：> 180M 台",
+      "check_source": "IDC / Canalys Q4 2026 PC Tracker",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-AIPC-002",
+      "dimension": "供給",
+      "check_date": "2027-02-01",
+      "prediction": "LPDDR5X 交期 2026 Q4 仍 > 16 週",
+      "threshold": "通過：交期 > 16 週；失敗：< 12 週",
+      "check_source": "Samsung / SK Hynix Q4 FY2026 法說 / Tom's Hardware",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-AIPC-003",
+      "dimension": "競爭",
+      "check_date": "2026-11-01",
+      "prediction": "ARM 客戶端 CPU 份額 Q3 2026 升至 16-18%；RTX Spark 如期秋 2026 出貨",
+      "threshold": "通過：ARM 份額 > 16% AND RTX Spark 上市；失敗：ARM < 14% OR RTX Spark 延遲",
+      "check_source": "Mercury Research Q3 2026 / QCOM Q4 FY2026 法說",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    },
+    {
+      "id": "VCP-IND-AIPC-004",
+      "dimension": "技術",
+      "check_date": "2026-12-31",
+      "prediction": "主流 LLM API 定價出現至少一次 30%+ 降幅；RTX Spark 高端佔比 > 10%",
+      "threshold": "通過：API 降幅 ≥ 30% OR RTX Spark > 10% 高端市占；失敗：兩者均未達成",
+      "check_source": "Anthropic/OpenAI 定價頁 / Artificial Analysis / IDC AIPC 數據",
+      "status": "pending",
+      "actual": null,
+      "verdict": null
+    }
+  ],
+  "next_catalyst": "Nvidia RTX Spark 首批機種上市（秋 2026，預計 10 月）；Samsung/SK Hynix Q3 FY2026 法說記憶體 ASP guidance（2026 年 10 月）；Mercury Research Q3 2026 ARM 份額數據（2026 年 10 月）",
+  "pipeline_complete": true
+}

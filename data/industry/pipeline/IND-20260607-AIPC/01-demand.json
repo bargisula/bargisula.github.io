@@ -1,0 +1,76 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "dimension": "需求",
+  "step": 1,
+  "analyst": "industry-demand",
+  "analyzed_at": "2026-06-07",
+  "slope": "持平偏加速",
+  "slope_confidence": 0.62,
+  "slope_rationale": "總量有結構性上行（NPU 滲透率快速攀升、Windows 10 EOL 尾端拉力延續至 2026 H1），但全球 PC 總出貨受記憶體短缺拖累預估年減 11.3%，抵銷部分 AIPC 滲透帶來的增量。需求斜率為「結構加速、總量持平」的分裂格局，信心度偏中等。",
+  "market_size": {
+    "2026_shipment_m_units": 143,
+    "2026_aipc_share_pct": 55,
+    "2028_forecast_m_units": 205,
+    "cagr": "44%（2024-2028，Canalys）",
+    "total_pc_market_2026_m_units": 260,
+    "note": "全球 PC 總出貨 2026 年預估約 2.6 億台（IDC 預估年減 11.3%，記憶體短缺），AIPC 佔比 55% 約 143M；2028 年 AIPC 出貨上看 200-205M（Canalys）、93% 滲透率（IDC）",
+    "source": "Gartner 2025-08, Canalys, IDC（IDC 預測 2027 達 167M，93% by 2028），Counterpoint Research"
+  },
+  "demand_drivers": [
+    {
+      "driver": "Windows 10 EOL（2025 年 10 月）驅動的換機尾端拉力",
+      "type": "cyclical",
+      "strength": "medium",
+      "evidence": "Q3 2025 全球 PC 出貨年增 9.4%，主因 Windows 10 停止支援；HP 商業部門 Q1 2026 成長 11%，AI PC 佔 HP 出貨 35%（預計 2026 年底達 50%）。但 CIO Dive 指出企業端採購動能在 2026 年已快速放緩，主要催化劑（EOL）已完成。",
+      "tc_reference": null
+    },
+    {
+      "driver": "NPU 門檻（40 TOPS / Copilot+）標準化，帶動規格升級",
+      "type": "structural",
+      "strength": "high",
+      "evidence": "Counterpoint：2026 年 AI Advanced PC（40+ TOPS）滲透率預估達 52% YoY 成長至約 59%；Qualcomm Snapdragon X Elite（45 TOPS Hexagon NPU）、AMD Ryzen AI（40-50 TOPS）、Intel Core Ultra 均已量產。Microsoft Copilot+ PC 認證推動 OEM 標配 NPU。",
+      "tc_reference": null
+    },
+    {
+      "driver": "端側 AI 推論需求（隱私合規、低延遲、離線執行）",
+      "type": "structural",
+      "strength": "medium",
+      "evidence": "Fortune 500 企業 Copilot 部署平均需 18-24 個月才達全員覆蓋；72% 企業已有至少一個 AI 工作負載在生產環境（2026 Q1）。但多數企業仍處於 pilot 階段，實際對 AIPC 的端側需求尚未大規模落地。",
+      "tc_reference": null
+    },
+    {
+      "driver": "消費端 AI 應用驅動的主動換機",
+      "type": "cyclical",
+      "strength": "low",
+      "evidence": "Dell 執行管理層在 CES 2026 承認消費端 AI PC 推銷「未能引起共鳴」；AI PC 的未實現承諾拖累消費端採購意願（TechNewsWorld）。實際工作負載多為記憶體瓶頸，並非 NPU 算力瓶頸，導致 40 TOPS 行銷價值高於實際效能差異。",
+      "tc_reference": null
+    }
+  ],
+  "demand_ceiling": {
+    "description": "全球 PC 市場年出貨量天花板約 2.6-2.8 億台（成熟市場，增量主要來自替換）。AIPC 定義存在明顯膨脹風險：40 TOPS 門檻是 Microsoft Copilot+ 行銷認證標準，並非代表有效 AI 工作負載差異；隨著幾乎所有新出貨 PC 均內建 NPU（2027-2028 年滲透率達 80-93%），AIPC 標籤的邊際意義接近消失。真正的需求上限是：有多少用戶需要『在本地端執行 AI 推論』而非透過雲端 API。",
+    "current_ceiling": "全球 PC 換機週期（約 4-5 年）與總出貨量上限（約 2.6-2.8 億台/年）",
+    "timeline_to_ceiling": "2027-2028 年 AIPC 定義稀釋完成，幾乎所有 PC 均符合 40 TOPS 標準，滲透率指標趨近無效",
+    "ceiling_condition": "IF 端側 AI 應用殺手級場景未出現 THEN AIPC 溢價消失，回歸一般 PC 換機週期；IF 記憶體短缺持續至 2027 THEN 總出貨量持續承壓",
+    "definition_inflation_risk": "高：40 TOPS 標準設定過低，2027 年幾乎所有量產 PC 均達標，數字好看但不代表真實 AI 需求增量"
+  },
+  "metrics": {
+    "yoy_growth_aipc_share": "+52% YoY 滲透率增速（AI Advanced PC 佔比 2025→2026：~39%→~59%，Counterpoint）",
+    "total_pc_shipment_2026_yoy": "-11.3%（IDC，記憶體短缺）",
+    "aipc_shipment_2026": "~143M 台（Gartner 估計，55% 佔比）",
+    "cagr_2024_2028": "44%（Canalys）",
+    "hp_aipc_share_q1_2026": "35%，目標年底 50%",
+    "enterprise_ai_workload_in_prod": "72% 企業有至少 1 個 AI 工作負載上線（Q1 2026）",
+    "copilot_plus_tops_threshold": "40 TOPS NPU（Microsoft 認證門檻）",
+    "memory_shortage_impact": "ASP 上漲 6-8%，2026 年總 PC 出貨量預估年減 11.3%，最差情況延續至 2027"
+  },
+  "demand_verdict": "AIPC 需求斜率為結構性加速（NPU 滲透率快速攀升），但受到全球 PC 總出貨量萎縮（記憶體短缺）、消費端應用未成熟、定義膨脹三重天花板制約，實際需求增量遠低於滲透率數字所暗示的樂觀程度，綜合判定為「持平偏加速」。",
+  "data_quality": "medium",
+  "data_quality_note": "主要來源為 Gartner/IDC/Canalys 2025-2026 公開預測，部分數字為預估值。企業端實際 AIPC 採購量（非出貨量）缺乏直接數據。QCOM/INTC/AMD 最新財報逐字稿未能讀取，建議補充個別公司 AIPC 相關 guidance。",
+  "verifiable_by": {
+    "metric": "全球 PC 出貨量 2026 全年總量是否如 IDC 預測年減 11.3%，以及 AI PC 佔比是否達 55%",
+    "check_date": "2027-02-01",
+    "source": "IDC Quarterly Personal Computing Device Tracker Q4 2026 / Canalys Q4 2026 PC Report",
+    "prediction": "2026 年底 AI PC 佔全球 PC 出貨量 50-60%，但全球 PC 總出貨量受記憶體短缺拖累，實際 AIPC 絕對出貨量不超過 160M 台"
+  }
+}

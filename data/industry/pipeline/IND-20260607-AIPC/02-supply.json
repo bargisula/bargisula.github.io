@@ -1,0 +1,128 @@
+{
+  "run_id": "IND-20260607-AIPC",
+  "industry": "AI PC（AIPC）",
+  "dimension": "供給",
+  "step": 2,
+  "analyst": "industry-supply",
+  "analyzed_at": "2026-06-07",
+  "upstream_demand_slope": "持平偏加速（slope_confidence 0.62，from 01-demand.json）",
+  "supply_demand_balance": "供過於求（NPU 晶片）/ 供不應求（記憶體）",
+  "supply_structure": [
+    {
+      "layer": "NPU 晶片層",
+      "item": "Qualcomm Snapdragon X / X2 Elite",
+      "key_suppliers": ["TSMC（製造，N3/N4P）"],
+      "oem_designer": "Qualcomm",
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 12,
+      "bottleneck": false,
+      "notes": "TSMC N2 產能 2026 年幾乎全被 Apple / Nvidia / Qualcomm 訂滿，Snapdragon X2（CES 2026 發表）產能受 TSMC N2 配額限制。但 Snapdragon X Plus 仍用 N4P，供給彈性較高。Qualcomm 推 Snapdragon C Platform（$300 以上入門）顯示下沉意圖，供給佈局充裕。"
+    },
+    {
+      "layer": "NPU 晶片層",
+      "item": "Intel Core Ultra Series 2 / Series 3（Panther Lake）",
+      "key_suppliers": ["Intel 自有晶圓廠（18A 製程）", "TSMC（前期 N4/N3）"],
+      "oem_designer": "Intel",
+      "capacity_elasticity": "low",
+      "capex_to_production_months": 18,
+      "bottleneck": true,
+      "notes": "Intel Q1 2026 法說確認供應量 Q1 最低，Q2 後改善。Core Ultra 200HX Plus 初期限定 Lenovo / Razer / Dell，其他 OEM 延遲。Intel 因 AI 伺服器需求排擠客戶端 CPU 供應，交期從 1-2 週拉長至 8-12 週，極端情況達 6 個月。18A 製程良率不明，量產風險高。"
+    },
+    {
+      "layer": "NPU 晶片層",
+      "item": "AMD Ryzen AI 300 / Ryzen AI Max",
+      "key_suppliers": ["TSMC（N4/N3）"],
+      "oem_designer": "AMD",
+      "capacity_elasticity": "medium",
+      "capex_to_production_months": 12,
+      "bottleneck": false,
+      "notes": "Ryzen AI Max 支援最高 96GB 可定址記憶體，面向高階 AIPC/工作站。AMD 無明顯供給瓶頸，但與 TSMC 共用晶圓產能，AI GPU（Instinct）優先序更高。"
+    },
+    {
+      "layer": "記憶體層",
+      "item": "LPDDR5X（行動端 DRAM）",
+      "key_suppliers": ["Samsung（主）", "SK hynix", "Micron"],
+      "capacity_elasticity": "low",
+      "capex_to_production_months": 24,
+      "bottleneck": true,
+      "notes": "LPDDR5X 交期 2026 年初達 26-39 週。根本原因：Samsung / SK hynix / Micron 將晶圓產能優先分配給 HBM3/HBM3E（Nvidia AI GPU 需求驅動）。每片 HBM 晶圓消耗約 3 倍等效 LPDDR5X 晶圓面積。記憶體短缺直接導致 PC 出貨 2026 年 YoY -11.3%（IDC）。"
+    },
+    {
+      "layer": "記憶體層",
+      "item": "LPCAMM2 模組（LPDDR5X 9600 MT/s）",
+      "key_suppliers": ["Samsung（模組）", "Micron（Crucial 品牌）"],
+      "capacity_elasticity": "low",
+      "capex_to_production_months": 18,
+      "bottleneck": true,
+      "notes": "LPCAMM2 為新型態模組封裝（可拆卸、高頻寬），與 Intel Core Ultra Series 3 Panther Lake 及 AMD Ryzen AI Max 配合。Samsung 正在備量產 96GB LPCAMM2 LPDDR5X-9600，但供給初期受限，量產規模仍小。Micron 已推出 Crucial LPCAMM2 但市場覆蓋率有限。"
+    }
+  ],
+  "bottlenecks": [
+    {
+      "item": "LPDDR5X / LPCAMM2 記憶體",
+      "severity": "高",
+      "confirmed_by": [
+        "IDC Q1 2026：全球 PC 出貨 YoY -11.3%，點名記憶體短缺",
+        "Tom's Hardware 2026：LPDDR5X 交期 26-39 週",
+        "Avnet 2026 Memory Report：HBM 吃掉 DRAM 晶圓 23% 以上配額",
+        "SK hynix 法說：先進封裝產能滿載至 2026 年底"
+      ],
+      "relief_timeline": "2027 H1 開始緩解（記憶體廠新產能需 2 年週期，當前主要缺口延續至 H2 2027）",
+      "relief_condition": "Samsung / Micron LPDDR5X 新廠投產 OR HBM 需求成長放緩釋出晶圓配額",
+      "pricing_power_shift": "上移至 Samsung / SK hynix / Micron（記憶體三強），AIPC OEM 被動接受漲價",
+      "downstream_impact": "AIPC ASP 因記憶體漲價被迫上修（短期），但同時壓縮出貨量，需求受抑制"
+    },
+    {
+      "item": "Intel Core Ultra CPU（client 端供給排擠）",
+      "severity": "中",
+      "confirmed_by": [
+        "Intel Q1 FY2026 8-K：供應量 Q1 最低，Q2 起改善",
+        "Intel CPU price hike 2026 Q1：OEM 交期拉長至 8-12 週",
+        "Core Ultra 200HX Plus 限定 OEM 初期"
+      ],
+      "relief_timeline": "2026 Q2-Q3 緩解（Intel 自述 Q2 起改善）",
+      "relief_condition": "Intel 18A 良率提升 OR AI 伺服器產能排擠壓力緩和",
+      "pricing_power_shift": "Intel 有短期定價話語權，但 AMD / Qualcomm 替代效應限制漲價空間",
+      "downstream_impact": "部分 OEM 將訂單移向 AMD / Qualcomm，加速 Arm 架構滲透"
+    },
+    {
+      "item": "TSMC N2 晶圓配額（Snapdragon X2 等高端 NPU）",
+      "severity": "低",
+      "confirmed_by": [
+        "Semiwiki 2026：TSMC N2 2026 年產能幾乎售罄",
+        "Apple 佔 N2 初期產能逾 50%"
+      ],
+      "relief_timeline": "2026 Q4 - 2027 H1（TSMC N2 產能逐步擴充，台中 N2 廠 2026 底量產）",
+      "relief_condition": "TSMC N2 良率爬坡完成，非 Apple 客戶取得更多配額",
+      "pricing_power_shift": "TSMC 有絕對定價權，但對 AIPC 最終售價影響間接且有限（NPU die 成本佔整機 BOM 比例約 15-20%）",
+      "downstream_impact": "Snapdragon X2 高階 AIPC 初期供給受限，推遲 80 TOPS NPU 普及至 2027"
+    }
+  ],
+  "supply_demand_summary": {
+    "npu_chips": "供過於求（NPU 算力供給充裕：QCOM / Intel / AMD 三路競爭，入門到旗艦全覆蓋；40 TOPS 門檻對多數現行晶片已是最低規格）",
+    "memory": "供不應求（LPDDR5X 嚴重短缺，HBM 優先效應，交期 26-39 週，緩解至 2027 H1）",
+    "net_judgment": "整體 AIPC 供給由記憶體瓶頸主導，NPU 多競爭不構成短缺；記憶體短缺是 2026 年 AIPC 出貨量壓縮的主因"
+  },
+  "supply_demand": "結構分裂（NPU 供過於求，記憶體供不應求）",
+  "supply_demand_confidence": 0.75,
+  "pricing_power": "弱（AIPC 系統層）/ 強（記憶體廠）",
+  "pricing_power_holder": "Samsung / SK hynix / Micron（記憶體三強，透過 LPDDR5X 短缺轉嫁 ASP）",
+  "pricing_power_detail": {
+    "npu_chip_layer": "弱。QCOM / Intel / AMD 三路競爭，Qualcomm Snapdragon X Elite 甚至比同規格 Intel 機種低 $200-300。NPU 算力已商品化，無單一廠商定價權。",
+    "memory_layer": "強。記憶體三強（Samsung / SK hynix / Micron）透過 HBM 優先配產，實質控制 LPDDR5X 供給。AIPC OEM 無替代方案，只能接受漲價並轉嫁至終端 ASP（+6-8%）。",
+    "aipc_system_layer": "弱。AIPC $100-200 溢價正在被稀釋。Snapdragon C Platform 擴展至 $300 入門機，40 TOPS 標準下沉至中端，品牌溢價空間收窄。Dell 管理層已承認消費端 AIPC 推銷未能引起共鳴。"
+  },
+  "asp_trend": {
+    "current_premium_usd": 100,
+    "premium_range_usd": "100-200",
+    "sustainability": "低",
+    "rationale": "NPU 規格標準化（40 TOPS 成為基本配備）、多廠競爭、Snapdragon C 下沉，三因素合力壓縮溢價。記憶體漲價推高 ASP 屬成本轉嫁而非品牌溢價，對 OEM 毛利無助。預計 2027 年 AIPC 溢價收斂至 $50 以下。"
+  },
+  "supply_verdict": "AIPC 供給面呈現結構分裂：NPU 晶片三路競爭已供過於求、溢價崩解；記憶體（LPDDR5X / LPCAMM2）因 HBM 優先效應嚴重短缺（交期 26-39 週），是壓縮 2026 年 AIPC 出貨量的主因，定價權上移至記憶體三強，緩解時間軸延至 2027 H1。",
+  "verifiable_by": {
+    "metric": "Samsung / SK hynix LPDDR5X ASP QoQ 變化，以及全球 PC 出貨量 2026 Q3-Q4 是否回升",
+    "check_date": "2027-02-01",
+    "prediction": "LPDDR5X 現貨價 2026 Q4 開始回落，PC 出貨 2026 H2 YoY 降幅收窄至 -5% 以內，AIPC 佔比達 55-60%",
+    "source": "IDC Q4 2026 PC Tracker / Samsung / SK hynix Q4 FY2026 法說（記憶體 ASP guidance）"
+  }
+}
