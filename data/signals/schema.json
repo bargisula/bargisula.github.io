@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "description": "Opportunity Signal 輸出格式。由 opportunity-scout skill 每次晨會啟動時產出，CEO 讀取後在晨會提報。",
+  "signal_file_naming": "YYYY-MM-DD.json",
+  "score_tiers": {
+    "candidate": { "min": 3, "max": 5, "action": "晨會提報，建議深挖" },
+    "watchlist": { "min": 2, "max": 2, "action": "列出，說明差哪一條件" },
+    "no_signal": { "min": 0, "max": 1, "action": "說明原因：Regime 壓制 / 論點未熟 / 資料缺" }
+  },
+  "scoring_criteria": {
+    "regime_alignment": {
+      "max": 2,
+      "rules": {
+        "2": "在 focus_sectors 清單內",
+        "1": "不在任何清單（中性）",
+        "0": "在 suppress_sectors 清單內（直接排除）"
+      }
+    },
+    "thesis_conditions": {
+      "max": 2,
+      "rules": {
+        "+1": "positions 檔存在且 kill switch 全部未觸發",
+        "+1": "至少 1 個支撐條件（C）狀態為成立"
+      }
+    },
+    "catalyst": {
+      "max": 1,
+      "rules": {
+        "+1": "近 3 天 DSMM run 或 data/intel/ 新聞提到此板塊關鍵詞"
+      }
+    }
+  },
+  "output_schema": {
+    "generated": "YYYY-MM-DD",
+    "regime_snapshot": "string",
+    "health_check": {
+      "positions_count": "number",
+      "queue_last_updated": "YYYY-MM-DD or null",
+      "regime_last_updated": "YYYY-MM-DD",
+      "stale_warning": "boolean"
+    },
+    "candidates": [
+      {
+        "id": "string",
+        "label": "string",
+        "score": "number 0-5",
+        "score_breakdown": {
+          "regime_alignment": "number 0-2",
+          "thesis_conditions": "number 0-2",
+          "catalyst": "number 0-1"
+        },
+        "regime_note": "string",
+        "thesis_note": "string",
+        "catalyst_note": "string",
+        "suggested_tickers": ["string"],
+        "suggested_action": "string",
+        "confidence": "high|medium|low"
+      }
+    ],
+    "watchlist": [],
+    "suppressed": ["string"],
+    "no_signal": [],
+    "null_reason": "string or null"
+  },
+  "feedback_schema": {
+    "signal_date": "YYYY-MM-DD",
+    "candidate_id": "string",
+    "verdict": "correct|premature|wrong_regime|wrong_thesis|catalyst_fizzled",
+    "note": "string",
+    "action_taken": "deep_dive|ignored|position_opened|none",
+    "pmc_case": "YYYY-MM-DD-[id].md or null"
+  }
+}

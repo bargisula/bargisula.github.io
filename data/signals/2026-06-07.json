@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "generated": "2026-06-07",
+  "regime_snapshot": "Overheat → Stagflation boundary | risk-on | trend: down-right",
+  "health_check": {
+    "positions_count": 1,
+    "positions_files": ["tw-drone"],
+    "queue_last_updated": "2026-05-22",
+    "regime_last_updated": "2026-06-07",
+    "dsmm_runs_available": ["RUN-20260607-10Y480", "RUN-20260607-TARIFF", "RUN-20260606-2320"],
+    "stale_warning": false,
+    "health_notes": "positions 僅覆蓋 1 個板塊，建議補建 power_electronics、optical_fiber 的 position 檔以提升評分精度"
+  },
+  "candidates": [
+    {
+      "id": "power_electronics",
+      "label": "AI 數據中心電力基礎設施",
+      "score": 4,
+      "score_breakdown": {
+        "regime_alignment": 2,
+        "thesis_conditions": 1,
+        "catalyst": 1
+      },
+      "regime_note": "明確列入 focus_sectors（power_grid），理由：數據中心電力需求推升電網設備與備援電源採購；電力瓶頸為下一個定價窗口（INS-004）",
+      "thesis_note": "尚無 positions 檔（+0），僅依 Regime 得 1 分。補建後若 kill switch 未觸發可達 +2，總分升至 5",
+      "catalyst_note": "RUN-20260607-10Y480：impact_map 商品市場「I_h 急凍，但 AI capex 中性，電力需求不受高利率影響」→ AI 電力需求確認不受利率週期直接衝擊",
+      "suggested_tickers": ["VRT", "ETN", "GEV", "BE", "PWR", "HUBB"],
+      "suggested_action": "本週深挖，排入 research-queue 最高優先。優先讀 VRT / GEV 最近一季法說，確認交貨週期與訂單能見度",
+      "confidence": "medium",
+      "score_ceiling": 5,
+      "gap_to_ceiling": "補建 positions/sectors/power_electronics.md → +1 分"
+    },
+    {
+      "id": "AI_infrastructure",
+      "label": "AI 基礎設施（半導體 + 供應鏈）",
+      "score": 4,
+      "score_breakdown": {
+        "regime_alignment": 2,
+        "thesis_conditions": 1,
+        "catalyst": 1
+      },
+      "regime_note": "明確列入 focus_sectors（AI_infrastructure），regime.insight_signal：INS-001 confidence 0.75、INS-002 confidence 0.74",
+      "thesis_note": "company bible 存於 data/coverage/ai-chips/（NVDA/AVGO/AMD/QCOM），有論點追蹤機制（+1）。ai-infra-researcher Step 0 條件檢核已整合",
+      "catalyst_note": "RUN-20260607-TARIFF：NVDA/AVGO/VRT 列為「中性（相對抗跌）」；RUN-20260607-10Y480：AI capex 鏈確認不受高利率直接影響（confidence 0.85）",
+      "suggested_tickers": ["NVDA", "AVGO", "AMD", "QCOM"],
+      "suggested_action": "已有 company bible 覆蓋，晨會討論近期 AVGO/MediaTek 份額變化是否影響 INS-002 論點",
+      "confidence": "medium",
+      "score_ceiling": 5,
+      "gap_to_ceiling": "INS-002 confidence 由 0.78 降至 0.74（份額分散化壓力）→ thesis_conditions 扣 1 分；若 AVBO 份額穩定則可升回"
+    }
+  ],
+  "watchlist": [
+    {
+      "id": "optical_fiber",
+      "label": "高速光收發模組（800G/1.6T）",
+      "score": 2,
+      "score_breakdown": {
+        "regime_alignment": 2,
+        "thesis_conditions": 0,
+        "catalyst": 0
+      },
+      "gap": "差 1 分：尚無 position 檔（thesis_conditions=0）且近期無相關 DSMM run 或新聞催化劑。等待 AVBO 法說或光纖訂單新聞"
+    },
+    {
+      "id": "tw-drone",
+      "label": "台灣無人機產業",
+      "score": 2,
+      "score_breakdown": {
+        "regime_alignment": 1,
+        "thesis_conditions": 1,
+        "catalyst": 0
+      },
+      "gap": "Regime 不在 focus_sectors（中性 +1）；K1 接近觸發（國防預算削減風險）；近期無催化劑。等待台灣國防預算審查結果（C1/K1 關鍵）"
+    }
+  ],
+  "suppressed": [
+    {
+      "id": "long_duration_growth",
+      "reason": "明確列入 suppress_sectors：10Y yield 4.55% 上行，Warsh FOMC 6/17 鷹派風險，降息視窗關閉"
+    }
+  ],
+  "no_signal": [
+    {
+      "id": "liquid_cooling",
+      "score": 1,
+      "reason": "Regime 吻合（+1），但無 position 檔（+0）、無近期催化劑（+0）。與 power_electronics 重疊度高，建議合併追蹤"
+    },
+    {
+      "id": "custom_asic_tier2",
+      "score": 1,
+      "reason": "Regime 吻合（+1），但 INS-002 confidence 下降（AVBO 份額壓縮風險），thesis 方向存疑；無 position 檔（+0）"
+    }
+  ],
+  "null_reason": null,
+  "summary_for_meeting": "📡 今日投資機會信號：2 個候選（AI 電力基礎設施、AI 半導體）score=4，均因缺 position 檔差 1 分達滿分。建議優先補建 power_electronics position 檔，並確認 VRT/GEV 訂單能見度。",
+  "feedback": {}
+}

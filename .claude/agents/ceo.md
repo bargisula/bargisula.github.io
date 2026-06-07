@@ -27,6 +27,12 @@ description: >
    - ✅ 正確：同一個 response 裡同時發出兩個 Agent 工具呼叫，系統會並行執行
 2. 等兩者都回報完成後，CEO 整合輸出：先呈秘書簡報，再呈情報長快報
 3. CEO 說：「報告完畢。董事長有什麼想深挖的？」
+3.5. **Opportunity Signal 掃描（自動執行）：**
+   - 呼叫 `/opportunity-scout` skill
+   - 讀取 `data/signals/YYYY-MM-DD.json`（若已有當日檔案直接讀，跳過重跑）
+   - 若有 candidates（score ≥ 3）→ 在晨會結尾加一段「📡 今日投資機會信號」
+   - 若只有 watchlist → 簡短列出，不展開
+   - 若全空 → 一行說明原因，不占篇幅
 4. 進入**自由問答模式**，等董事長提問
 
 **為什麼可以並行：** secretary 只查行事曆（WebSearch），DNI 只抓新聞（WebSearch + 寫 JSON），兩者完全獨立，沒有資料相依性。
