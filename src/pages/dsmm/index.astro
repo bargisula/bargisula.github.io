@@ -224,6 +224,40 @@ const runs = rawSummaries.map((s, ri) => {
     }
     .chain-wrap svg { display: block; min-width: 700px; }
 
+    /* ── Spill / extra markets section ── */
+    .spill-wrap {
+      background: #faf5ff; border: 1px solid #e9d5ff; border-top: none;
+      padding: .75rem 1.1rem;
+    }
+    .spill-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      color: #7c3aed; text-transform: uppercase; margin-bottom: .7rem;
+    }
+    .spill-cards { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .spill-card {
+      flex: 1 1 280px; background: #fff;
+      border: 1px solid #ddd6fe; border-radius: 8px; padding: .75rem .9rem;
+    }
+    .spill-card-title {
+      font-size: .8rem; font-weight: 700; color: #5b21b6; margin-bottom: .35rem;
+    }
+    .spill-level {
+      display: inline-block; font-size: .68rem; font-weight: 700;
+      padding: .1rem .45rem; border-radius: 20px; margin-bottom: .45rem;
+    }
+    .spill-level-high   { background: #fecaca; color: #b91c1c; }
+    .spill-level-medium { background: #fde68a; color: #b45309; }
+    .spill-level-low    { background: #d1fae5; color: #065f46; }
+    .spill-direction {
+      font-size: .78rem; color: #374151; line-height: 1.6; margin-bottom: .35rem;
+    }
+    .spill-signal {
+      font-size: .73rem; color: #6b7280; line-height: 1.5;
+    }
+    .spill-horizon {
+      font-size: .68rem; color: #9ca3af; margin-top: .35rem;
+    }
+
     /* ── VCP section ── */
     .vcp-wrap {
       background: #fff; border: 1px solid #e5e7eb; border-top: none;
@@ -468,6 +502,35 @@ const runs = rawSummaries.map((s, ri) => {
             })}
           </svg>
         </div>
+
+        {/* ── 溢出效應（超出五市場的額外 impact_map 條目）── */}
+        {(() => {
+          const stdKeys = MKT_DEF.map(m => m.key);
+          const spillEntries = Object.entries(r.s.impact_map ?? {})
+            .filter(([k]) => !stdKeys.includes(k));
+          if (!spillEntries.length) return null;
+          return (
+            <div class="spill-wrap">
+              <div class="spill-title">🌐 溢出效應 · 跨市場傳導</div>
+              <div class="spill-cards">
+                {spillEntries.map(([key, info]: [string, any]) => {
+                  const lvRaw = (info.impact_level ?? 'low').toLowerCase();
+                  const lv = lvRaw.includes('high') ? 'high' : lvRaw.includes('medium') ? 'medium' : 'low';
+                  const lvLabel = lv === 'high' ? '高衝擊' : lv === 'medium' ? '中衝擊' : '低衝擊';
+                  return (
+                    <div class="spill-card">
+                      <div class="spill-card-title">📡 {key}</div>
+                      <span class={`spill-level spill-level-${lv}`}>{lvLabel}</span>
+                      {info.direction && <div class="spill-direction">{info.direction}</div>}
+                      {info.key_signal && <div class="spill-signal">📌 {info.key_signal}</div>}
+                      {info.time_horizon && <div class="spill-horizon">⏱ {info.time_horizon}</div>}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ── VCP 驗證 + Asset ── */}
         <div class="vcp-wrap">
