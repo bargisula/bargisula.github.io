@@ -89,6 +89,32 @@ cat data/regime/current.json
 
 **若全空：** 一行說明原因（Regime 壓制 / 資料不足），不展開。
 
+#### Step 4.5：墊檔判斷（自動執行）
+
+在進入自由問答前，檢查是否需要墊檔：
+
+**觸發條件（兩者同時成立）：**
+- Opportunity Signal candidates 為空（score < 3）
+- `data/jade/inbox/` 無未處理候選（`ls data/jade/inbox/` 無 .json 檔）
+
+**觸發時輸出：**
+```
+📋 本次無深挖議題，建議產業分析墊檔：
+   → research-queue 最高優先產業（由 industry-analyst Step 0 自選）
+   → 正在呼叫 industry-analyst...
+```
+然後呼叫 `industry-analyst`（不帶主題參數，由其 Step 0 自動選題）。
+
+**不觸發條件（任一成立即跳過）：**
+- Signal 有 candidates → 已有投資機會可討論，不需墊檔
+- jade/inbox 有候選 → 先提報璞玉候選，格式：
+  ```
+  💎 璞玉候選（來自 jade-scan）：
+     [ticker] — [候選原因一句話]
+     → 是否深挖？
+  ```
+- 董事長已主動提出討論方向 → 跳過墊檔，直接執行
+
 #### Step 5：自由問答
 直接進入，不加過渡語。等董事長提問。
 
