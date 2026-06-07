@@ -48,7 +48,7 @@ const edgeStyle: Record<string, { stroke: string; width: number; dash: string; m
   ppa:        { stroke: '#0ea5e9', width: 1.5, dash: '6 3', marker: 'url(#arr-blue)'   },
   supplies_to:{ stroke: '#9ca3af', width: 1.2, dash: '',    marker: 'url(#arr-gray)'   },
   investment: { stroke: '#ea580c', width: 2,   dash: '7 3', marker: 'url(#arr-orange)' },
-  competition:{ stroke: '#dc2626', width: 1.5, dash: '5 3', marker: 'url(#arr-red)'    },
+  competition:{ stroke: '#7c3aed', width: 1.5, dash: '5 3', marker: 'url(#arr-purple)' },
 };
 
 // ── 節點顏色 ─────────────────────────────────────────────────────────────────
@@ -250,8 +250,8 @@ function edgePath(fromId: string, toId: string, type: string): string {
             <marker id="arr-orange" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
               <path d="M0 0L10 4L0 8z" fill="#ea580c"/>
             </marker>
-            <marker id="arr-red"    viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-              <path d="M0 0L10 4L0 8z" fill="#dc2626"/>
+            <marker id="arr-purple"    viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+              <path d="M0 0L10 4L0 8z" fill="#7c3aed"/>
             </marker>
           </defs>
 
