@@ -6,37 +6,41 @@ import graphData from '../../data/knowledge/power-infra-nodes.json';
 
 const { title, subtitle, version, last_updated, nodes, edges, legend } = graphData;
 
-// ── 節點排版位置（季度更新只改 JSON 的 desc，不動這裡）────────────────────
-const NW = 130;
-const NH = 52;
+// ── 節點排版位置 ─────────────────────────────────────────────────────────────
+// Layer 0A 核電/SMR（cy=72）：3 節點，均分全寬
+// Layer 0B 傳統/再生（cy=150）：4 節點，均分全寬
+// Layer 1  電網設備（cy=280）：4 節點
+// Layer 2  機房電源（cy=410）：3 節點
+// Layer 3  Hyperscaler（cy=538）：4 節點
+const NW  = 130;
+const NH  = 52;
 const NW2 = NW / 2;
 const NH2 = NH / 2;
 
-// Layer 0: 5 nodes, cy=75,  slot=192  → same positions as supply-chain
-// Layer 1: 4 nodes, cy=210, slot=240
-// Layer 2: 3 nodes, cy=350, slot=320
-// Layer 3: 4 nodes, cy=490, slot=240
 const pos: Record<string, { cx: number; cy: number }> = {
-  // Layer 0 — 發電（band y=26..122）
-  CEG:   { cx: 96,  cy: 75  },
-  VST:   { cx: 288, cy: 75  },
-  NRG:   { cx: 480, cy: 75  },
-  BE:    { cx: 672, cy: 75  },
-  NEE:   { cx: 864, cy: 75  },
-  // Layer 1 — 電網基礎設備（band y=148..272）
-  GEV:   { cx: 120, cy: 210 },
-  ETN:   { cx: 360, cy: 210 },
-  PWR:   { cx: 600, cy: 210 },
-  HUBB:  { cx: 840, cy: 210 },
-  // Layer 2 — 機房電源管理（band y=298..422）
-  VRT:   { cx: 160, cy: 360 },
-  SBGSY: { cx: 480, cy: 360 },
-  SMCI:  { cx: 800, cy: 360 },
-  // Layer 3 — 需求端 Hyperscaler（band y=448..556）
-  MSFT:  { cx: 120, cy: 502 },
-  AMZN:  { cx: 360, cy: 502 },
-  GOOG:  { cx: 600, cy: 502 },
-  META:  { cx: 840, cy: 502 },
+  // Layer 0A — 核電 / SMR（band y=24, cy=72）
+  CEG:   { cx: 160, cy: 72  },
+  OKLO:  { cx: 480, cy: 72  },
+  CCJ:   { cx: 800, cy: 72  },
+  // Layer 0B — 傳統 / 再生能源（cy=150）
+  VST:   { cx: 120, cy: 150 },
+  NRG:   { cx: 360, cy: 150 },
+  BE:    { cx: 600, cy: 150 },
+  NEE:   { cx: 840, cy: 150 },
+  // Layer 1 — 電網基礎設備（band y=192, cy=280）
+  GEV:   { cx: 120, cy: 268 },
+  ETN:   { cx: 360, cy: 268 },
+  PWR:   { cx: 600, cy: 268 },
+  HUBB:  { cx: 840, cy: 268 },
+  // Layer 2 — 機房電源管理（band y=320, cy=410）
+  VRT:   { cx: 160, cy: 400 },
+  SBGSY: { cx: 480, cy: 400 },
+  SMCI:  { cx: 800, cy: 400 },
+  // Layer 3 — Hyperscaler（band y=450, cy=538）
+  MSFT:  { cx: 120, cy: 530 },
+  AMZN:  { cx: 360, cy: 530 },
+  GOOG:  { cx: 600, cy: 530 },
+  META:  { cx: 840, cy: 530 },
 };
 
 // ── 邊線樣式 ────────────────────────────────────────────────────────────────
@@ -47,15 +51,16 @@ const edgeStyle: Record<string, { stroke: string; width: number; dash: string; m
   competition:{ stroke: '#dc2626', width: 1.5, dash: '5 3', marker: 'url(#arr-red)'    },
 };
 
-// ── 節點顏色（by layer）────────────────────────────────────────────────────
+// ── 節點顏色 ─────────────────────────────────────────────────────────────────
 const nodeColor: Record<string, { fill: string; stroke: string; text: string }> = {
-  '0': { fill: '#f0fdf4', stroke: '#16a34a', text: '#14532d' },  // green  — 發電
-  '1': { fill: '#eff6ff', stroke: '#2563eb', text: '#1e3a8a' },  // blue   — 電網設備
-  '2': { fill: '#faf5ff', stroke: '#7c3aed', text: '#4c1d95' },  // purple — 機房電源
-  '3': { fill: '#fff7ed', stroke: '#c2410c', text: '#7c2d12' },  // orange — Hyperscaler
+  '0A': { fill: '#f0fdf4', stroke: '#15803d', text: '#14532d' }, // deep green — 核電/SMR
+  '0B': { fill: '#fefce8', stroke: '#b45309', text: '#713f12' }, // amber — 傳統/再生
+  '1':  { fill: '#eff6ff', stroke: '#2563eb', text: '#1e3a8a' }, // blue  — 電網設備
+  '2':  { fill: '#faf5ff', stroke: '#7c3aed', text: '#4c1d95' }, // purple — 機房電源
+  '3':  { fill: '#fff7ed', stroke: '#c2410c', text: '#7c2d12' }, // orange — Hyperscaler
 };
-function getColor(n: typeof nodes[0]) {
-  return nodeColor[n.layer] ?? nodeColor['3'];
+function getColor(n: any) {
+  return nodeColor[n.sublayer ?? n.layer] ?? nodeColor['3'];
 }
 
 // ── 邊線路徑 ─────────────────────────────────────────────────────────────────
@@ -65,22 +70,19 @@ function edgePath(fromId: string, toId: string, type: string): string {
   if (!s || !t) return '';
 
   if (type === 'competition') {
-    // arc below, same-layer peers
     const arc = Math.max(s.cy, t.cy) + 44;
     return `M ${s.cx} ${s.cy + NH2} C ${s.cx} ${arc} ${t.cx} ${arc} ${t.cx} ${t.cy + NH2}`;
   }
-
   if (type === 'investment') {
-    // upward: hyperscaler → generator; route along right margin
     if (s.cy > t.cy) {
+      // upward: route along right margin
       return `M ${s.cx + NW2} ${s.cy} C 955 ${s.cy} 955 ${t.cy} ${t.cx + NW2} ${t.cy}`;
     }
-    // downward investment (not used, kept for completeness)
     const arc = Math.min(s.cy, t.cy) - 36;
     return `M ${s.cx + NW2} ${s.cy} C ${s.cx + NW2 + 50} ${arc} ${t.cx - NW2 - 50} ${arc} ${t.cx - NW2} ${t.cy}`;
   }
 
-  // Default bezier (ppa + supplies_to) — top edge → bottom edge
+  // Default: top→bottom bezier (ppa & supplies_to)
   const x1 = s.cx, y1 = s.cy + NH2;
   const x2 = t.cx, y2 = t.cy - NH2;
   const dy = (y2 - y1) * 0.4;
@@ -105,10 +107,7 @@ function edgePath(fromId: string, toId: string, type: string): string {
         margin: 0 0 0.35rem; letter-spacing: -0.03em;
       }
       .subtitle { color: #6b7280; font-size: 0.9rem; margin: 0 0 0.6rem; }
-      .meta {
-        display: flex; align-items: center; gap: 0.4rem;
-        font-size: 0.78rem; color: #9ca3af;
-      }
+      .meta { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: #9ca3af; }
       .version {
         background: #e0f2fe; color: #0369a1;
         padding: 0.15rem 0.5rem; border-radius: 20px;
@@ -123,17 +122,14 @@ function edgePath(fromId: string, toId: string, type: string): string {
         border-radius: 8px;
         padding: 1.1rem 1.4rem;
         margin-bottom: 1.4rem;
-        font-size: 0.875rem;
-        color: #374151;
-        line-height: 1.75;
+        font-size: 0.875rem; color: #374151; line-height: 1.75;
       }
       .description p { margin: 0 0 0.7rem; }
       .description p:last-child { margin: 0; }
-      .description .layers {
+      .layers {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 0.6rem;
-        margin-top: 0.9rem;
+        gap: 0.6rem; margin-top: 0.9rem;
       }
       .layer-chip {
         display: flex; align-items: flex-start; gap: 0.5rem;
@@ -164,13 +160,12 @@ function edgePath(fromId: string, toId: string, type: string): string {
       }
       .legend-item { display: flex; align-items: center; gap: 0.45rem; }
       .legend-item svg { flex-shrink: 0; }
-
       .note { margin-top: 1rem; font-size: 0.75rem; color: #9ca3af; text-align: right; }
 
       @media (max-width: 640px) {
         main { padding: 1rem 0.75rem 3rem; }
         .page-header h1 { font-size: 1.2rem; }
-        .description .layers { grid-template-columns: 1fr 1fr; }
+        .layers { grid-template-columns: 1fr 1fr; }
       }
     </style>
   </head>
@@ -178,7 +173,6 @@ function edgePath(fromId: string, toId: string, type: string): string {
     <Header />
     <main>
 
-      <!-- ── Page header ── -->
       <div class="page-header">
         <h1>{title}</h1>
         <p class="subtitle">{subtitle}</p>
@@ -191,49 +185,55 @@ function edgePath(fromId: string, toId: string, type: string): string {
         </div>
       </div>
 
-      <!-- ── Description ── -->
       <div class="description">
         <p>
-          AI 模型訓練與推論所需的電力，正在成為整個算力產業的<strong>真正瓶頸</strong>。
-          本圖呈現從電力來源到機房端的四層供應鏈，以及 Hyperscaler 如何透過 PPA 合約和直接投資，
-          反向鎖定上游電力資源。<strong>藍色虛線為 PPA 電力購買協議</strong>，橙色虛線為資本投資回流。
+          AI 模型訓練與推論消耗的電力正在成為整個算力產業的<strong>真正瓶頸</strong>。
+          本圖呈現從電力來源到機房端的供應鏈，
+          以及 Hyperscaler 如何透過 PPA 合約與直接投資，反向鎖定上游電力資源。
+          <strong>藍色虛線為 PPA 電力購買協議</strong>，橙色虛線為資本投資回流。
         </p>
         <div class="layers">
           <div class="layer-chip">
-            <span class="dot" style="background:#16a34a;"></span>
+            <span class="dot" style="background:#15803d;"></span>
             <div>
-              <strong>Layer 0 — 發電（Generation）</strong>
-              <span>核電（CEG）因 24/7 穩定供電最受 AI 機房青睞；燃氣（VST、NRG）補充尖峰；BE 提供現場燃料電池；NEE 代表再生能源。</span>
+              <strong>Layer 0A — 核電 / SMR</strong>
+              <span>CEG 是最大清潔核電 PPA 簽約方；Oklo（OKLO）是 Sam Altman 投資的 SMR 新創，已與 AI 資料中心簽署供電 LOI；Cameco（CCJ）是全球最大鈾礦商，為核電廠提供燃料，是核電鏈最上游。</span>
+            </div>
+          </div>
+          <div class="layer-chip">
+            <span class="dot" style="background:#b45309;"></span>
+            <div>
+              <strong>Layer 0B — 傳統 / 再生能源</strong>
+              <span>VST（天然氣＋核電）與 NRG（天然氣）在 AI 電力需求下重獲資本市場關注；BE 燃料電池提供機房側現場發電；NEE 是全球最大風電與太陽能運營商。</span>
             </div>
           </div>
           <div class="layer-chip">
             <span class="dot" style="background:#2563eb;"></span>
             <div>
               <strong>Layer 1 — 電網基礎設備</strong>
-              <span>GEV 變壓器供應嚴重瓶頸（交期達 2 年）；ETN 電源分配；PWR 電力基礎設施工程；HUBB 電氣連接件。</span>
+              <span>GEV 變壓器交期長達 2 年，是最直接的供應瓶頸；ETN 電力分配設備；PWR 電力基礎設施工程商；HUBB 電氣連接件。</span>
             </div>
           </div>
           <div class="layer-chip">
             <span class="dot" style="background:#7c3aed;"></span>
             <div>
               <strong>Layer 2 — 機房電源管理</strong>
-              <span>VRT 是資料中心電源與冷卻的龍頭；Schneider（SBGSY）提供軟硬整合平台；SMCI 液冷伺服器機架。</span>
+              <span>VRT（Vertiv）是資料中心電源與冷卻龍頭；Schneider（SBGSY）EcoStruxure 軟硬整合；SMCI 液冷高密度伺服器機架。</span>
             </div>
           </div>
           <div class="layer-chip">
             <span class="dot" style="background:#c2410c;"></span>
             <div>
-              <strong>Layer 3 — 需求端（Hyperscaler）</strong>
-              <span>四大雲端商 2026 年合計 AI capex 逾 2,500 億美元，反向投資發電資產以鎖定電力供應，確保 AI 擴張不受電力限制。</span>
+              <strong>Layer 3 — 需求端 Hyperscaler</strong>
+              <span>MSFT / AMZN / GOOG / META 四大雲端商 2026 年合計 AI capex 逾 2,500 億美元，反向投資發電資產以鎖定電力，確保 AI 擴張不受電力限制。</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── Graph ── -->
       <div class="graph-container">
         <svg
-          viewBox="0 0 960 600"
+          viewBox="0 0 960 620"
           width="100%"
           xmlns="http://www.w3.org/2000/svg"
           role="img"
@@ -255,35 +255,44 @@ function edgePath(fromId: string, toId: string, type: string): string {
             </marker>
           </defs>
 
-          <!-- Layer 0 band -->
-          <rect x="10" y="26" width="940" height="96" rx="10"
-                fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
-          <text x="20" y="44" font-size="8.5" fill="#16a34a" font-weight="700" letter-spacing="0.08em">
+          <!-- Layer 0 band（含 0A + 0B 兩排）-->
+          <rect x="10" y="20" width="940" height="164" rx="10"
+                fill="#f7fef9" stroke="#bbf7d0" stroke-width="1"/>
+          <text x="20" y="38" font-size="8.5" fill="#15803d" font-weight="700" letter-spacing="0.08em">
             LAYER 0 — 發電（Generation）
+          </text>
+          <!-- 0A / 0B 分隔線 -->
+          <line x1="30" y1="116" x2="930" y2="116"
+                stroke="#d1fae5" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="20" y="112" font-size="7.5" fill="#15803d" opacity="0.7">
+            0A — 核電 / SMR
+          </text>
+          <text x="20" y="130" font-size="7.5" fill="#b45309" opacity="0.7">
+            0B — 傳統 / 再生能源
           </text>
 
           <!-- Layer 1 band -->
-          <rect x="10" y="148" width="940" height="110" rx="10"
+          <rect x="10" y="200" width="940" height="110" rx="10"
                 fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-          <text x="20" y="166" font-size="8.5" fill="#2563eb" font-weight="700" letter-spacing="0.08em">
+          <text x="20" y="218" font-size="8.5" fill="#2563eb" font-weight="700" letter-spacing="0.08em">
             LAYER 1 — 電網基礎設備（Grid Infrastructure）
           </text>
 
           <!-- Layer 2 band -->
-          <rect x="10" y="310" width="940" height="100" rx="10"
+          <rect x="10" y="328" width="940" height="100" rx="10"
                 fill="#faf5ff" stroke="#ddd6fe" stroke-width="1"/>
-          <text x="20" y="328" font-size="8.5" fill="#7c3aed" font-weight="700" letter-spacing="0.08em">
+          <text x="20" y="346" font-size="8.5" fill="#7c3aed" font-weight="700" letter-spacing="0.08em">
             LAYER 2 — 機房電源管理（Data Center Power）
           </text>
 
           <!-- Layer 3 band -->
-          <rect x="10" y="462" width="940" height="108" rx="10"
+          <rect x="10" y="456" width="940" height="108" rx="10"
                 fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
-          <text x="20" y="480" font-size="8.5" fill="#c2410c" font-weight="700" letter-spacing="0.08em">
+          <text x="20" y="474" font-size="8.5" fill="#c2410c" font-weight="700" letter-spacing="0.08em">
             LAYER 3 — 需求端（Hyperscaler）
           </text>
 
-          <!-- Edges（先渲染，節點蓋上方） -->
+          <!-- Edges -->
           {edges.map((e: any) => {
             const st = edgeStyle[e.type] ?? edgeStyle.supplies_to;
             const d = edgePath(e.from, e.to, e.type);
@@ -324,15 +333,14 @@ function edgePath(fromId: string, toId: string, type: string): string {
             );
           })}
 
-          <!-- Xompass watermark -->
-          <text x="950" y="595" text-anchor="end"
+          <!-- Watermark -->
+          <text x="950" y="615" text-anchor="end"
                 font-size="8" fill="#d1d5db" letter-spacing="0.05em">
             © Xompass Research
           </text>
         </svg>
       </div>
 
-      <!-- Legend -->
       <div class="legend">
         {legend.map((item: any) => (
           <div class="legend-item">
