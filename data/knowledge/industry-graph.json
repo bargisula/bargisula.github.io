@@ -258,6 +258,73 @@
       ],
       "audit_note": "稽核日 2026-06-07。原 pending 原因：從 TC-006 移出傳導鏈後需重新定位節點性質。稽核結論：(1) CPO 是替代技術（替代插拔式光模組），此節點追蹤 CPO 本身的需求成長，非傳統供不應求；(2) 觸發條件修正：以 LTA 簽訂取代不可觀測的 TDP 閾值；(3) COHR 是核心 pump laser 供應商，護城河在 InP CW laser，矽光子長期替代風險 2030+ 合理；(4) logic_score 0.80 確認（LTA 是強確認訊號，但量產時間軸仍有不確定性）；(5) 此節點與 optical_transceiver 的 substitution_risk 互為映射：一個追蹤威脅方，另一個追蹤被威脅方",
       "audit_status": "audited"
+    },
+    {
+      "id": "power_electronics",
+      "display_name": "AI 數據中心電力基礎設施",
+      "theme": "AI_capex_cycle",
+      "analysis_run_id": "IND-20260607-PWR",
+      "last_analyzed": "2026-06-07",
+      "supply_demand": "供不應求（設備層）",
+      "supply_demand_condition": "IF hyperscaler capex 維持 YoY > 30% AND 電力變壓器交期 ≥ 160 週 THEN Layer 1/2 設備商定價能力持續",
+      "key_players": [
+        { "ticker": "VRT",  "role": "Layer 2 機房電源龍頭", "note": "backlog 150 億美元，YoY +109%；book-to-bill 2.9x；液冷領導廠商" },
+        { "ticker": "GEV",  "role": "Layer 1 電網設備龍頭", "note": "backlog 1,630 億美元；Q1 電氣化訂單超過 2025 全年；定價 YoY +10–20%" },
+        { "ticker": "ETN",  "role": "Layer 1/2 跨層", "note": "電氣 backlog +48%；資料中心訂單 +240%；12 新廠爬坡中" },
+        { "ticker": "CEG",  "role": "Layer 0A 核電", "note": "147M MWh/年核電；PPA 多筆；Crane 重啟互連延至 2031 風險" }
+      ],
+      "bottlenecks": [
+        {
+          "item": "大型電力變壓器",
+          "severity": "極高",
+          "note": "交貨週期達 160–208 週（3–4 年）；美國國內生產僅滿足 20% 需求；GOES 電工鋼自給率 20%",
+          "confirmed_by": "pv-magazine 2026-05-11；ETN Q1 2026 法說",
+          "relief_timeline": "2027–2028 年 GEV/Hitachi 新廠投產後開始緩解"
+        },
+        {
+          "item": "液冷系統工程能力",
+          "severity": "中",
+          "note": "VRT 最強，但 130 kW+ 超高密度場景仍在爬坡；Eaton 追趕中",
+          "relief_timeline": "2026–2027 年量產規模擴大"
+        }
+      ],
+      "substitution_risk": {
+        "threat": "分散式微電網 / 固態電池備援",
+        "timeline": "2030+",
+        "severity": "低",
+        "note": "18 個月內無規模量產路徑，K3 未觸發",
+        "condition": "IF 新型分散式電力技術 18 個月內規模量產替代傳統電網設備 THEN 論點失效"
+      },
+      "demand_drivers": [
+        "四大 hyperscaler 2026 capex 合計 6,900–7,200 億美元，YoY +62%",
+        "AI GPU 機架功耗 130–160 kW（Blackwell GB200 NVL 72），需全新電力基礎設施設計",
+        "核電 PPA 長期合約（CEG-MSFT/AMZN/GOOG），鎖定需求能見度至 2040+",
+        "IRA 刪減對企業端電力設備採購影響有限，Layer 1/2 需求自主性強"
+      ],
+      "key_metrics": {
+        "vrt_backlog": "150 億美元，YoY +109%（Q1 2026）",
+        "vrt_book_to_bill": "2.9x",
+        "vrt_revenue_2026_guidance": "135–140 億美元（+30% YoY）",
+        "gev_total_backlog": "1,630 億美元（Q1 2026，QoQ +130 億）",
+        "gev_electrification_orders_q1": "24 億美元（超過 2025 全年）",
+        "etn_electrical_backlog_growth": "+48% YoY（Q1 2026）",
+        "etn_dc_orders_growth": "+240% YoY（Q1 2026）",
+        "transformer_lead_time": "160–208 週（3–4 年，2026-05 數據）",
+        "hyperscaler_capex_2026": "6,900–7,200 億美元合計"
+      },
+      "logic_score": 0.88,
+      "evidence_score": 0.10,
+      "confidence": 0.65,
+      "_confidence_note": "logic_score 高（物理瓶頸機制清晰，財報多方確認）；evidence_score 0.10（Q1 2026 財報已提供部分驗證，C2/C3 從待確認升至確認）",
+      "expires_if": "兩家以上 hyperscaler 下修 2026 capex ≥20%（K1 觸發）OR VRT/GEV backlog YoY 轉負（K2 觸發）",
+      "source_events": [
+        { "date": "2026-05-05", "event": "ETN Q1 2026：電氣 backlog +48%，資料中心訂單 +240%，228 GW backlog ≈ 12 年需求", "source": "Alphastreet / BigGo Finance" },
+        { "date": "2026-04-22", "event": "VRT Q1 2026：backlog 150 億美元 +109% YoY，book-to-bill 2.9x，2026 guidance 上調至 135–140 億美元", "source": "SEC EDGAR 8-K + quartr.com" },
+        { "date": "2026-04-22", "event": "GEV Q1 2026：訂單 183 億美元 +71%，backlog 1,630 億美元，電氣化 Q1 訂單超 2025 全年；新訂單定價 +10–20%", "source": "SEC EDGAR 8-K + Motley Fool transcript" },
+        { "date": "2026-05-11", "event": "US transformer lead time 延至 4 年；美國本土生產僅滿足 20% 需求", "source": "pv-magazine-usa.com" },
+        { "date": "2026-06-07", "event": "七維度完整分析執行，position 檔 C2 升至 ✅，C5 重新定義，論點升至 v2", "source": "內部分析" }
+      ],
+      "audit_status": "pending"
     }
   ]
 }
