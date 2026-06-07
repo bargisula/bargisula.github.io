@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
+// ── 資料載入（同原邏輯）──────────────────────────────────────────────────────
 const summaryModules = import.meta.glob(
   '../../../data/dsmm/pipeline/*/06-summary.json',
   { eager: true }
@@ -14,11 +15,11 @@ const verifyModules = import.meta.glob(
 
 type CP = {
   id: string; market: string; check_date: string; prediction: string;
-  actual: string | null; verdict: string | null; score: number | null;
-  tc_reference?: string;
+  actual: string | null; verdict: string | null; score?: number | null;
+  honest_note?: string;
 };
 type AssetImpl = { asset: string; direction: string; magnitude: string; confidence: number };
-type MarketInfo = { impact_level: string; time_horizon: string; key_signal: string };
+type MarketInfo = { impact_level: string; time_horizon: string; key_signal: string; direction?: string };
 type CriticalEvent = { date: string; event: string; if_hot: string; if_cool: string };
 type Summary = {
   run_id: string; event_title: string; completed_at: string;
@@ -40,200 +41,450 @@ for (const raw of Object.values(verifyModules)) {
   verifyMap[v.run_id] = v;
 }
 
-const MARKETS = ['金融市場', '貨幣市場', '商品市場', '勞動市場', '財政動態'];
+// ── SVG 排版常數 ────────────────────────────────────────────────────────────
+const NW = 158;                           // node width
+const NH = 104;                           // node height
+const NW2 = NW / 2;
+const NH2 = NH / 2;
+const NCX = [88, 278, 468, 658, 848];    // 5 node centre-x  (slot ≈ 190px)
+const NCY = 105;                          // all nodes share same cy
+const SVG_H = 210;                        // viewBox height
+
+// 五市場定義
+const MKT_DEF = [
+  { key: '金融市場', icon: '💹', short: '金融' },
+  { key: '貨幣市場', icon: '🏦', short: '貨幣' },
+  { key: '商品市場', icon: '🏭', short: '商品' },
+  { key: '勞動市場', icon: '👷', short: '勞動' },
+  { key: '財政動態', icon: '🏛', short: '財政' },
+];
+
+// 衝擊強度設定
+const IMP = {
+  high:   { fill:'#fff1f2', stroke:'#f87171', txtClr:'#991b1b', dotClr:'#ef4444', badge:'● HIGH',
+            edgeSt:'#f87171', edgeW:3,   dash:'' },
+  medium: { fill:'#fffbeb', stroke:'#fbbf24', txtClr:'#92400e', dotClr:'#f59e0b', badge:'◑ MED',
+            edgeSt:'#fbbf24', edgeW:2.5, dash:'' },
+  low:    { fill:'#f9fafb', stroke:'#d1d5db', txtClr:'#374151', dotClr:'#9ca3af', badge:'○ LOW',
+            edgeSt:'#e5e7eb', edgeW:1.5, dash:'6 3' },
+};
+
+function parseImp(level: string): keyof typeof IMP {
+  const l = (level || '').toLowerCase();
+  if (l.startsWith('high')) return 'high';
+  if (l.startsWith('medium') || l.includes('分裂')) return 'medium';
+  return 'low';
+}
+
+function trunc(s: string, n: number) {
+  if (!s) return '';
+  return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+
+// 把 key_signal 切成最多兩行（≤16 字／行）
+function splitSig(text: string): [string, string] {
+  if (!text) return ['', ''];
+  if (text.length <= 16) return [text, ''];
+  const seps = ['；', '，', '→', ' '];
+  for (const sep of seps) {
+    const i = text.indexOf(sep, 9);
+    if (i > 0 && i <= 19) {
+      return [text.slice(0, i + 1), trunc(text.slice(i + 1), 16)];
+    }
+  }
+  return [trunc(text.slice(0, 16), 16), trunc(text.slice(16), 16)];
+}
+
+// ── 組合每個 run 的資料 ─────────────────────────────────────────────────────
 const today = new Date();
 
-function impactClass(level: string) {
-  const l = (level ?? '').split('（')[0].toLowerCase();
-  if (l.includes('high') || l === '高') return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300';
-  if (l.includes('medium') || l === '中' || l.includes('分裂')) return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
-  if (l.includes('low') || l === '低') return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300';
-  return 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400';
+function verdictLabel(v: string | null, duePending: boolean): string {
+  if (v === 'CONFIRMED')   return '✓ CONFIRMED';
+  if (v === 'PARTIAL')     return '△ PARTIAL';
+  if (v === 'WRONG')       return '✗ WRONG';
+  if (v === 'INVALIDATED') return '— 失效';
+  if (duePending)          return '⚠ 待填入';
+  return '— 尚未到期';
 }
-function verdictClass(v: string | null) {
-  if (v === 'CONFIRMED')   return 'text-green-600 dark:text-green-400 font-bold';
-  if (v === 'PARTIAL')     return 'text-amber-600 dark:text-amber-400 font-bold';
-  if (v === 'WRONG')       return 'text-red-500 dark:text-red-400 font-bold';
-  if (v === 'INVALIDATED') return 'text-zinc-400';
-  return 'text-zinc-400 italic';
-}
-function scoreClass(score: number | null) {
-  if (score == null) return 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400';
-  if (score >= 0.8)  return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300';
-  if (score >= 0.5)  return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
-  return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300';
-}
-function dirClass(d: string) {
-  if (d.includes('↑')) return 'text-green-600 dark:text-green-400';
-  if (d.includes('↓')) return 'text-red-500 dark:text-red-400';
-  return 'text-zinc-500';
+function verdictCls(v: string | null, due: boolean): string {
+  if (v === 'CONFIRMED')   return 'confirmed';
+  if (v === 'PARTIAL')     return 'partial';
+  if (v === 'WRONG')       return 'wrong';
+  if (due && !v)           return 'overdue';
+  return 'pending';
 }
 
-// 預計算每個 run 所需的所有資料（template 只做展示，不做計算）
-const runs = rawSummaries.map(s => {
+const runs = rawSummaries.map((s, ri) => {
   const verify = verifyMap[s.run_id];
   const checkpoints: CP[] = verify?.checkpoints ?? s.verification_checkpoints ?? [];
-  const score = verify?.overall_score ?? null;
-  const done = checkpoints.filter(c => c.verdict !== null);
-  const confirmed = done.filter(c => c.verdict === 'CONFIRMED').length;
+  const enrichedCPs = checkpoints.map(c => {
+    const d = new Date(c.check_date);
+    const due = d <= today && !c.verdict;
+    return { ...c, due, vLabel: verdictLabel(c.verdict, due), vCls: verdictCls(c.verdict, due) };
+  });
+  const confirmed = enrichedCPs.filter(c => c.verdict === 'CONFIRMED').length;
+  const failed    = enrichedCPs.filter(c => c.verdict === 'WRONG').length;
+  const pending   = enrichedCPs.filter(c => !c.verdict).length;
+  const overdue   = enrichedCPs.filter(c => c.due).length;
 
-  const enrichedCPs = checkpoints.map(c => ({
-    ...c,
-    isPast: new Date(c.check_date) <= today,
-    duePending: new Date(c.check_date) <= today && !c.verdict,
-  }));
-
-  const marketCards = MARKETS.map(m => {
-    const info = s.impact_map?.[m];
-    return {
-      name: m,
-      info,
-      badgeClass: info ? impactClass(info.impact_level) : '',
-      badgeLabel: info ? info.impact_level.split('（')[0] : '',
-    };
+  // SVG node data
+  const nodes = MKT_DEF.map((m, i) => {
+    const info = s.impact_map?.[m.key];
+    const impact = info ? parseImp(info.impact_level) : 'low';
+    const cfg = IMP[impact];
+    const [sig1, sig2] = splitSig(info?.key_signal || '');
+    const timeShort = trunc(info?.time_horizon || '—', 18);
+    return { ...m, info, impact, cfg, sig1, sig2, timeShort, cx: NCX[i] };
   });
 
+  // Marker IDs (unique per run to avoid same-page collision)
+  const mHigh = `mh${ri}`, mMed = `mm${ri}`, mLow = `ml${ri}`;
+
   return {
-    s,
-    score,
-    scoreLabel: score !== null ? `驗證 ${Math.round(score * 100)}%` : `待驗證 ${done.length}/${checkpoints.length}`,
-    scoreCls: scoreClass(score),
-    confLabel: `信心 ${Math.round(s.system_confidence * 100)}%`,
-    marketCards,
-    enrichedCPs,
-    confirmed,
+    s, ri, nodes, enrichedCPs, confirmed, failed, pending, overdue,
     totalCPs: checkpoints.length,
-    doneCnt: done.length,
+    mHigh, mMed, mLow,
+    confPct: Math.round(s.system_confidence * 100),
     assets: (s.top_asset_implications ?? []).map(a => ({
-      ...a,
-      dirCls: dirClass(a.direction),
-      confPct: Math.round(a.confidence * 100),
+      ...a, confPct: Math.round(a.confidence * 100),
+      dirCls: a.direction.includes('↑') ? 'up' : a.direction.includes('↓') ? 'dn' : 'nt',
     })),
-    critical: s.critical_next_event,
   };
 });
 ---
 
+<!doctype html>
 <html lang="zh-TW">
 <head>
-  <BaseHead title="DSMM 流水線儀表板" description="DSMM 五市場傳導流水線執行記錄與驗證狀態。" />
-</head>
-<body class="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
-  <Header />
-  <main class="max-w-5xl mx-auto px-4 py-10">
+  <BaseHead
+    title="DSMM 推演 — 五市場傳導鏈"
+    description="Dalio 五市場傳導框架視覺化：金融→貨幣→商品→勞動→財政，含 VCP 驗證追蹤。"
+  />
+  <style>
+    body { background: #f9fafb; }
+    main { max-width: 1050px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
 
-    <!-- 標題 -->
-    <div class="mb-8">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="text-2xl">📡</span>
-        <h1 class="text-2xl font-bold">DSMM 五市場流水線</h1>
-      </div>
-      <p class="text-zinc-500 dark:text-zinc-400 text-sm">
-        事件 → 金融 → 貨幣 → 商品 → 勞動 → 財政 → 驗證 ｜ 共 {runs.length} 次執行
-      </p>
+    /* ── Page header ── */
+    .ph { margin-bottom: 1.5rem; }
+    .ph h1 { font-size: 1.5rem; font-weight: 800; color: #111827; margin: 0 0 .3rem; letter-spacing: -.03em; }
+    .ph p  { font-size: .85rem; color: #6b7280; margin: 0; }
+
+    /* ── Legend bar ── */
+    .legend-bar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .9rem;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: .65rem 1rem; margin-bottom: 1.5rem; font-size: .78rem; color: #6b7280;
+    }
+    .legend-bar strong { color: #374151; margin-right: .2rem; }
+    .le { display: flex; align-items: center; gap: .35rem; }
+    .le .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .sep { color: #e5e7eb; }
+    .mono { font-family: ui-monospace, monospace; font-size: .72rem;
+            background: #f3f4f6; padding: .1rem .4rem; border-radius: 4px; color: #374151; }
+
+    /* ── Run section ── */
+    .run { margin-bottom: 2.5rem; }
+
+    /* ── Run banner ── */
+    .run-banner {
+      background: #1e293b; color: #e2e8f0;
+      border-radius: 10px 10px 0 0; padding: .75rem 1.1rem;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: .5rem;
+    }
+    .run-id  { font-family: ui-monospace, monospace; font-size: .72rem; color: #94a3b8; margin-right: .5rem; }
+    .run-evt { font-size: .88rem; font-weight: 600; }
+    .run-meta { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+    .chip {
+      font-size: .72rem; padding: .2rem .55rem; border-radius: 20px;
+      font-weight: 600; white-space: nowrap;
+    }
+    .chip-blue   { background: #1d4ed8; color: #bfdbfe; }
+    .chip-green  { background: #15803d; color: #bbf7d0; }
+    .chip-amber  { background: #b45309; color: #fde68a; }
+    .chip-red    { background: #b91c1c; color: #fecaca; }
+    .chip-gray   { background: #334155; color: #cbd5e1; }
+
+    /* ── Chain container ── */
+    .chain-wrap {
+      background: #fff;
+      border: 1px solid #e5e7eb; border-top: none;
+      padding: .75rem .5rem .5rem;
+      overflow-x: auto;
+    }
+    .chain-wrap svg { display: block; min-width: 700px; }
+
+    /* ── VCP section ── */
+    .vcp-wrap {
+      background: #fff; border: 1px solid #e5e7eb; border-top: none;
+      border-radius: 0 0 10px 10px; padding: 1rem 1.1rem;
+    }
+    .section-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      color: #9ca3af; text-transform: uppercase; margin-bottom: .6rem;
+    }
+    .vcp-stat { font-size: .78rem; color: #6b7280; margin-bottom: .7rem; }
+    .vcp-stat .confirmed { color: #16a34a; font-weight: 700; }
+    .vcp-stat .wrong     { color: #dc2626; font-weight: 700; }
+    .vcp-stat .overdue   { color: #d97706; font-weight: 700; }
+
+    /* ── VCP table ── */
+    .vcp-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .vcp-table th {
+      text-align: left; padding: .4rem .5rem;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: .7rem; font-weight: 600; color: #9ca3af; white-space: nowrap;
+    }
+    .vcp-table td {
+      padding: .45rem .5rem; border-bottom: 1px solid #f3f4f6;
+      vertical-align: top; line-height: 1.4;
+    }
+    .vcp-table tr:last-child td { border-bottom: none; }
+    .vcp-id   { font-family: ui-monospace, monospace; font-size: .7rem; color: #9ca3af; white-space: nowrap; }
+    .vcp-mkt  { font-size: .75rem; color: #6b7280; white-space: nowrap; }
+    .vcp-date { font-family: ui-monospace, monospace; font-size: .75rem; white-space: nowrap; }
+    .vcp-date.overdue { color: #d97706; font-weight: 700; }
+    .vcp-pred { color: #374151; }
+    .vcp-actual { color: #6b7280; font-style: italic; }
+    .verdict.confirmed { color: #16a34a; font-weight: 700; }
+    .verdict.partial   { color: #d97706; font-weight: 700; }
+    .verdict.wrong     { color: #dc2626; font-weight: 700; }
+    .verdict.overdue   { color: #d97706; }
+    .verdict.pending   { color: #9ca3af; }
+
+    /* ── Asset table ── */
+    .asset-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: .5rem; }
+    .asset-table th {
+      text-align: left; padding: .35rem .5rem;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: .7rem; font-weight: 600; color: #9ca3af;
+    }
+    .asset-table td { padding: .4rem .5rem; border-bottom: 1px solid #f3f4f6; }
+    .asset-table tr:last-child td { border-bottom: none; }
+    .a-ticker { font-family: ui-monospace, monospace; font-weight: 700; font-size: .8rem; }
+    .a-dir.up { color: #16a34a; font-weight: 700; }
+    .a-dir.dn { color: #dc2626; font-weight: 700; }
+    .a-dir.nt { color: #6b7280; }
+    .a-mag    { color: #6b7280; font-size: .78rem; }
+    .a-conf   { color: #9ca3af; font-family: ui-monospace, monospace; font-size: .75rem; text-align: right; }
+
+    /* ── Critical event callout ── */
+    .critical {
+      margin-top: .8rem; background: #fffbeb;
+      border: 1px solid #fde68a; border-left: 4px solid #f59e0b;
+      border-radius: 8px; padding: .7rem 1rem; font-size: .8rem;
+    }
+    .critical .c-head { font-weight: 700; color: #92400e; margin-bottom: .3rem; }
+    .critical .c-row  { color: #78350f; line-height: 1.6; }
+    .critical .c-lbl  { font-weight: 600; }
+
+    /* ── Empty state ── */
+    .empty { text-align: center; padding: 5rem 0; color: #9ca3af; }
+    .empty p { margin: .5rem 0; }
+
+    @media (max-width: 640px) {
+      main { padding: 1rem .75rem 3rem; }
+      .ph h1 { font-size: 1.2rem; }
+      .run-banner { border-radius: 8px 8px 0 0; }
+      .vcp-table th:nth-child(1),
+      .vcp-table td:nth-child(1) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <Header />
+  <main>
+
+    <!-- ── Page header ── -->
+    <div class="ph">
+      <h1>📡 DSMM 推演</h1>
+      <p>Dalio 五市場傳導框架 · 事件 → 金融 → 貨幣 → 商品 → 勞動 → 財政 → VCP 驗證</p>
     </div>
 
-    <!-- Run 列表 -->
-    {runs.map(r => (
-      <section class="mb-12 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden">
+    <!-- ── Legend bar ── -->
+    <div class="legend-bar">
+      <strong>衝擊強度：</strong>
+      <span class="le"><span class="dot" style="background:#ef4444"></span>HIGH 高</span>
+      <span class="le"><span class="dot" style="background:#f59e0b"></span>MED 中</span>
+      <span class="le"><span class="dot" style="background:#9ca3af"></span>LOW 低</span>
+      <span class="sep">|</span>
+      <strong>邊線：</strong>
+      <span>粗實線 HIGH → 細實線 MED → 虛線 LOW</span>
+      <span class="sep">|</span>
+      <span>觸發：<code class="mono">/dsmm-pipeline &lt;事件&gt;</code></span>
+      <span>驗證：<code class="mono">/dsmm-verify &lt;run_id&gt;</code></span>
+    </div>
 
-        <!-- Run header -->
-        <div class="bg-zinc-50 dark:bg-zinc-900 px-5 py-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-start justify-between gap-2">
+    <!-- ── Empty state ── -->
+    {runs.length === 0 && (
+      <div class="empty">
+        <p style="font-size:2.5rem">📭</p>
+        <p>尚無執行記錄</p>
+        <p style="font-size:.8rem"><code class="mono">/dsmm-pipeline &lt;事件描述&gt;</code></p>
+      </div>
+    )}
+
+    <!-- ── Run cards ── -->
+    {runs.map(r => (
+      <section class="run">
+
+        {/* ── Banner ── */}
+        <div class="run-banner">
           <div>
-            <span class="text-xs font-mono text-zinc-400 mr-2">{r.s.run_id}</span>
-            <span class="text-sm font-semibold">{r.s.event_title}</span>
+            <span class="run-id">{r.s.run_id}</span>
+            <span class="run-evt">{r.s.event_title}</span>
           </div>
-          <div class="flex items-center gap-2 text-xs flex-wrap">
-            <span class="text-zinc-400">{r.s.completed_at}</span>
-            <span class={`px-2 py-0.5 rounded-full font-mono font-bold ${r.scoreCls}`}>{r.scoreLabel}</span>
-            <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-mono">{r.confLabel}</span>
+          <div class="run-meta">
+            <span class="chip chip-gray">{r.s.completed_at}</span>
+            <span class="chip chip-blue">信心 {r.confPct}%</span>
+            {r.overdue > 0
+              ? <span class="chip chip-amber">⚠ 逾期 {r.overdue} 個</span>
+              : r.confirmed > 0
+                ? <span class="chip chip-green">✓ {r.confirmed}/{r.totalCPs} 驗證</span>
+                : <span class="chip chip-gray">待驗 {r.pending}/{r.totalCPs}</span>
+            }
           </div>
         </div>
 
-        <div class="px-5 py-4 space-y-5">
+        {/* ── SVG 傳導鏈 ── */}
+        <div class="chain-wrap">
+          <svg
+            viewBox={`0 0 960 ${SVG_H}`}
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label={`${r.s.run_id} 五市場傳導鏈`}
+            style="font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;"
+          >
+            <defs>
+              {/* Arrow markers — unique ID per run */}
+              <marker id={r.mHigh} viewBox="0 0 8 6" refX="7" refY="3"
+                      markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L8 3L0 6z" fill="#f87171"/>
+              </marker>
+              <marker id={r.mMed} viewBox="0 0 8 6" refX="7" refY="3"
+                      markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L8 3L0 6z" fill="#fbbf24"/>
+              </marker>
+              <marker id={r.mLow} viewBox="0 0 8 6" refX="7" refY="3"
+                      markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L8 3L0 6z" fill="#d1d5db"/>
+              </marker>
+            </defs>
 
-          <!-- 五市場衝擊卡 -->
-          <div>
-            <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">五市場衝擊</p>
-            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
-              {r.marketCards.map(mc => (
-                <div class="rounded-lg border border-zinc-100 dark:border-zinc-800 p-3">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="text-xs font-medium text-zinc-600 dark:text-zinc-300">{mc.name}</span>
-                    {mc.info && <span class={`text-xs px-1.5 py-0.5 rounded ${mc.badgeClass}`}>{mc.badgeLabel}</span>}
-                  </div>
-                  {mc.info
-                    ? <Fragment>
-                        <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-snug">{mc.info.key_signal}</p>
-                        <p class="text-xs text-zinc-400 mt-1">{mc.info.time_horizon}</p>
-                      </Fragment>
-                    : <p class="text-xs text-zinc-300 dark:text-zinc-600">—</p>
-                  }
-                </div>
-              ))}
-            </div>
-          </div>
+            {/* ── Arrows between nodes ── */}
+            {r.nodes.slice(1).map((m, i) => {
+              const x1 = NCX[i] + NW2 + 2;
+              const x2 = NCX[i + 1] - NW2 - 2;
+              const mid = Math.round((x1 + x2) / 2);
+              const markerId = m.impact === 'high' ? r.mHigh
+                             : m.impact === 'medium' ? r.mMed
+                             : r.mLow;
+              return (
+                <g>
+                  <line
+                    x1={x1} y1={NCY} x2={x2 - 2} y2={NCY}
+                    stroke={m.cfg.edgeSt}
+                    stroke-width={m.cfg.edgeW}
+                    stroke-dasharray={m.cfg.dash || undefined}
+                    marker-end={`url(#${markerId})`}
+                  />
+                  {/* Strength label above arrow */}
+                  <text x={mid} y={NCY - 11} text-anchor="middle"
+                        font-size="8" fill={m.cfg.dotClr} font-weight="600"
+                        letter-spacing="0.03em">
+                    {m.impact.toUpperCase()}
+                  </text>
+                </g>
+              );
+            })}
 
-          <!-- 資產含義 -->
-          {r.assets.length > 0 && (
-            <div>
-              <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">資產含義</p>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm border-collapse">
-                  <thead>
-                    <tr class="border-b border-zinc-200 dark:border-zinc-700">
-                      <th class="text-left py-1.5 pr-4 text-xs font-medium text-zinc-500">資產</th>
-                      <th class="text-left py-1.5 pr-4 text-xs font-medium text-zinc-500">方向</th>
-                      <th class="text-left py-1.5 pr-4 text-xs font-medium text-zinc-500">幅度 / 說明</th>
-                      <th class="text-right py-1.5 text-xs font-medium text-zinc-500">信心</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {r.assets.map(a => (
-                      <tr class="border-b border-zinc-100 dark:border-zinc-800/50">
-                        <td class="py-1.5 pr-4 font-mono text-xs font-semibold">{a.asset}</td>
-                        <td class={`py-1.5 pr-4 text-xs font-medium ${a.dirCls}`}>{a.direction}</td>
-                        <td class="py-1.5 pr-4 text-xs text-zinc-500 dark:text-zinc-400 max-w-xs leading-snug">{a.magnitude}</td>
-                        <td class="py-1.5 text-right font-mono text-xs text-zinc-400">{a.confPct}%</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
+            {/* ── Market nodes ── */}
+            {r.nodes.map((m) => {
+              const nx = m.cx - NW2;
+              const ny = NCY - NH2;
+              return (
+                <g>
+                  {/* Node box */}
+                  <rect x={nx} y={ny} width={NW} height={NH} rx="8"
+                        fill={m.cfg.fill} stroke={m.cfg.stroke} stroke-width="1.5"/>
 
-          <!-- 驗證檢查點 -->
+                  {/* Market name */}
+                  <text x={m.cx} y={ny + 20} text-anchor="middle"
+                        font-size="11.5" font-weight="700" fill={m.cfg.txtClr}>
+                    {m.icon} {m.key}
+                  </text>
+
+                  {/* Impact badge */}
+                  <text x={m.cx} y={ny + 35} text-anchor="middle"
+                        font-size="10" fill={m.cfg.dotClr} font-weight="700">
+                    {m.cfg.badge}
+                  </text>
+
+                  {/* Divider */}
+                  <line x1={nx + 10} y1={ny + 42} x2={nx + NW - 10} y2={ny + 42}
+                        stroke={m.cfg.stroke} stroke-width="0.8" opacity="0.5"/>
+
+                  {/* Key signal */}
+                  {m.sig1 && (
+                    <text x={m.cx} y={ny + 57} text-anchor="middle"
+                          font-size="9" fill="#4b5563">
+                      {m.sig1}
+                    </text>
+                  )}
+                  {m.sig2 && (
+                    <text x={m.cx} y={ny + 70} text-anchor="middle"
+                          font-size="9" fill="#4b5563">
+                      {m.sig2}
+                    </text>
+                  )}
+
+                  {/* Time horizon */}
+                  <text x={m.cx} y={ny + 88} text-anchor="middle"
+                        font-size="8.5" fill="#9ca3af">
+                    {m.timeShort}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+
+        {/* ── VCP 驗證 + Asset ── */}
+        <div class="vcp-wrap">
+
+          {/* VCP */}
           {r.enrichedCPs.length > 0 && (
             <div>
-              <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">
-                驗證檢查點 <span class="font-normal normal-case">{r.confirmed}/{r.doneCnt} 已確認（共 {r.totalCPs} 個）</span>
-              </p>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm border-collapse">
+              <div class="section-label">VCP 驗證</div>
+              <div class="vcp-stat">
+                共 {r.totalCPs} 個檢查點 ·
+                {r.confirmed > 0 && <span class="confirmed"> ✓ {r.confirmed} 通過</span>}
+                {r.failed    > 0 && <span class="wrong"> ✗ {r.failed} 失敗</span>}
+                {r.overdue   > 0 && <span class="overdue"> ⚠ {r.overdue} 逾期待填</span>}
+                {r.pending - r.overdue > 0 && <span> · {r.pending - r.overdue} 尚未到期</span>}
+              </div>
+              <div style="overflow-x:auto">
+                <table class="vcp-table">
                   <thead>
-                    <tr class="border-b border-zinc-200 dark:border-zinc-700">
-                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">ID</th>
-                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">市場</th>
-                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">驗證日</th>
-                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">預測</th>
-                      <th class="text-left py-1.5 pr-3 text-xs font-medium text-zinc-500">實際值</th>
-                      <th class="text-center py-1.5 text-xs font-medium text-zinc-500">結果</th>
+                    <tr>
+                      <th>ID</th>
+                      <th>市場</th>
+                      <th>驗證日</th>
+                      <th>預測內容</th>
+                      <th>實際值</th>
+                      <th>結果</th>
                     </tr>
                   </thead>
                   <tbody>
                     {r.enrichedCPs.map(c => (
-                      <tr class="border-b border-zinc-100 dark:border-zinc-800/50">
-                        <td class="py-1.5 pr-3 font-mono text-xs text-zinc-400">{c.id}</td>
-                        <td class="py-1.5 pr-3 text-xs text-zinc-500">{c.market}</td>
-                        <td class={`py-1.5 pr-3 font-mono text-xs ${c.duePending ? 'text-amber-500 font-semibold' : 'text-zinc-400'}`}>
-                          {c.check_date}{c.duePending ? ' ⚠️' : ''}
-                        </td>
-                        <td class="py-1.5 pr-3 text-xs text-zinc-600 dark:text-zinc-300 max-w-xs leading-snug">{c.prediction}</td>
-                        <td class="py-1.5 pr-3 text-xs text-zinc-500 dark:text-zinc-400">{c.actual ? c.actual : '—'}</td>
-                        <td class={`py-1.5 text-center text-xs ${verdictClass(c.verdict)}`}>
-                          {c.verdict ? c.verdict : (c.duePending ? '待填入' : '尚未到期')}
-                        </td>
+                      <tr>
+                        <td class="vcp-id">{c.id}</td>
+                        <td class="vcp-mkt">{c.market}</td>
+                        <td class={`vcp-date${c.due ? ' overdue' : ''}`}>{c.check_date}</td>
+                        <td class="vcp-pred">{c.prediction}</td>
+                        <td class="vcp-actual">{c.actual ?? '—'}</td>
+                        <td class={`verdict ${c.vCls}`}>{c.vLabel}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -242,34 +493,49 @@ const runs = rawSummaries.map(s => {
             </div>
           )}
 
-          <!-- 關鍵觀察點 -->
-          {r.critical && (
-            <div class="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 p-3">
-              <div class="flex flex-wrap items-center gap-2 mb-1">
-                <span class="text-xs font-semibold text-amber-700 dark:text-amber-400">🔑 關鍵觀察點</span>
-                <span class="font-mono text-xs text-amber-600 dark:text-amber-500">{r.critical.date}</span>
-                <span class="text-xs text-amber-600 dark:text-amber-500">{r.critical.event}</span>
+          {/* Assets */}
+          {r.assets.length > 0 && (
+            <div style="margin-top: 1.1rem;">
+              <div class="section-label">資產含義</div>
+              <div style="overflow-x:auto">
+                <table class="asset-table">
+                  <thead>
+                    <tr>
+                      <th>資產</th>
+                      <th>方向</th>
+                      <th>幅度 ／ 說明</th>
+                      <th style="text-align:right">信心</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {r.assets.map(a => (
+                      <tr>
+                        <td class="a-ticker">{a.asset}</td>
+                        <td class={`a-dir ${a.dirCls}`}>{a.direction}</td>
+                        <td class="a-mag">{a.magnitude}</td>
+                        <td class="a-conf">{a.confPct}%</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              <p class="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
-                <span class="font-medium">若超預期：</span>{r.critical.if_hot}
-              </p>
-              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mt-0.5">
-                <span class="font-medium">若符合預期：</span>{r.critical.if_cool}
-              </p>
+            </div>
+          )}
+
+          {/* Critical event */}
+          {r.s.critical_next_event && (
+            <div class="critical">
+              <div class="c-head">
+                🔑 關鍵觀察點：{r.s.critical_next_event.date} · {r.s.critical_next_event.event}
+              </div>
+              <div class="c-row"><span class="c-lbl">若超預期：</span>{r.s.critical_next_event.if_hot}</div>
+              <div class="c-row"><span class="c-lbl">若符合預期：</span>{r.s.critical_next_event.if_cool}</div>
             </div>
           )}
 
         </div>
       </section>
     ))}
-
-    {runs.length === 0 && (
-      <div class="text-center py-20 text-zinc-400">
-        <p class="text-4xl mb-3">📭</p>
-        <p>尚無流水線執行記錄</p>
-        <p class="text-sm mt-1 font-mono">/dsmm-pipeline &lt;事件&gt;</p>
-      </div>
-    )}
 
   </main>
   <Footer />
