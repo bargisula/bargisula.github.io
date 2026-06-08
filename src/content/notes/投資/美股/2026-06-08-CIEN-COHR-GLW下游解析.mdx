@@ -1,0 +1,241 @@
+---
+title: '【投資】GLW 下游解析：CIEN 與 COHR 的 AI 光學卡位'
+description: 'Corning 鎖定上游光纖壟斷後，下游誰在吃到這波需求？Ciena Q2 法說揭露雲端佔比 46%、multi-rail 首單；Coherent NVIDIA 億元合約 + CPO 量產路線圖。分析兩家公司的定位差異、法說會關鍵數字與對 GLW 論點的驗證含義。'
+category: '投資'
+subcategory: '美股'
+topic: 'AI基礎設施'
+pubDate: '2026-06-08'
+---
+
+import Callout from '@components/Callout.astro';
+
+## 為什麼要研究 GLW 的下游
+
+GLW 三錨升格報告（[2026-06-08](/notes/投資/美股/2026-06-08-GLW-三錨升格)）確立了 Corning 在美國 AI 光纖市場的事實壟斷地位。但 GLW 自己不製造光模組，也不建設資料中心間的傳輸系統——它生產的光纖，要經過 **COHR（Coherent Corp）** 轉化成光收發器，再由 **CIEN（Ciena）** 整合進長距離傳輸系統，才最終抵達超大型雲端業者的機房。
+
+研究下游有兩個目的：第一，驗證 GLW 的需求敘事是否在鏈條中被獨立確認；第二，評估 CIEN 和 COHR 作為獨立標的的投資吸引力。
+
+---
+
+## 供應鏈定位圖
+
+<svg width="100%" viewBox="0 0 620 380" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>GLW 下游供應鏈：CIEN 與 COHR 定位</title>
+  <desc>GLW 居頂，中層為 CIEN（傳輸系統）和 COHR（光組件），底層為超大型雲端業者終端客戶</desc>
+  <defs>
+    <marker id="d-arr-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="d-arr-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#7e22ce" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="d-arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="30" y="14" width="560" height="72" rx="6" fill="none" stroke="rgba(31,30,29,0.12)" stroke-width="0.5" stroke-dasharray="4 4"/>
+  <rect x="30" y="106" width="560" height="100" rx="6" fill="none" stroke="rgba(31,30,29,0.12)" stroke-width="0.5" stroke-dasharray="4 4"/>
+  <rect x="30" y="228" width="560" height="90" rx="6" fill="none" stroke="rgba(31,30,29,0.12)" stroke-width="0.5" stroke-dasharray="4 4"/>
+
+  <text x="16" y="50" text-anchor="middle" transform="rotate(-90,16,50)" font-size="9" opacity="0.45" fill="#3d3d3a">原料層</text>
+  <text x="16" y="156" text-anchor="middle" transform="rotate(-90,16,156)" font-size="9" opacity="0.45" fill="#3d3d3a">整合層</text>
+  <text x="16" y="273" text-anchor="middle" transform="rotate(-90,16,273)" font-size="9" opacity="0.45" fill="#3d3d3a">需求層</text>
+
+  <rect x="195" y="24" width="230" height="52" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="310" y="45" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#92400e">GLW — Corning</text>
+  <text x="310" y="63" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#b45309">美國本土光纖唯一大規模製造商</text>
+
+  <line x1="258" y1="76" x2="178" y2="120" stroke="#d97706" stroke-width="1.5" marker-end="url(#d-arr-amber)"/>
+  <line x1="362" y1="76" x2="442" y2="120" stroke="#d97706" stroke-width="1.5" marker-end="url(#d-arr-amber)"/>
+
+  <rect x="50" y="120" width="240" height="76" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="170" y="143" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#14532d">CIEN — Ciena</text>
+  <text x="170" y="161" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#166534">WaveLogic 同調光學 + Blue Planet</text>
+  <text x="170" y="177" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#166534">資料中心間長距傳輸系統</text>
+
+  <rect x="330" y="120" width="240" height="76" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="450" y="143" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#1e3a8a">COHR — Coherent</text>
+  <text x="450" y="161" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#1d4ed8">InP 光組件 + 光收發器 + CPO</text>
+  <text x="450" y="177" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#1d4ed8">AI 機架間短距光連線</text>
+
+  <line x1="145" y1="196" x2="108" y2="242" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#d-arr-purple)"/>
+  <line x1="195" y1="196" x2="248" y2="242" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#d-arr-purple)"/>
+  <line x1="390" y1="196" x2="340" y2="242" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#d-arr-blue)"/>
+  <line x1="480" y1="196" x2="510" y2="242" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#d-arr-blue)"/>
+
+  <rect x="46" y="242" width="110" height="52" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.5"/>
+  <text x="101" y="263" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#374151">META</text>
+  <text x="101" y="281" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#6b7280">WDM 幹線採購</text>
+
+  <rect x="196" y="242" width="110" height="52" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.5"/>
+  <text x="251" y="263" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#374151">AMZN</text>
+  <text x="251" y="281" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#6b7280">AWS 光纖基礎設施</text>
+
+  <rect x="314" y="242" width="110" height="52" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.5"/>
+  <text x="369" y="263" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#374151">NVDA</text>
+  <text x="369" y="281" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#6b7280">CPO 長期協議</text>
+
+  <rect x="464" y="242" width="110" height="52" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.5"/>
+  <text x="519" y="263" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="#374151">GOOGL / MSFT</text>
+  <text x="519" y="281" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#6b7280">多個採購頻道</text>
+
+  <line x1="44" y1="358" x2="66" y2="358" stroke="#d97706" stroke-width="1.5" marker-end="url(#d-arr-amber)"/>
+  <text x="71" y="362" font-size="10" fill="#b45309">GLW 光纖供應</text>
+  <line x1="182" y1="358" x2="204" y2="358" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#d-arr-purple)"/>
+  <text x="209" y="362" font-size="10" fill="#7e22ce">CIEN 系統銷售</text>
+  <line x1="320" y1="358" x2="342" y2="358" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#d-arr-blue)"/>
+  <text x="347" y="362" font-size="10" fill="#1d4ed8">COHR 組件銷售</text>
+</svg>
+
+---
+
+## CIEN：從電信商到超大型雲端的重心轉移
+
+### Q2 FY2026 核心數字（2026-06-05 法說）
+
+| 指標 | Q2 FY2026 | YoY |
+|---|---|---|
+| 總營收 | 15.7 億美元 | +40% |
+| 光網路設備 | 11.0 億美元 | +42% |
+| 路由與交換 | 1.74 億美元 | +88% |
+| 調整後毛利率 | 44.9% | |
+| 調整後 EPS | 1.64 美元 | +290% |
+| 訂單積壓（backlog） | 77 億美元 | 季增 6 億 |
+| FY2026 全年指引 | 63 億美元（±1 億）| +32% YoY |
+
+**客戶結構轉變是最重要的數字**：雲端/超大型業者營收佔比達到 **46%**，YoY 成長 70%，兩個雲端客戶各自超過單季總營收的 10%，合計約三分之一。一年前雲端佔比約 38%，轉移速度清晰可見。
+
+### CEO Gary Smith 法說原話
+
+> *"All customers are prioritizing high capacity, low latency, and high-speed connectivity, underpinned by the need to transport data for AI."*
+
+> *"Our latest view is that the addressable market will approximately double over the next several years to roughly \$50 billion by 2029."*
+
+> *"This morning, I am pleased to announce that we've been awarded the industry's first multi-rail order from a leading hyperscaler."*
+
+Multi-rail 首單規模「數億美元、多年期」，從 2027 年開始部署。這是 CIEN 歷史上的產品代際跳躍——從傳統 WAN 傳輸進入 AI 特定光網路架構（multi-rail fabric）。
+
+### 訂單品質：不是疫情期間的囤貨
+
+積壓訂單中 80% 在未來 12 個月內轉換為營收，且管理層明確區分了這波需求的性質：
+
+> *（CFO Marc Graff）"Customers are actually pushing out orders indicating real demand, not safety stock."*
+
+疫情期間的積壓是企業安全庫存，客戶傾向預拉；這次是客戶根據具體部署時間表下單，比 2023-2024 年的積壓更「真實」。
+
+### WaveLogic 6 與 CPO 生態
+
+- WaveLogic 6 Extreme 累積客戶 110 家，Q2 新增 20 家
+- Vesta 200 6.4T 平台（未來 CPO 載體）：超大型業者對「開放生態」訴求增加，CIEN 以開放架構定位吸引不想被單一廠商鎖定的雲端業者
+- Nitro 線性再驅動器晶片：2026 年夏天進入量產，這顆自研晶片是 CIEN 降低對外部 DSP 供應鏈依賴的關鍵一步
+
+<Callout type="insight">
+CIEN 當前的競爭護城河來自三個疊加：WaveLogic 技術代差（頻譜效率領先）+ Blue Planet 軟體訂閱（客戶切換成本）+ 首個 multi-rail 系統整合能力。三者缺一，任何一個組件廠商都難以直接替代。
+</Callout>
+
+---
+
+## COHR：InP 壁壘 + CPO 長期協議
+
+### Q3 FY2026 核心數字（2026-05-06 法說）
+
+| 指標 | Q3 FY2026 | YoY |
+|---|---|---|
+| 總營收 | 18.1 億美元 | +21% |
+| 資料中心與通訊部門 | ~13.6 億美元（75% 佔比）| +41% |
+| 非 GAAP 毛利率 | 39.6% | +105 bps |
+| 非 GAAP EPS | 1.41 美元 | +55% |
+| Q4 FY2026 指引 | 19.1–20.5 億美元 | |
+
+工業部門（-16% YoY）仍是拖累，但資料中心部門 +41% 且佔比 75%，結構已基本完成轉型。
+
+### CEO Jim Anderson 法說原話
+
+> *"Customer demand remains exceptionally strong with no signs of attenuation, and our visibility continues to extend further into the future."*
+
+> *"Demand remains exceptionally strong...orders now reaching into calendar 2028."*
+
+> *"CPO represents more than \$15 billion of incremental addressable market opportunity."*
+
+> *（NVIDIA CPO 協議）"Multi-year supply agreement extending through the end of the decade...covers multiple CPO-related products, including our high-power CW laser."*
+
+### NVIDIA 的 20 億美元股權投資邏輯
+
+2026 年 3 月，NVIDIA 宣布向 Coherent 投資 20 億美元（與投資 GLW 的 32 億美元在時間上接近）。這不是財務投資，而是**產能鎖定**——NVIDIA 的 Blackwell Ultra 以及後續架構採用 CPO 設計，需要 COHR 的高功率 CW 雷射作為核心光源組件。
+
+COHR 的護城河不是光收發器的系統組裝（這層已高度商品化，中國廠商 Innolight 等已主導 400G），而是在**組件層**：銦磷（InP）基板上的雷射二極體、EML（電吸收調製雷射）、光偵測器。這些組件是 CPO 架構的核心，製程工藝是 COHR 自有的。
+
+### InP 產能加速
+
+- 6 吋 InP 晶圓量產良率已超越舊款 3 吋生產線
+- 原計劃 2026 年底完成 InP 產能倍增，**提前一季達成**
+- 2027 年底將再倍增一次——兩次倍增意味著 2027 年底 InP 產能是今日的 4 倍
+
+### CPO 時間表（重要）
+
+| 階段 | 時間 | 說明 |
+|---|---|---|
+| Scale-out CPO 量產 | 2026 H2 | 初期部署，針對較小規模 AI 叢集 |
+| Scale-up CPO 量產 | 2027 H2 | 大規模超大型業者部署，主要收入事件 |
+| Multi-rail 光學收入 | 2027 H1 | 與 CIEN 所描述同一技術路徑 |
+| 熱管理解決方案 | 2027 底 | 完整光電整合系統 |
+
+<Callout type="data">
+COHR 管理層特別強調：CPO 是多年斜坡，不是單季事件。Scale-out（2026H2）只是確認量產能力，Scale-up（2027H2）才是財務意義上的拐點。用 2026H2 的初期數字評估 CPO 邏輯是否成立，時間太早。
+</Callout>
+
+---
+
+## 兩者並排比較
+
+| 維度 | CIEN | COHR |
+|---|---|---|
+| 供應鏈位置 | 資料中心**之間**（WAN/DCI 傳輸）| 資料中心**之內**（機架間短距光連線）|
+| 核心技術壁壘 | WaveLogic 同調光學代差 + 軟體 | InP 組件製程 + CPO 硬體規格制定 |
+| AI 收入佔比 | 46%（雲端，+70% YoY）| 75%（資料中心，+41% YoY）|
+| 訂單能見度 | 12 個月（77 億積壓，80% 轉換）| 至 2028 年曆年 |
+| 主要催化劑 | Multi-rail 首單 2027 部署 | CPO Scale-up 2027H2 |
+| 電信商依賴 | 仍有 ~50%，稀釋中 | 低（工業部門，非電信）|
+| 商品化風險 | 低（系統層複雜度高）| 中（光模組層已有中國競爭，組件層高）|
+| NVIDIA 直接關係 | 無直接合約 | 20 億股權投資 + CPO 十年協議 |
+
+<Callout type="warning">
+COHR 的工業部門（佔 25%）仍在 YoY -16%。這個部門涵蓋雷射製造設備與材料加工，與 AI 無關，是持續性的估值拖累——類似 GLW 的 Display Technologies 問題。
+</Callout>
+
+---
+
+## 對 GLW 論點的驗證含義
+
+這兩份法說會是 GLW 供需敘事的**獨立確認**：
+
+**需求端驗證**：CIEN 和 COHR 都表示需求超過供給、能見度延伸至 2027-2028，且兩家都沒有提到需求衰退的信號。如果 GLW 的光纖需求是假的，下游整合商不可能同步出現 40%+ 的營收成長。
+
+**議題一：CPO 對 GLW 的真實衝擊**
+
+COHR 的 CPO 路線圖（2027H2 規模化）為 GLW 論點中的「風險一」提供了時間座標：
+- 2026 年：CLW 需求高峰，CPO 量產剛起步，幾乎無衝擊
+- 2027 年：Scale-up CPO 開始，但覆蓋範圍仍是新建 AI 叢集，存量機架繼續使用傳統光纖
+- 2028 年後：若 CPO 標準化，每單位算力用纖密度下降壓力才開始顯現
+
+這個時間軸與 GLW Q1 法說會揭露的合約期限高度匹配——多年長約的保底正是對沖 CPO 風險的工具。
+
+**議題二：CIEN 6/5 法說造成 GLW -10% 是誤判**
+
+6/5 當天，CIEN 法說會後股價跌 11%，拖累 GLW 同日 -10%。實際上，CIEN Q2 營收 15.7 億、FY2026 全年指引上調至 63 億——任何數字都指向強勢。市場反應是對「預期過高後的獲利了結」，而非基本面惡化。這次聯動下跌是 GLW 論點的噪音，不是信號。
+
+---
+
+## 璞玉候選評估
+
+| 標的 | 當前狀態 | 建議行動 |
+|---|---|---|
+| **CIEN** | WaveLogic + 雲端轉型已確認，multi-rail 首單是新數據 | 加入璞玉候選，觀察 FY2026 Q3 雲端佔比是否突破 50% |
+| **COHR** | NVIDIA 合約 + InP 壁壘確認，CPO 2027H2 是主要催化劑 | 加入璞玉候選，2027H1 CPO 初期出貨數字為入場確認點 |
+
+兩者均為 GLW 論點的**受益延伸**，而非替代。GLW 是原材料層的稀缺資產，CIEN 是傳輸層的技術護城河，COHR 是組件層的製程壁壘——三者在 AI 光學基礎設施供應鏈中佔據不同節點，可以同時持有。
+
+---
+
+*本文為 Xompass 內部研究筆記，2026-06-08 晨會 AVGO 討論後撰寫。資料來源：CIEN Q2 FY2026 法說（2026-06-05）、COHR Q3 FY2026 法說（2026-05-06）。*

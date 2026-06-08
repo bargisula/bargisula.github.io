@@ -18,7 +18,7 @@
       "ticker": "AVGO",
       "frequency": "每週",
       "next_date": "2026-06-12",
-      "note": "2026-06-05 晨會裁定：每週追蹤 AVGO 是否宣布加入 NVIDIA FUSION 生態。Marvell 已在 FUSION 內，MediaTek 搶走 Google TPU v8 推論工作量後，AVGO 加入 FUSION 的時間壓力升高。若 Q3 財報電話（預計 2026-09）前仍無動作，論點從『網路層壟斷＋訓練 ASIC 守城』再降級。觀察來源：AVGO IR、NVIDIA 合作公告、財報電話逐字稿。"
+      "note": "2026-06-08 更新：Q2 FY2026 財報（6/3）AI 108億（+143%），FY2026全年指引上調 560億。Google TPU v8 拆分確認為『分單』非純搶單：AVGO 守訓練晶片 Sunfish，MediaTek 取推論晶片 Zebrafish；損失比初始恐慌小，但 Macquarie 預警 2028 Google 份額從 95%→65%。新客戶 OpenAI（千億+合約）、Apple、Anthropic 部分對沖集中風險。AVGO 仍走 Ethernet-first 獨立路線，截至 6/8 未宣布加入 FUSION。Q3 財報電話（預計 2026-09）前若仍無動作，INS-006 confidence 需再降。"
     },
     {
       "name": "【已裁定】伊朗/OPEC+ 地緣風險",

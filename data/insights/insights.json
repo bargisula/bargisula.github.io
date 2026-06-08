@@ -121,10 +121,11 @@
         "Fiserv/Experian/PwC 等各自發布垂直 Agent OS，軟體層碎片化趨勢確認，硬體層集中度對比鮮明"
       ],
       "duration_estimate": "結構性，3-5 年（agent 基礎設施建設週期）",
-      "confidence": 0.65,
+      "confidence": 0.62,
       "status": "active",
       "created": "2026-06-05",
       "expiry_check": "2027-06-01",
+      "confidence_update": "2026-06-08：AVGO Q2 FY2026 財報（6/3）AI 營收 108 億（+143%），Q3 指引 160 億（+200% YoY），FY2026 上調至 560 億——新客戶 OpenAI（千億+合約）、Apple、Anthropic 確認。『多客戶分散化』部分取代 Google 集中風險，支撐『過路費』命題。但 AVGO 仍未宣布加入 NVIDIA FUSION（Marvell 已在內），走獨立 Ethernet-first 路線；Macquarie 降評核心論點：Google 份額 2028 從 95% → 65%，中期真實壓力存在。命題未被推翻但 AVGO 成為標準組件的路徑更模糊，confidence 小幅降至 0.62。",
       "invalidation_signal": "開放硬體介面標準（如 Ultra Ethernet Consortium）打破現有壟斷 OR 軟體 runtime 形成唯一標準並反向定義硬體規格",
       "investment_implication": "AVGO 加入 NVIDIA FUSION = 從 Google 單一客戶供應商升級為 AI 工廠基礎設施標準組件；NVIDIA 硬體+軟體垂直整合護城河持續加深；純軟體 agent OS 玩家（各行業垂直）估值天花板受限於碎片化",
       "source_meeting": "2026-06-05"
