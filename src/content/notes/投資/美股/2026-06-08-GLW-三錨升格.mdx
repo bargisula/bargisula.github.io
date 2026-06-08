@@ -40,62 +40,50 @@ import Callout from '@components/Callout.astro';
     </marker>
   </defs>
 
-  <!-- Layer bands -->
   <rect x="30" y="18" width="550" height="98" rx="6" fill="none" stroke="rgba(31,30,29,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
   <rect x="30" y="132" width="550" height="92" rx="6" fill="none" stroke="rgba(31,30,29,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
   <rect x="30" y="242" width="550" height="100" rx="6" fill="none" stroke="rgba(31,30,29,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
 
-  <!-- Layer labels -->
   <text x="16" y="67" text-anchor="middle" transform="rotate(-90,16,67)" font-size="9" opacity="0.5" fill="#3d3d3a">需求方</text>
   <text x="16" y="178" text-anchor="middle" transform="rotate(-90,16,178)" font-size="9" opacity="0.5" fill="#3d3d3a">核心節點</text>
   <text x="16" y="292" text-anchor="middle" transform="rotate(-90,16,292)" font-size="9" opacity="0.5" fill="#3d3d3a">下游整合</text>
 
-  <!-- Arrows: customers → GLW -->
   <line x1="82" y1="88" x2="212" y2="149" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#g-arr-blue)"/>
   <line x1="207" y1="88" x2="258" y2="149" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#g-arr-blue)"/>
   <line x1="340" y1="88" x2="332" y2="149" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#g-arr-blue)"/>
   <line x1="474" y1="88" x2="378" y2="149" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#g-arr-slate)"/>
 
-  <!-- Arrows: GLW → downstream -->
   <line x1="255" y1="216" x2="148" y2="259" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#g-arr-purple)"/>
   <line x1="348" y1="216" x2="450" y2="259" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#g-arr-purple)"/>
 
-  <!-- NVDA -->
   <rect x="27" y="36" width="110" height="52" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.5"/>
   <text x="82" y="58" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#1e3a8a">NVDA</text>
   <text x="82" y="76" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#1d4ed8">32億股權投資＋產能</text>
 
-  <!-- META -->
   <rect x="152" y="36" width="110" height="52" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.5"/>
   <text x="207" y="58" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#1e3a8a">META</text>
   <text x="207" y="76" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#1d4ed8">最高 60億多年合約</text>
 
-  <!-- AMZN -->
   <rect x="285" y="36" width="110" height="52" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="0.5"/>
   <text x="340" y="58" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#1e3a8a">AMZN</text>
-  <text x="340" y="76" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#1d4ed8">多十億多年合約（今日↑）</text>
+  <text x="340" y="76" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#1d4ed8">多十億多年合約（今日）</text>
 
-  <!-- MSFT (pending) -->
   <rect x="419" y="36" width="110" height="52" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 3"/>
   <text x="474" y="58" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#64748b">MSFT</text>
   <text x="474" y="76" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#94a3b8">最大未簽客戶（待）</text>
 
-  <!-- GLW center -->
   <rect x="143" y="149" width="314" height="58" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
   <text x="300" y="169" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#92400e">GLW — Corning</text>
   <text x="300" y="189" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#b45309">美國本土光纖唯一大規模製造商　Fusion Draw 製程壁壘</text>
 
-  <!-- COHR -->
   <rect x="63" y="259" width="140" height="52" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="0.5"/>
   <text x="133" y="280" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#4c1d95">COHR</text>
   <text x="133" y="298" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#7e22ce">光纖原料 → 光模組</text>
 
-  <!-- CIEN -->
   <rect x="383" y="259" width="140" height="52" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="0.5"/>
   <text x="453" y="280" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="#4c1d95">CIEN</text>
   <text x="453" y="298" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#7e22ce">高密度光纜 → 傳輸設備</text>
 
-  <!-- Legend -->
   <line x1="33" y1="352" x2="55" y2="352" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#g-arr-blue)"/>
   <text x="60" y="356" font-size="10" fill="#1d4ed8">已確認長期合約</text>
   <line x1="172" y1="352" x2="194" y2="352" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#g-arr-slate)"/>
