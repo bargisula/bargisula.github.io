@@ -40,6 +40,20 @@ ls data/intel/ | tail -3              # 確認最近新聞
 
 若任一不健康 → 在輸出 JSON 的 `health_check.stale_warning = true` 並說明原因，**仍繼續執行**（用現有資料盡力評分）。
 
+**時效性過濾（強制執行）：**
+
+讀取每個 position 檔的「上次更新日期」（抓 `## 論點版本歷史` 最新一行的日期，或 frontmatter `updated`）：
+
+```
+距今 ≤ 30 天 → 正常納入候選清單
+距今 31–90 天 → 納入，但條件二最高得 1 分（強制降 confidence 至 low），並在 thesis_note 標注「⚠️ 論點檔已 XX 天未更新，建議重新確認」
+距今 > 90 天 → 不納入候選清單，移至 health_check.stale_positions 欄位列出，建議董事長決定是否更新或移除
+```
+
+**Signals 檔時效性：**
+若今日已有當日 `data/signals/YYYY-MM-DD.json` → 直接使用。  
+若最新信號檔距今 > 7 天 → Step 0 輸出警示「⚠️ Signals 檔超過 7 天，本次重新生成」，並執行完整評分，不沿用舊檔。
+
 ---
 
 ### Step 1：建立候選清單
