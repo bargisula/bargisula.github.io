@@ -35,6 +35,15 @@ description: >
 cat data/regime/current.json
 ```
 
+**新聞觸發（DNI 回報後立即執行）：**
+
+DNI 回報完成後，執行 `/news-trigger`：
+- 讀今日 DNI 新聞 + `data/positions/trigger-map.json`
+- 兩層過濾後輸出觸發結果
+- Kill Switch 預警 → 第三節置頂顯示
+- 論點加強信號 → 第三節對應板塊下附加
+- 無觸發 → 不顯示，不佔版面
+
 **財報自動觸發（secretary 回報後立即檢查）：**
 
 掃描 secretary 回報的 watchlist 項目，若有符合以下條件的項目 → **在第一節輸出前，先背景觸發 earnings-analyst**：
