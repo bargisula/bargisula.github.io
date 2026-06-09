@@ -40,32 +40,72 @@ cat data/coverage/registry.json
 
 ### Step 1：抓財報數據
 
-**美股（SEC EDGAR）：**
+**美股（優先順序）：**
+
 ```
-WebSearch: "[TICKER] [季度] earnings results revenue EPS
+# 第一步：財報數字
+WebSearch: "[TICKER] [季度] earnings results revenue EPS beat miss"
+
+# 第二步：電話會議逐字稿（必做，不論觸發來源）
+WebSearch: "[TICKER] [季度] earnings call transcript site:fool.com"
+→ 若無結果：WebSearch: "[TICKER] [季度] earnings call transcript"
+→ 若仍無：至 SEC EDGAR 搜尋 8-K Exhibit 99.2
 ```
-同時搜尋：
+
+抓取財報數字：
 - 實際 EPS vs 預期
 - 實際營收 vs 預期
 - 毛利率、營業利益率
-- 下季 Guidance
-- 管理層 Conference Call 重點
+- 下季 Guidance（營收/EPS/毛利三項）
+- 管理層對 Guidance 的解釋理由
 
 **重點指標依產業而異：**
 | 產業 | 關鍵指標 |
 |---|---|
-| 半導體 | 資料中心營收佔比、毛利率、庫存水位 |
+| 半導體 | 資料中心營收佔比、毛利率、庫存水位、backlog |
+| 電力設備 | 訂單金額、book-to-bill、交貨週期、backlog YoY |
 | 平台科技 | MAU/DAU、廣告 ARPU、雲端成長率 |
 | 電動車 | 交車量、單車毛利、FSD 滲透率 |
 | 金融 | NIM、信用損失準備、資本適足率 |
 
-### Step 1b：電話會議逐字稿補充（Group B 自動觸發時必做）
+### Step 1b：電話會議逐字稿解析（每次必做）
 
-若本次分析是由 jade-scan Group B 觸發（指引砍幅 / Major Customer 變化 / 毛利逆轉），在讀財報數字前先抓電話會議逐字稿 Q&A：
+無論觸發來源，每次財報分析都執行此步驟。
+
+**抓取目標（依優先序）：**
+1. The Motley Fool transcript（`site:fool.com [TICKER] earnings call transcript`）
+2. 公司 IR 網站（`[TICKER] investor relations earnings call`）
+3. SEC EDGAR 8-K Exhibit 99.2
+4. Seeking Alpha 摘要（`site:seekingalpha.com [TICKER] earnings call`）
+
+**解析結構（提取以下四塊）：**
+
 ```
-WebSearch: "{TICKER} {QUARTER} earnings call transcript Q&A"
+【管理層開場白重點】
+  - 核心敘事：管理層最強調什麼（一句話）
+  - 與上季措辭差異：語氣是否更樂觀/謹慎？有無新詞出現？
+  - 關鍵原文引用：摘 1–2 句最有資訊含量的話
+
+【Guidance 解釋】
+  - 指引高於/低於預期的原因（管理層自己怎麼說）
+  - 若下修：是宏觀逆風還是市占流失？（措辭辨別）
+  - 若上修：主要驅動力是哪個業務段？
+
+【Q&A 重點】
+  - 分析師最關心什麼問題（問了幾次？）
+  - 管理層有沒有迴避的問題（答非所問 = 潛在風險信號）
+  - 競爭對手/客戶被提到幾次、怎麼描述
+
+【論點相關原文】
+  - 與 position 檔支撐條件（C1–C5）直接相關的原文段落
+  - 與 Kill Switch（K1–K4）相關的任何措辭
 ```
-重點抓：管理層對客戶變化的措辭（「one of our top customers」「concentration」）、指引調降的解釋（「macro headwinds」vs「share loss」）。
+
+**Group B 加強觸發（額外執行）：**
+若出現以下任一 → 在逐字稿解析中加一節「⚠️ 大變化信號」：
+- 指引砍幅 ≥ 10%
+- 提到客戶集中度變化（「one of our top customers」「concentration」）
+- 毛利率 QoQ 下滑 ≥ 3%（連續兩季觸發）
 
 ### Step 2：逐項解析
 
@@ -125,11 +165,18 @@ WebSearch: "{TICKER} {QUARTER} earnings call transcript Q&A"
     "guidance_next_q_revenue_b": 45.0,
     "guidance_estimate_b": 43.8
   },
-  "transcript_source": "Seeking Alpha / 公司 IR / 8-K Exhibit 99.1",
-  "key_quotes": [
-    "demand for Blackwell remains exceptional",
-    "lead times extending into Q3"
-  ],
+  "transcript_source": "Motley Fool / 公司 IR / SEC 8-K Exhibit 99.2",
+  "transcript_parsed": {
+    "opening_narrative": "管理層核心敘事一句話",
+    "tone_vs_last_quarter": "更樂觀 / 持平 / 更謹慎",
+    "guidance_explanation": "管理層對指引的解釋",
+    "analyst_top_questions": ["分析師最常問的問題"],
+    "avoided_topics": ["管理層迴避或答非所問的問題"],
+    "key_quotes": [
+      "demand for Blackwell remains exceptional",
+      "lead times extending into Q3"
+    ]
+  },
   "bible_comparison": {
     "conditions_checked": [
       {
@@ -183,6 +230,37 @@ WebSearch: "{TICKER} {QUARTER} earnings call transcript Q&A"
 若全部 flag 正常：
   → 輸出「✅ Group B 正常：論點條件維持，已存檔 data/earnings/{TICKER}-{YYYYQQ}.json」
 ```
+
+### Step 5：回寫 Position 檔（有對應論點檔時必做）
+
+分析完成後，檢查是否有對應的 position 檔：
+
+```bash
+ls data/positions/sectors/       # 找板塊層級論點
+ls data/positions/[TICKER].md    # 找個股層級論點（若存在）
+```
+
+**若找到對應檔案，執行以下更新：**
+
+1. **更新支撐條件狀態**：依財報數字更新 C1–C5 的「狀態」欄（✅/⚠️/❌）和「上次檢查」日期
+
+2. **更新 Kill Switch 狀態**：依逐字稿和數字更新 K1–K4 的「狀態」欄
+
+3. **新增版本歷史一行**：
+   ```
+   | vN | YYYY-MM-DD | [TICKER] [QUARTER] 財報觸發 | [論點強化/維持/弱化] | [核心變化一句話] |
+   ```
+
+4. **新增檢核紀錄**：在「## 檢核紀錄」區塊新增本次紀錄，格式同既有紀錄
+
+**回寫原則：**
+- 只更新有新數據支撐的條件，不猜測
+- 若逐字稿找到直接相關原文 → 在備注欄引用
+- 若某條件數據不足（財報沒提到）→ 維持原狀態，備注「本季未更新」
+- 更新完後輸出：「✅ Position 檔已更新：[條件ID] 狀態變更 [舊→新]」
+
+**若無對應檔案：**
+- 輸出：「ℹ️ 無對應 position 檔，建議執行 opportunity-scout 評估是否建立」
 
 ---
 

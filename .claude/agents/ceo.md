@@ -35,6 +35,25 @@ description: >
 cat data/regime/current.json
 ```
 
+**財報自動觸發（secretary 回報後立即檢查）：**
+
+掃描 secretary 回報的 watchlist 項目，若有符合以下條件的項目 → **在第一節輸出前，先背景觸發 earnings-analyst**：
+
+觸發條件（任一成立）：
+- watchlist 項目標記為「財報日」且今日到期或已過期 1–2 天內
+- watchlist 項目有 `earnings` 或 `法說` 關鍵詞且狀態為「今日到期」
+
+觸發方式：
+```
+→ 呼叫 earnings-analyst（帶入 TICKER + 季度）
+→ 不等待結果，繼續進行三節報告輸出
+→ earnings-analyst 完成後，在第三節末尾插入：
+   「📊 財報觸發：[TICKER] [季度] 分析完成，position 檔已更新」
+   或附上分析摘要（若結論有重大變化）
+```
+
+若無財報觸發 → 跳過，不做任何說明。
+
 ---
 
 #### Step 2：判斷今日是否需要總經報告
