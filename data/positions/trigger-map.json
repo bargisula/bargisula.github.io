@@ -2,6 +2,7 @@
   "_meta": {
     "description": "新聞觸發詞地圖。每個板塊列出各條件和 Kill Switch 對應的關鍵詞。DNI 新聞命中任一詞 → 進入第二層 LLM 語意判斷。",
     "updated": "2026-06-09",
+    "sectors_covered": ["power_electronics", "AI_infrastructure", "optical_fiber"],
     "layer1_rule": "新聞標題或摘要含任一關鍵詞 → 通過第一層篩選",
     "layer2_rule": "LLM 判斷：這則新聞是否實質影響對應條件的成立/失效？",
     "threshold": "Layer 2 判斷為『實質影響』才觸發後續動作"
@@ -82,6 +83,55 @@
             "AI training pause", "LLM training halt", "AI investment freeze",
             "GPU demand collapse", "AI bubble burst", "AI capex crash",
             "NVIDIA demand collapse", "AI infrastructure demand down"
+          ]
+        }
+      }
+    },
+    "optical_fiber": {
+      "label": "高速光收發模組與光纖互連",
+      "position_file": null,
+      "note": "2026-06-09 加入。GLW Amazon 大單觸發補建。position 檔待建立。",
+      "tickers": ["GLW", "LITE", "COHR", "IIVI", "NOC", "Corning", "Lumentum", "Coherent", "II-VI"],
+      "conditions": {
+        "C1": {
+          "description": "資料中心光纖互連需求持續成長（hyperscaler 下單或合約）",
+          "watch_keywords": [
+            "Corning data center", "GLW data center", "fiber optic data center",
+            "optical interconnect order", "800G transceiver", "1.6T transceiver",
+            "optical cable data center", "Amazon fiber", "Microsoft fiber deal",
+            "Google fiber order", "hyperscaler fiber", "data center fiber contract",
+            "AI data center interconnect", "GPU cluster fiber", "optical networking AI"
+          ],
+          "kill_keywords": [
+            "fiber demand slowdown", "optical transceiver oversupply", "GLW order cut",
+            "Corning revenue miss", "optical cable inventory buildup"
+          ]
+        },
+        "C2": {
+          "description": "800G / 1.6T 高速規格進入量產（技術升級週期成立）",
+          "watch_keywords": [
+            "800G production", "1.6T optical", "800G transceiver ramp",
+            "high speed optical mass production", "next gen optical module",
+            "pluggable optics", "co-packaged optics", "CPO ramp"
+          ],
+          "kill_keywords": [
+            "800G delay", "1.6T postpone", "optical upgrade delayed",
+            "CPO adoption slow", "co-packaged optics setback"
+          ]
+        },
+        "K1": {
+          "description": "AI capex 急凍導致光纖採購暫停（Kill Switch）",
+          "kill_keywords": [
+            "data center fiber pause", "optical order cancel", "Corning backlog decline",
+            "AI infrastructure spending cut", "hyperscaler capex freeze optical"
+          ]
+        },
+        "K2": {
+          "description": "矽光子技術提前大規模取代傳統光模組（Kill Switch）",
+          "kill_keywords": [
+            "silicon photonics replaces", "silicon photonics mass production",
+            "traditional optical obsolete", "pluggable optics replaced",
+            "Intel silicon photonics ramp", "NVIDIA silicon photonics"
           ]
         }
       }
