@@ -1,0 +1,52 @@
+{
+  "industry": "資料中心液冷散熱系統",
+  "slug": "liquid-cooling",
+  "framework_used": ["industry-analysis"],
+  "verdict": "favorable",
+  "verdict_desc": "GB200 NVL72 132kW 機架功耗強制液冷，Goldman Sachs 估 2026 年 76% AI 伺服器採液冷，VRT 積壓訂單 150 億美元 YoY +109%，CAGR 22.65%（2026–2031）",
+  "bottleneck_score": 4,
+  "top_candidates": [
+    {
+      "ticker": "VRT",
+      "name": "Vertiv Holdings",
+      "role": "CDU 設計 + NVIDIA 共建參考架構認證，全球服務網絡",
+      "type": "bottleneck"
+    },
+    {
+      "ticker": "SMCI",
+      "name": "Super Micro Computer",
+      "role": "液冷機架整機整合（OEM），自稱 DLC 市占 70%",
+      "type": "low-cost"
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton",
+      "role": "電力管理 + Boyd 液冷製造，NVL72 推薦廠商",
+      "type": "bottleneck"
+    }
+  ],
+  "suppress_reason": null,
+  "kill_switches": [
+    {
+      "id": "K1",
+      "condition": "NVIDIA 下一代 GPU 每 FLOP 功耗下降 > 50%，機架功耗降回 60kW 以下",
+      "action": "降評至觀察，重估液冷採用率"
+    },
+    {
+      "id": "K2",
+      "condition": "兩家以上 hyperscaler 宣布削減 2026 AI capex 指引 ≥ 15%",
+      "action": "降評至迴避，等待新 capex 指引週期"
+    },
+    {
+      "id": "K3",
+      "condition": "VRT 積壓訂單 QoQ 轉負，連續兩季",
+      "action": "立即重新評估，能見度基礎失效"
+    }
+  ],
+  "focus_segments": ["直接液冷 DLC（主流）", "CDU/Sidecar 市場（CAGR 54%）", "浸沒冷卻（高成長，早期）"],
+  "regime_alignment": "順 Regime",
+  "updated": "2026-06-09",
+  "updated_by": "industry-analysis",
+  "next_review": "2026-08-01",
+  "_note": "液冷是 AI_infrastructure focus_sector 的物理基礎層。INS-002（AI capex 多季度能見度）與 INS-004（電力瓶頸）均支撐此論點。Position 檔待建立於 data/positions/sectors/liquid-cooling.md。"
+}
