@@ -1,0 +1,64 @@
+{
+  "industry": "高速光收發模組與光纖互連",
+  "slug": "optical-transceiver",
+  "framework_used": ["industry-analysis", "物理瓶頸框架", "採用曲線框架"],
+  "verdict": "favorable",
+  "verdict_desc": "AI 叢集擴張驅動光纖需求平方級成長，TAM 154 億美元（2026），400G+ 子市場 CAGR 33.7%；GLW 三錨合約鎖定（Meta+NVIDIA+Amazon），COHR 6 吋 InP 護城河深，CPO 替代時程 2028-2030 不構成近期殺手",
+  "bottleneck_score": 4,
+  "top_candidates": [
+    {
+      "ticker": "GLW",
+      "name": "Corning",
+      "role": "光纖預製棒（上游）+ 光纜製造，美國製造壟斷地位，長合約基礎設施",
+      "type": "monopoly"
+    },
+    {
+      "ticker": "COHR",
+      "name": "Coherent Corp",
+      "role": "6 吋 InP 基板自製 + 800G/1.6T 光模組量產，全球最大光收發模組廠",
+      "type": "bottleneck"
+    },
+    {
+      "ticker": "LITE",
+      "name": "Lumentum",
+      "role": "EML 激光器 60% 市占，1.6T 先行者，毛利率優於 COHR",
+      "type": "bottleneck"
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell Technology",
+      "role": "800G DSP 晶片（88X33xx），光模組的數位訊號處理核心",
+      "type": "bottleneck"
+    }
+  ],
+  "suppress_reason": null,
+  "kill_switches": [
+    {
+      "id": "K1",
+      "condition": "CPO 在 2 家以上 Hyperscaler 宣布 >50% 新機架採用，時間窗口提前至 2027 以內",
+      "action": "GLW 長距光纖影響有限；COHR/LITE 降評至觀察，重評 CPO 光學引擎份額"
+    },
+    {
+      "id": "K2",
+      "condition": "任一主要 Hyperscaler Q 對 Q AI Capex 下修 >15%",
+      "action": "全面降評至 cautious，GLW 合約完整性檢查"
+    },
+    {
+      "id": "K3",
+      "condition": "InnoLight/Eoptolink 未被列入 Section 1260H 且 COHR/LITE 訂單出現明顯流失信號",
+      "action": "COHR、LITE 降評至觀察中，重評定價能力"
+    }
+  ],
+  "focus_segments": [
+    "800G/1.6T 高速插拔模組（COHR/LITE 主場）",
+    "光纖基礎設施長合約（GLW 主場）",
+    "DSP 晶片（MRVL 主場）",
+    "CPO 光學引擎（2027-2028 新戰場，COHR 佈局中）",
+    "EML 激光器（LITE 護城河）"
+  ],
+  "regime_alignment": "順 Regime",
+  "updated": "2026-06-09",
+  "updated_by": "industry-analysis",
+  "next_review": "2026-07-30",
+  "_note": "GLW 既有 Bible 存在（data/coverage/ai-infra-adjacent/GLW.json），Amazon 合約（2026-06-08）觸發三錨升格。COHR/LITE/MRVL Bible 尚未建立，建議 A 級覆蓋。光通訊既有文章：COHR-CPO-產業分析（2026-05-10）、GLW 三錨升格（2026-06-08）。"
+}
