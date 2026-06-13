@@ -7,8 +7,9 @@
     "competes_with":    "同市場競爭者（一個漲則另一個份額承壓）",
     "replaces":         "新技術 → 被替代技術（新技術起量則舊技術失血）"
   },
-  "last_updated": "2026-06-06",
+  "last_updated": "2026-06-13",
   "changelog": {
+    "2026-06-13-a": "新增 space-launch 太空產業圖譜邊（17條），涵蓋發射服務、衛星通訊、零組件四層結構",
     "2026-06-06-a": "新增 CIEN 節點（jade-report 驗證後補入）",
     "2026-06-06-b": "CIEN→COHR weight 0.30→0.45，estimated false（pump laser shortage 法說直接確認）",
     "2026-06-06-c": "NVDA→COHR estimated false（20億投資+CPO LTA 直接確認）",
@@ -54,6 +55,38 @@
 
     {"from": "CIEN", "to": "COHR", "type": "supplies_to",    "weight": 0.45, "note": "CIEN 光傳輸系統使用 COHR pump laser + InP 光模組；Q2 FY2026 法說直接點名 pump laser shortage，COHR 為主要供應商", "estimated": false, "weight_history": [{"date": "2026-06-06", "old_weight": 0.30, "new_weight": 0.45, "reason": "CIEN Q2 FY2026 法說直接點名 pump laser shortage，從推算升格為財報確認"}]},
     {"from": "CIEN", "to": "GLW",  "type": "supplies_to",    "weight": 0.20, "note": "CIEN DCI 架構需要 GLW 高密度光纜佈線（RocketRibbon 系列）", "estimated": true},
-    {"from": "CIEN", "to": "NOK",  "type": "competes_with",  "weight": 0.60, "note": "Nokia（含收購 Infinera）是 CIEN 在長距光傳輸市場的主要競爭者"}
+    {"from": "CIEN", "to": "NOK",  "type": "competes_with",  "weight": 0.60, "note": "Nokia（含收購 Infinera）是 CIEN 在長距光傳輸市場的主要競爭者"},
+
+    {"from": "RKLB", "to": "NASA",          "type": "supplies_to",   "weight": 0.25, "note": "CAPSTONE 月球任務、ESCAPADE Mars 任務，NASA 小型任務合約", "estimated": true},
+    {"from": "RKLB", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.55, "note": "主要客戶群，小型衛星星座部署（BlackSky、HawkEye 等）", "estimated": true},
+    {"from": "RKLB", "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.20, "note": "SDA 衛星網路（太空發展局）小型衛星發射合約", "estimated": true},
+
+    {"from": "LMT",  "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.30, "note": "GPS III 衛星製造、SBIRS 預警衛星、NSSL 任務整合", "estimated": true},
+    {"from": "LMT",  "to": "NASA",          "type": "supplies_to",   "weight": 0.10, "note": "Orion 太空艙（Artemis 計畫）主承包商", "estimated": false},
+    {"from": "BA",   "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.15, "note": "ULA 股東、WGS 軍事通訊衛星系統", "estimated": true},
+    {"from": "BA",   "to": "NASA",          "type": "supplies_to",   "weight": 0.12, "note": "SLS 火箭核心級主承包商，成本超支嚴重", "estimated": false},
+    {"from": "NOC",  "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.25, "note": "GBSD 洲際彈道飛彈、固態火箭 SRB 供應商", "estimated": true},
+    {"from": "NOC",  "to": "NASA",          "type": "supplies_to",   "weight": 0.08, "note": "Cygnus 貨運飛船，ISS 補給任務", "estimated": false},
+    {"from": "RTX",  "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.12, "note": "太空感測器、飛彈預警系統（OPIR）", "estimated": true},
+
+    {"from": "AJRD", "to": "LMT",           "type": "supplies_to",   "weight": 0.20, "note": "RL-10 引擎供應 Centaur 上面級（ULA 使用）", "estimated": true},
+    {"from": "AJRD", "to": "NOC",           "type": "supplies_to",   "weight": 0.15, "note": "固態火箭馬達供應，GBSD / SLS SRB", "estimated": true},
+    {"from": "MOG",  "to": "RKLB",          "type": "supplies_to",   "weight": 0.10, "note": "推進閥與飛控作動器，Electron 火箭零組件", "estimated": true},
+    {"from": "KTOS", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.30, "note": "OpenSpace 衛星地面系統，商業星座地面站解決方案", "estimated": true},
+    {"from": "KTOS", "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.20, "note": "政府衛星電子戰與地面系統合約", "estimated": true},
+
+    {"from": "ASTS", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.80, "note": "直連手機 LEO 衛星服務，AT&T/Verizon 合作，BlueBird 部署中", "estimated": true},
+    {"from": "VSAT", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.50, "note": "GEO 寬頻衛星服務，航空與政府安全通訊", "estimated": true},
+    {"from": "IRDM", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.60, "note": "LEO 衛星電話與 L-Band 數據，66 顆星座全覆蓋", "estimated": true},
+    {"from": "GSAT", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.45, "note": "Apple Emergency SOS 衛星獨家供應，Band 53/n53 頻段授權", "estimated": false},
+    {"from": "SPIR", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.40, "note": "氣象/AIS/ADS-B 數據服務，政府與商業訂閱模式", "estimated": true},
+    {"from": "PL",   "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.55, "note": "每日全球地表影像，200+ Dove 衛星，政府與農業/保險商業應用", "estimated": true},
+
+    {"from": "ASTS", "to": "IRDM",          "type": "competes_with", "weight": 0.40, "note": "直連手機衛星 vs L-Band 衛星電話，終端用戶重疊度上升", "estimated": true},
+    {"from": "ASTS", "to": "GSAT",          "type": "competes_with", "weight": 0.35, "note": "直連手機服務競爭，GSAT Apple 獨家是護城河但覆蓋範圍受限", "estimated": true},
+    {"from": "VSAT", "to": "IRDM",          "type": "competes_with", "weight": 0.25, "note": "政府與企業衛星通訊市場部分重疊", "estimated": true},
+    {"from": "SPIR", "to": "PL",            "type": "competes_with", "weight": 0.30, "note": "地理空間數據市場部分重疊，但 SPIR 側重氣象 PL 側重影像", "estimated": true},
+
+    {"from": "LEO_BROADBAND", "to": "VSAT", "type": "replaces",      "weight": 0.65, "note": "Starlink LEO 寬頻正在侵蝕 VSAT GEO 衛星寬頻市場份額", "estimated": true}
   ]
 }

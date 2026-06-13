@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "title": "商業太空產業圖譜（發射競爭格局）",
+  "subtitle": "四層結構：需求端 → 發射服務 → 衛星通訊與應用 → 零組件；SpaceX 定價破壞為核心命題",
+  "version": "2026-Q2",
+  "last_updated": "2026-06-13",
+  "updated_by": "Xompass Research",
+  "_note": "SpaceX（私有）為市場定價錨，不列入節點但體現於 edges.json 競爭關係。",
+  "nodes": [
+    {
+      "id": "NASA",
+      "name": "NASA",
+      "ticker": null,
+      "desc": "政府最大買主，Commercial Crew / Cargo / CLPS 合約",
+      "layer": "0",
+      "sublayer": "demand"
+    },
+    {
+      "id": "DOD_LAUNCH",
+      "name": "美國國防部",
+      "ticker": null,
+      "desc": "NSSL 合約，高保障軍事衛星發射需求",
+      "layer": "0",
+      "sublayer": "demand"
+    },
+    {
+      "id": "COMMERCIAL_SAT",
+      "name": "商業衛星客戶",
+      "ticker": null,
+      "desc": "LEO 星座（Kuiper、OneWeb）與 GEO 通訊衛星運營商",
+      "layer": "0",
+      "sublayer": "demand"
+    },
+    {
+      "id": "RKLB",
+      "name": "Rocket Lab",
+      "ticker": "RKLB",
+      "desc": "唯一純發射上市股；Electron 主力小型火箭，Neutron 中型火箭開發中",
+      "layer": "1",
+      "sublayer": null
+    },
+    {
+      "id": "LMT",
+      "name": "Lockheed Martin",
+      "ticker": "LMT",
+      "desc": "ULA 股東（50%）、政府太空系統整合商，GPS 衛星製造",
+      "layer": "2",
+      "sublayer": "prime"
+    },
+    {
+      "id": "BA",
+      "name": "Boeing",
+      "ticker": "BA",
+      "desc": "ULA 股東（50%）、SLS 主承包商，Starliner 載人飛船（延誤嚴重）",
+      "layer": "2",
+      "sublayer": "prime"
+    },
+    {
+      "id": "NOC",
+      "name": "Northrop Grumman",
+      "ticker": "NOC",
+      "desc": "固態火箭 SRB 供應商、Cygnus 貨運飛船、GBSD 洲際彈道飛彈",
+      "layer": "2",
+      "sublayer": "prime"
+    },
+    {
+      "id": "RTX",
+      "name": "RTX",
+      "ticker": "RTX",
+      "desc": "太空感測器、飛彈防禦系統、衛星通訊終端",
+      "layer": "2",
+      "sublayer": "prime"
+    },
+    {
+      "id": "ASTS",
+      "name": "AST SpaceMobile",
+      "ticker": "ASTS",
+      "desc": "直連手機 LEO 衛星；與 AT&T、Verizon、Rakuten 合作，BlueBird 星座部署中",
+      "layer": "3",
+      "sublayer": "satcom"
+    },
+    {
+      "id": "VSAT",
+      "name": "Viasat",
+      "ticker": "VSAT",
+      "desc": "GEO 寬頻衛星，政府安全通訊與航空機上網，受 Starlink 低軌競爭壓制",
+      "layer": "3",
+      "sublayer": "satcom"
+    },
+    {
+      "id": "IRDM",
+      "name": "Iridium",
+      "ticker": "IRDM",
+      "desc": "LEO 衛星電話 66 顆星座，L-Band 數據服務，Apple SOS 早期合作夥伴",
+      "layer": "3",
+      "sublayer": "satcom"
+    },
+    {
+      "id": "GSAT",
+      "name": "Globalstar",
+      "ticker": "GSAT",
+      "desc": "Apple Emergency SOS 獨家衛星供應商；Apple 持股約 20%，Band 53/n53 授權",
+      "layer": "3",
+      "sublayer": "satcom"
+    },
+    {
+      "id": "SPIR",
+      "name": "Spire Global",
+      "ticker": "SPIR",
+      "desc": "LEO 氣象數據（GNSS-RO）、船舶 AIS、航空 ADS-B，數據即服務商業模式",
+      "layer": "3",
+      "sublayer": "data"
+    },
+    {
+      "id": "PL",
+      "name": "Planet Labs",
+      "ticker": "PL",
+      "desc": "每日全球地表影像，200+ 顆 Dove/SuperDove 衛星，政府與商業地理數據",
+      "layer": "3",
+      "sublayer": "data"
+    },
+    {
+      "id": "AJRD",
+      "name": "Aerojet Rocketdyne",
+      "ticker": "AJRD",
+      "desc": "液態/固態火箭引擎（RL-10、RS-68、AR1），高度依賴政府合約",
+      "layer": "4",
+      "sublayer": null
+    },
+    {
+      "id": "MOG",
+      "name": "Moog Inc.",
+      "ticker": "MOG.A",
+      "desc": "推進閥、飛控作動器，航太與國防兩用零組件",
+      "layer": "4",
+      "sublayer": null
+    },
+    {
+      "id": "KTOS",
+      "name": "Kratos Defense",
+      "ticker": "KTOS",
+      "desc": "衛星地面系統（OpenSpace）、低成本無人機，政府電子戰合約",
+      "layer": "4",
+      "sublayer": null
+    },
+    {
+      "id": "HEI",
+      "name": "HEICO",
+      "ticker": "HEI",
+      "desc": "航太 MRO 替代零件，PMA 認證件龍頭，高毛利輕資產模式",
+      "layer": "4",
+      "sublayer": null
+    }
+  ]
+}
