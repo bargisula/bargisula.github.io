@@ -1,0 +1,113 @@
+{
+  "ticker": "AVGO",
+  "period": "Q2FY2026",
+  "report_date": "2026-06-03",
+  "analyzed_date": "2026-06-09",
+  "trigger_source": "財報觸發測試 2026-06-09",
+  "numbers": {
+    "eps_actual": 2.44,
+    "eps_estimate": 2.32,
+    "revenue_actual_b": 22.2,
+    "revenue_estimate_b": 22.27,
+    "gross_margin_pct": 77.1,
+    "operating_margin_pct": 67.3,
+    "fcf_b": 10.26,
+    "fcf_margin_pct": 46,
+    "ai_semiconductor_revenue_b": 10.8,
+    "infra_software_revenue_b": 7.18,
+    "infra_software_estimate_b": 7.32,
+    "ai_bookings_b": 30,
+    "guidance_next_q_revenue_b": 29.4,
+    "guidance_estimate_b": 28.53,
+    "guidance_ai_revenue_b": 16.0,
+    "guidance_infra_software_b": 8.9,
+    "guidance_operating_margin_pct": 67,
+    "guidance_gross_margin_pct": 74,
+    "fy2026_ai_revenue_target_b": 56,
+    "fy2027_ai_revenue_target_b": 100
+  },
+  "transcript_source": "Motley Fool (https://www.fool.com/earnings/call-transcripts/2026/06/03/broadcom-avgo-q2-2026-earnings-transcript/)",
+  "transcript_parsed": {
+    "opening_narrative": "訂單積壓 300 億美元（出貨 108 億），book-to-bill 約 2.8x，AI 半導體需求「insatiable」，能見度延伸至 2028",
+    "tone_vs_last_quarter": "更樂觀——從「多個超大型客戶」升級為點名客戶並附上 GW 規模合約數字，策略性背書能見度",
+    "guidance_explanation": "Q3 294 億主要由 AI 半導體 160 億拉動（QoQ +48%）；毛利率降至 74% 是 AI accelerator mix 集中所致，管理層強調非結構性半導體毛利惡化；軟體段 89 億 YoY +31% 加速回升",
+    "analyst_top_questions": [
+      "網路晶片佔 AI 營收 40% 是否可持續（答：期望正常化至 30%）",
+      "供應鏈能否支撐增量客戶要求（答：by and large yes，台積電供應至 2028 確認）",
+      "VMware 軟體低於預期原因（答：ARR +17% YoY，長期復甦路徑不變）"
+    ],
+    "avoided_topics": [],
+    "key_quotes": [
+      "bookings for AI semiconductors were over $30 billion against the $10.8 billion we shipped",
+      "Our visibility runs all the way to 2028 right now",
+      "customers have been coming to us incrementally",
+      "long-term agreement to develop and supply multiple generations of TPUs and AI networking（Google）"
+    ]
+  },
+  "customer_contracts": {
+    "google": "多代 TPU + AI networking 長期協議（具體 GW 未公開）",
+    "meta": "3GW 部署至 2028 底",
+    "anthropic": "1GW 2026 + 5GW 自 2027",
+    "openai": "1.3GW 2027，10GW 框架至 2029",
+    "two_unnamed": "合計訂單 60 億美元"
+  },
+  "bible_comparison": {
+    "conditions_checked": [
+      {
+        "id": "C1",
+        "description": "AI 相關營收 QoQ 持續成長，且全年 AI 營收指引維持或上調",
+        "verdict": "成立（強化）",
+        "evidence": "Q3 指引 160 億，QoQ +48%；FY2026 全年 560 億維持；FY2027 >1,000 億多年合約支撐"
+      },
+      {
+        "id": "C2",
+        "description": "Google 與 Meta ASIC 合作關係維持，無公開終止消息",
+        "verdict": "成立（強化）",
+        "evidence": "Google 多代 TPU 長期協議；Meta 3GW 至 2028"
+      },
+      {
+        "id": "C3",
+        "description": "VMware 訂閱轉換進度正常，FCF margin ≥ 45%",
+        "verdict": "弱化轉回穩定（需持續觀察）",
+        "evidence": "軟體 Q2 71.8 億低於預期；但 Q3 指引 89 億 YoY +31% 加速；ARR +17% YoY；FCF margin 46% 達標"
+      },
+      {
+        "id": "C4",
+        "description": "新客戶 ASIC 設計合作公開確認",
+        "verdict": "成立（大幅強化）",
+        "evidence": "Anthropic 6GW 多年框架、OpenAI 10GW 框架至 2029，均已進入正式合約"
+      }
+    ],
+    "kill_switches_checked": [
+      {
+        "id": "K1",
+        "description": "Google 或 Meta 宣布終止與 Broadcom 合作",
+        "triggered": false,
+        "evidence": "Google 簽署多代 TPU 長期協議；Meta 3GW 至 2028"
+      },
+      {
+        "id": "K2",
+        "description": "VMware 整合出現重大問題，ARR 轉負或 FCF margin < 40%",
+        "triggered": false,
+        "evidence": "ARR +17% YoY；FCF margin 46%"
+      },
+      {
+        "id": "K3",
+        "description": "AI ASIC 市場出現低成本競爭者使 Broadcom 失去定價能力",
+        "triggered": false,
+        "evidence": "法說會無競爭威脅提及；bookings 300 億遠超出貨量；需持續監測 MediaTek 推論端動向"
+      }
+    ],
+    "overall_verdict": "論點成立（顯著強化）",
+    "confidence_delta": 0.08,
+    "notes": "AI 訂單積壓 300 億（book-to-bill 2.8x）、四大客戶 GW 級合約落地、Q3 指引超預期 3.1%，論點支撐全面加強。唯一觀察點：合併毛利率 Q3 指引下滑至 74%（mix 效應，非結構性），需 Q3 財報確認是否回升。"
+  },
+  "group_b_flags": {
+    "guidance_cut_pct": null,
+    "major_customer_change": false,
+    "margin_reversal_quarters": 1,
+    "margin_note": "合併毛利率 Q3 指引 74% vs Q2 實際 77.1%，QoQ 下滑 3.1 個百分點（管理層：AI accelerator mix 效應，非結構性惡化）；需確認 Q1 FY2026 毛利率以判斷是否連續兩季"
+  },
+  "verdict": "論點成立（顯著強化）",
+  "verdict_reason": "AI 訂單積壓 300 億美元，book-to-bill 2.8x，四大客戶 GW 級多年合約落地，Q3 指引超預期，所有 kill switch 未觸發"
+}

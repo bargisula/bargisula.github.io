@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "description": "Insight 因果審計紀錄。當 Insight 失效或被審計時，記錄哪節因果鏈斷了、斷在哪裡、下次如何避免。",
+  "audit_trigger_conditions": {
+    "note": "三條件同時成立才觸發正式審計",
+    "conditions": [
+      "該 Insight 被晨會裁示引用 ≥ 3 次",
+      "實際結果偏離預測 > 2 個標準差",
+      "同類型失效已發生 ≥ 2 次"
+    ],
+    "otherwise": "靜默過期，status 改為 expired，不強制審計"
+  },
+  "audits": []
+}

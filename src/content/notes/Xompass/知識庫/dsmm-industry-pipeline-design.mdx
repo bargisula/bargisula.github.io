@@ -1,0 +1,359 @@
+---
+title: '【知識機制】DSMM 傳導鏈 + 產業分析流水線設計紀錄'
+description: '記錄 Xompass 兩條自動化分析流水線的設計思路：DSMM 五市場傳導鏈（事件→市場影響推演）和五維度產業分析（需求→供給→競爭→技術→論點）。含架構決策、驗證機制、智慧累積邏輯。'
+category: 'Xompass'
+subcategory: '知識庫'
+topic: '系統設計'
+pubDate: '2026-06-07'
+---
+
+import Callout from '@components/Callout.astro';
+
+<Callout type="insight">
+**核心問題：** 如何讓分析系統產出「可被驗偽的預測」，而不是每次都重新生成無法追蹤的散文？答案是把分析結構化為 JSON，每個預測附 check_date + threshold，驗證結果累積成信心值，信心值最終轉化為「哪條邏輯在這個市場管用」的知識。
+</Callout>
+
+---
+
+## 為什麼要設計這兩條流水線
+
+Xompass 的分析作業原本有一個根本問題：**每次分析都是從零開始，沒有記憶、沒有追蹤、沒有驗證**。
+
+宏觀事件發生了，分析師給出看法，然後這個看法就消失在對話歷史裡。下次類似事件發生，重新來一次，沒有人知道上次的預測對不對，哪條邏輯鏈在實證上更可靠。
+
+這個問題有一個學術名字叫 **DIKW 缺口**：
+
+```
+Data（數據）→ Information（資訊）→ Knowledge（知識）→ Wisdom（智慧）
+```
+
+我們有大量數據，分析師把它整理成資訊，但「知識」需要結構化的 IF-THEN 因果關係，而「智慧」需要這些 IF-THEN 在現實中被驗證過。
+
+兩條流水線分別解決兩個層次的問題：
+
+| 流水線 | 解決什麼問題 | 對應 DIKW |
+|---|---|---|
+| DSMM 傳導鏈 | 總經事件如何在五個市場之間傳遞 | Knowledge → Wisdom |
+| 產業分析 | 一個產業的投資論點是否仍成立 | Information → Knowledge |
+
+---
+
+## DSMM 傳導鏈：五市場接力賽
+
+### 設計原則
+
+總體經濟的五個市場有**速度差**。金融市場反應在幾秒內，財政動態需要幾個季度。這個速度差不是偶然的，它是有因果結構的。
+
+```
+金融市場（即時）
+  → 貨幣市場（數天）
+    → 商品市場（數週~數月）
+      → 勞動市場（數月）
+        → 財政動態（數季）
+```
+
+<Callout type="data">
+**入口市場規則（重要）：** 事件從哪個市場進入，決定傳遞方向。NFP（就業數據）從勞動市場進入，往上傳到貨幣市場再到金融市場，跟一般人直覺的「金融市場最先反應」不矛盾——金融市場是「先預期再驗證」，而傳導的因果起點在勞動市場。
+</Callout>
+
+### 五個 Agent 接力
+
+每個市場有一個專屬 agent，它只做一件事：**讀上游的 JSON，分析自己的市場，寫下游的 JSON**。
+
+```
+00-event.json
+  → market-financial agent  → 01-financial.json
+    → market-monetary agent → 02-monetary.json
+      → market-commodity agent → 03-commodity.json
+        → market-labor agent   → 04-labor.json
+          → market-fiscal agent → 05-fiscal.json + 06-summary.json
+```
+
+這個設計的關鍵是**強制串行**：每棒 agent 不能跳過前面的分析直接生成結論，它必須讀入上游變動，才能判斷自己的市場受到什麼影響。這防止了「整體性幻覺」——每個 agent 視野有限，反而讓整體邏輯更嚴謹。
+
+### 驗證機制：讓預測變成智慧
+
+流水線跑完後，每個 agent 的關鍵預測都被整理成 `06-summary.json` 裡的驗證檢查點（VCP）：
+
+```json
+{
+  "id": "VCP-001",
+  "market": "金融市場",
+  "check_date": "2026-06-12",
+  "prediction": "10Y 殖利率 ≥ 4.60%",
+  "threshold": "4.60%",
+  "check_source": "Yahoo Finance ^TNX"
+}
+```
+
+每個 VCP 必須有三個要素：**具體日期、可量測閾值、數據來源**。沒有這三個的預測不算預測，只算猜測。
+
+到期後執行 `/dsmm-verify`，系統查詢實際值，裁定 CONFIRMED / PARTIAL / WRONG，然後更新對應傳導鏈的信心值：
+
+```
+信心值更新公式：
+CONFIRMED: new_conf = conf * 0.95 + 1.0 * 0.05
+WRONG:     new_conf = conf * 0.95 + 0.0 * 0.05
+```
+
+累積 5 次以上驗證後，計算 `system_inference_score`。準確率 ≥ 75% 時，系統被判定為「可推演」。
+
+### 首跑：NFP 2026-06-05
+
+NFP +172K vs 預期 +85K，大超預期。跑完的關鍵結論：
+
+- 10Y 目標 4.60-4.65%，Fed 降息次數從 1.5 次壓縮至 0.5-1.0 次
+- AI capex 免疫（TC-004 結構性需求，不受短期利率影響）
+- 住宅市場承壓（TC-001 利率傳導，2-3 個月滯後）
+- 財政-利率反饋迴路：3/4 條件成立，尚未觸發
+
+VCP-003（DXY +0.3% 驗證）已於 2026-06-07 裁定 **CONFIRMED**（實際 +0.67%）。
+
+---
+
+## 產業分析流水線：五維度框架
+
+### 為什麼需要五個維度
+
+單維度分析有系統性盲點。只看需求，會忽略供給端的定價權轉移。只看競爭，會忘記技術替代正在蠶食護城河。
+
+五個維度形成一個邏輯閉環：
+
+```
+需求斜率（方向在哪）
+  → 供給瓶頸（誰卡住了、誰拿到定價權）
+    → 競爭格局（份額在往哪移動）
+      → 技術替代（護城河能撐多久）
+        → 論點合成（IF-THEN + Kill Switch）
+```
+
+<Callout type="warning">
+**Kill Switch 的設計意圖：** Kill Switch 不是悲觀預設，而是讓論點可被偽證。一個沒有 Kill Switch 的論點是不可測試的信仰，而不是分析。每個 Kill Switch 必須是「具體可測量的條件」，而不是「若宏觀惡化」這類模糊陳述。
+</Callout>
+
+### 五個 Agent 的分工
+
+| Agent | 核心問題 | 輸出關鍵欄位 |
+|---|---|---|
+| industry-demand | 需求在加速/持平/衰退？ | slope, book-to-bill, ceiling_condition |
+| industry-supply | 哪一層卡脖子？多久緩解？ | bottlenecks, relief_timeline, pricing_power_shift |
+| industry-competition | 誰在贏？護城河有多深？ | moat_strength, share_shift_signals, trend |
+| industry-technology | 替代技術幾年後量產？ | stage, commercial_timeline, risk_level |
+| industry-thesis | 整合論點，列 Kill Switch | thesis_statement, kill_switches, verifiable_by |
+
+每個 agent 都有一條規則：**數字必須有來源，估算必須標記 `estimated: true`**。這防止 LLM 自由捏造數字。
+
+### 首跑：光傳輸系統
+
+觸發事件：CIEN Q2 FY2026 法說（backlog 創新高）+ COHR-NVDA 20億股權投資＋CPO 長期合約。
+
+五維度結論：
+
+```
+需求：加速（book-to-bill 1.4，YoY +46%）
+供給：供不應求（pump laser 瓶頸，COHR 掌握定價權）
+競爭：寡占（COHR + CIEN 雙強，Lumentum 護城河侵蝕中）
+技術：中等風險（CPO 2027-2028，COHR 已站 CPO 側）
+論點：強（信心 82%）
+```
+
+論點一句話：
+> **IF AI hyperscaler capex 維持年增 > 20% AND pump laser 瓶頸 2026Q4 前未緩解 THEN COHR 定價能力持續上升、CIEN 能見度維持高位 BECAUSE 需求加速 + 唯一零件供應商 + CPO 路線確認護城河**
+
+Kill Switch：1 個 critical（AI capex 年增 < 10%）、2 個 major。
+
+---
+
+## 自動抓資料：每個 Agent 如何取得數據
+
+分析流水線裡的數據來自三個層次，各自有不同的工具：
+
+### 層次一：靜態知識庫（本地 JSON）
+
+Agent 啟動時第一件事是讀本地 JSON，這是已沉澱的知識，不需要網路：
+
+```
+data/dsmm/transmission-chain.json    ← 傳導鏈結構與信心值
+data/knowledge/industry-graph.json   ← 產業上下游節點
+data/knowledge/edges.json            ← 節點間的因果邊
+data/dsmm/pipeline/{run_id}/*.json   ← 上游 agent 的輸出
+```
+
+這一層是「記憶」：過去分析的結論、傳導鏈的累積信心值、產業圖譜的已知邊。
+
+### 層次二：即時市場數據（WebSearch / WebFetch）
+
+驗證和即時分析需要抓外部數據。Agent 定義裡明確指定去哪裡取：
+
+| 數據 | 來源 | 用於 |
+|---|---|---|
+| 10Y 殖利率 | Yahoo Finance `^TNX` | VCP-001 驗證 |
+| DXY 美元指數 | Yahoo Finance `DX-Y.NYB` | VCP-003 驗證 |
+| FedWatch 降息預期 | CME FedWatch Tool | VCP-002 驗證 |
+| NFP / AHE 就業數據 | BLS Employment Situation | VCP-004/005 驗證 |
+| 住宅開工率 | Census Bureau Housing Starts | VCP-006 驗證 |
+| Hyperscaler capex | 財報電話會議（WebSearch） | VCP-007 / TC-004 更新 |
+| 財報逐字稿 | `data/raw/{TICKER}/` 或 WebSearch | 產業分析各棒 |
+
+<Callout type="data">
+**實際執行方式：** Agent 在需要外部數據時，直接呼叫 WebSearch 工具查詢（例如「DXY June 10 2026 closing price」），或用 WebFetch 抓取特定頁面。查到的數值填入 JSON 的 `actual` 欄位，再對照 `threshold` 判斷 CONFIRMED / WRONG。VCP-003 驗證（DXY）就是這樣完成的：搜尋到「NFP 後 DXY 跳升至 100.07」，計算 +0.67% > 閾值 +0.3%，裁定 CONFIRMED。
+</Callout>
+
+### 層次三：財報逐字稿（半結構化）
+
+產業分析的核心數據來源是法說會議逐字稿。Agent 需要從中挖出：
+
+- 管理層對需求能見度的表述（book-to-bill、backlog）
+- 供給瓶頸的點名（「我們的 pump laser 供應商產能有限」）
+- 設計勝出確認（「我們贏得了某 hyperscaler 的 multi-rail 合約」）
+- 技術路線圖（「CPO 預計 2027 進入量產」）
+
+逐字稿若已存在 `data/raw/{TICKER}/`，直接讀取；若無，由 WebSearch 補充關鍵片段。Agent 定義明確要求：法說引文必須標注出處，不能只說「管理層提到」。
+
+### 數據流完整圖
+
+```
+外部世界
+  BLS / CME / Yahoo Finance / 法說
+        ↓ WebSearch / WebFetch
+Agent 讀取並解析
+        ↓ 結構化寫入
+data/ 目錄 JSON（本地持久化）
+        ↓ import.meta.glob
+Astro 靜態頁面（build 時讀取）
+        ↓ git push
+GitHub Pages（公開可看）
+```
+
+---
+
+## 如何呼叫：兩種觸發方式
+
+### 方式一：Skill（slash command）——主動觸發
+
+Skill 是流水線的**入口**，存在 `.claude/skills/` 目錄。在 Claude Code 對話裡輸入：
+
+```bash
+/dsmm-pipeline NFP 2026-07-02：+188K（預期 +160K）
+/industry-pipeline 光傳輸系統 "CIEN 法說：backlog 創新高"
+/dsmm-verify RUN-20260606-2320
+```
+
+Skill 的角色是**編排器**：它建立 run ID、寫觸發事件 JSON、然後依序呼叫各 agent。它本身不做分析，只負責把正確的輸入交給正確的 agent、確認輸出後再往下傳。
+
+### 方式二：Agent（直接呼叫）——單棒執行
+
+Agent 存在 `.claude/agents/` 目錄。可以直接叫單一 agent 重跑某棒：
+
+```bash
+# 重跑競爭分析（例如有新法說數據進來）
+呼叫 industry-competition agent，重跑 IND-20260606-OPT 第 3 棒
+
+# 直接驗證特定 VCP
+呼叫 dsmm-verify，只更新 VCP-001
+```
+
+Agent 是**執行者**：它讀定義好的分析框架（`.md` 文件裡的指示），讀輸入 JSON，做分析，寫輸出 JSON。每個 agent 是無狀態的——每次呼叫從頭讀 `.md` 定義，不記得上次的分析細節。
+
+### 兩者的關係
+
+```
+使用者說：/dsmm-pipeline NFP +172K
+              ↓
+    dsmm-pipeline skill（編排器）
+    ├── 建立 run ID
+    ├── 寫 00-event.json
+    ├── 呼叫 market-financial agent → 讀事件，寫 01-financial.json
+    ├── 呼叫 market-monetary agent  → 讀 00+01，寫 02-monetary.json
+    ├── 呼叫 market-commodity agent → 讀 00+01+02，寫 03-commodity.json
+    ├── 呼叫 market-labor agent    → 讀 00~03，寫 04-labor.json
+    └── 呼叫 market-fiscal agent   → 讀 00~04，寫 05+06-summary.json
+              ↓
+    建立 verification JSON，顯示摘要
+```
+
+<Callout type="insight">
+**設計選擇：Skill vs Agent 分離的好處**是可以單獨重跑任何一棒，也可以跳過 skill 直接叫 agent 做一次性任務（例如重新分析某個 VCP 的數據，不需要跑完整流水線）。Skill 是工作流，Agent 是工具，分開讓系統更模組化。
+</Callout>
+
+### 檔案位置速查
+
+```
+.claude/
+  skills/
+    dsmm-pipeline.md      ← /dsmm-pipeline 的完整流程定義
+    dsmm-verify.md        ← /dsmm-verify 的驗證邏輯
+    industry-pipeline.md  ← /industry-pipeline 的完整流程定義
+  agents/
+    market-financial.md   ← 金融市場 agent 定義
+    market-monetary.md    ← 貨幣市場 agent 定義
+    market-commodity.md   ← 商品市場 agent 定義
+    market-labor.md       ← 勞動市場 agent 定義
+    market-fiscal.md      ← 財政動態 agent 定義
+    industry-demand.md    ← 需求斜率 agent 定義
+    industry-supply.md    ← 供給瓶頸 agent 定義
+    industry-competition.md ← 競爭格局 agent 定義
+    industry-technology.md  ← 技術替代 agent 定義
+    industry-thesis.md    ← 論點合成 agent 定義
+
+data/
+  dsmm/
+    pipeline/{run_id}/    ← 每次推演的 JSON（00~06）
+    verification/         ← VCP 驗證狀態
+    transmission-chain.json ← 傳導鏈結構與累積信心值
+  industry/
+    pipeline/{run_id}/    ← 每次產業分析的 JSON（00~06）
+    verification/         ← 產業 VCP 驗證狀態
+  knowledge/
+    industry-graph.json   ← 產業節點
+    edges.json            ← 因果邊
+
+src/pages/
+  dsmm/index.astro       ← DSMM 儀表板（/dsmm）
+  industry/index.astro   ← 產業分析儀表板（/industry）
+```
+
+---
+
+## 兩條流水線的關係
+
+兩條線不是獨立的，它們在 TC-004 這個節點交會：
+
+```
+DSMM 傳導鏈
+  TC-004：AI capex 擴張 → 商品市場供應鏈需求傳導
+          ↓
+產業分析
+  光傳輸需求斜率的核心驅動力 = AI hyperscaler capex
+```
+
+當 DSMM 跑出「TC-004 不受升息影響」的結論，它直接支撐了產業分析裡「需求加速、confidence 0.90」的判斷。反過來，產業分析發現 pump laser 瓶頸，這是商品市場層的微觀結構，DSMM 的商品市場 agent 在分析時讀入了這個背景知識。
+
+---
+
+## 儀表板
+
+兩條流水線的輸出都有對應的 Astro 靜態頁面，讀取 `data/` 目錄下的 JSON 並渲染：
+
+- `/dsmm` — 每次推演的市場影響圖、驗證 VCP 狀態（⚠️ 標記逾期未驗）
+- `/industry` — 每次產業分析的四維結論卡片、信心進度條、Kill Switch 警示
+
+頁面在每次 `git push` 後自動重新 build，JSON 資料和頁面保持同步。
+
+---
+
+## 後續計畫
+
+<Callout type="link">
+**VCP 到期提醒：**
+- VCP-001（10Y ≥ 4.60%）：2026-06-12
+- VCP-002（FedWatch < 1.5 cuts）：2026-06-13
+- IND VCP-002（COHR 毛利率）：2026-08-15
+- IND VCP-001/003（CIEN 法說）：2026-09-10
+</Callout>
+
+待解決的設計問題：
+
+1. **信心值單一化問題**：目前一個 `confidence` 數字混合了「邏輯品質」和「實證支撐」，應拆為 `logic_score` + `evidence_score`
+2. **`/industry-verify` 技能**：產業分析目前沒有自動驗證技能，等第一批 VCP 到期後建立
+3. **跨流水線信號**：DSMM 的 VCP 裁定應能自動觸發相關產業論點的信心更新

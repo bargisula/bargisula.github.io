@@ -1,0 +1,78 @@
+---
+title: '【知識機制】産業分析儀表板'
+description: '五維度產業分析系統的使用入口。記錄每次產業分析的需求/供給/競爭/技術/論點結論、Kill Switch 狀態與驗證檢查點。'
+category: 'Xompass'
+subcategory: '知識庫'
+topic: '系統入口'
+pubDate: '2026-06-07'
+---
+
+import Callout from '@components/Callout.astro';
+
+<Callout type="insight">
+**産業分析儀表板**記錄每次執行 `/industry-pipeline` 後的五維度結論與投資論點。Kill Switch 清單告訴你什麼條件會讓論點失效，驗證 VCP 則記錄論點是否通過現實測試。
+</Callout>
+
+## 儀表板位置
+
+👉 **[開啟産業分析儀表板 →](/industry)**
+
+---
+
+## 儀表板顯示什麼
+
+每次執行 `/industry-pipeline` 後，儀表板會新增一張分析卡，包含：
+
+| 區塊 | 內容 |
+|---|---|
+| 論點主張 | IF-THEN-BECAUSE 格式的一句話論點 |
+| 信心進度條 | 整體信心值（0-100%） |
+| 四維結論卡 | 需求 / 供給 / 競爭 / 技術替代各自一句話 |
+| Kill Switch | critical / major 殺手條件數量 |
+| 驗證檢查點 | 各維度 VCP 的到期日與裁定狀態 |
+
+---
+
+## 如何執行
+
+**啟動產業分析**（法說後、重大新聞後、或主動分析）：
+```
+/industry-pipeline 光傳輸系統 "CIEN 法說：backlog 創新高"
+/industry-pipeline AI 伺服器供應鏈
+```
+
+**驗證到期 VCP**（財報發布後）：
+```
+/industry-verify IND-20260606-OPT
+```
+
+---
+
+## 目前分析記錄
+
+### IND-20260606-OPT：光傳輸系統
+
+**論點強度：強（信心 82%）**
+
+> IF AI hyperscaler capex 維持年增 > 20% AND pump laser 瓶頸 2026Q4 前未緩解 THEN COHR 定價能力持續上升、CIEN 能見度維持高位
+
+| 維度 | 結論 |
+|---|---|
+| 需求 | 加速；book-to-bill 1.4，YoY +46% |
+| 供給 | 供不應求；pump laser 瓶頸，COHR 掌握定價權 |
+| 競爭 | 寡占；COHR + CIEN 雙強 |
+| 技術替代 | 中等風險；CPO 時間軸 2027-2028 |
+
+**關鍵驗證時程：**
+- 2026-08-15：COHR Q4 FY2026 毛利率（供給維度）
+- 2026-09-10：CIEN Q3 FY2026 book-to-bill（需求 + 競爭維度）
+
+---
+
+## 五維度框架說明
+
+```
+需求斜率 → 供給瓶頸 → 競爭格局 → 技術替代 → 論點＋Kill Switch
+```
+
+詳細設計邏輯見：[DSMM 傳導鏈＋產業分析流水線設計紀錄](/notes/xompass/知識機制/dsmm-industry-pipeline-design)

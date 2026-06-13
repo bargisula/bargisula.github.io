@@ -68,6 +68,12 @@
     "Apple 自製晶片對 QCOM 手機業務的蠶食比例",
     "端側 AI 殺手應用出現時機"
   ],
+  "ad_as_exposure": {
+    "AD_short": 0.2,
+    "AD_mid": 0.5,
+    "AS_long": 0.7,
+    "note": "AD 短期幾乎不受益（雲端 AI Capex 主要流向 NVDA/AVGO，QCOM 主攻邊緣端）；中期隨 AI 應用從雲端下沉到裝置，QCOM 晶片需求上行；AS 長期是最佳受益者之一，生產力工具從雲端移到本機端（on-device AI），Snapdragon 成為企業效率工具基礎"
+  },
   "thesis_history": [
     {
       "date": "2026-05-19",

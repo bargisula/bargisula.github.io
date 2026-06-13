@@ -4,35 +4,42 @@
   "thesis": "超大雲端客戶（Google、Meta）的 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭，走差異化客製路線；VMware 整合提供企業軟體現金流護底",
   "thesis_risk": "超大雲端客戶提升自製 ASIC 能力並減少對 Broadcom 的依賴，或 VMware 整合拖累現金流超預期",
   "rating": "追蹤中",
-  "last_updated": "2026-05-21",
+  "last_updated": "2026-06-09",
+  "thesis_status": "intact",
+  "last_earnings_check": "2026-06-09",
+  "kill_switch_status": {
+    "K1": "clear",
+    "K2": "clear",
+    "K3": "clear"
+  },
   "conditions": [
     {
       "id": "C1",
       "description": "AI 相關營收（ASIC + 網路）QoQ 持續成長，且全年 AI 營收指引維持或上調",
-      "status": "✅ 成立",
-      "last_checked": "2026-05-21",
-      "note": "管理層在上季法說會給出 60 億美元以上 AI 營收年度指引"
+      "status": "✅ 成立（強化）",
+      "last_checked": "2026-06-09",
+      "note": "Q2 AI 半導體營收 108 億美元（YoY +143%），Q3 指引 160 億（QoQ +48%，YoY +200%+）；FY2026 全年 560 億維持；FY2027 >1,000 億有 Anthropic/OpenAI 多年合約支撐；訂單積壓 300 億（book-to-bill 2.8x）"
     },
     {
       "id": "C2",
       "description": "Google（TPU）與 Meta（MTIA）的 ASIC 合作關係維持，無公開終止或轉移消息",
-      "status": "✅ 成立",
-      "last_checked": "2026-05-21",
-      "note": ""
+      "status": "✅ 成立（強化）",
+      "last_checked": "2026-06-09",
+      "note": "Google 簽署多代 TPU + AI networking 長期協議（法說會原文：long-term agreement to develop and supply multiple generations of TPUs and AI networking）；Meta 3GW 部署至 2028 底；兩家新客戶（unnamed）合計訂單 60 億"
     },
     {
       "id": "C3",
       "description": "VMware 訂閱轉換進度正常，ARR 維持正成長且不拖累整體自由現金流利潤率（FCF margin ≥ 45%）",
-      "status": "✅ 成立",
-      "last_checked": "2026-05-21",
-      "note": "VMware 整合已大致完成，訂閱轉換順利"
+      "status": "⚠️ 觀察（弱化轉回穩定）",
+      "last_checked": "2026-06-09",
+      "note": "Q2 軟體 71.8 億低於預期 73.2 億；但 ARR YoY +17%，Q3 指引 89 億（YoY +31%，加速回升）；FCF margin 46% 超過 45% 門檻；軟體毛利 93%、operating margin 79%（YoY +310bps）。趨向改善，維持觀察狀態直至 Q3 實際數字兌現"
     },
     {
       "id": "C4",
       "description": "新客戶（第三家超大雲端）ASIC 設計合作公開確認，顯示市場份額擴張",
-      "status": "⚠️ 待觀察",
-      "last_checked": "2026-05-21",
-      "note": "Apple 智慧晶片傳聞中，尚未正式確認"
+      "status": "✅ 成立（大幅強化）",
+      "last_checked": "2026-06-09",
+      "note": "Anthropic：1GW 2026 + 5GW 自 2027；OpenAI：1.3GW 2027，10GW 框架至 2029；兩家合計已進入正式合約。另有兩家 unnamed 客戶貢獻訂單 60 億美元"
     }
   ],
   "kill_switches": [
@@ -40,27 +47,39 @@
       "id": "K1",
       "description": "Google 或 Meta 宣布將 ASIC 設計移轉至內部團隊或其他供應商，終止與 Broadcom 的合作",
       "triggered": false,
-      "last_checked": "2026-05-21"
+      "last_checked": "2026-06-09"
     },
     {
       "id": "K2",
       "description": "VMware 整合出現重大問題（客戶大量流失或訴訟），導致 ARR 轉負或 FCF margin 跌破 40%",
       "triggered": false,
-      "last_checked": "2026-05-21"
+      "last_checked": "2026-06-09"
     },
     {
       "id": "K3",
       "description": "AI ASIC 市場出現低成本競爭者（如 Marvell 或新創），使 Broadcom 失去定價能力",
       "triggered": false,
-      "last_checked": "2026-05-21"
+      "last_checked": "2026-06-09"
     }
   ],
+  "financials": {
+    "snapshot_date": "2026-06-09",
+    "quarter": "Q2FY2026",
+    "revenue": "222 億美元（YoY +48%）",
+    "gross_margin": "77.1%（non-GAAP）；Q3 指引 74%（mix 效應）",
+    "eps": "2.44 美元（non-GAAP，beat 預期 2.32）",
+    "fcf_margin": "46%（FCF 102.6 億美元）",
+    "ai_revenue": "108 億美元（YoY +143%）；Q3 指引 160 億（YoY +200%+）",
+    "guidance_next_q": "Q3 總營收 294 億；AI 半導體 160 億；軟體 89 億；operating margin ~67%"
+  },
   "key_metrics": {
-    "ai_revenue_qtrly": "待更新",
-    "gross_margin": "待更新",
-    "revenue_growth_yoy": "待更新",
-    "forward_pe": "待更新",
-    "vmware_integration_progress": "待更新"
+    "ai_revenue_qtrly": "108 億美元（Q2 FY2026，YoY +143%）；Q3 指引 160 億",
+    "ai_bookings": "超過 300 億美元（book-to-bill ~2.8x，能見度至 2028）",
+    "gross_margin": "non-GAAP 77.1%（Q2）；Q3 指引 74%（AI mix 效應）",
+    "operating_margin": "non-GAAP 67.3%",
+    "revenue_growth_yoy": "48%（總營收 222 億美元）",
+    "fcf_margin": "46%（102.6 億美元）",
+    "vmware_integration_progress": "Q2 軟體 71.8 億（低於預期）；ARR YoY +17%；Q3 指引 89 億（YoY +31%，加速）"
   },
   "watch_triggers": [
     "AI 相關營收（ASIC + 網路）季成長率",
@@ -68,11 +87,27 @@
     "VMware ARR 轉換進度",
     "自由現金流利潤率是否維持 >50%"
   ],
+  "ad_as_exposure": {
+    "AD_short": 0.7,
+    "AD_mid": 0.6,
+    "AS_long": 0.1,
+    "note": "AD 短中期強受益（Google/Meta 自製 ASIC 訓練需求持續）；AS 長期中性偏正，因 ASIC 更適合推理端的高效率需求，當推理需求爆發，AVGO 的 XPU 訂單有望延續；VMware 現金流提供跨週期保護"
+  },
   "thesis_history": [
     {
       "date": "2026-05-19",
       "thesis": "超大雲端客戶 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭",
       "changed_because": "初始建立覆蓋"
+    },
+    {
+      "date": "2026-06-04",
+      "thesis": "超大雲端客戶（Google、Meta、Anthropic、OpenAI 等 6 家）的 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭，走差異化客製路線；VMware 整合提供企業軟體現金流護底",
+      "changed_because": "Q2 FY2026 財報：AI 營收 108 億超預期（共識 107 億），FY2027 指引重申超過 1,000 億；Hock Tan『chips only』聲明被市場誤讀為策略縮減，實為強調純晶片設計路線（非提供完整 AI 系統基礎設施），論點核心未變；股價盤後跌 8-15% 主因為軟體段未達預期與未上調全年指引，非 AI 業務惡化"
+    },
+    {
+      "date": "2026-06-09",
+      "thesis": "超大雲端客戶（Google、Meta、Anthropic、OpenAI 等 6 家）的 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭，走差異化客製路線；VMware 整合提供企業軟體現金流護底",
+      "changed_because": "Q2 FY2026 財報論點檢核（財報觸發測試 2026-06-09）：AI 訂單積壓 300 億（book-to-bill 2.8x），Anthropic/OpenAI GW 級多年合約落地，Q3 指引 294 億超預期 3.1%，FCF margin 46%；論點顯著強化；C3（VMware）從弱化轉回觀察，Q3 實際兌現可升回成立"
     }
   ]
 }

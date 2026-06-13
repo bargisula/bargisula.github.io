@@ -1,0 +1,45 @@
+{
+  "fund": "Situational Awareness LP (SALP)",
+  "manager": "Leopold Aschenbrenner",
+  "background": "前 OpenAI 核心安全研究員，2024 年離職後創立 SALP。著有《Situational Awareness: The Decade Ahead》（165 頁 AGI 預測報告）",
+  "aum_history": {
+    "2025_q1": "約 3 億美元",
+    "2026_q1": "136.8 億美元（一年內成長 45 倍）"
+  },
+  "core_thesis": {
+    "world_view": "AI 發展會持續加速，AGI 在本十年內實現",
+    "bottleneck_shift": "2025-2026 年 AI 的物理瓶頸已從「晶片/算力」轉移到「電力/機房/物理基建」",
+    "framework": "先建立世界觀 → 找物理上確定但市場未定價的瓶頸 → 押解決瓶頸最快的標的 → 做空已被充分定價者"
+  },
+  "last_13f_date": "2026-05-18",
+  "last_13f_period": "2026-03-31 (Q1 2026)",
+  "positions": {
+    "longs": [
+      { "ticker": "BE", "name": "Bloom Energy", "thesis": "燃料電池供電 AI 機房，能源基建瓶頸受益者，佔倉約 20%", "type": "core_long" },
+      { "ticker": "TSM", "name": "台積電 ADR", "position": "Call（部分做多）", "thesis": "長期地位認可，但短期估值過熱故同時配 Put 對沖", "type": "spread" },
+      { "ticker": "MU", "name": "Micron", "thesis": "HBM 記憶體瓶頸受益，多頭部位", "type": "long" },
+      { "ticker": "CORW", "name": "CoreWeave", "thesis": "AI 算力租賃，受益 AI 推理需求爆發", "type": "long" }
+    ],
+    "puts_hedges": [
+      { "ticker": "SMH", "name": "VanEck 半導體 ETF", "notional_usd_bn": 2.04, "thesis": "半導體股整體估值過熱，用 ETF put 對沖系統性風險" },
+      { "ticker": "NVDA", "name": "NVIDIA", "notional_usd_bn": 1.57, "thesis": "中國市場已失，北美/歐洲溢價已充分定價，對沖高估值" },
+      { "ticker": "ORCL", "name": "Oracle", "notional_usd_bn": 1.07, "thesis": "雲端 AI 基建過度炒作，估值脫離基本面" },
+      { "ticker": "AVGO", "name": "Broadcom", "notional_usd_bn": 1.01, "thesis": "ASIC 敘事已定價，對沖" },
+      { "ticker": "AMD", "name": "AMD", "notional_usd_bn": 0.97, "thesis": "MI300 系列 vs NVDA 競爭劣勢，對沖" }
+    ],
+    "total_semi_put_notional_usd_bn": 8.46,
+    "q1_2026_put_additions_usd_bn": 7.7
+  },
+  "key_insight_for_us": "Leopold 不是看空 AI，而是看空『已被充分定價的晶片股』，轉向『尚未被定價的電力/物理基建』。這是 Leopold 模型框架的直接應用：找物理瓶頸 → 晶片不再是瓶頸 → 電力才是。",
+  "implications": {
+    "watch": ["BE（Bloom Energy）電力基建", "電力公用事業（NEE、AES）", "資料中心用電基建（EQIX 已在我們 supply chain 覆蓋）"],
+    "caution": ["NVDA 估值倍數", "AVGO 短期炒作成分", "SMH 整體半導體 ETF 高估值"],
+    "neutral": ["TSMC 長期地位不變，但短期估值已過熱"]
+  },
+  "sources": [
+    "Grenade 手榴彈 2026-05-22",
+    "TrendSpider SALP 13F 分析 2026-05-18",
+    "Blockcast 區塊客 2026-05-22"
+  ],
+  "last_updated": "2026-05-25"
+}

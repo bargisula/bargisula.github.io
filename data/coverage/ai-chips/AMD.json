@@ -68,6 +68,12 @@
     "ROCm 對主流 AI 框架（PyTorch）的兼容進度",
     "毛利率是否朝 55% 以上改善"
   ],
+  "ad_as_exposure": {
+    "AD_short": 0.6,
+    "AD_mid": 0.4,
+    "AS_long": -0.1,
+    "note": "AD 短期是 NVDA 的次要受益者（超大雲端分散採購需求），但受限於 ROCm 生態系成熟度；中期若 MI 系列滲透率提升可改善；AS 長期影響類似 NVDA 但程度較輕，因 AMD 訓練 GPU 佔比更低"
+  },
   "thesis_history": [
     {
       "date": "2026-05-19",
