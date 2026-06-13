@@ -5,7 +5,7 @@
     "quadrant": "Overheat",
     "trend": "right",
     "confidence": "medium",
-    "note": "象限向「滯脹邊界」靠近——NFP 超預期關閉 Q3 降息視窗，通膨/利率壓力強化；但成長韌性（非農健康）尚未轉弱，未跨入滯脹象限"
+    "note": "象限向「滯脹邊界」靠近——10Y 4.47%（從 4.55% 小幅回落，判定一時性回調而非趨勢轉折）；Warsh 6/17 FOMC 鷹派暫停預期維持；NFP +172K 就業健康；AI capex Hyperscaler 免疫高利率；財政螺旋（B_g 高 × r 高）慢速向發散移動；未跨入滯脹象限但邊界距離收窄"
   },
   "risk_posture": "risk-on",
   "active_faces": {
@@ -23,9 +23,13 @@
     },
     "2026-06-07": {
       "geographic_spill": "🟡→🔴：10Y 高位持久化（4.55-4.60%，距4.80%僅20bp），美元利差驅動 KA 外逃壓力對 EM 形成系統性衝擊；土耳其/阿根廷/印尼最脆弱；若 10Y 突破 4.80% 則 EM 危機風險升高"
+    },
+    "2026-06-13": {
+      "note": "DSMM 分析：利率高位持久化傳導鏈完整推導；10Y 4.47% 判定一時性回調（非趨勢轉折），NFP+172K 就業健康不支持降息敘事；VCP-001（4.60%）未達標但不影響 INS-001 confidence（鷹派路徑論點完整）；VCP-002 check_date 2026-06-13；geographic_spill 維持🔴（10Y 回落 8bp 不足以緩解 EM 結構性資金外逃壓力）；Minsky 診斷：投機融資期，AI 成長股 g-(r+ρ) 分母收窄但未至臨界；財政螺旋確認存在，慢速收斂，FOMC 6/17 後重評",
+      "vcp_status": "VCP-001（10Y≥4.60%，check 2026-06-12）：未達標 4.47%，建議延至 6/20 重檢；VCP-002（FedWatch 2026-12 降息<1.5次，check 2026-06-13）：待確認"
     }
   },
-  "updated": "2026-06-07",
+  "updated": "2026-06-13",
   "updated_by": "DSMM",
   "bible_anchor": "AI 外生變數正處 AD 衝擊階段（2022-2026 Capex 潮），AS 衝擊（生產力通縮）預計 2027-2029 浮現；長期實質利率均衡受此路徑約束",
   "insight_signal": "INS-001（Warsh 鷹派路徑）confidence 升至 0.75，NFP 超預期第二次事件支撐，接近 L2；INS-002（AI capex 多季度能見度）confidence 降至 0.74，份額集中假設受 AVGO/MediaTek 壓力；INS-004（電力瓶頸）未受影響，維持定價窗口敘事",
@@ -65,6 +69,6 @@
     "MediaTek TPU",
     "Warsh FOMC"
   ],
-  "next_review": "2026-06-13",
-  "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。2026-06-06 更新：fed_cycle 升 🔴、domino_risk 升 🟡；INS-001 confidence 0.65→0.75、INS-002 confidence 0.78→0.74。"
+  "next_review": "2026-06-20",
+  "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。2026-06-06 更新：fed_cycle 升 🔴、domino_risk 升 🟡；INS-001 confidence 0.65→0.75、INS-002 confidence 0.78→0.74。2026-06-13 更新：Regime 象限維持 Overheat，note 更新反映 10Y 回落一時性判定；next_review 改 6/20（FOMC 後第一個複查日）；face_change_log 補充 VCP 狀態。"
 }
