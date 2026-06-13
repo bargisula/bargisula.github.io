@@ -183,13 +183,16 @@ pubDate: 'YYYY-MM-DD'
 import Callout from '@components/Callout.astro'
 ```
 
+**注意：對外版副檔名必須是 `.mdx`，不是 `.md`。**
+
 **四個區塊（固定順序）：**
 
 **① 本週結論**（必填）
-- 用 `<Callout type="insight">` 框包每一條結論
-- 用 `<Callout type="warning">` 框包風險提示
+- 用**一個** `<Callout type="insight">` 框，內含編號條列（1. 2. 3.）
+- 每條格式：`編號. **粗體標題** — 說明文字`
+- 結尾另起一個 `<Callout type="warning">` 放風險提示（若有）
 - 語言：白話文，不用英文縮寫（SOXX → AI 半導體 ETF）、不用系統代號（INS-001、Kill Switch、Regime）
-- 每條結論獨立一個 Callout，2-4 條
+- Callout 標籤內的條列前後要留空行，確保 markdown 正確渲染
 
 **② 市場快覽**（必填）
 - 數字表格保留
