@@ -150,29 +150,66 @@ Regime 名稱直接從 `data/regime/current.json` 讀取，不自行造詞。
 
 ## 會議紀錄
 
-**兩份同步寫入：**
+**兩份同步寫入，格式不同：**
 
-1. `data/meetings/YYYY-MM-DD.md`——原始完整版（內部資料）
-2. `src/content/notes/Xompass/會議記錄/YYYY-MM-DD.md`——網站顯示版（同內容，加 frontmatter）
+1. `data/meetings/YYYY-MM-DD.md`——**內部完整版**（保留所有系統代號、追蹤表格、VCP）
+2. `src/content/notes/Xompass/會議記錄/YYYY-MM-DD.md`——**對外簡報版**（白話文，無系統代號，見下方格式）
 
-**Frontmatter 格式：**
-```yaml
 ---
-title: '【會議記錄】YYYY-MM-DD 晨會'
-description: '60字內，列出本次主要討論主題'
-category: 'Xompass'
-subcategory: '會議記錄'
-pubDate: 'YYYY-MM-DD'
----
-```
 
-**六個章節：**
+### 內部版（data/meetings/）六個章節
 
 1. 前次追蹤事項
 2. 市場環境（美股/台股大盤、重要新聞、總經、Regime）
 3. 今日議題（自動生成的結構化議題）
 4. 裁定（置頂，行動動詞開頭）
 5. 下次檢查點
-6. 深入討論（若有）——可含總經、產業、個股任意組合，每個討論以 `### 討論主題名稱` 開頭
+6. 深入討論（若有）
+
+---
+
+### 對外版（src/content/notes/）格式規範
+
+**Frontmatter：**
+```yaml
+---
+title: '【晨報】YYYY-MM-DD Xompass 投資簡報'
+description: '60字內，用白話列出本次主要討論主題，不用系統代號'
+category: 'Xompass'
+subcategory: '會議記錄'
+pubDate: 'YYYY-MM-DD'
+---
+
+import Callout from '@components/Callout.astro'
+```
+
+**四個區塊（固定順序）：**
+
+**① 本週結論**（必填）
+- 用 `<Callout type="insight">` 框包每一條結論
+- 用 `<Callout type="warning">` 框包風險提示
+- 語言：白話文，不用英文縮寫（SOXX → AI 半導體 ETF）、不用系統代號（INS-001、Kill Switch、Regime）
+- 每條結論獨立一個 Callout，2-4 條
+
+**② 市場快覽**（必填）
+- 數字表格保留
+- 表格下方加一句敘事定調（1-2 句）
+- Regime 改白話：「當前市場環境：XX 期，整體偏多/中性/偏空（Risk-On/Neutral/Off）」
+- 尾部風險用「若 X 則 Y」格式，不用技術術語
+
+**③ 本週焦點**（必填）
+- 每個討論議題一個 `###` 小節
+- 標題用公司中英文名稱，不用代號（GLW → Corning（GLW））
+- 移除所有內部術語，改為白話說明
+- 每節結尾用 **粗體** 寫一句核心判斷
+
+**④ 產業視角 / 總經觀點**（選填，有才放）
+- 有產業分析輸出 → 放「產業視角」節
+- 有 DSMM 輸出 → 放「總經觀點」節
+- 同樣白話文，不放追蹤表格或 VCP
+
+**不放的東西：**「下次檢查點」表格、追蹤代號、系統狀態更新、「裁定」標題（結論已在 Callout 裡）
+
+---
 
 裁定置頂。確認後才寫，不在討論中途存檔。寫完後 git push origin main（直接 push，不需要 PR）。
