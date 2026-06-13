@@ -55,6 +55,10 @@ const nodeColor: Record<string, { fill: string; stroke: string; text: string }> 
   '4':    { fill: '#f1f5f9', stroke: '#475569', text: '#1e293b' },
 };
 
+function truncate(s: string, max = 18): string {
+  return s.length > max ? s.slice(0, max) + '…' : s;
+}
+
 function getColor(n: any) {
   const key = n.sublayer ?? n.layer;
   return nodeColor[key] ?? nodeColor['4'];
@@ -301,7 +305,7 @@ function edgePath(fromId: string, toId: string, type: string): string {
                 </text>
                 <text x={p.cx} y={p.cy + 11} text-anchor="middle"
                       font-size="8.5" fill={c.text} opacity="0.72">
-                  {n.desc}
+                  {truncate(n.desc)}
                 </text>
               </g>
             );
