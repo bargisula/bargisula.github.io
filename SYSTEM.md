@@ -2,6 +2,12 @@
 
 > 本文件記錄 bargisula.github.io 的 AI agent 系統架構設計，供 CEO agent 稽核與董事長參考。
 > 最後更新：2026-05-19
+>
+> ⚠️ **快照警告：本文件為人工維護，已知落後於實際系統。唯一真相 = `.claude/` 下的檔案。**
+> Agent 無中央註冊檔，靠各檔 `name:` 自我註冊（清單：`grep "^name:" .claude/agents/*.md`）；
+> 流程看 `.claude/commands/*.md`；即時系統地圖跑 `/ceo system`。
+> **注意命名：** 下表「首席經濟學家」對應的實際 agent 檔是 `cmo.md`（`name: cmo`），
+> 系統中**不存在** `chief-economist` 這個 agent，調度一律用 `cmo`。
 
 ---
 

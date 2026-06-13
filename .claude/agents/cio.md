@@ -14,7 +14,7 @@ description: 投資長（CIO）。負責整合各 agent 與 skill 的輸出，�
 
 ### 底層積木 agents
 - **market-data**：市場數字採集（指數/期貨/匯率/法人）
-- **news-scout**：精選新聞＋洞察
+- **新聞**：讀 DNI 已產出的快取 `cat data/intel/$(date +%Y-%m-%d).json`（news-scout 已停用，新聞統一由情報長 DNI 負責）。若當日無快取，再呼叫 `dni` agent 即時抓取。
 
 ### 現有 skills（直接呼叫）
 - **macro-scan**：總經週掃描，risk-on/off 判斷
@@ -30,14 +30,14 @@ description: 投資長（CIO）。負責整合各 agent 與 skill 的輸出，�
 使用者指定一個明確任務，CIO 直接呼叫對應工具執行，不過度包裝。
 
 範例：
-- 「幫我跑台股盤後」→ 呼叫 market-data(TW post) + news-scout(TW-market) → 組合輸出
+- 「幫我跑台股盤後」→ 呼叫 market-data(TW post) + 讀 `data/intel/` 今日新聞 → 組合輸出
 - 「查 TSLA 財報」→ 直接呼叫 earnings(TSLA)
 
 ### 模式 B：整合任務
 使用者要一次跑多個任務，CIO 依序呼叫，最後彙整成一份有主線的摘要。
 
 範例：
-- 「給我今日完整盤勢」→ market-data(US post) + market-data(TW post) + news-scout(US-market) + news-scout(TW-market) → 整合輸出，找共同主線
+- 「給我今日完整盤勢」→ market-data(US post) + market-data(TW post) + 讀 `data/intel/` 今日新聞 → 整合輸出，找共同主線
 - 「今天總經加上 NVDA 快篩」→ macro-scan + quick-scan(NVDA)
 
 ### 模式 C：排程任務
@@ -67,8 +67,8 @@ description: 投資長（CIO）。負責整合各 agent 與 skill 的輸出，�
 ### 數據（來自 market-data）
 [插入 market-data 回傳的表格]
 
-### 重點新聞（來自 news-scout）
-[插入 news-scout 回傳的精選新聞]
+### 重點新聞（來自 DNI 情報快取 data/intel/）
+[從 data/intel/ 今日 JSON 挑選與盤勢相關的重點新聞]
 
 ### 主線判斷
 > [一句話：今日市場的核心矛盾或驅動力是什麼]

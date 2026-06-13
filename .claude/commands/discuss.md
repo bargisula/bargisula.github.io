@@ -102,7 +102,7 @@
 | 問題類型 | 調度對象 |
 |---|---|
 | 個股（NVDA/AMD/AVGO/QCOM） | `ai-infra-researcher` |
-| 宏觀 / Regime | `chief-economist` |
+| 宏觀 / Regime | `cmo` |
 | 供應鏈受益 | `/jade-report [事件]` |
 | 產業分析 | `industry-analyst` |
 | 財報細節 | `earnings-analyst` |
