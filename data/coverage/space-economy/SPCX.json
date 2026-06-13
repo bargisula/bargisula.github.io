@@ -1,0 +1,119 @@
+{
+  "ticker": "SPCX",
+  "company": "Space Exploration Technologies Corp（SpaceX）",
+  "exchange": "NASDAQ",
+  "ipo_date": "2026-06-12",
+  "ipo_price": 135,
+  "first_day_close": 160.95,
+  "market_cap_at_ipo_usd_trillion": 1.75,
+  "sector": "Space Economy",
+  "sub_sector": "Launch / Satellite Connectivity / AI",
+  "coverage_tier": "option",
+  "bottleneck_score": 4,
+
+  "business_segments": {
+    "starlink": {
+      "desc": "低軌衛星寬頻連線服務，B2C/B2B/政府，全球 155 國",
+      "revenue_2025_usd_b": 11.4,
+      "adj_ebitda_2025_usd_b": 7.2,
+      "revenue_q1_2026_usd_b": 3.3,
+      "subscribers_q1_2026_m": 10.3,
+      "arpu_monthly_usd": 81,
+      "arpu_change_2023_2025": "-18%",
+      "profitable": true
+    },
+    "space": {
+      "desc": "Falcon 9/Heavy 商業火箭發射，以及 Starship 開發",
+      "revenue_2025_usd_b": 4.086,
+      "op_loss_2025_usd_b": -0.657,
+      "launches_2025_total": 165,
+      "launches_2025_external": 43,
+      "profitable": false
+    },
+    "xai": {
+      "desc": "Grok AI 模型，SpaceX 上市前收購 Musk 的 xAI",
+      "monthly_burn_usd_b": 1.0,
+      "revenue": "negligible",
+      "profitable": false
+    }
+  },
+
+  "financials": {
+    "revenue_2025_usd_b": 18.674,
+    "op_loss_2025_usd_b": -2.589,
+    "adj_ebitda_2025_usd_b": 6.584,
+    "revenue_q1_2026_usd_b": 4.694,
+    "op_loss_q1_2026_usd_b": -1.943,
+    "adj_ebitda_q1_2026_usd_b": 1.127,
+    "revenue_2026_analyst_est_usd_b": 25,
+    "ev_fy27e_revenue_multiple": 36,
+    "ev_fy27e_ebitda_multiple": 122
+  },
+
+  "moat": {
+    "satellite_constellation": "6000+ 顆，競爭對手建同規模需 7–10 年",
+    "vertical_integration": "自建火箭 = 補網成本低 2–5 倍",
+    "spectrum_licenses": "全球 155 國頻譜授權",
+    "ground_station_network": "全球密度最高"
+  },
+
+  "key_risks": [
+    "ARPU 持續下滑（81 美元/月，年降 18%）",
+    "xAI 月燒 ~10 億美元，無明確收入時間表",
+    "Musk 個人治理風險（TSLA/政治/注意力分散）",
+    "Amazon Kuiper 長期競爭",
+    "Starship 商業化延誤"
+  ],
+
+  "thesis_conditions": [
+    {
+      "id": "TC-SPCX-001",
+      "condition": "Starlink 用戶成長至 2,000 萬，ARPU 維持 >75 美元",
+      "status": "pending",
+      "check_date": "2026-08-01"
+    },
+    {
+      "id": "TC-SPCX-002",
+      "condition": "xAI 宣布 Starlink 整合商業模式或止血計畫",
+      "status": "pending",
+      "check_date": "2026-12-31"
+    }
+  ],
+
+  "kill_switches": [
+    {
+      "id": "K1",
+      "condition": "Starlink ARPU 連續兩季低於 70 美元",
+      "action": "降評，收入天花板假設崩潰"
+    },
+    {
+      "id": "K2",
+      "condition": "xAI 月燒超過 15 億美元且無收入時間表",
+      "action": "減持，財務拖累風險升高"
+    },
+    {
+      "id": "K3",
+      "condition": "Amazon Kuiper 商業用戶突破 100 萬",
+      "action": "競爭威脅升級，重評估值"
+    },
+    {
+      "id": "K4",
+      "condition": "Musk 大幅減持超過 5%",
+      "action": "立即評估治理信心"
+    }
+  ],
+
+  "verdict": "cautious",
+  "verdict_desc": "壟斷型太空資產但估值已定價 2030 情境（EV/FY27E 收入 36x），首日 +19% 後不追高，等 IPO 鎖定期解禁後 135–140 美元評估建倉",
+  "entry_range_usd": "135–140",
+  "position_type": "option",
+  "max_allocation_pct": 5,
+
+  "related_tickers": ["RKLB", "ASTS", "LUNR"],
+  "rklb_implication": "SpaceX 上市確認 Starship 資本強度，RKLB 長期威脅上升，但 2–3 年窗口期仍在",
+
+  "updated": "2026-06-13",
+  "updated_by": "industry-analysis",
+  "next_review": "2026-08-01",
+  "source_report": "src/content/notes/Xompass/研究報告/SPCX-深度分析-2026-06-13.mdx"
+}
