@@ -151,5 +151,34 @@
       "layer": "4",
       "sublayer": null
     }
+  ],
+  "edges": [
+    {"from": "RKLB", "to": "NASA",          "type": "supplies_to",   "weight": 0.25},
+    {"from": "RKLB", "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.20},
+    {"from": "RKLB", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.55},
+    {"from": "LMT",  "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.30},
+    {"from": "LMT",  "to": "NASA",          "type": "supplies_to",   "weight": 0.10},
+    {"from": "BA",   "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.15},
+    {"from": "BA",   "to": "NASA",          "type": "supplies_to",   "weight": 0.12},
+    {"from": "NOC",  "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.25},
+    {"from": "NOC",  "to": "NASA",          "type": "supplies_to",   "weight": 0.08},
+    {"from": "RTX",  "to": "DOD_LAUNCH",    "type": "supplies_to",   "weight": 0.12},
+    {"from": "AJRD", "to": "LMT",           "type": "supplies_to",   "weight": 0.20},
+    {"from": "AJRD", "to": "NOC",           "type": "supplies_to",   "weight": 0.15},
+    {"from": "MOG",  "to": "RKLB",          "type": "supplies_to",   "weight": 0.10},
+    {"from": "KTOS", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.30},
+    {"from": "ASTS", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.80},
+    {"from": "VSAT", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.50},
+    {"from": "IRDM", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.60},
+    {"from": "GSAT", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.45},
+    {"from": "SPIR", "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.40},
+    {"from": "PL",   "to": "COMMERCIAL_SAT","type": "supplies_to",   "weight": 0.55},
+    {"from": "ASTS", "to": "IRDM",          "type": "competes_with", "weight": 0.40},
+    {"from": "ASTS", "to": "GSAT",          "type": "competes_with", "weight": 0.35},
+    {"from": "SPIR", "to": "PL",            "type": "competes_with", "weight": 0.30}
+  ],
+  "legend": [
+    {"type": "supplies_to",   "label": "供應 / 服務關係",   "color": "#9ca3af", "dash": false},
+    {"type": "competes_with", "label": "直接競爭",           "color": "#dc2626", "dash": true}
   ]
 }
