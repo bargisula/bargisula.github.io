@@ -40,13 +40,13 @@
     }
   ],
   "stats": {
-    "total": 1,
+    "total": 2,
     "correct": 0,
     "incorrect": 0,
     "mixed": 0,
-    "pending": 1,
+    "pending": 2,
     "accuracy_rate": null,
-    "last_updated": "2026-05-22"
+    "last_updated": "2026-06-13"
   },
   "schema_notes": {
     "direction": "correct | incorrect | neutral（外部衝擊，非論點失誤）",

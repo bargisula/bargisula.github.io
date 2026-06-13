@@ -31,6 +31,15 @@ cat data/knowledge/power-infra-nodes.json | python -c "import json,sys; d=json.l
 
 # 7. DSMM runs
 ls data/dsmm/pipeline/ 2>/dev/null | tail -5 || echo "無 run"
+
+# 8. 洞察庫（active / total）
+cat data/insights/insights.json 2>/dev/null | python -c "import json,sys; d=json.load(sys.stdin); ins=d['insights']; act=[i for i in ins if i['status']=='active']; print(len(act),'active /',len(ins),'total'); [print(' ',i['id'],i['tier'],i['causal_type'],round(i.get('confidence',0),2),'-',i['claim'][:40]) for i in act]" || echo "無法讀取"
+
+# 9. 戰績記分板
+cat data/scoreboard.json 2>/dev/null || echo "無記分板"
+
+# 10. picks 追蹤統計
+cat data/tracking/picks.json 2>/dev/null | python -c "import json,sys; s=json.load(sys.stdin)['stats']; print('picks', s['total'],'total /', s['pending'],'open /', s['accuracy_rate'],'acc')" || echo "無 picks"
 ```
 
 ---
@@ -85,6 +94,18 @@ ls data/dsmm/pipeline/ 2>/dev/null | tail -5 || echo "無 run"
 
 【DSMM Runs】
   最近 run：[列最近 3 個 RUN-ID]
+
+【洞察庫】
+  來源：data/insights/insights.json
+  Active：N 條（L1 假說 a｜L2 洞察 b｜L3 定律 c）
+  [逐條一行：INS-ID  tier  causal_type  conf  — 一句話 claim（截 40 字）]
+
+【戰績記分板】
+  來源：data/scoreboard.json（N 天前）
+  Picks：總 N｜結案 N（命中率 X%）｜進行中 N
+  Insights：已結案 N（命中 N／推翻 N）
+  模式線索：physical 存活 N／陣亡 N　cognitive 存活 N／陣亡 N
+  [若記分板 last_updated > 30 天 → 🟡 建議 /pmc 重算]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📌 需要行動的項目

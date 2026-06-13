@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "description": "Xompass 戰績記分板。聚合 picks（個股建議）與 insights（因果洞察）的命中率，是系統的『打擊率』。每次 pick 結案或 insight 失效都必須回填，否則會停在舊數字（參考前車之鑑：picks.stats 曾長期停在 total:1）。由 /pmc 維護，/status 顯示。",
+  "last_updated": "2026-06-13",
+  "as_of": "2026-06-13",
+
+  "picks": {
+    "total": 2,
+    "open": 2,
+    "closed": 0,
+    "correct": 0,
+    "incorrect": 0,
+    "accuracy_rate": null,
+    "note": "尚無已結案 pick（final_verdict 皆為 null）。GLW 期中追蹤連兩週 correct/confirmed（+6.8%）；RKLB 等待 SpaceX IPO 後代理溢價消化。",
+    "open_detail": [
+      { "id": "pick-2026-05-21-GLW", "ticker": "GLW", "interim": "correct", "latest_review": "week2 +6.8% vs 建倉日，論點 confirmed" },
+      { "id": "pick-2026-06-01-RKLB", "ticker": "RKLB", "interim": "pending", "latest_review": null }
+    ]
+  },
+
+  "insights": {
+    "total_created": 6,
+    "active": 5,
+    "resolved": 1,
+    "resolved_correct": 0,
+    "resolved_invalidated": 1,
+    "resolved_hit_rate": 0.0,
+    "active_by_tier": { "L1": 3, "L2": 2, "L3": 0 },
+    "by_causal_type": {
+      "physical": { "active": 4, "invalidated": 0 },
+      "cognitive": { "active": 1, "invalidated": 1 }
+    },
+    "pattern": "唯一被推翻的洞察 INS-005（MSCI 換股後主動外資是否接棒）屬 cognitive（市場認知型），與框架自身的設定一致——『cognitive 洞察會被提前定價殺死，confidence 上限 0.70』。4 條 physical（機制型）洞察全數存活。樣本仍小（n=1 已結案），但方向性印證了 physical > cognitive 的可靠度假設。"
+  },
+
+  "failure_modes": {
+    "_schema": "timing（方向對但太早）| logic（推論本身有誤）| external（黑天鵝/外部衝擊）| entry_price（進場價設錯）",
+    "timing": 0,
+    "logic": 0,
+    "external": 1,
+    "entry_price": 0,
+    "_detail": "INS-005 歸為 external——失效主因是外資未接棒（外部資金行為），非機制推論錯誤。"
+  },
+
+  "maintenance": {
+    "owner": "CEO / PMC",
+    "update_triggers": [
+      "pick 結案（picks.json 的 final_verdict 由 null 填入）→ 重算 picks 區（closed/correct/incorrect/accuracy_rate）並同步 picks.json 的 stats",
+      "insight 由 active 改為 invalidated/expired → 重算 insights 區（resolved/by_causal_type）",
+      "每月 /pmc → 全表重算一次，校正漂移"
+    ],
+    "surfaced_in": "/status 的【戰績記分板】區塊"
+  }
+}

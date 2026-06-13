@@ -136,6 +136,17 @@ cat data/coverage/[group]/[TICKER].json
 
 存至 `data/pmc/cases/YYYY-MM-[TICKER].md`，推 GitHub。
 
+### Step 4：回填戰績記分板（必做）
+
+案例結案後，更新 `data/scoreboard.json`——這是系統的打擊率，不回填就會停在舊數字（前車之鑑：picks.stats 曾長期停在 total:1）。
+
+1. 若此案例對應某個 pick → 將 `picks.json` 該筆的 `final_verdict` / `failure_mode` 由 null 填入，並同步 `picks.json` 的 `stats`（重算 closed / correct / incorrect / accuracy_rate）
+2. 若對應某條 insight 的驗證 → 將 `insights.json` 該條 status 改為 `invalidated`/`expired`，並重算 `scoreboard.json` 的 insights 區（resolved / by_causal_type）
+3. 更新 `scoreboard.json` 的 `failure_modes` 分布與 `last_updated`
+4. 回填後一句話回報：「記分板已更新：picks X/Y、insights 命中率 Z%」
+
+> **每月 PMC 固定全表重算一次**，校正任何漂移。
+
 ---
 
 ## 規則
