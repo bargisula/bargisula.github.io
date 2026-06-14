@@ -1,0 +1,150 @@
+{
+  "run_id": "RUN-20260614-OIL",
+  "market": "勞動市場",
+  "step": 4,
+  "analyst": "market-labor",
+  "analyzed_at": "2026-06-14",
+  "event_id": "EVT-OIL-SHOCK-2026",
+  "receives_signal": true,
+  "upstream_summary": "商品市場：Brent +68% 觸發能源 capex +20-35% 擴張，但同步透過成本衝擊壓縮一般企業 capex、拖累製造業 PMI -2-4pt、壓低消費 PCE 增速至 +1.0-1.5%；AI capex 維持但信心略降（0.88→0.82）；航空航運 margin 急壓。",
+
+  "signals": [
+    {
+      "indicator": "能源業直接就業（E&P + 服務業）",
+      "direction": "↑",
+      "magnitude": "德州/北達科他/路易斯安那 新增崗位 +3-5 萬，鑽井/完井/管線維運人力需求在 6-12 個月內釋放",
+      "time_horizon": "6-12 months",
+      "confidence": 0.72,
+      "rationale": "Brent >100 歷史上觸發 rig count 上升（Baker Hughes 頁岩油損益平衡約 55-65 美元），+68% 油價遠超活化門檻；但頁岩油 3.0 資本紀律文化（股息優先）限制了速度，增量低於 2014 年同等油價時期",
+      "tc_reference": "TC-OIL-001",
+      "verifiable_by": {
+        "check_date": "2026-09-01",
+        "prediction": "Baker Hughes 美國 rig count 從當前基期上升 >50 口；德州就業局 Mining & Logging 月增 >5,000",
+        "check_source": "Baker Hughes Weekly Rig Count / BLS State & Metro Area Employment"
+      }
+    },
+    {
+      "indicator": "製造業就業（ISM 就業分項）",
+      "direction": "↓",
+      "magnitude": "ISM 製造業就業分項預期從 ~50 跌至 46-48，製造業月淨裁員 -1 至 -2 萬人",
+      "time_horizon": "3-6 months",
+      "confidence": 0.78,
+      "rationale": "商品市場上游信號：PMI 製造業預期 -2-4pt（能源成本轉嫁壓縮利潤率）+ 耐久財需求 -4-7%（消費端緊縮）+ 企業 capex 雙重壓縮，三重壓力同時作用於製造業招募意願",
+      "tc_reference": "TC-MFG-001",
+      "verifiable_by": {
+        "check_date": "2026-08-15",
+        "prediction": "ISM 製造業就業分項連續 2 個月低於 48；BLS 製造業就業月變化為負值",
+        "check_source": "ISM Manufacturing PMI / BLS CES Manufacturing Employment"
+      }
+    },
+    {
+      "indicator": "消費服務業就業（零售/餐飲/休閒旅遊）",
+      "direction": "↓",
+      "magnitude": "消費服務業減少招募，月 NFP 貢獻從 +6-8 萬下滑至 +2-3 萬；若 PCE 持續低迷則轉負",
+      "time_horizon": "3-6 months",
+      "confidence": 0.75,
+      "rationale": "PCE 增速從 +2.5% 下修至 +1.0-1.5%，消費者可支配所得被油價侵蝕（汽油 >4.5 美元/加侖）；低收入族群（時薪勞工、依賴通勤的服務業人員）受衝擊最深，消費服務業需求萎縮直接反映招募凍結",
+      "tc_reference": "TC-CONS-002",
+      "verifiable_by": {
+        "check_date": "2026-09-15",
+        "prediction": "Leisure & Hospitality 月就業淨增 <20,000（2024-25 平均約 40,000）；Retail Trade 月就業負值",
+        "check_source": "BLS CES Leisure & Hospitality / Retail Trade"
+      }
+    },
+    {
+      "indicator": "整體 NFP 月增數",
+      "direction": "↓",
+      "magnitude": "從近期 +150-180K 基期下移至 +80-120K（油價衝擊傳導期），若高油價持續超過 6 個月可能跌破 +50K",
+      "time_horizon": "3-9 months",
+      "confidence": 0.70,
+      "rationale": "能源業新增（+3-5 萬/6-12 個月緩釋）無法即時對衝製造業裁員（-1-2 萬/月）+ 消費服務業放緩（-3-5 萬/月貢獻損失）+ 建築業壓縮（利率 4.75-4.95% 壓抑房屋開工）；淨效應為整體 NFP 明顯下台階",
+      "tc_reference": "TC-NFP-001",
+      "verifiable_by": {
+        "check_date": "2026-09-04",
+        "prediction": "8 月 NFP 低於 100,000（含修正後數字）",
+        "check_source": "BLS Employment Situation Summary"
+      },
+      "id": "VCP-OIL-004"
+    },
+    {
+      "indicator": "AHE 時薪年增率（薪資-通膨回路）",
+      "direction": "↑ 短期 / 停滯 中期",
+      "magnitude": "短期：AHE YoY 從 ~4.0% 上行至 4.3-4.7%（低收入勞工要求補償油價衝擊）；中期：若就業放緩，薪資談判力下降，AHE 回落至 3.5-4.0%",
+      "time_horizon": "3-12 months",
+      "confidence": 0.65,
+      "rationale": "油價衝擊產生「薪資壓力」但同時產生「就業壓力」，方向相互對消。短期內工會談判（UAW、Teamsters）可能提出 COLA（生活成本調整）要求；但消費服務業勞工缺乏組織化談判力，高失業風險下談薪空間有限。整體 AHE 呈短升長平型態。",
+      "tc_reference": "TC-AHE-001",
+      "verifiable_by": {
+        "check_date": "2026-10-01",
+        "prediction": "Q3 2026 AHE YoY 峰值不超過 4.8%，且 Q4 開始回落至 4.2% 以下",
+        "check_source": "BLS Average Hourly Earnings / Atlanta Fed Wage Growth Tracker"
+      }
+    },
+    {
+      "indicator": "勞動力地理錯配（能源州 vs 製造業州）",
+      "direction": "→ 結構性問題",
+      "magnitude": "德州/北達科他能源職缺無法有效吸收俄亥俄/密西根/賓州製造業失業人口；跨州遷移率低（年化 <1.5%），地理錯配導致 U6 上升幅度大於 U3",
+      "time_horizon": "6-12 months",
+      "confidence": 0.80,
+      "rationale": "能源業崗位高度技術性（鑽井工程師、地質師、管線技工），非製造業或服務業裁員人口可即時轉換。德克薩斯 Permian Basin 需要具備特定證照與體能的工人，再培訓週期 6-18 個月。地理集中性強化了錯配問題。",
+      "tc_reference": "TC-GEO-001",
+      "verifiable_by": {
+        "check_date": "2026-10-15",
+        "prediction": "U6 失業率上升幅度超過 U3（U6-U3 利差擴大 >0.5pp），顯示非自願兼職與邊緣勞工上升",
+        "check_source": "BLS Household Survey U3/U6 / Census Bureau Migration Data"
+      }
+    },
+    {
+      "indicator": "AI 技術人才薪資（AHE 科技板塊）",
+      "direction": "→ 維持但動能減弱",
+      "magnitude": "AI 工程師薪資壓力維持 +5-7% YoY，但 AI capex 信心 0.88→0.82 轉化為招募速度略降；不至於裁員但凍結新增 headcount",
+      "time_horizon": "3-6 months",
+      "confidence": 0.68,
+      "rationale": "TC-004 信號：AI capex 維持但信心下降，hyperscaler 短期不中斷但審慎態度增加。預期 Big Tech 2026 H2 維持既有 AI 人才薪資水準（離職成本高），但新增招募將趨緩。整體對 AHE 貢獻中性。",
+      "tc_reference": "TC-004",
+      "verifiable_by": {
+        "check_date": "2026-08-01",
+        "prediction": "MSFT/GOOG/META Q2 法說會提及技術人才薪資維穩但招募放緩（headcount guidance flat YoY）",
+        "check_source": "Big Tech Q2 2026 earnings calls"
+      }
+    }
+  ],
+
+  "null_signals": [
+    {
+      "indicator": "建築業就業",
+      "reason": "利率 4.75-4.95% 壓制房屋開工，但商業建築（資料中心）提供部分緩衝；淨效應中性，不單獨列入主信號"
+    },
+    {
+      "indicator": "農業就業",
+      "reason": "能源衝擊對農業就業影響路徑間接（農藥/化肥成本上升），影響量級不足以在 NFP 中顯著反映"
+    },
+    {
+      "indicator": "政府就業",
+      "reason": "聯邦/州政府就業受財政政策驅動，非此次能源衝擊的直接傳導對象"
+    }
+  ],
+
+  "structural_risk": {
+    "wage_inflation_spiral": {
+      "triggered": false,
+      "rationale": "AHE 短期上行至 4.3-4.7%，但未達持續 4.5%+ 兩個季度的螺旋觸發條件；就業放緩將壓制薪資談判力",
+      "monitor_threshold": "若 AHE YoY 連續 2 個季度 > 4.5%，升級為薪資-通膨回路風險，傳給財政動態"
+    },
+    "labor_market_split": {
+      "description": "就業市場出現明顯分裂：能源業（德州/北達科他）緊張 vs 製造業+服務業（鐵鏽帶+消費市場）鬆弛",
+      "fed_signal_difficulty": "Fed 面對「平均就業數字中等但內部分裂嚴重」的信號混雜問題，難以用單一政策工具回應"
+    }
+  },
+
+  "fed_implication": {
+    "summary": "勞動市場信號對 Fed 形成對立壓力：AHE 短期上行（支持鷹派維持利率）vs NFP 下行（支持鴿派考慮降息）。就業分裂使 Fed 更傾向「等待數據明朗化」，強化貨幣市場已鎖定的『2026 年零降息』路徑。若 NFP 連續 2 個月低於 75K，才可能提前觸發 2027 Q1 降息預期前移。",
+    "dominant_signal": "AHE > NFP（通膨防線優先於就業支撐）"
+  },
+
+  "passes_to": ["財政動態"],
+  "fiscal_transmission": "AHE 上行 + 就業放緩 → 個人所得稅收基礎縮減；能源業暴利稅（windfall tax）討論可能升溫；失業救濟金支出上升壓縮財政空間",
+  "does_not_propagate_to": [],
+
+  "key_conclusion": "中東油價衝擊對勞動市場呈「局部緊張、整體趨緩、結構分裂」三重形態。能源業在德州/北達科他帶動 +3-5 萬崗位（6-12 個月緩釋），但無法對衝製造業裁員與消費服務業招募凍結；NFP 月增預期從 150-180K 下移至 80-120K。AHE 短期因 COLA 壓力上行至 4.3-4.7%，但就業放緩限制了薪資螺旋風險。最關鍵的結構性問題是地理錯配——能源職缺高度集中且技術門檻高，非能源失業人口難以快速吸收，U6 上升幅度將大於 U3。這一「平均數尚可、內部分裂嚴重」的態勢，強化 Fed 維持高利率等待數據明朗化的立場。"
+}

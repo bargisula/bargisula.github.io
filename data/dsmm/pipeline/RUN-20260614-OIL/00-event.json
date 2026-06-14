@@ -1,0 +1,24 @@
+{
+  "event_id": "EVT-20260201-OIL",
+  "run_id": "RUN-20260614-OIL",
+  "date": "2026-02-01",
+  "title": "中東石油衝擊：美以打擊伊朗，Brent 71→120（+68%），Hormuz封鎖風險",
+  "category": "地緣政治/能源",
+  "shock_type": "供給衝擊",
+  "entry_market": "商品市場",
+  "magnitude": "Brent +68%（71→120 USD/桶），全球日供缺口 >1000萬桶",
+  "data": {
+    "key_numbers": {
+      "brent_before": 71,
+      "brent_current": 120,
+      "brent_change_pct": 68,
+      "daily_supply_gap_mb": 10,
+      "hormuz_seaborne_share": "25%",
+      "fed_funds_rate": "3.50-3.75%",
+      "goldman_rate_cut_outlook": "2027年前不降息",
+      "tc_reference": "TC-005"
+    }
+  },
+  "source": "WEF / CNBC / Goldman Sachs / Fed聲明",
+  "injected_by": "user"
+}

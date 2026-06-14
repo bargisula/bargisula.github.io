@@ -1,0 +1,205 @@
+{
+  "run_id": "RUN-20260614-OIL",
+  "event_id": "TC-005",
+  "event_title": "中東石油衝擊：Brent 71→120（+68%），Higher for Longer 2.0",
+  "completed_at": "2026-06-14",
+  "pipeline_version": "1.0",
+
+  "impact_map": {
+    "金融市場": {
+      "impact_level": "high",
+      "direction": "bear steepening；殖利率急升，權益壓縮，信用利差擴大",
+      "time_horizon": "immediate（1-5日）",
+      "key_signal": "10Y +20-40bp（4.75-4.95%）；S&P -5-10%；VIX 28-38；HY利差 +80-150bp",
+      "secondary": "能源股 +15-25%；黃金 +5-10%；DXY +1-3%（短期避險）"
+    },
+    "貨幣市場": {
+      "impact_level": "high",
+      "direction": "Higher for Longer 2.0確認，降息週期終止重定",
+      "time_horizon": "days（FedWatch即時重定）",
+      "key_signal": "2026年降息 0次，首次降息推至 2027 Q1-Q2；TC-002升級為高風險活躍",
+      "secondary": "SOFR遠期 +15-25bp；MMF周淨流入 +500-1,000億美元"
+    },
+    "商品市場": {
+      "impact_level": "high",
+      "direction": "能源 capex 擴張，廣基 capex 雙重壓縮，消費耐久財萎縮",
+      "time_horizon": "weeks-months（供應端調整）",
+      "key_signal": "能源capex +20-35%；耐久財 -4-7%；航空燃油 +55-70%",
+      "secondary": "TC-004 AI capex信心 0.88→0.82（首次下修）；PCE增速下修至 +1.0-1.5%"
+    },
+    "勞動市場": {
+      "impact_level": "medium",
+      "direction": "就業量縮、質惡化，名義薪資短暫上行但無工資螺旋",
+      "time_horizon": "months（1-3個季度）",
+      "key_signal": "NFP 月增 80-120K（從150-180K下移）；U6-U3利差 >+0.5pp",
+      "secondary": "AHE 4.3-4.7%（名義上行但不觸發螺旋）；三分裂：能源↑/製造↔/服務↓"
+    },
+    "財政動態": {
+      "impact_level": "high",
+      "direction": "赤字顯著擴大，財政政策空間收窄，正反饋回路潛伏",
+      "time_horizon": "quarters（2-4季度顯現，利息支出5年滾動）",
+      "key_signal": "2026赤字估 2,100-2,500億美元；赤字/GDP 7.5-8.5%；TC-CAND-002三條件同時滿足",
+      "secondary": "財政緩衝能力萎縮至歷史50%（1.5-2.5% GDP）；財政乘數壓縮至 0.5-0.8"
+    }
+  },
+
+  "top_asset_implications": [
+    {
+      "asset": "10Y 美債",
+      "direction": "殖利率上升",
+      "magnitude": "4.75-4.95%（+20-40bp），潛在突破5.0%若TC-CAND-002確認",
+      "rationale": "Higher for Longer 2.0 + 財政發債壓力雙重推升；TC-002外資需求萎縮加劇供需失衡",
+      "confidence": 0.82
+    },
+    {
+      "asset": "原油（WTI/Brent）",
+      "direction": "高位震盪，向上風險大於向下",
+      "magnitude": "Brent 110-130美元區間，若衝突升級可至 140+",
+      "rationale": "供給端衝擊主導，需求端破壞（製造/航空/消費）滯後 1-2季度",
+      "confidence": 0.78
+    },
+    {
+      "asset": "能源股（XLE/能源板塊）",
+      "direction": "短期強勢",
+      "magnitude": "+15-25%，但高利率環境壓縮本益比擴張空間",
+      "rationale": "獲利暴增 vs 殖利率貼現率上升，淨效果仍正但幅度受限",
+      "confidence": 0.74
+    },
+    {
+      "asset": "S&P 500（廣基）",
+      "direction": "壓力，區間下行",
+      "magnitude": "-5-10%（已體現第一波），若衰退信號確認可至 -15%",
+      "rationale": "HY利差擴大 + 企業獲利壓縮 + 貼現率上升三重打壓",
+      "confidence": 0.76
+    },
+    {
+      "asset": "黃金",
+      "direction": "中性偏多",
+      "magnitude": "+5-10%，但DXY短期強勢制約漲幅",
+      "rationale": "地緣風險溢價 + 財政可持續性疑慮 + 實際利率若因通膨上升而壓縮則支撐更強",
+      "confidence": 0.68
+    },
+    {
+      "asset": "日圓（USD/JPY）",
+      "direction": "換匯成本持續上升，套利壓力",
+      "magnitude": "TC-002：日圓換匯成本 >4.3-4.5%，日本投資人美債需求結構性萎縮",
+      "rationale": "美債供給增加恰逢最大邊際買家退場，拍賣尾部風險上升",
+      "confidence": 0.72
+    }
+  ],
+
+  "feedback_loops_detected": [
+    {
+      "id": "TC-CAND-002",
+      "name": "財政-利率正反饋回路",
+      "status": "潛伏期（三條件均已觸發，尚未爆發）",
+      "mechanism": "赤字/GDP >7.5% → 財政部發債量↑ → 10Y 4.75-4.95% → 利息支出↑ 1,050-1,750億/年 → 赤字再擴大",
+      "conditions_met": {
+        "deficit_gdp_gt_6pct": true,
+        "10Y_gt_4_5pct": true,
+        "TC002_swap_cost_gt_3_5pct": true
+      },
+      "escalation_trigger": "10Y突破 5.0% 或財政部季度再融資 >1,500億美元/季",
+      "confidence": 0.72
+    }
+  ],
+
+  "tc_confidence_updates": {
+    "TC004_AI_capex": {
+      "previous": 0.88,
+      "current": 0.82,
+      "change": -0.06,
+      "reason": "Higher for Longer 2.0確認 + 一般capex雙重壓縮環境；AI超大規模capex本身邏輯未動搖，僅邊際融資成本上升",
+      "watch_condition": "10Y持續 >5.2% 超過90天 → 重新評估至 0.75"
+    },
+    "TC002_USD_funding": {
+      "previous_status": "活躍",
+      "current_status": "高風險活躍",
+      "reason": "財政赤字擴大確認TC-002的基本假設：外資需求萎縮 + 供給增加同步發生",
+      "confidence_change": "+5-8pp"
+    },
+    "TC005_oil_shock": {
+      "status": "已觸發（確認）",
+      "confidence": 0.90,
+      "note": "Brent 120美元事實確認，全五個市場均已響應"
+    }
+  },
+
+  "verification_checkpoints": [
+    {
+      "id": "OIL-001",
+      "market": "金融市場",
+      "check_date": "2026-06-21",
+      "prediction": "10Y 殖利率進入 4.75-4.95% 區間",
+      "threshold": "4.75%（下限）",
+      "check_source": "Yahoo Finance ^TNX / US Treasury Daily Yields",
+      "status": "pending"
+    },
+    {
+      "id": "OIL-002",
+      "market": "貨幣市場",
+      "check_date": "2026-06-21",
+      "prediction": "CME FedWatch 2026年降息概率 < 10%，首次降息定價推至 2027",
+      "threshold": "降息概率 <10%",
+      "check_source": "CME FedWatch Tool",
+      "status": "pending"
+    },
+    {
+      "id": "OIL-003",
+      "market": "商品市場",
+      "check_date": "2026-07-14",
+      "prediction": "能源板塊 capex 指引上修（財報季確認），廣基製造 capex 指引下修",
+      "threshold": "至少 3 家大型能源公司上修 capex 指引",
+      "check_source": "Q2 2026財報電話會議（Exxon / Chevron / ConocoPhillips）",
+      "status": "pending"
+    },
+    {
+      "id": "OIL-004",
+      "market": "勞動市場",
+      "check_date": "2026-07-07",
+      "prediction": "6月 NFP < 130K，U6-U3 利差擴大至 >3.8pp",
+      "threshold": "NFP <130K",
+      "check_source": "BLS Employment Situation（7月第一個週五）",
+      "status": "pending"
+    },
+    {
+      "id": "OIL-005",
+      "market": "財政動態",
+      "check_date": "2026-08-10",
+      "prediction": "CBO 月度預算審查顯示 FY2026 赤字追蹤路徑 > 2,000億美元；財政部季度再融資公告顯示長期債券供給增加",
+      "threshold": "CBO FY2026 赤字追蹤 >2,000億 OR 財政部季度再融資 >1,200億美元",
+      "check_source": "CBO Monthly Budget Review / Treasury Quarterly Refunding Announcement（8月）",
+      "status": "pending"
+    },
+    {
+      "id": "OIL-006",
+      "market": "財政動態（TC-CAND-002 監控）",
+      "check_date": "2026-09-15",
+      "prediction": "10Y殖利率是否突破5.0%（財政正反饋回路爆發先行指標）",
+      "threshold": "10Y > 5.0% 並維持5個交易日",
+      "check_source": "Yahoo Finance ^TNX / Fed H.15",
+      "status": "pending"
+    }
+  ],
+
+  "next_key_event": {
+    "event": "美國財政部季度再融資公告（QRA）",
+    "expected_date": "2026-08-04（下一次 QRA 估算日）",
+    "importance": "決定TC-CAND-002是否從潛伏期升級為爆發期的最關鍵數據點",
+    "watch": "若宣布 10年期/30年期債券季度供給超過市場預期 10% 以上，且同日 10Y 突破 4.90%，TC-CAND-002 正式確認"
+  },
+
+  "system_confidence": 0.76,
+  "_confidence_methodology": "加權平均：金融市場0.82（權重20%）+ 貨幣市場0.80（20%）+ 商品市場0.75（20%）+ 勞動市場0.74（20%）+ 財政動態0.72（20%）；油價事實觸發給予基礎錨點+0.05調整",
+
+  "pipeline_integrity": {
+    "steps_completed": 5,
+    "steps_total": 5,
+    "missing_upstream_files": true,
+    "note": "上游01-04.json 檔案未落地，信號由使用者直接傳入。分析邏輯完整，但驗證鏈無法追溯至原始事件文件。建議補建 00-04.json 存檔",
+    "analyst_chain": ["market-financial（金融）", "market-monetary（貨幣）", "market-commodity（商品）", "market-labor（勞動）", "market-fiscal（財政）"]
+  },
+
+  "wisdom_state": "pending_verification",
+  "first_verification_date": "2026-06-21"
+}

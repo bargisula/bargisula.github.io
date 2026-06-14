@@ -1,0 +1,69 @@
+{
+  "run_id": "RUN-20260614-OIL",
+  "event_id": "EVT-20260201-OIL",
+  "event_title": "中東石油衝擊：Brent 71→120（+68%），TC-005 首次流水線",
+  "pipeline_date": "2026-06-14",
+  "tc_reference": "TC-005",
+  "verification_status": "pending",
+  "checkpoints": [
+    {
+      "id": "VCP-OIL-001",
+      "market": "金融市場",
+      "check_date": "2026-07-14",
+      "prediction": "10Y美債殖利率 ≥ 4.75%",
+      "threshold": "^TNX ≥ 4.75%",
+      "check_source": "Yahoo Finance ^TNX 或 FRED DGS10",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-OIL-002",
+      "market": "貨幣市場",
+      "check_date": "2026-07-28",
+      "prediction": "CME FedWatch 2026年12月FOMC降息概率 < 20%",
+      "threshold": "Dec 2026 cut probability < 20%",
+      "check_source": "CME FedWatch Tool",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-OIL-003",
+      "market": "商品市場",
+      "check_date": "2026-10-31",
+      "prediction": "non-energy S&P500 capex指引下修>3% AND hyperscaler capex下降<5%（TC-004維持）",
+      "threshold": "non-energy capex↓>3% AND hyperscaler capex↓<5%",
+      "check_source": "FactSet earnings survey + MSFT/GOOG/META/AMZN財報",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-OIL-004",
+      "market": "勞動市場",
+      "check_date": "2026-09-04",
+      "prediction": "8月NFP < 100K AND ISM製造業就業分項連2個月 < 48",
+      "threshold": "NFP < 100K AND ISM employment < 48",
+      "check_source": "BLS Employment Situation + ISM PMI",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    },
+    {
+      "id": "VCP-OIL-005",
+      "market": "財政動態",
+      "check_date": "2026-10-15",
+      "prediction": "FY2026赤字/GDP > 7.5% AND 美債拍賣bid-to-cover < 2.3（至少一次）",
+      "threshold": "Deficit/GDP > 7.5% AND bid-to-cover < 2.3",
+      "check_source": "CBO月度預算更新 + 財政部拍賣結果",
+      "actual": null,
+      "verdict": null,
+      "score": null
+    }
+  ],
+  "overall_score": null,
+  "confidence_updates": [],
+  "_instruction": "驗證時：填寫每個 checkpoint 的 actual、verdict（CONFIRMED/PARTIAL/WRONG）和 score（1.0/0.5/0.0），然後呼叫 /dsmm-verify RUN-20260614-OIL",
+  "_escalation_watch": "2026-08-04 美國財政部QRA：若長債供給>1,500億 → TC-CAND-002從潛伏升為爆發，需立即跑新流水線"
+}

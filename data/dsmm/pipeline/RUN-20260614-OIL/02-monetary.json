@@ -1,0 +1,179 @@
+{
+  "run_id": "RUN-20260614-OIL",
+  "market": "貨幣市場",
+  "step": 2,
+  "analyst": "market-monetary",
+  "analyzed_at": "2026-06-14",
+  "event_id": "EVT-20260201-OIL",
+  "tc_reference": "TC-005",
+  "receives_signal": true,
+  "upstream_summary": "金融市場：10Y殖利率+20-40bp（bear steepening），2Y+5-15bp，HY信用利差+80-150bp，VIX跳升28-38，能源股獨強，成長股下跌8-15%，信號傳至貨幣市場",
+
+  "impact_level": "high",
+  "direction_summary": "Brent+68%觸發通膨復燃，CPI路徑強制上修，Fed原有降息窗口（2026年底）被完全封閉並後移至2027年以後。OIS曲線整體後移，聯邦基金期貨重定價「更長維持高利率（higher for longer 2.0）」。短端利率由政策錨限制但通膨尾部風險開始定價，2Y殖利率承受額外5-15bp上行；SOFR隔夜利率跟隨現行政策區間持穩，但遠期SOFR曲線後移。ECB面臨增長惡化與輸入通膨的兩難；BOJ若繼續升息則換匯成本進一步壓縮日本機構持有美債的實質報酬，TC-002機制強化。",
+  "time_horizon": "near-term（1-4週完成重定價），medium-term（3-6個月政策路徑確立）",
+
+  "signals": [
+    {
+      "indicator": "Fed 2026降息次數預期（FedWatch）",
+      "direction": "↓↓",
+      "magnitude": "2026年預期降息次數：2次 → 0次；首次降息後移至2027年Q1或更晚",
+      "time_horizon": "days（1-5個交易日）",
+      "confidence": 0.82,
+      "rationale": "Goldman Sachs已明確「2027年前不降息」，作為Fed政策預期的市場領袖，此表態將直接影響FedWatch重定價。Brent+68%等效對CPI年率貢獻+1.5-2.5pp（參考2021-2022年油價傳導係數），使2026年底CPI預測中值上移至3.5-4%，完全排除降息條件（PCE需低於2.5%）。",
+      "tc_reference": "TC-005 step 2",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "CME FedWatch 2026年12月FOMC顯示降息概率 < 20%",
+        "threshold": "降息概率 < 20%",
+        "check_source": "CME FedWatch Tool（federalreserve.gov / cmegroup.com）"
+      }
+    },
+    {
+      "indicator": "2Y 美債殖利率",
+      "direction": "↑",
+      "magnitude": "+10-20bp（超越金融市場估計的+5-15bp上限），目標區間4.40-4.55%",
+      "time_horizon": "days to weeks（5-15個交易日）",
+      "confidence": 0.75,
+      "rationale": "金融市場第1棒估計2Y僅+5-15bp，理由是「Fed錨定短端」。但本次通膨衝擊強度（+68%油價，通膨復燃）使市場開始定價Fed可能被迫採取「預防性升息尾部情境」——即使基準不是升息，僅是市場對此情境概率從0%升至10-15%，足以讓2Y額外承壓5-10bp。因此2Y的實際上行可能超出第1棒估計。",
+      "tc_reference": "TC-005 step 2；TC-001（政策利率預期錨定）",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "2Y UST殖利率 > 4.45%（+15bp from 4.30%基準）",
+        "threshold": "4.45%",
+        "check_source": "Yahoo Finance ^IRX / Bloomberg USGG2YR"
+      }
+    },
+    {
+      "indicator": "SOFR遠期利率曲線（1Y SOFR OIS）",
+      "direction": "↑",
+      "magnitude": "1Y SOFR OIS上調15-25bp，反映高利率持續時間延長",
+      "time_horizon": "days（OIS市場反應速度最快）",
+      "confidence": 0.80,
+      "rationale": "SOFR隔夜現貨跟隨Fed政策區間3.50-3.75%不動，但1Y遠期SOFR OIS會立即重定價，因降息時程後移意味著「利率在更長時間維持在3.5%以上」。OIS曲線後移=SOFR遠期溢價上升，是最純粹的貨幣政策預期指標。",
+      "tc_reference": "TC-005 step 2",
+      "verifiable_by": {
+        "check_date": "2026-07-01",
+        "prediction": "1Y SOFR OIS > 4.20%（反映無2026年降息）",
+        "threshold": "4.20%",
+        "check_source": "Bloomberg SOFR OIS / ICE SOFR Futures"
+      }
+    },
+    {
+      "indicator": "貨幣市場基金（MMF）淨流入",
+      "direction": "↑",
+      "magnitude": "周淨流入+500-1000億美元（風險資產外逃）",
+      "time_horizon": "days to weeks",
+      "confidence": 0.70,
+      "rationale": "risk-off環境下，短端利率仍維持在3.5%+的高位，貨幣市場基金作為「無風險停泊點」具備強烈吸引力。股市下跌5-10%、HY信用利差走闊同步發生時，歷史上MMF周流入會出現500億至數千億美元量級的飆升（參考2023年3月矽谷銀行事件）。",
+      "tc_reference": "TC-005 step 3（信用條件收緊，資金避險）",
+      "verifiable_by": {
+        "check_date": "2026-07-01",
+        "prediction": "ICI報告MMF連續2週淨流入均超過400億美元",
+        "threshold": "連續2週淨流入 > 400億美元",
+        "check_source": "ICI（Investment Company Institute）周報 / Fed H.6"
+      }
+    },
+    {
+      "indicator": "美日換匯成本（USD/JPY CCS，3個月）",
+      "direction": "↑",
+      "magnitude": "換匯成本進一步上升0.2-0.5%（目前已在4%以上），TC-002機制強化",
+      "time_horizon": "weeks",
+      "confidence": 0.65,
+      "rationale": "油價衝擊背景下，美元流動性偏緊（risk-off）會推升美元融資溢價，進一步墊高美日換匯成本。若換匯成本從4%上升至4.3-4.5%，而JGB仍在1.5%，日本機構持有美債的對沖後實質報酬（約4.55%-4.3%=0.25%）已幾乎無利可圖。TC-002結構性減碼邏輯進一步強化。",
+      "tc_reference": "TC-002（本棒主場：日本機構減碼美債邏輯）",
+      "verifiable_by": {
+        "check_date": "2026-08-01",
+        "prediction": "USD/JPY 3M cross-currency basis swap顯示換匯成本 > 4.3%",
+        "threshold": "換匯成本 > 4.3%",
+        "check_source": "Bloomberg USD/JPY CCS（JPYCS3M Curncy）"
+      }
+    },
+    {
+      "indicator": "ECB政策預期（首次降息時程）",
+      "direction": "↑（降息時程後移）",
+      "magnitude": "市場預期ECB 2026年底前降息1-2次的概率，從>60%降至30-40%",
+      "time_horizon": "weeks",
+      "confidence": 0.60,
+      "rationale": "ECB面臨「滯脹兩難」：油價+68%推升歐元區輸入通膨（能源進口比美國更依賴中東），HICP可能重新升至3%以上；但油價衝擊同步壓縮歐洲實質購買力與企業利潤，增長下行。ECB歷史上在油價衝擊下傾向「等待通膨二輪效應確認」再行動，初期反應是維持觀望→降息預期後移。但若歐洲衰退信號明顯，可能出現ECB早於Fed降息的分岔，需追蹤。",
+      "tc_reference": "TC-005（非美央行溢出效應）",
+      "verifiable_by": {
+        "check_date": "2026-07-28",
+        "prediction": "OIS市場定價ECB 2026年底前降息幅度不超過25bp（原預期50bp）",
+        "threshold": "ECB 2026年底前降息預期 ≤ 25bp",
+        "check_source": "Bloomberg ECB OIS / Refinitiv ESTR OIS曲線"
+      }
+    }
+  ],
+
+  "null_signals": [
+    {
+      "indicator": "Fed實際政策利率（3.50-3.75%聯邦基金利率）",
+      "reason": "油價衝擊不會立即改變Fed政策執行利率。除非CPI連續3個月超預期且核心通膨重加速，否則Fed不會在衝擊發生後30天內升息。短端現貨政策利率視為錨定，變化在於預期路徑而非現行利率。"
+    },
+    {
+      "indicator": "隔夜SOFR現貨（SOFR Overnight）",
+      "reason": "隔夜SOFR直接跟隨有效聯邦基金利率（EFFR），後者被FOMC會議決定鎖定在3.50-3.75%。在下次FOMC決策前（預計2026年7月），隔夜SOFR不會移動。貨幣市場的變化反映在遠期利率與OIS曲線，非隔夜現貨。"
+    },
+    {
+      "indicator": "BOJ本次會議立即升息",
+      "reason": "油價衝擊同步衝擊日本實質增長（能源進口國，能源成本驟升壓縮日本企業與家庭）。BOJ在衰退風險上升時不太可能同步升息。預計BOJ保持觀望，TC-002的後續觸發依賴BOJ升息路徑繼續推進，短期（1個月）內TC-002的增量觸發信號較弱。"
+    }
+  ],
+
+  "policy_path_change": {
+    "before": "Fed維持3.50-3.75%，市場預期2026年Q3-Q4啟動降息，全年降息1-2次（25-50bp），OIS曲線隱含2026年底利率3.00-3.25%",
+    "after": "Goldman Sachs確認2027年前不降息，FedWatch重定價2026年降息概率歸零，OIS曲線整體後移；市場轉向定價「higher for longer 2.0」——通膨衝擊→Fed被迫維持高利率→首次降息推遲至2027年Q1-Q2",
+    "first_cut_timing": "2026年任意時點（原預期）→ 2027年Q1-Q2（重定價後），最悲觀情境：2027年H2（若Hormuz封鎖持續超過90天且通膨預期持續脫錨）"
+  },
+
+  "credit_conditions": {
+    "assessment": "顯著收緊",
+    "rationale": "三重收緊同步發生：（1）短端實質利率不下降→融資成本居高不下；（2）IG信用利差+20-40bp→企業信用溢價上升；（3）HY信用利差+80-150bp→非投資級企業融資成本急升。對浮動利率債務比例高的行業（房地產、PE持有資產、能源以外的週期性企業）構成顯著壓力。",
+    "most_impacted": [
+      "高收益企業（HY債）浮動利率部位",
+      "能源成本高敞口行業（航空、物流、製造業）",
+      "需要再融資的中期債到期企業（2026-2027年到期牆）"
+    ]
+  },
+
+  "vcp": {
+    "id": "VCP-OIL-002",
+    "prediction": "油價通膨衝擊下，FedWatch工具顯示2026年12月FOMC降息概率在事件後30個交易日內低於20%，確認「higher for longer 2.0」定價完成",
+    "threshold": "CME FedWatch 2026年12月FOMC降息概率 < 20%",
+    "check_date": "2026-07-28",
+    "check_source": "CME FedWatch Tool（cmegroup.com/trading/interest-rates/countdown-to-fomc.html）"
+  },
+
+  "additional_vcps": [
+    {
+      "id": "VCP-MON-001",
+      "prediction": "2Y美債殖利率在事件後15個交易日內突破4.45%（確認通膨預期尾部風險已進入短端定價）",
+      "threshold": "2Y UST > 4.45%",
+      "check_date": "2026-07-14",
+      "check_source": "Yahoo Finance ^IRX / FRED DGS2"
+    },
+    {
+      "id": "VCP-MON-002",
+      "prediction": "ICI周報顯示貨幣市場基金連續2週淨流入各超過400億美元（risk-off資金停泊）",
+      "threshold": "連續2週MMF淨流入 > 400億美元",
+      "check_date": "2026-07-01",
+      "check_source": "ICI Money Market Fund Assets（ici.org/research/stats）"
+    },
+    {
+      "id": "VCP-MON-003",
+      "prediction": "TC-002驗證點：USD/JPY換匯成本在30個交易日內超過4.3%，日本機構持美債對沖後報酬壓縮至接近零（TC-002進入強化活化狀態）",
+      "threshold": "USD/JPY 3M CCS > 4.3%",
+      "check_date": "2026-08-01",
+      "check_source": "Bloomberg JPYCS3M Curncy / Refinitiv"
+    }
+  ],
+
+  "passes_to": ["商品市場"],
+  "does_not_propagate_to": [
+    "勞動市場（貨幣市場的信用收緊需3-6個月才透過企業裁員、雇用凍結傳至勞動市場數據）",
+    "財政動態（聯邦政府的利息支出影響需透過再融資周期，時滯更長）"
+  ],
+
+  "key_conclusion": "中東石油衝擊在貨幣市場的核心效應是「降息時間軸的結構性後移」：FedWatch重定價2026年降息概率至幾近於零，首次降息移至2027年。2Y殖利率在政策錨下仍有小幅上行（4.40-4.55%），但主要壓力在OIS遠期曲線後移與SOFR遠期溢價走高。信用條件全面收緊，貨幣基金為資金避風港。TC-002（日本機構換匯成本上升→美債減碼動機增強）在本次衝擊後進入強化狀態，是需要持續追蹤的結構性傳導風險。ECB在滯脹兩難下降息後移但有分岔可能。"
+}

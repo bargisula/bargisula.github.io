@@ -1,0 +1,241 @@
+{
+  "run_id": "RUN-20260614-OIL",
+  "market": "金融市場",
+  "step": 1,
+  "analyst": "market-financial",
+  "analyzed_at": "2026-06-14",
+  "event_id": "EVT-20260201-OIL",
+  "tc_reference": "TC-005",
+  "tc_confidence_prior": 0.56,
+  "tc_note": "TC-005 candidate_promoted 2026-06-14，logic_score 0.80，evidence_score 0（剛升格，尚無VCP驗證）",
+
+  "receives_signal": true,
+  "overall_tone": "risk-off",
+  "impact_level": "high",
+
+  "direction_summary": "油價+68%觸發通膨預期結構性上移，Fed降息路徑鎖至2027，長端殖利率承受雙重壓力（通膨溢價+期限溢價），成長股折現率攀升；能源股獨強，其餘板塊風險情緒全面惡化，VIX跳升，信用利差走闊，資金湧入黃金與短端美債避險。",
+  "time_horizon": "immediate（事件發生後1-10個交易日）至 near-term（1-3個月持續效應）",
+
+  "signals": [
+    {
+      "indicator": "10Y UST yield",
+      "current_level": "4.55%（TC-001 NFP事件後基準）",
+      "direction": "↑",
+      "magnitude": "20-40bp 結構性上移（通膨溢價+降息路徑延後疊加）",
+      "time_horizon": "immediate to near-term",
+      "confidence": 0.82,
+      "rationale": "Brent+68%推升PPI/CPI通膨預期，Goldman確認2027前無降息，長端殖利率面臨通膨溢價重定價；TC-005 step 3明確指向長端上行，同時TC-003 MBS凸性機制若10Y單月升幅超25bp將形成自我強化",
+      "tc_reference": "TC-005（主鏈 step 3）；TC-003（條件觸發風險）",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "10Y UST殖利率 > 4.75%（距現在+20bp）",
+        "threshold": "4.75%",
+        "check_source": "Yahoo Finance ^TNX / Bloomberg USGG10YR"
+      }
+    },
+    {
+      "indicator": "2Y UST yield",
+      "current_level": "約4.30%（推估）",
+      "direction": "→（小幅上行，受限於Fed不進一步升息的立場）",
+      "magnitude": "+5-15bp，幅度小於長端",
+      "time_horizon": "immediate",
+      "confidence": 0.70,
+      "rationale": "Fed維持3.50-3.75%不動，短端由政策預期錨定；但通膨數據若連續超預期，市場可能開始定價預防性升息尾部風險，推動2Y小幅上行，但幅度受限",
+      "tc_reference": "TC-005 step 2（貨幣市場段）",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "2Y UST > 4.40%",
+        "threshold": "4.40%",
+        "check_source": "Yahoo Finance ^IRX / Bloomberg USGG2YR"
+      }
+    },
+    {
+      "indicator": "殖利率曲線（2Y-10Y 利差）",
+      "current_level": "約+25bp（推估，2Y 4.30% vs 10Y 4.55%）",
+      "direction": "↑（熊市陡化 bear steepening）",
+      "magnitude": "利差擴大至+45-60bp",
+      "time_horizon": "near-term（1-2個月）",
+      "confidence": 0.75,
+      "rationale": "油價衝擊屬於供給側通膨，拉升長端通膨溢價（期限溢價擴大），而短端受Fed政策錨定漲幅受限；結果是熊市陡化（bear steepener），非衰退信號，而是通膨驅動的長端壓力",
+      "tc_reference": "TC-005 step 3",
+      "verifiable_by": {
+        "check_date": "2026-07-28",
+        "prediction": "2Y-10Y利差 > 45bp",
+        "threshold": "45bp",
+        "check_source": "FRED DFII10 / Bloomberg USYC2Y10"
+      }
+    },
+    {
+      "indicator": "S&P 500（指數整體）",
+      "current_level": "參考前次水位",
+      "direction": "↓",
+      "magnitude": "-5% 至 -10%（視油價持續時間而定）",
+      "time_horizon": "immediate（1-2週急跌）",
+      "confidence": 0.78,
+      "rationale": "折現率上升（10Y+20-40bp）直接壓縮高估值成長股；同時消費者實質購買力下降（油價+68%等同強力消費稅），企業利潤預期下修；風險情緒切換risk-off。能源股（XLE約佔S&P 4%）漲幅無法抵銷其餘板塊跌幅",
+      "tc_reference": "TC-005",
+      "sector_breakdown": {
+        "能源股XLE": "↑ +15-25%（油價直接受益，已發生部分）",
+        "成長股/科技（高NTM P/E）": "↓ -8-15%（折現率壓縮估值倍數）",
+        "消費必需品": "↓ -3-6%（能源成本轉嫁困難，消費者支出壓縮）",
+        "航空/航運": "↓ -10-20%（燃油成本急升，票價轉嫁有時滯）",
+        "防禦/公用事業": "↓小（相對抗跌，但非系統性避險工具）"
+      },
+      "verifiable_by": {
+        "check_date": "2026-07-01",
+        "prediction": "S&P 500 下跌超過5%（相對油價衝擊確認後的高點）",
+        "threshold": "-5% from pre-shock high",
+        "check_source": "Yahoo Finance ^GSPC"
+      }
+    },
+    {
+      "indicator": "VIX（隱含波動率）",
+      "current_level": "推估18-20（平靜期基準）",
+      "direction": "↑",
+      "magnitude": "跳升至28-38區間",
+      "time_horizon": "immediate（衝擊發生後1-5交易日）",
+      "confidence": 0.85,
+      "rationale": "地緣政治衝突+油價急漲+Hormuz封鎖不確定性三重疊加，是VIX跳升的教科書情境；2019年沙烏地Abqaiq攻擊後VIX從14升至23（+64%），本次規模更大，估計至少觸及30",
+      "tc_reference": "TC-005",
+      "verifiable_by": {
+        "check_date": "2026-07-01",
+        "prediction": "VIX > 28",
+        "threshold": "28",
+        "check_source": "Yahoo Finance ^VIX / CBOE"
+      }
+    },
+    {
+      "indicator": "DXY 美元指數",
+      "current_level": "推估103-105",
+      "direction": "↑（避險驅動，但有反向力量）",
+      "magnitude": "+1-3%（淨效果，存在不確定性）",
+      "time_horizon": "immediate",
+      "confidence": 0.65,
+      "rationale": "美元受兩股力量拉扯：（1）避險需求→美元走強；（2）油價上漲利好石油出口國貨幣（加元、挪威克朗、盧布）而美元作為石油計價貨幣的地位在危機時受質疑。淨效果：短期避險買盤佔優，DXY小升；但若Hormuz封鎖長期化，石油出口國貨幣競爭者增強，美元漲幅受限",
+      "tc_reference": "TC-001（利差驅動）疊加TC-005（避險驅動）",
+      "verifiable_by": {
+        "check_date": "2026-07-01",
+        "prediction": "DXY > 105",
+        "threshold": "105",
+        "check_source": "Yahoo Finance DX-Y.NYB"
+      }
+    },
+    {
+      "indicator": "黃金（Gold Spot XAU/USD）",
+      "current_level": "推估2800-3000（2026年高位環境）",
+      "direction": "↑",
+      "magnitude": "+5-10%",
+      "time_horizon": "immediate to near-term",
+      "confidence": 0.82,
+      "rationale": "黃金是本次衝擊的核心避險工具：（1）地緣政治溢價急升；（2）通膨預期上移（黃金實質利率保值功能）；（3）美元漲幅若受限，黃金升空間更大。石油衝擊+通膨復燃是黃金歷史上表現最強的情境之一（參考1973、1979年）",
+      "tc_reference": "TC-005",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "XAU/USD > 3150",
+        "threshold": "3150",
+        "check_source": "Yahoo Finance GC=F / TradingView XAUUSD"
+      }
+    },
+    {
+      "indicator": "IG信用利差（Investment Grade）",
+      "current_level": "推估+95-110bp（正常週期中高位）",
+      "direction": "↑",
+      "magnitude": "+20-40bp",
+      "time_horizon": "near-term（2-4週）",
+      "confidence": 0.72,
+      "rationale": "能源成本上升壓縮非能源企業利潤，利息覆蓋率下降；同時殖利率上行增加再融資壓力，IG利差走闊。但IG利差擴大幅度受限於：投資級企業資產負債表相對穩健，且能源股（IG發行大戶）利差反而收窄",
+      "tc_reference": "TC-005",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "IG CDX利差 > 130bp",
+        "threshold": "130bp",
+        "check_source": "Bloomberg LUACOAS / Markit CDX.NA.IG"
+      }
+    },
+    {
+      "indicator": "HY信用利差（High Yield）",
+      "current_level": "推估+350-400bp",
+      "direction": "↑↑",
+      "magnitude": "+80-150bp（幅度顯著大於IG）",
+      "time_horizon": "near-term",
+      "confidence": 0.75,
+      "rationale": "高收益企業（特別是航空、消費、零售）能源成本轉嫁困難，現金流惡化速度快；HY航空公司燃油對沖覆蓋率通常不超過50%，敞口直接。同時高收益企業浮動利率債務占比高，利率不降反升使債務服務壓力倍增",
+      "tc_reference": "TC-005",
+      "verifiable_by": {
+        "check_date": "2026-07-14",
+        "prediction": "HY CDX利差 > 480bp",
+        "threshold": "480bp",
+        "check_source": "Bloomberg HY OAS / Markit CDX.NA.HY"
+      }
+    }
+  ],
+
+  "null_signals": [
+    {
+      "indicator": "美國短端國債（T-Bill 3M）",
+      "reason": "Fed明確維持3.50-3.75%不動，3M T-Bill被政策利率錨定，油價衝擊不直接影響。除非市場開始定價Fed預防性升息（非基準情境），否則3M接近無變化"
+    },
+    {
+      "indicator": "TIPS（通膨保護債券）相對表現",
+      "reason": "TIPS在通膨衝擊下是受益者（名目票息+CPI調整），不屬於負面受影響資產。此處標注為中性/正向，放入null_signals以免分析缺漏"
+    }
+  ],
+
+  "asset_changes": [
+    {"asset": "10Y UST yield",      "direction": "↑", "magnitude": "+20-40bp → 4.75-4.95%", "confidence": 0.82},
+    {"asset": "2Y UST yield",       "direction": "↑", "magnitude": "+5-15bp → 4.35-4.45%",  "confidence": 0.70},
+    {"asset": "殖利率曲線2Y-10Y",   "direction": "↑", "magnitude": "bear steepen → +45-60bp利差", "confidence": 0.75},
+    {"asset": "S&P 500",            "direction": "↓", "magnitude": "-5% 至 -10%",            "confidence": 0.78},
+    {"asset": "能源股 XLE",         "direction": "↑", "magnitude": "+15-25%",                "confidence": 0.88},
+    {"asset": "成長股/科技",         "direction": "↓", "magnitude": "-8-15%（估值折現率壓縮）","confidence": 0.80},
+    {"asset": "航空/航運",           "direction": "↓", "magnitude": "-10-20%（燃油成本急升）", "confidence": 0.83},
+    {"asset": "消費必需品",          "direction": "↓", "magnitude": "-3-6%",                  "confidence": 0.70},
+    {"asset": "VIX",                "direction": "↑", "magnitude": "跳升至28-38",            "confidence": 0.85},
+    {"asset": "DXY 美元指數",       "direction": "↑", "magnitude": "+1-3%（避險淨效果）",    "confidence": 0.65},
+    {"asset": "黃金 XAU/USD",       "direction": "↑", "magnitude": "+5-10%",                 "confidence": 0.82},
+    {"asset": "IG信用利差",         "direction": "↑", "magnitude": "+20-40bp",               "confidence": 0.72},
+    {"asset": "HY信用利差",         "direction": "↑", "magnitude": "+80-150bp",              "confidence": 0.75}
+  ],
+
+  "vcp": {
+    "id": "VCP-OIL-001",
+    "prediction": "油價衝擊下，10Y美債殖利率在4週內突破4.75%（反映通膨溢價重定價+降息路徑鎖死）",
+    "threshold": "10Y UST > 4.75%",
+    "check_date": "2026-07-14",
+    "check_source": "Yahoo Finance ^TNX"
+  },
+
+  "additional_vcps": [
+    {
+      "id": "VCP-OIL-002",
+      "prediction": "VIX在衝擊確認後10個交易日內超過28",
+      "threshold": "VIX > 28",
+      "check_date": "2026-07-01",
+      "check_source": "Yahoo Finance ^VIX"
+    },
+    {
+      "id": "VCP-OIL-003",
+      "prediction": "黃金在通膨預期推升下，4週內突破3150美元",
+      "threshold": "XAU/USD > 3150",
+      "check_date": "2026-07-14",
+      "check_source": "TradingView XAUUSD"
+    },
+    {
+      "id": "VCP-OIL-004",
+      "prediction": "HY信用利差走闊至480bp以上（能源成本惡化企業現金流）",
+      "threshold": "HY OAS > 480bp",
+      "check_date": "2026-07-14",
+      "check_source": "Bloomberg HY OAS Index"
+    }
+  ],
+
+  "passes_to": ["貨幣市場"],
+  "key_transmission_to_money_market": "長端殖利率結構性上行（+20-40bp）＋通膨預期上移＋Goldman確認2027前無降息 → 聯邦基金期貨重新定價，OIS曲線後移，SOFR遠期利率上調",
+
+  "does_not_propagate_to": [
+    "勞動市場（金融市場估值變動不直接改變就業，需透過TC-005 step 4的商業信心與capex削減傳遞，時滯3-6個月）",
+    "財政動態（需透過TC-005 step 5的利息支出擴大傳遞，時滯更長）"
+  ],
+
+  "key_conclusion": "中東油價+68%觸發通膨預期結構性上移，在Fed不降息的政策環境下形成bear steepening壓力，長端殖利率料上行20-40bp；金融市場進入全面risk-off，能源股獨強，成長股與高收益信用承壓最重，黃金與短期美債是主要避險目的地，VIX跳升至28-38印證恐慌定價正在進行。"
+}

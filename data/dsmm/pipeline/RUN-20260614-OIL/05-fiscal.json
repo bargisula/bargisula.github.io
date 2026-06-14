@@ -1,0 +1,222 @@
+{
+  "run_id": "RUN-20260614-OIL",
+  "market": "財政動態",
+  "step": 5,
+  "analyst": "market-fiscal",
+  "analyzed_at": "2026-06-14",
+  "event_id": "TC-005",
+  "event_title": "中東石油衝擊：Brent 71→120（+68%），Higher for Longer 2.0",
+  "receives_signal": true,
+
+  "upstream_summary": {
+    "financial_market": {
+      "10Y_yield_change_bp": "+20-40",
+      "10Y_yield_range": "4.75-4.95%",
+      "HY_spread_change_bp": "+80-150",
+      "equity_SP500": "-5-10%",
+      "energy_equity": "+15-25%",
+      "VIX": "28-38"
+    },
+    "monetary_market": {
+      "2026_cuts": 0,
+      "first_cut": "2027 Q1-Q2",
+      "TC002_status": "加速",
+      "JPY_swap_cost": ">4.3-4.5%"
+    },
+    "commodity_market": {
+      "brent_price": 120,
+      "brent_change_pct": 68,
+      "energy_capex_change": "+20-35%",
+      "general_capex": "雙重壓縮",
+      "TC004_AI_capex_confidence": 0.82,
+      "PCE_incremental_change": "+1.0-1.5%（從+2.5%下修）",
+      "aviation_fuel_change": "+55-70%",
+      "natgas_change": "+30-50%"
+    },
+    "labor_market": {
+      "NFP_monthly": "80-120K（從150-180K下移）",
+      "AHE_pct": "4.3-4.7%",
+      "wage_spiral": false,
+      "U6_U3_spread": ">+0.5pp",
+      "quality_deterioration": true
+    }
+  },
+
+  "signals": [
+    {
+      "signal_id": "FISC-001",
+      "name": "稅收路徑：能源暴利 vs 廣基縮減",
+      "direction": "赤字擴大（淨負面）",
+      "detail": {
+        "energy_windfall_tax": {
+          "description": "Brent +68% 推升能源企業稅前利潤，若無暴利稅立法，聯邦企業稅收估增 600-900億美元/年（能源板塊佔 S&P 500 利潤約 8%，以 21% 稅率估算）",
+          "confidence": 0.65,
+          "risk": "政治阻力大，暴利稅立法概率低；能源公司透過折舊加速和資本支出抵扣壓低有效稅率"
+        },
+        "personal_income_tax": {
+          "description": "NFP 月增下移至 80-120K，較基準減少 50-80K 人/月。全年少增就業約 60-100 萬人。工資稅收入估減少 800-1,500億美元/年（規則：失業率每升 1% → 稅收損失 ~1,200億）",
+          "confidence": 0.78,
+          "note": "AHE 名義上升至 4.3-4.7% 部分抵消就業數量縮減，淨稅基仍縮"
+        },
+        "corporate_income_tax": {
+          "description": "S&P 500 -5-10%、HY 利差 +80-150bp 反映企業獲利壓縮。非能源板塊企業稅收估減 400-700億美元/年。能源增量難以完全抵消廣基壓縮",
+          "confidence": 0.72
+        },
+        "net_revenue_impact_bn_usd_annual": {
+          "low": -1100,
+          "high": -300,
+          "midpoint": -700,
+          "note": "能源企業稅增 +600-900億 被個人所得稅 -800-1500億 + 企業稅 -400-700億 抵消後，淨稅收估損失 300-1,100億美元/年"
+        }
+      },
+      "confidence": 0.72
+    },
+    {
+      "signal_id": "FISC-002",
+      "name": "支出壓力：三條強制性增支路徑",
+      "direction": "支出擴大（確定性高）",
+      "detail": {
+        "unemployment_insurance": {
+          "description": "NFP 月增下移，U6-U3 利差擴大 >0.5pp，就業質量惡化。若 6-12 個月後失業率從當前水平升 0.5-1.0pp，失業救濟金年增支 200-400億美元",
+          "confidence": 0.70,
+          "timing": "滯後 2-4 季度"
+        },
+        "energy_subsidy_political_pressure": {
+          "description": "Brent 120 美元 → 美國汽油零售價估升至 4.5-5.5 美元/加侖。歷史模式：價格超過 4 美元/加侖觸發國會補貼壓力（2022 年類似路徑）。戰略石油儲備動用、燃油稅減免或直接補貼估值 200-600億美元/年（政治概率 0.55）",
+          "confidence": 0.55
+        },
+        "defense_spending": {
+          "description": "中東衝突升溫 → 國防部緊急撥款壓力。歷史基準：中東衝突升溫事件平均觸發 200-500億美元緊急軍事撥款（5-10 年均攤）。短期（6-18 個月）估增 100-300億美元",
+          "confidence": 0.60
+        },
+        "total_incremental_spending_bn_usd": {
+          "low": 500,
+          "high": 1300,
+          "midpoint": 900,
+          "note": "不含能源補貼最低估：失業+國防 300-700億；含完整補貼方案最高 1,300億"
+        }
+      },
+      "confidence": 0.65
+    },
+    {
+      "signal_id": "FISC-003",
+      "name": "利息支出：殖利率上升的複利傷害",
+      "direction": "支出擴大（確定性最高）",
+      "detail": {
+        "current_debt_stock_tn": 35,
+        "average_duration_years": 6,
+        "yield_shock_bp": "+20-40（第一波），長期估+30-60（財政溢價積累）",
+        "interest_cost_increase_bn_usd_annual": {
+          "description": "10Y 殖利率 +30bp（中位估計），5 年滾動效果：年度利息支出增加 約 1,050-1,400億美元（規則：100bp → 3,500-4,000億；30bp → 1,050-1,200億）",
+          "low": 1050,
+          "high": 1750,
+          "note": "若殖利率持續在 4.75-4.95%，且財政溢價累積推升至 5.0-5.2%，上限可達 1,750億"
+        },
+        "current_annual_interest_expense_bn": 1200,
+        "post_shock_annual_interest_bn": {
+          "low": 1300,
+          "high": 1450
+        }
+      },
+      "confidence": 0.82
+    },
+    {
+      "signal_id": "FISC-004",
+      "name": "國債供給雙重壓力",
+      "direction": "殖利率底部抬升，市場清算壓力上升",
+      "detail": {
+        "deficit_expansion_bn_usd": {
+          "baseline_2026_deficit": 1900,
+          "incremental_from_oil_shock": {
+            "revenue_loss": 700,
+            "spending_increase": 900,
+            "interest_increase": 1200,
+            "total_incremental": 2800,
+            "note": "利息支出為5年存量滾動累積，非當年新增全額；當年實際新增赤字壓力估 800-1,400億"
+          },
+          "revised_2026_deficit_est_bn": {
+            "low": 2100,
+            "high": 2500
+          },
+          "deficit_gdp_ratio": {
+            "low": "7.5%",
+            "high": "8.5%",
+            "note": "名目 GDP 約 29.5兆美元（2026估）"
+          }
+        },
+        "treasury_issuance_pressure": {
+          "description": "赤字擴大 + Higher for Longer → 財政部需增加長期國債供給。TC-002 日圓換匯成本 >4.3-4.5% 已壓縮日本投資人需求。外資需求結構性減弱同步出現（DXY +1-3% 短期強勢但長期信心下滑）",
+          "demand_side_risk": "高",
+          "supply_demand_mismatch": "2026H2-2027 財政部拍賣尾部風險上升"
+        }
+      },
+      "confidence": 0.78
+    },
+    {
+      "signal_id": "FISC-005",
+      "name": "財政政策空間收窄：下次衰退緩衝能力",
+      "direction": "長期財政脆弱性上升",
+      "detail": {
+        "current_debt_gdp_pct": "122-125%（2026估）",
+        "post_shock_trajectory": "石油衝擊後若赤字/GDP 持續在 7.5-8.5%，Debt/GDP 估在 2028-2030 年突破 130%",
+        "recession_buffer_assessment": {
+          "2008_GFC_fiscal_space": "Debt/GDP 約 70%，可動用 3-4% GDP 財政刺激",
+          "2020_COVID_fiscal_space": "Debt/GDP 約 107%，動用超過 5% GDP（低利率環境支撐）",
+          "2026_current": "Debt/GDP 122-125%，利率 4.75-4.95%，年利息 1.2-1.45兆，財政乘數壓縮",
+          "effective_buffer_gdp_pct": "1.5-2.5%（vs 歷史 3-5%），可用空間萎縮 50% 以上",
+          "binding_constraint": "利息支出佔聯邦支出比重接近 18-22%，擠壓非國防裁量支出"
+        },
+        "fiscal_multiplier": {
+          "current_estimate": "0.5-0.8（高利率環境壓縮乘數；歷史低利率環境 1.0-1.5）",
+          "implication": "即使政府支出刺激，GDP 放大效應只有歷史的一半"
+        }
+      },
+      "confidence": 0.75
+    }
+  ],
+
+  "feedback_loop": {
+    "detected": true,
+    "type": "財政-利率正反饋回路（TC-CAND-002）",
+    "activation_status": "接近觸發門檻，尚未完全觸發",
+    "trigger_conditions": {
+      "condition_1_deficit_gdp": {
+        "threshold": ">6%",
+        "current": "7.5-8.5%（石油衝擊後估）",
+        "met": true
+      },
+      "condition_2_10Y_yield": {
+        "threshold": ">4.5%",
+        "current": "4.75-4.95%",
+        "met": true
+      },
+      "condition_3_swap_cost": {
+        "threshold": ">3.5%（TC-002觸發條件）",
+        "current": ">4.3-4.5%",
+        "met": true
+      }
+    },
+    "all_conditions_met": true,
+    "assessment": "三個觸發條件同時滿足。但完整正反饋回路啟動仍需財政部拍賣失敗信號（尾部倍數 <2.3）或 CBO 正式上修長期赤字展望作為確認。目前屬於『潛伏期』而非『爆發期』",
+    "loop_mechanism": "赤字↑（7.5-8.5% GDP）→ 財政部發債量↑ → 殖利率底部抬升（+20-40bp 已體現第一波）→ 利息支出↑（年增 1,050-1,750億）→ 赤字再擴大 → 形成自我強化",
+    "escalation_trigger": "若10Y突破 5.0%（財政溢價積累）或財政部宣布季度再融資規模超過 1,500億美元/季，回路風險升級為確認觸發",
+    "confidence": 0.72
+  },
+
+  "tc_updates": {
+    "TC004_AI_capex": {
+      "current_confidence": 0.82,
+      "recommendation": "維持 0.82（商品市場下修已從 0.88 下調），不再進一步下調。財政動態不直接衝擊 AI 超大規模 capex；利率上升 20-40bp 對超長期算力佈局決策邊際影響有限",
+      "watch": "若10Y突破 5.2% 且持續 >90天，重新評估降至 0.75"
+    },
+    "TC002_USD_funding": {
+      "current_status": "加速",
+      "fiscal_overlay": "赤字擴大 + 發債增加是TC-002的強化因子。外資對美債需求結構性減弱 + 日圓換匯成本 >4.3-4.5% 形成供需雙重惡化。TC-002 升級為『高風險活躍』狀態",
+      "confidence_uplift": "+5-8pp（財政動態確認了TC-002的基本假設）"
+    }
+  },
+
+  "key_conclusion": "中東石油衝擊對財政動態的淨效應為顯著負面：稅收收入淨損 300-1,100億/年、強制支出增 500-1,300億/年、利息支出增 1,050-1,750億/年，三者疊加推升 2026 年赤字至 2,100-2,500億（赤字/GDP 7.5-8.5%）。財政-利率正反饋回路（TC-CAND-002）三個觸發條件已同時成立，目前處於潛伏期。最關鍵的脆弱性是財政政策緩衝能力萎縮至歷史的 50%，下一次衰退若在 2027-2028 年到來，政府可動用的財政空間僅剩 1.5-2.5% GDP，且財政乘數被高利率壓縮至 0.5-0.8。",
+
+  "passes_to": ["金融市場（TC-CAND-002 回路確認後）"]
+}
