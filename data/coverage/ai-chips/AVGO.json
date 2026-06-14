@@ -59,7 +59,10 @@
       "id": "K3",
       "description": "AI ASIC 市場出現低成本競爭者（如 Marvell 或新創），使 Broadcom 失去定價能力",
       "triggered": false,
-      "last_checked": "2026-06-09"
+      "status": "🟡 已知競爭，主動監控",
+      "last_checked": "2026-06-14",
+      "note": "Google TPUv8 已確認拆分：AVGO 負責訓練晶片（Sunfish），聯發科負責推論晶片（Zebrafish）。AVGO 守住高毛利的訓練端，推論端讓出。Google 2026 年對 AVGO AI 營收貢獻仍估 210 億美元（不受拆分影響）。K3 升至主動監控但未觸發。",
+      "watch_trigger": "若 Google TPUv9 訓練晶片設計訂單從 AVGO 轉出（交給聯發科、Marvell 或 Google 內部）→ K3 正式觸發，論點需重新評估"
     }
   ],
   "financials": {
@@ -85,8 +88,12 @@
     "AI 相關營收（ASIC + 網路）季成長率",
     "Google / Meta ASIC 訂單續約情況",
     "VMware ARR 轉換進度",
-    "自由現金流利潤率是否維持 >50%"
+    "自由現金流利潤率是否維持 >50%",
+    "【K3監控】Google TPUv9 訓練晶片設計訂單是否維持由 AVGO 主導——若轉出則 K3 觸發",
+    "【K3監控】聯發科 AI ASIC 營收年化是否突破 50 億美元（規模擴張到威脅訓練端份額的門檻）",
+    "【新】AVGO Q3 FY2026 AI 半導體實際營收是否超過 160 億指引（beat 指引慣例驗證，約 2026-09 財報）"
   ],
+  "last_updated": "2026-06-14",
   "ad_as_exposure": {
     "AD_short": 0.7,
     "AD_mid": 0.6,
