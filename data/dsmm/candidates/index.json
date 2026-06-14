@@ -1,0 +1,7 @@
+{
+  "description": "dsmm-scout 產生的候選傳導鏈索引。pending_review 由晨會討論決定升格或駁回。",
+  "last_scout": null,
+  "pending_review": [],
+  "promoted": [],
+  "dismissed": []
+}
