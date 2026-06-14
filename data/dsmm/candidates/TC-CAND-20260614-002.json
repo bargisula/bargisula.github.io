@@ -1,7 +1,9 @@
 {
   "candidate_id": "TC-CAND-20260614-002",
   "scout_date": "2026-06-14",
-  "status": "pending_review",
+  "status": "promoted",
+  "promoted_to": "TC-006",
+  "promoted_date": "2026-06-14",
   "source_signals": [
     "美國國債總額已達39兆美元，7.5個月內增加2兆（WolfStreet 2026-03）",
     "One Big Beautiful Bill：CBO估計2034年前增加赤字3.4兆美元",

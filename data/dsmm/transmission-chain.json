@@ -13,7 +13,7 @@
   },
   "market_speed_order": ["金融市場","貨幣市場","商品市場","勞動市場","財政動態"],
   "last_updated": "2026-06-14",
-  "updated_by": "TC-001 信心更新（VCP-001 WRONG + VCP-002 CONFIRMED，2026-06-14驗證）",
+  "updated_by": "TC-006/TC-007 升格（美債供給溢出 + 中國通縮輸出），傳導鏈擴充至7條",
   "_scope_note": "傳導鏈只紀錄跨市場宏觀傳遞（金融↔貨幣↔商品↔勞動↔財政）。產業上下游動態存於 data/knowledge/industry-graph.json。",
   "chains": [
     {
@@ -165,6 +165,73 @@
       "last_triggered": "2026-02-01",
       "audit_status": "candidate_promoted",
       "_promoted_from": "TC-CAND-20260614-001",
+      "_promoted_date": "2026-06-14"
+    }
+  ],
+    {
+      "id": "TC-006",
+      "name": "美國財政赤字惡化 → 美債供給溢出 → 殖利率結構頂抬升",
+      "trigger": "財政赤字加速擴大，美債發行量超出市場吸收能力",
+      "trigger_condition": "年化財政赤字 > GDP 7% AND 美債季度淨發行量 > 6000億美元",
+      "entry_market": "財政動態",
+      "steps": [
+        { "step": 1, "market": "財政動態", "signal": "減稅+增支→赤字加速擴大，年度財政缺口 > GDP 7%", "direction": "→" },
+        { "step": 2, "market": "金融市場", "signal": "美債季度淨發行超過市場吸收能力，拍賣需求疲軟（bid-to-cover下降）", "direction": "→" },
+        { "step": 3, "market": "貨幣市場", "signal": "長端利率結構性上行，Fed被動收緊金融條件（非景氣循環驅動）", "direction": "→" },
+        { "step": 4, "market": "商品市場", "signal": "企業融資成本上升→capex計畫收縮（非AI部門）", "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "30Y 美債", "direction": "殖利率↑↑", "magnitude": "結構性底部抬升，估計30-50bp壓力" },
+        { "asset": "10Y 美債", "direction": "殖利率↑",  "magnitude": "長端熊市陡化（bear steepener）" },
+        { "asset": "美元",     "direction": "↓",        "magnitude": "財政可信度下滑，外國買家需求降" },
+        { "asset": "黃金（GLD）", "direction": "↑",     "magnitude": "財政信用惡化避險需求" },
+        { "asset": "傳統產業股",  "direction": "↓",     "magnitude": "融資成本上升壓縮利潤" }
+      ],
+      "logic_score": 0.75,
+      "evidence_score": 0.00,
+      "confidence": 0.53,
+      "_confidence_note": "TC-005流水線確認財政-利率正反饋三條件已同時成立（赤字>7%、10Y>4.5%、TC-002換匯>3.5%），進入潛伏期。升格時機成熟。evidence_score=0待VCP驗證。",
+      "_chain_note": "供給面（TC-006）+ 需求面（TC-002日本減碼）= 美債市場雙重壓力完整圖。兩條互補，非重複。",
+      "expires_if": "財政部連續3季以短債為主（不增加長債供給）OR 財政整頓使赤字/GDP降至5%以下",
+      "evidence": [
+        { "date": "2026-06-14", "event": "Scout候選升格：TC-005流水線確認財政赤字/GDP 7.5-8.5%，三條件觸發潛伏期", "source": "RUN-20260614-OIL 06-summary.json" }
+      ],
+      "last_triggered": null,
+      "audit_status": "candidate_promoted",
+      "_promoted_from": "TC-CAND-20260614-002",
+      "_promoted_date": "2026-06-14"
+    },
+    {
+      "id": "TC-007",
+      "name": "中國通縮輸出 → 全球CPI降溫 → Fed意外轉鴿",
+      "trigger": "中國製造業持續通縮，低價商品輸出壓低美國進口物價",
+      "trigger_condition": "中國PPI YoY < -2% 持續3個月 AND 美國進口物價指數 MoM < -0.3%",
+      "entry_market": "商品市場",
+      "steps": [
+        { "step": 1, "market": "商品市場", "signal": "中國工廠通縮→出口商品價格持續下降→美國進口物價指數下行", "direction": "→" },
+        { "step": 2, "market": "商品市場", "signal": "美國核心商品通膨降溫，抵消部分能源通膨（與TC-005對沖）", "direction": "→" },
+        { "step": 3, "market": "貨幣市場", "signal": "CPI整體降溫→Fed降息視窗重開，市場提前反應降息預期回升", "direction": "→" },
+        { "step": 4, "market": "金融市場", "signal": "長端殖利率下行，成長股估值修復，科技/AI股受益", "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "10Y 美債殖利率",    "direction": "↓",  "magnitude": "通膨降溫→殖利率壓縮15-30bp" },
+        { "asset": "成長股（QQQ/SMH）", "direction": "↑",  "magnitude": "折現率下行，估值擴張" },
+        { "asset": "中國出口商（ADR）", "direction": "↑",  "magnitude": "出口量維持，人民幣貶值加持競爭力" },
+        { "asset": "美國零售/消費",     "direction": "↑",  "magnitude": "低價進口商品改善實質購買力" },
+        { "asset": "新興市場債券",      "direction": "↑",  "magnitude": "Fed鴿派→美元走弱→新興市場資金流入" }
+      ],
+      "logic_score": 0.70,
+      "evidence_score": 0.00,
+      "confidence": 0.49,
+      "_confidence_note": "機制真實（2014-2016年歷史先例），但當前TC-005（油價衝擊）主導，兩條對沖。TC-007在中東衝突降溫後優先激活。evidence_score=0待VCP驗證。",
+      "_chain_note": "TC-007是系統唯一的降息/通縮路徑，與TC-005（通膨復燃）構成互斥對沖情境。兩條同時存在確保情境覆蓋對稱。",
+      "expires_if": "中國PPI連續3個月 > 0%（通縮結束）OR 中美貿易戰升級使出口管道阻斷",
+      "evidence": [
+        { "date": "2026-06-14", "event": "Scout候選升格：中國連續10季通縮，2026成長目標4.5-5%，30兆人民幣刺激聚焦內需", "source": "dsmm-scout TC-CAND-20260614-003" }
+      ],
+      "last_triggered": null,
+      "audit_status": "candidate_promoted",
+      "_promoted_from": "TC-CAND-20260614-003",
       "_promoted_date": "2026-06-14"
     }
   ],

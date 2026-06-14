@@ -1,7 +1,9 @@
 {
   "candidate_id": "TC-CAND-20260614-003",
   "scout_date": "2026-06-14",
-  "status": "pending_review",
+  "status": "promoted",
+  "promoted_to": "TC-007",
+  "promoted_date": "2026-06-14",
   "source_signals": [
     "中國已連續約10季呈現通縮壓力（自1970s改革開放以來最長）",
     "中國2026成長目標首次設於5%以下（4.5-5%）",
