@@ -1,0 +1,39 @@
+{
+  "candidate_id": "TC-CAND-20260614-001",
+  "scout_date": "2026-06-14",
+  "status": "pending_review",
+  "source_signals": [
+    "2026-02 美以軍事行動打擊伊朗，布蘭特油價從71升至120美元，升幅+68%",
+    "Strait of Hormuz 封鎖風險：影響全球25%海運石油",
+    "WEF：全球石油日供應量減少逾1000萬桶（2026-03）",
+    "油價回傳通膨：Fed 6月維持3.50-3.75%，Goldman Sachs 不再預期2026年降息"
+  ],
+  "proposed_name": "中東石油衝擊 → 通膨復燃鎖死降息",
+  "trigger": "美伊軍事衝突導致油價突破100美元，通膨預期重燃",
+  "trigger_condition": "Brent原油 > 100 USD/桶 持續超過 30 天",
+  "entry_market": "商品市場",
+  "proposed_steps": [
+    { "step": 1, "market": "商品市場",  "signal": "中東衝突→供給中斷→油價破100，能源通膨輸入", "direction": "→" },
+    { "step": 2, "market": "貨幣市場",  "signal": "CPI超預期，Fed降息路徑鎖死（Goldman: 2027年前不降息）", "direction": "→" },
+    { "step": 3, "market": "金融市場",  "signal": "長端殖利率結構性上行，實質利率攀升，估值承壓", "direction": "→" },
+    { "step": 4, "market": "勞動市場",  "signal": "能源成本上升→企業利潤壓縮→雇用趨緩", "direction": "→" },
+    { "step": 5, "market": "財政動態",  "signal": "利息支出加速上升，赤字擴大壓力", "direction": "→" }
+  ],
+  "proposed_asset_implications": [
+    { "asset": "原油（Brent/WTI）",   "direction": "↑",    "magnitude": "已在120，極端情境150+" },
+    { "asset": "10Y 美債殖利率",      "direction": "↑",    "magnitude": "通膨預期再+20-40bp" },
+    { "asset": "成長股（高估值）",    "direction": "↓",    "magnitude": "折現率上升，NTM P/E再壓縮3-6%" },
+    { "asset": "能源股（XLE）",       "direction": "↑",    "magnitude": "油價直接受益" },
+    { "asset": "航空/航運",           "direction": "↓",    "magnitude": "燃油成本急升" }
+  ],
+  "proposed_vcp": {
+    "check_date": "2026-07-15",
+    "prediction": "Brent原油維持 > 95 USD/桶 AND 6月 CPI YoY > 3.5%",
+    "threshold": "Brent > 95 AND CPI YoY > 3.5%",
+    "check_source": "EIA Crude Oil Price + BLS CPI Release"
+  },
+  "logic_score_estimate": 0.80,
+  "_logic_note": "石油→CPI傳導機制成熟（2021-2022年已有實證），但伊朗衝突是否持續、OPEC能否補給是主要不確定因素",
+  "why_not_covered": "TC-001 是勞動市場出發的利率上行，TC-003 是MBS自我強化。中東石油衝擊是從商品市場出發的獨立通膨路徑，傳導機制不同",
+  "overlap_risk": "與TC-001 終點相近（利率上行），但觸發來源完全不同（地緣政治供給衝擊 vs 勞動市場強勁）"
+}

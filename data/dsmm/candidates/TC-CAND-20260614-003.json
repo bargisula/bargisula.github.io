@@ -1,0 +1,38 @@
+{
+  "candidate_id": "TC-CAND-20260614-003",
+  "scout_date": "2026-06-14",
+  "status": "pending_review",
+  "source_signals": [
+    "中國已連續約10季呈現通縮壓力（自1970s改革開放以來最長）",
+    "中國2026成長目標首次設於5%以下（4.5-5%）",
+    "中國計劃30兆人民幣財政刺激，聚焦拉內需",
+    "沙烏地增加人民幣計價石油出口至22%，去美元化加速"
+  ],
+  "proposed_name": "中國通縮輸出 → 全球CPI降溫 → Fed意外轉鴿",
+  "trigger": "中國製造業持續通縮，低價商品輸出壓低美國進口物價",
+  "trigger_condition": "中國PPI YoY < -2% 持續 3個月 AND 美國進口物價指數 MoM < -0.3%",
+  "entry_market": "商品市場",
+  "proposed_steps": [
+    { "step": 1, "market": "商品市場",  "signal": "中國工廠通縮→出口商品價格持續下降→美國進口物價指數下行", "direction": "→" },
+    { "step": 2, "market": "商品市場",  "signal": "美國核心商品通膨降溫，抵消部分能源通膨（與TC-CAND-001對沖）", "direction": "→" },
+    { "step": 3, "market": "貨幣市場",  "signal": "CPI整體降溫→Fed降息視窗重開，市場提前反應降息預期回升", "direction": "→" },
+    { "step": 4, "market": "金融市場",  "signal": "長端殖利率下行，成長股估值修復，科技/AI股受益", "direction": "→" }
+  ],
+  "proposed_asset_implications": [
+    { "asset": "10Y 美債殖利率",      "direction": "↓",    "magnitude": "通膨降溫→殖利率壓縮15-30bp" },
+    { "asset": "成長股（QQQ/SMH）",   "direction": "↑",    "magnitude": "折現率下行，估值擴張" },
+    { "asset": "中國出口商（ADR）",   "direction": "↑",    "magnitude": "出口量維持，人民幣貶值加持競爭力" },
+    { "asset": "美國零售/消費",       "direction": "↑",    "magnitude": "低價進口商品改善實質購買力" },
+    { "asset": "新興市場債券",        "direction": "↑",    "magnitude": "Fed鴿派→美元走弱→新興市場資金流入" }
+  ],
+  "proposed_vcp": {
+    "check_date": "2026-09-10",
+    "prediction": "美國進口物價指數連續3個月 MoM < 0% AND CPI YoY下降至 < 3.0%",
+    "threshold": "Import Price Index MoM < 0% 連續3期 AND CPI YoY < 3.0%",
+    "check_source": "BLS Import Price Index（每月）+ BLS CPI Release"
+  },
+  "logic_score_estimate": 0.70,
+  "_logic_note": "機制真實（中國通縮輸出在2014-2016年有歷史先例），但目前油價高企可能抵消效果。此條與TC-CAND-001是對沖情境——若中東衝突降溫+油價回落，此條路徑優先激活",
+  "why_not_covered": "現有TC全部是通膨/利率上行情境。缺乏一條『外部通縮輸入→Fed轉鴿』的反向傳導鏈，形成情境覆蓋不對稱",
+  "overlap_risk": "與TC-CAND-001形成對沖（油價衝擊 vs 中國通縮），兩者不會同時激活，但需要同時在系統中存在以覆蓋不同情境空間"
+}

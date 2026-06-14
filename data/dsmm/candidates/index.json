@@ -1,7 +1,11 @@
 {
   "description": "dsmm-scout 產生的候選傳導鏈索引。pending_review 由晨會討論決定升格或駁回。",
-  "last_scout": null,
-  "pending_review": [],
+  "last_scout": "2026-06-14",
+  "pending_review": [
+    "TC-CAND-20260614-001",
+    "TC-CAND-20260614-002",
+    "TC-CAND-20260614-003"
+  ],
   "promoted": [],
   "dismissed": []
 }

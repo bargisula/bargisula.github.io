@@ -1,0 +1,38 @@
+{
+  "candidate_id": "TC-CAND-20260614-002",
+  "scout_date": "2026-06-14",
+  "status": "pending_review",
+  "source_signals": [
+    "美國國債總額已達39兆美元，7.5個月內增加2兆（WolfStreet 2026-03）",
+    "One Big Beautiful Bill：CBO估計2034年前增加赤字3.4兆美元",
+    "國防支出目標從1兆升至1.5兆/年",
+    "企業債創紀錄：IG債券發行估計達2.25兆，與美債爭奪資金"
+  ],
+  "proposed_name": "美國財政赤字惡化 → 美債供給溢出 → 殖利率結構頂抬升",
+  "trigger": "財政赤字加速擴大，美債發行量超出市場吸收能力",
+  "trigger_condition": "年化財政赤字 > GDP 7% AND 美債季度淨發行量 > 6000億美元",
+  "entry_market": "財政動態",
+  "proposed_steps": [
+    { "step": 1, "market": "財政動態",  "signal": "減稅+增支→赤字加速擴大，年度財政缺口 > GDP 7%", "direction": "→" },
+    { "step": 2, "market": "金融市場",  "signal": "美債季度淨發行超過市場吸收能力，拍賣需求疲軟（bid-to-cover下降）", "direction": "→" },
+    { "step": 3, "market": "貨幣市場",  "signal": "長端利率結構性上行，Fed被動收緊金融條件（非景氣循環驅動）", "direction": "→" },
+    { "step": 4, "market": "商品市場",  "signal": "企業融資成本上升→capex計畫收縮（非AI部門）", "direction": "→" }
+  ],
+  "proposed_asset_implications": [
+    { "asset": "30Y 美債",       "direction": "殖利率↑↑", "magnitude": "結構性底部抬升，估計30-50bp壓力" },
+    { "asset": "10Y 美債",       "direction": "殖利率↑",  "magnitude": "長端熊市陡化（bear steepener）" },
+    { "asset": "美元",           "direction": "↓",        "magnitude": "財政可信度下滑，外國買家需求降" },
+    { "asset": "金（GLD）",      "direction": "↑",        "magnitude": "財政信用惡化避險需求" },
+    { "asset": "傳統產業股",     "direction": "↓",        "magnitude": "融資成本上升壓縮利潤" }
+  ],
+  "proposed_vcp": {
+    "check_date": "2026-09-01",
+    "prediction": "美國10Y-2Y殖利率利差（熊市陡化）> 50bp AND 美債拍賣bid-to-cover < 2.3",
+    "threshold": "10Y-2Y > 50bp AND 至少一次拍賣 bid-to-cover < 2.3",
+    "check_source": "FRED DGS10-DGS2 + 美國財政部拍賣結果"
+  },
+  "logic_score_estimate": 0.75,
+  "_logic_note": "財政→利率逆傳導機制真實（2023年8月標普降評事件有先例），但傳導時間長（季度~年度），短期難驗證。TC-002（日本減碼）是需求面，這條是供給面，相互疊加",
+  "why_not_covered": "TC-002 覆蓋的是美債需求端（外國買家結構性撤出），此條覆蓋供給端（發行量爆增），兩者加總才是完整的美債市場壓力圖",
+  "overlap_risk": "與TC-002高度互補（需求↓ + 供給↑ = 雙重壓力），建議配套閱讀"
+}
