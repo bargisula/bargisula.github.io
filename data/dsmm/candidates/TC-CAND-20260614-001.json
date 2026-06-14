@@ -1,7 +1,9 @@
 {
   "candidate_id": "TC-CAND-20260614-001",
   "scout_date": "2026-06-14",
-  "status": "pending_review",
+  "status": "promoted",
+  "promoted_to": "TC-005",
+  "promoted_date": "2026-06-14",
   "source_signals": [
     "2026-02 美以軍事行動打擊伊朗，布蘭特油價從71升至120美元，升幅+68%",
     "Strait of Hormuz 封鎖風險：影響全球25%海運石油",

@@ -12,8 +12,8 @@
     }
   },
   "market_speed_order": ["金融市場","貨幣市場","商品市場","勞動市場","財政動態"],
-  "last_updated": "2026-06-07",
-  "updated_by": "C-1 修正：confidence 拆分為 logic_score + evidence_score",
+  "last_updated": "2026-06-14",
+  "updated_by": "TC-005 升格：中東石油衝擊傳導鏈（dsmm-scout→promote）",
   "_scope_note": "傳導鏈只紀錄跨市場宏觀傳遞（金融↔貨幣↔商品↔勞動↔財政）。產業上下游動態存於 data/knowledge/industry-graph.json。",
   "chains": [
     {
@@ -132,6 +132,40 @@
       ],
       "last_triggered": "2026-06-06",
       "audit_status": "audited"
+    }
+  ],
+    {
+      "id": "TC-005",
+      "name": "中東石油衝擊 → 通膨復燃鎖死降息",
+      "trigger": "美伊軍事衝突導致油價突破100美元，通膨預期重燃",
+      "trigger_condition": "Brent原油 > 100 USD/桶 持續超過 30 天",
+      "entry_market": "商品市場",
+      "steps": [
+        { "step": 1, "market": "商品市場", "signal": "中東衝突→供給中斷→油價破100，能源通膨輸入", "direction": "→" },
+        { "step": 2, "market": "貨幣市場", "signal": "CPI超預期，Fed降息路徑鎖死（Goldman: 2027年前不降息）", "direction": "→" },
+        { "step": 3, "market": "金融市場", "signal": "長端殖利率結構性上行，實質利率攀升，估值承壓", "direction": "→" },
+        { "step": 4, "market": "勞動市場", "signal": "能源成本上升→企業利潤壓縮→雇用趨緩", "direction": "→" },
+        { "step": 5, "market": "財政動態", "signal": "利息支出加速上升，赤字擴大壓力", "direction": "→" }
+      ],
+      "asset_implications": [
+        { "asset": "原油（Brent/WTI）", "direction": "↑",    "magnitude": "已在120，極端情境150+" },
+        { "asset": "10Y 美債殖利率",    "direction": "↑",    "magnitude": "通膨預期再+20-40bp" },
+        { "asset": "成長股（高估值）",  "direction": "↓",    "magnitude": "折現率上升，NTM P/E再壓縮3-6%" },
+        { "asset": "能源股（XLE）",     "direction": "↑",    "magnitude": "油價直接受益" },
+        { "asset": "航空/航運",         "direction": "↓",    "magnitude": "燃油成本急升" }
+      ],
+      "logic_score": 0.80,
+      "evidence_score": 0.00,
+      "confidence": 0.56,
+      "_confidence_note": "logic_score 0.80（石油→CPI傳導機制成熟，2021-2022年已有實證）；evidence_score 0（剛升格，尚無VCP驗證）",
+      "expires_if": "中東停火協議達成 AND Brent回落至 80 以下 OR OPEC增產完全補足缺口",
+      "evidence": [
+        { "date": "2026-06-14", "event": "Scout候選升格：Brent已在120，觸發條件已成立", "source": "dsmm-scout TC-CAND-20260614-001" }
+      ],
+      "last_triggered": "2026-02-01",
+      "audit_status": "candidate_promoted",
+      "_promoted_from": "TC-CAND-20260614-001",
+      "_promoted_date": "2026-06-14"
     }
   ],
   "_archived": {
