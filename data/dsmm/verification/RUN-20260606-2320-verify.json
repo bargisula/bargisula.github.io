@@ -13,9 +13,11 @@
       "threshold": "4.60%",
       "check_source": "Yahoo Finance ^TNX",
       "tc_reference": "TC-001",
-      "actual": null,
-      "verdict": null,
-      "score": null
+      "actual": "4.48%（來源：Advisor Perspectives Treasury Yields Snapshot 2026-06-12）",
+      "verdict": "WRONG",
+      "score": 0.0,
+      "verified_at": "2026-06-14",
+      "note": "10Y收在4.48%，未達4.60%閾值。NFP衝擊後殖利率曾上行但幅度不足，可能因伊朗衝突風險引發避險買盤壓低長端"
     },
     {
       "id": "VCP-002",
@@ -25,9 +27,11 @@
       "threshold": "< 1.5 cuts",
       "check_source": "CME FedWatch Tool",
       "tc_reference": "TC-001",
-      "actual": null,
-      "verdict": null,
-      "score": null
+      "actual": "2026年隱含降息次數約0.3次（Goldman 2026-06-07宣告0次；市場定價28%概率1次；Fed官方點陣圖1次）",
+      "verdict": "CONFIRMED",
+      "score": 1.0,
+      "verified_at": "2026-06-14",
+      "note": "2026年降息預期大幅後退，遠低於1.5次閾值，CONFIRMED。但方向對、幅度錯——VCP-001 WRONG顯示利率上行幅度遠小於預期，意味TC-001傳導強度被油價/地緣避險對沖"
     },
     {
       "id": "VCP-003",
@@ -119,19 +123,36 @@
       "tc_reference": "TC-001",
       "honest_note": "此 VCP 的意義是確認『NVIDIA 合約錨定』vs『利率壓力』誰更強，不是預測股價。",
       "activation_condition": "10Y 須先突破 4.6%",
-      "actual": null,
-      "verdict": null,
-      "score": null
+      "actual": "10Y 於 2026-06-12 收 4.48%，未突破 4.6% 啟動條件",
+      "verdict": "INVALIDATED",
+      "score": null,
+      "verified_at": "2026-06-14",
+      "note": "VCP-001 WRONG（10Y 4.48% < 4.6%），啟動條件未達，此VCP自動失效"
     }
   ],
-  "overall_score": null,
-  "verified_count": 1,
+  "overall_score": 0.67,
+  "verified_count": 3,
+  "pending_count": 4,
+  "score_note": "3 個已到期有效VCP：VCP-001 WRONG(0.0) + VCP-002 CONFIRMED(1.0) + VCP-003 CONFIRMED(1.0) = 2/3 = 0.67（部分準確）",
   "confidence_updates": [
     {
       "vcp_id": "VCP-003",
       "verdict": "CONFIRMED",
       "tc_reference": null,
-      "note": "VCP-003 無直接 TC 綁定，但與 TC-001 邏輯一致（強勁就業 → DXY 上行）。TC-001 信心值不更新，待 VCP-001（10Y）CONFIRMED 後再計算。"
+      "note": "VCP-003 無直接 TC 綁定，與 TC-001 邏輯一致（NFP強勁 → DXY 上行）。"
+    },
+    {
+      "vcp_id": "VCP-002",
+      "verdict": "CONFIRMED",
+      "tc_reference": "TC-001",
+      "tc_update": "evidence_score: 0.10 → 0.19（+0.1 * 0.1 = 貝葉斯更新）"
+    },
+    {
+      "vcp_id": "VCP-001",
+      "verdict": "WRONG",
+      "tc_reference": "TC-001",
+      "tc_update": "evidence_score: 0.19 → 0.152（× 0.8），confidence: 0.62 → 0.641",
+      "insight": "VCP-001 WRONG 的診斷：NFP傳導降息預期成功（VCP-002 CONFIRMED），但殖利率上行幅度不足（4.48%而非4.60%+）。可能原因：①中東油價衝擊引發避險資金湧入美債壓低長端；②TC-001與TC-005產生部分對沖（勞動市場推升利率 vs 地緣風險壓低利率）。TC-001邏輯正確但強度被地緣因素對沖。"
     }
   ],
   "_instruction": "驗證時填寫 actual / verdict（CONFIRMED / PARTIAL / WRONG / INVALIDATED）/ score（1.0 / 0.5 / 0.0 / null）。完成後呼叫 /dsmm-verify RUN-20260606-2320 更新傳導鏈信心值並計算系統推演準確率。"

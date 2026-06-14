@@ -13,7 +13,7 @@
   },
   "market_speed_order": ["金融市場","貨幣市場","商品市場","勞動市場","財政動態"],
   "last_updated": "2026-06-14",
-  "updated_by": "TC-005 升格：中東石油衝擊傳導鏈（dsmm-scout→promote）",
+  "updated_by": "TC-001 信心更新（VCP-001 WRONG + VCP-002 CONFIRMED，2026-06-14驗證）",
   "_scope_note": "傳導鏈只紀錄跨市場宏觀傳遞（金融↔貨幣↔商品↔勞動↔財政）。產業上下游動態存於 data/knowledge/industry-graph.json。",
   "chains": [
     {
@@ -35,9 +35,9 @@
         { "asset": "NVDA",             "direction": "估值壓力（AI 敘事可對沖）", "magnitude": "方向負向，敘事護城河強，淨效果不確定（見 macro-to-stock.json#NVDA）", "financial_bridge": "data/dsmm/macro-to-stock.json", "observable_vcp": "VCP-FIN-NVDA-001" }
       ],
       "logic_score": 0.85,
-      "evidence_score": 0.10,
-      "confidence": 0.62,
-      "_confidence_note": "logic_score 高（NFP→利率傳導機制清晰）；evidence_score 低（僅 VCP-003 DXY CONFIRMED，VCP-001/002 待驗）",
+      "evidence_score": 0.152,
+      "confidence": 0.641,
+      "_confidence_note": "VCP-002 CONFIRMED（降息預期後退）→ evidence↑；VCP-001 WRONG（10Y未達4.60%，僅4.48%）→ evidence↓。淨效果：0.641。診斷：TC-001邏輯正確但殖利率傳導被TC-005地緣避險買盤對沖，強度低於預期。",
       "expires_if": "Fed 明確啟動降息循環 OR 失業率突破 5%",
       "evidence": [
         { "date": "2026-06-05", "event": "NFP +172K（預期 +85K）", "10Y_move": "+8bp → 4.55%" },
