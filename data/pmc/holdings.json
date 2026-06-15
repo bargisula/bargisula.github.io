@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-06-02",
+  "last_updated": "2026-06-16",
   "note": "持倉紀錄，董事長提供均價與股數，現價由 PMC 會議時查詢更新",
   "holdings": [
     {
       "ticker": "AVGO",
       "company": "Broadcom",
       "business": "客製化 AI 推理晶片（XPU）與企業網路設備，VMware 軟體訂閱",
-      "shares": 1,
-      "avg_cost": 480,
+      "shares": 9,
+      "avg_cost": 459,
       "category": "AI基礎設施",
-      "notes": "部位小，明日財報（6/3）是關鍵確認節點"
+      "notes": "從 1 股攤平加碼至 9 股，均價從 480 降至 459。Q3 指引 160 億低於預期，Kill Switch K3 升至🟡主動監控（Google TPU v9 訓練端是否轉出為紅線）。"
     },
     {
       "ticker": "GLDM",
@@ -24,10 +24,10 @@
       "ticker": "GLW",
       "company": "Corning Incorporated",
       "business": "全球最大光纖製造商，AI 資料中心光纖連線直接受益，玻璃基板封裝長期選項",
-      "shares": 37,
+      "shares": 39,
       "avg_cost": 199,
       "category": "AI基礎設施",
-      "notes": "picks.json 已有追蹤紀錄（pick-2026-05-21-GLW），進場條件 ≤198 + 10Y ≤4.6% 均觸發。Week2 review 到期 06/04。",
+      "notes": "2026-06-15 進場條件雙重觸發（股價 $180 ≤ $198、10Y 4.48% ≤ 4.6%），執行建倉。等 07/29 Q2 財報確認 backlog 能見度後決定加碼。",
       "linked_pick": "pick-2026-05-21-GLW"
     },
     {
@@ -37,61 +37,89 @@
       "shares": 43,
       "avg_cost": 391,
       "category": "科技",
-      "notes": "最大單一持倉（佔成本 55%）。看好多模態 AI 敘事，維持持有。Cloud 季增 63%，backlog 4,600 億為論點核心支柱。主要風險：搜尋廣告市佔結構性侵蝕。",
+      "notes": "最大單一持倉（佔成本約 42%）。看好多模態 AI 敘事，維持持有。Cloud 季增 63%，backlog 4,600 億為論點核心支柱。主要風險：搜尋廣告市佔結構性侵蝕。",
       "thesis_stance": "持有，多模態看好，接受集中度高"
-    },
-    {
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "business": "AI 客製晶片（XPU）設計，服務 Amazon、Microsoft 等雲端客戶",
-      "shares": 3,
-      "avg_cost": 270,
-      "category": "AI基礎設施",
-      "notes": "2026-06-02 單日 +27%（Jensen Huang 公開點名 Marvell 的 AI ASIC 角色，敘事調整非純情緒）。均價 270 仍在現價以上，無資金追加，維持觀察。",
-      "thesis_stance": "維持，敘事轉正，等後續驗證"
     },
     {
       "ticker": "RKLB",
       "company": "Rocket Lab USA",
-      "business": "小型火箭發射服務，Neutron 中型火箭開發中",
-      "shares": 5,
-      "avg_cost": 141,
+      "business": "太空發射（Electron）、衛星製造與零組件（Space Systems）、高超音速測試（HASTE）、Neutron 中型火箭開發中",
+      "shares": 6,
+      "avg_cost": 137,
       "category": "太空",
-      "notes": "picks.json 已有追蹤紀錄（pick-2026-06-01-RKLB）。現價約 122，Blue Origin 爆炸事件拖累。等 SpaceX 6/12 掛牌後代理溢價消化（目標觀察 ≤110）。",
+      "notes": "SpaceX IPO 後代理溢價消化，現價約 $102。論點強化：68% 收入來自 Space Systems；Mynaric 收購（雷射通訊）使 RKLB 成為 SpaceX AI1 潛在供應商；Anduril 合約 $220M（HASTE 測試）。Kill Switch：Neutron 正式放棄 OR 連續 2 季 Backlog < 15 億 OR 稀釋 > 15%。",
       "linked_pick": "pick-2026-06-01-RKLB"
     },
     {
-      "ticker": "TSM",
-      "company": "台積電 ADR（NYSE: TSM）",
-      "business": "全球最大晶圓代工廠，AI 晶片先進封裝（CoWoS）主要供應方",
-      "shares": 8,
-      "avg_cost": 407,
+      "ticker": "SOXX",
+      "company": "iShares Semiconductor ETF",
+      "business": "美國 AI 半導體 ETF，持有 NVDA、AVGO、AMD、QCOM 等",
+      "shares": 6,
+      "avg_cost": 581,
+      "category": "指數ETF",
+      "notes": "額外加碼 AI 半導體主題，非替代個股。注意與 AVGO 重疊，整體 AI 曝險佔組合約 95%。"
+    },
+    {
+      "ticker": "VRT",
+      "company": "Vertiv Holdings",
+      "business": "資料中心電力管理、散熱、不斷電系統",
+      "shares": 7,
+      "avg_cost": 341,
       "category": "AI基礎設施",
-      "notes": "唯一有較明顯正報酬的 AI 持倉（+7%），長期核心部位"
+      "notes": "論點：AI 資料中心電力與散熱需求爆增（INS-004）。SpaceX AI1 軌道資料中心為長期競爭風險，但商業化需等 Starship 發射成本降至 $200/kg（2030 年代）。觸發條件：Starship 達 $500/kg 以下重評退出。",
+      "thesis_stance": "持有，短期論點清晰，長期設觸發條件監控"
     },
     {
       "ticker": "VTI",
       "company": "Vanguard Total Stock Market ETF",
       "business": "美國全市場 ETF，壓倉用途",
       "shares": 2,
-      "avg_cost": 326,
+      "avg_cost": 327,
       "category": "指數ETF",
-      "notes": "壓倉，+14.4%，無需動作"
+      "notes": "壓倉，長期持有，無需動作"
     },
     {
       "ticker": "XLP",
       "company": "Consumer Staples Select Sector SPDR",
       "business": "消費必需品 ETF（食品、飲料、日用品），防禦性倉位",
       "shares": 1,
-      "avg_cost": 85,
+      "avg_cost": 88,
       "category": "防禦",
       "notes": "防禦性配置，部位極小"
     }
   ],
+  "closed_positions": [
+    {
+      "ticker": "TSM",
+      "company": "台積電 ADR",
+      "shares": 8,
+      "avg_cost": 407,
+      "exit_price": 436,
+      "realized_pnl": 232,
+      "realized_pnl_pct": 7.1,
+      "exit_date": "2026-06",
+      "note": "接近高點出場，消息確認（3nm 漲價 15%）前賣出，時機準確"
+    },
+    {
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "shares": 12,
+      "avg_cost": 297,
+      "exit_price": 300,
+      "realized_pnl": 36,
+      "realized_pnl_pct": 1.0,
+      "exit_date": "2026-06-16",
+      "note": "PMC 確認情緒追高（Jensen Huang 點名後追進 9 股），論點依據不足，幾乎平手出清。紀律性決策，非論點失效驅動。"
+    }
+  ],
   "portfolio_summary": {
-    "total_cost": 30358,
-    "pmc_date": "2026-06-02",
-    "concentration_note": "GOOG 佔總成本 55%，為最大集中度風險",
-    "stance": "整體 Risk-on，AI 基礎設施主題為核心，接受 GOOG 集中度"
+    "total_cost": 39900,
+    "pmc_date": "2026-06-16",
+    "concentration_note": "AI 相關（GOOG + GLW + AVGO + SOXX + VRT + RKLB）佔總成本約 95%，GOOG 單一佔 42%",
+    "stance": "整體 Risk-on，AI 基礎設施主題為核心；策略逐步從個股轉向 ETF（SOXX），個股選留有明確 Kill Switch 者",
+    "key_lessons": [
+      "2026-06-16：情緒追高警示——催化劑（大人物點名、單日暴漲）後不立刻加碼，設 3-5 日冷靜期（MRVL 案例）",
+      "2026-06-16：灰天鵝 vs 黑天鵝——CEG 電網、RKLB Blue Origin、AVGO 聯發科均為買前可識別風險，非真正黑天鵝；買前須寫下三件讓論點失效的事"
+    ]
   }
 }
