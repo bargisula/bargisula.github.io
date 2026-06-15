@@ -250,7 +250,7 @@ pubDate: 'YYYY-MM-DD'
 
 **MDX 第一行（必填）：**
 ```
-import Callout from '../../../../components/Callout.astro';
+import Callout from '@components/Callout.astro';
 ```
 
 **所有財務數字必須透過搜尋取得，不使用訓練資料中的財務數字。**
