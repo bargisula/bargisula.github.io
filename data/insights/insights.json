@@ -15,7 +15,7 @@
   "insights": [
     {
       "id": "INS-2026-05-25-001",
-      "tier": "L1",
+      "tier": "L2",
       "causal_type": "cognitive",
       "regime_dependency": ["High inflation / Monetary tightening risk"],
       "layer": "macro",
@@ -27,12 +27,12 @@
         "4 月 CPI 3.8% YoY，Trump 關稅推升通膨 0.7pp"
       ],
       "duration_estimate": "6-8 週，至 FOMC 6/17 後市場形成定見",
-      "confidence": 0.75,
+      "confidence": 0.80,
       "status": "active",
       "created": "2026-05-25",
-      "expiry_check": "2026-06-30",
-      "confidence_update": "2026-06-06：NFP 5月 +172K（預期 +85K），超預期幅度 2x，直接強化「Fed 無降息藉口」因果鏈；第二次獨立事件支撐，接近 L1→L2 晉升門檻。從 0.65 升至 0.75。",
-      "invalidation_signal": "Warsh 發表明確抗通膨強硬聲明 OR PCE 大幅降溫至 3.0% 以下使鷹派失去依據",
+      "expiry_check": "2026-09-30",
+      "confidence_update": "2026-06-17：Warsh FOMC 首次決議——點陣圖移除所有 2026 降息預測，3 位委員預測年底前升息，Warsh 拒絕提交個人點（14 年來首次 Fed 主席不參與 SEP）。市場升息機率從接近 0% 跳升至 66%。這是 INS-001 命題「Warsh 若不強硬表態→市場解讀 Fed 公信力折損→長端殖利率脫鉤」的第二次獨立事件支撐，且強度超出原始預測範圍（原估 Warsh 軟化對抗鷹派，實際是 Warsh 主動移除降息路徑）。晉升 L2，confidence 升至 0.80。",
+      "invalidation_signal": "Warsh 在後續會議重新加回降息點 OR 5 月 PCE 大幅降溫至 3.0% 以下使鷹派失去依據",
       "investment_implication": "高倍數科技股折現率上行壓力；若 10Y 破 4.8%，AI 基礎設施股 2027-2028 現金流估值壓縮",
       "source_meeting": "2026-05-25"
     },

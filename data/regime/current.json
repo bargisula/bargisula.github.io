@@ -4,10 +4,10 @@
   "regime_grid": {
     "quadrant": "Overheat",
     "trend": "right",
-    "confidence": "medium",
-    "note": "象限向「滯脹邊界」靠近——10Y 4.47%（從 4.55% 小幅回落，判定一時性回調而非趨勢轉折）；Warsh 6/17 FOMC 鷹派暫停預期維持；NFP +172K 就業健康；AI capex Hyperscaler 免疫高利率；財政螺旋（B_g 高 × r 高）慢速向發散移動；未跨入滯脹象限但邊界距離收窄"
+    "confidence": "medium-high",
+    "note": "【2026-06-17 FOMC 後更新】Warsh 首次 FOMC：按兵不動但點陣圖超鷹——2026 年降息預測全數移除，3 位委員預測年底前升息，Warsh 本人拒絕提交個人點（14 年來首次）。市場升息機率從接近 0% 跳升至 66%。10Y 6/16 收 4.43%（尚未突破 4.6% Regime 跳轉觸發線），但方向風險大幅上升。Overheat 象限維持，但邊界距離收窄至最近。等待 10Y 今日收盤確認是否突破 4.6%；若突破並維持一週，需立即啟動 Regime 跳轉評估（Overheat→Stagflation）。"
   },
-  "risk_posture": "risk-on",
+  "risk_posture": "risk-on（警戒）",
   "active_faces": {
     "fed_cycle": "🔴",
     "credit_cycle": "🟢",
@@ -29,10 +29,10 @@
       "vcp_status": "VCP-001（10Y≥4.60%，check 2026-06-12）：未達標 4.47%，建議延至 6/20 重檢；VCP-002（FedWatch 2026-12 降息<1.5次，check 2026-06-13）：待確認"
     }
   },
-  "updated": "2026-06-13",
-  "updated_by": "DSMM",
+  "updated": "2026-06-17",
+  "updated_by": "CEO（晨會）",
   "bible_anchor": "AI 外生變數正處 AD 衝擊階段（2022-2026 Capex 潮），AS 衝擊（生產力通縮）預計 2027-2029 浮現；長期實質利率均衡受此路徑約束",
-  "insight_signal": "INS-001（Warsh 鷹派路徑）confidence 升至 0.75，NFP 超預期第二次事件支撐，接近 L2；INS-002（AI capex 多季度能見度）confidence 降至 0.74，份額集中假設受 AVGO/MediaTek 壓力；INS-004（電力瓶頸）未受影響，維持定價窗口敘事",
+  "insight_signal": "INS-001（Warsh 鷹派路徑）升至 L2，confidence 0.80（2026-06-17 FOMC 事件晉升）；INS-002（AI capex 多季度能見度）confidence 0.74，份額集中假設受 AVGO/MediaTek 壓力；INS-004（電力瓶頸）未受影響，維持定價窗口敘事",
   "focus_sectors": [
     {
       "sector": "AI_infrastructure",
@@ -69,6 +69,6 @@
     "MediaTek TPU",
     "Warsh FOMC"
   ],
-  "next_review": "2026-06-20",
-  "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。2026-06-06 更新：fed_cycle 升 🔴、domino_risk 升 🟡；INS-001 confidence 0.65→0.75、INS-002 confidence 0.78→0.74。2026-06-13 更新：Regime 象限維持 Overheat，note 更新反映 10Y 回落一時性判定；next_review 改 6/20（FOMC 後第一個複查日）；face_change_log 補充 VCP 狀態。"
+  "next_review": "2026-06-18",
+  "_note": "regime_grid / risk_posture / active_faces 由 DSMM 分析後寫入；其餘欄位由 CMO 維護。唯一裁定來源，所有工具讀此 JSON，不自行下判斷。2026-06-06 更新：fed_cycle 升 🔴、domino_risk 升 🟡；INS-001 confidence 0.65→0.75、INS-002 confidence 0.78→0.74。2026-06-13 更新：Regime 象限維持 Overheat，note 更新反映 10Y 回落一時性判定。2026-06-17 更新：FOMC 超鷹（升息機率 66%），INS-001 晉升 L2（confidence 0.80），Regime 邊界壓力顯著升高；next_review 提前至 06/18（台股開盤後 + 10Y 今日收盤確認）。"
 }
