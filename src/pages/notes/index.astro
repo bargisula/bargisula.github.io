@@ -96,10 +96,14 @@ function vid(...parts: string[]) {
               <a href={`#${cat.name}`} class="cat-title">
                 <span>{cat.icon}</span>
                 <span>{cat.name}</span>
-                {cat.label && (Array.isArray(cat.label) ? cat.label : [cat.label]).map((lbl: string) => (
-                  <span class={`cat-label label-${lbl.toLowerCase()}`}>{lbl}</span>
-                ))}
               </a>
+              {cat.label && (
+                <div class="cat-label-row">
+                  {(Array.isArray(cat.label) ? cat.label : [cat.label]).map((lbl: string) => (
+                    <span class={`cat-label label-${lbl.toLowerCase()}`}>{lbl}</span>
+                  ))}
+                </div>
+              )}
               {!cat.hideSubs && cat.subs.map((sub) => (
                 <a href={`#${cat.name}/${sub.name}`} class="sub-title">
                   {sub.name}
@@ -118,12 +122,14 @@ function vid(...parts: string[]) {
               {CATEGORY_TREE.map((cat) => (
                 <a href={`#${cat.name}`} class="card">
                   <span class="card-icon">{cat.icon}</span>
-                  <span class="card-name">
-                    {cat.name}
-                    {cat.label && (Array.isArray(cat.label) ? cat.label : [cat.label]).map((lbl: string) => (
-                      <span class={`cat-label label-${lbl.toLowerCase()}`} style="display: inline-block; margin-top: 4px; margin-left: 4px;">{lbl}</span>
-                    ))}
-                  </span>
+                  <span class="card-name">{cat.name}</span>
+                  {cat.label && (
+                    <div class="cat-label-row" style="margin-top:4px">
+                      {(Array.isArray(cat.label) ? cat.label : [cat.label]).map((lbl: string) => (
+                        <span class={`cat-label label-${lbl.toLowerCase()}`}>{lbl}</span>
+                      ))}
+                    </div>
+                  )}
                 </a>
               ))}
             </div>
@@ -380,9 +386,15 @@ function vid(...parts: string[]) {
     display: none;
   }
 
+  .cat-label-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+    padding: 0 0.7em 0.4em 2.2em;
+  }
+
   .cat-label {
     font-size: 0.65em;
-    margin-left: auto;
     padding: 0.1em 0.5em;
     border-radius: 6px;
     font-weight: 500;
