@@ -1,0 +1,121 @@
+{
+  "ticker": "AVGO",
+  "company": "Broadcom Inc.",
+  "quarter": "Q4FY2025",
+  "fiscal_year_end": "October",
+  "period_end": "2025-11-02",
+  "report_date": "2025-12-11",
+  "analyzed_date": "2026-06-19",
+  "source": "Motley Fool transcript (fool.com/earnings/call-transcripts/2025/12/12) + PR Newswire press release + Broadcom IR",
+  "numbers": {
+    "revenue_m": 18015,
+    "revenue_yoy_pct": 28,
+    "revenue_beat_miss": "beat",
+    "revenue_estimate_m": 17450,
+    "revenue_beat_pct": 3.27,
+    "eps_nonGAAP_actual": 1.95,
+    "eps_nonGAAP_estimate": 1.87,
+    "eps_beat_pct": 4.28,
+    "eps_GAAP_actual": 1.74,
+    "gross_margin_nonGAAP_pct": 78.0,
+    "gross_margin_GAAP_pct": 68.0,
+    "operating_margin_nonGAAP_pct": 66.2,
+    "ebitda_m": 12218,
+    "ebitda_margin_pct": 68,
+    "fcf_m": 7466,
+    "fcf_margin_pct": 41
+  },
+  "segment_breakdown": {
+    "semiconductor_solutions_m": 11072,
+    "semiconductor_solutions_yoy_pct": 35,
+    "infrastructure_software_m": 6943,
+    "infrastructure_software_yoy_pct": 19
+  },
+  "ai_revenue": {
+    "ai_semiconductor_m": 6470,
+    "ai_semiconductor_yoy_pct": 74,
+    "ai_pct_of_semiconductor_revenue": 58.4,
+    "ai_pct_of_total_revenue": 35.9,
+    "consecutive_quarters_growth": 11,
+    "fy2025_full_year_ai_m": 20000,
+    "fy2025_full_year_ai_yoy_pct": 65,
+    "beat_vs_guidance": "Q3 指引 $6.2B，actual $6.47B，超出約 4.4%"
+  },
+  "key_guidance": {
+    "next_quarter": "Q1 FY2026",
+    "revenue_guidance_m": 19100,
+    "revenue_yoy_guidance_pct": 28,
+    "ai_semiconductor_guidance_m": 8200,
+    "ai_semiconductor_guidance_yoy_pct": 100,
+    "semiconductor_guidance_m": 12300,
+    "semiconductor_yoy_guidance_pct": 50,
+    "infrastructure_software_guidance_m": 6800,
+    "ebitda_margin_guidance_pct": 67,
+    "gross_margin_note": "毛利率預計環比降約 100bps，因 AI 系統銷售組合佔比提升",
+    "dividend_increased": "每股 $0.65（增 10%）"
+  },
+  "beat_miss": {
+    "revenue": "beat",
+    "eps_nonGAAP": "beat",
+    "summary": "Revenue beat 3.27%（180 億 vs 174.5 億估計）；non-GAAP EPS $1.95 beat $1.87 估計（+4.28%）；AI Revenue 64.7 億 beat 指引 62 億（+4.4%）"
+  },
+  "legacy_numbers": {
+    "eps_actual": 1.95,
+    "eps_estimate": 1.87,
+    "eps_beat_pct": 4.28,
+    "revenue_actual_b": 18.02,
+    "revenue_estimate_b": 17.45,
+    "revenue_beat_pct": 3.27,
+    "gross_margin_pct": 77.9,
+    "operating_margin_pct": 66.2,
+    "fcf_b": 7.466,
+    "ai_revenue_b": 6.5,
+    "ai_revenue_pct_of_semi": null,
+    "guidance_next_q_revenue_b": 19.1,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null
+  },
+  "transcript": {
+    "core_narrative": "AI XPU 與乙太網路交換器需求加速，Q4 AI Revenue 達 64.7 億美元（+74% YoY），管理層強調系統級銷售模式與 5 家超大規模 XPU 客戶形成多年承諾，18 個月積壓訂單達 730 億美元。",
+    "guidance_explanation": "Q1 FY2026 Revenue 指引 191 億美元（+28% YoY），AI Revenue 上調至 82 億美元（+100% YoY），但毛利率因 AI 組合偏重預計下降約 100 bps；全球最低稅率自 6.5% 調升至 14% 將影響非 GAAP 稅率。",
+    "top_analyst_questions": [
+      "客戶集中度與 XPU 自研風險（Vivek Arya, BofA）：客戶是否會自行開發工具取代 Broadcom？管理層回應此假設被「過度誇大」，定制矽片需要多年策略承諾。",
+      "毛利率走向（Stacy Rasgon, Bernstein）：AI 組合佔比提升是否壓縮毛利？管理層承認可能向「70 低段」下移，但固定成本槓桿維持營業利益金額成長。",
+      "2026 全年 AI Revenue 成長幅度（Jim Schneider, Goldman Sachs）：Q1 已達 +100% YoY，全年能否維持？管理層以「極度動態積壓訂單」為由拒絕給出全年指引，稱 Q1 是「加速趨勢，而非底部」。"
+    ],
+    "avoided_topics": [
+      "第五個 XPU 客戶身份（拒絕透露）",
+      "FY2026 全年 AI Revenue 精確成長率（僅給 Q1 指引）",
+      "OpenAI 10 GW 合約細節（僅說明部署期為 2027–2029）"
+    ],
+    "key_quotes": [
+      "We have never seen bookings of the nature that what we have seen over the past three months. — Hock Tan（描述 AI 元件需求規模）",
+      "Think of it as a system sale...fully responsible for the entire system or rack. — Hock Tan（解釋機架級營收模式，說明為何 AI 組合毛利較低但整體規模更大）"
+    ]
+  },
+  "management_highlights": [
+    "十一季連續 AI 半導體收入成長，AI Revenue 64.7 億（YoY +74%），FY2025 全年 AI 達 200 億（+65%）",
+    "第五個 XPU 客戶公開確認，訂單規模 10 億美元（FY2026 下半年交貨）",
+    "AI 相關積壓訂單超過 730 億美元（18 個月能見度），AI switch 積壓超過 100 億美元",
+    "Hock Tan：系統銷售模式轉型——從晶片銷售轉為機架級整合系統，整體負責 XPU + 網路 + 光學元件",
+    "Singapore 封裝設施擴產計畫提前推進，應對供應鏈安全需求與技術複雜度"
+  ],
+  "custom_asic_update": {
+    "xpu_customers_count": 5,
+    "xpu_customers_known": ["Google (TPU)", "Meta (MTIA)", "Anthropic", "OpenAI", "第五家（新增，未披露）"],
+    "xpu_customer_5_note": "第五家客戶訂單 10 億美元，FY2026 下半年交貨",
+    "total_ai_backlog_b": 73,
+    "ai_switch_backlog_b": 10,
+    "tomahawk6_note": "Tomahawk 6 交換器（102 Tbps）引領 AI 網路積壓訂單",
+    "system_sale_shift": "從晶片設計到機架級系統銷售的商業模式轉型，整合 XPU + 網路 + 光學，毛利率稀釋但 TAM 擴大"
+  },
+  "preliminary_inference": {
+    "strength_driver": "AI Revenue 64.7 億（YoY +74%）是主要驅動力，佔總營收 36%；FY2025 全年 AI 200 億（+65%）；半導體部門整體 +35% YoY；五個 XPU 客戶 + 730 億積壓訂單提供強勁能見度",
+    "guidance_signal": "Q1 FY2026 Revenue 191 億（+28%）維持加速軌跡；AI Revenue 82 億（+100% YoY）代表量化加速；系統銷售模式轉型暗示 TAM 擴大但毛利率向「70 低段」下移是結構性趨勢",
+    "anomaly_flags": [
+      "毛利率下行壓力：系統銷售組合使毛利率向 70% 低段下移，與過去 75%+ 水準形成顯著落差，需追蹤 Q1 FY2026 實際數字",
+      "盈利後股價盤後小跌 ~1.94%：儘管財報全面 beat，市場反映毛利率前瞻警示",
+      "GAAP 稅率上升：全球最低稅率從 6.5% 調升至 14%，影響 GAAP 盈利但非 GAAP 盈利無影響"
+    ]
+  }
+}

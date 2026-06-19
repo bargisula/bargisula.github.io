@@ -1,0 +1,78 @@
+{
+  "ticker": "AVGO",
+  "company": "Broadcom Inc.",
+  "quarter": "Q2FY2025",
+  "fiscal_year_end": "October",
+  "period_end": "2025-05-04",
+  "report_date": "2025-06-05",
+  "analyzed_date": "2026-06-19",
+  "source": "SEC EDGAR 8-K (avgo-05042025x8kxex99.htm) + CNBC + Barchart earnings call transcript",
+  "numbers": {
+    "revenue_m": 15004,
+    "revenue_yoy_pct": 20,
+    "revenue_beat_miss": "in-line",
+    "revenue_estimate_m": 15000,
+    "revenue_beat_pct": 0.03,
+    "eps_nonGAAP_actual": 1.58,
+    "eps_nonGAAP_estimate": 1.57,
+    "eps_beat_pct": 0.6,
+    "eps_GAAP_actual": 1.03,
+    "gross_margin_nonGAAP_pct": 79.4,
+    "gross_margin_GAAP_pct": null,
+    "operating_margin_nonGAAP_pct": 65.0,
+    "ebitda_m": 10001,
+    "ebitda_margin_pct": 67,
+    "fcf_m": 6411,
+    "fcf_margin_pct": 43
+  },
+  "segment_breakdown": {
+    "semiconductor_solutions_m": 8100,
+    "semiconductor_solutions_yoy_pct": 17,
+    "semiconductor_solutions_gross_margin_pct": 69,
+    "infrastructure_software_m": 6904,
+    "infrastructure_software_yoy_pct": null
+  },
+  "ai_revenue": {
+    "ai_semiconductor_m": 4400,
+    "ai_semiconductor_yoy_pct": 46,
+    "ai_networking_yoy_pct": 170,
+    "ai_networking_pct_of_ai_revenue": 40,
+    "ai_pct_of_total_revenue": 29.3,
+    "beat_vs_guidance": "Q1 指引 $4.4B，actual >$4.4B，小幅超出"
+  },
+  "key_guidance": {
+    "next_quarter": "Q3 FY2025",
+    "revenue_guidance_m": 15800,
+    "revenue_yoy_guidance_pct": 21,
+    "ai_semiconductor_guidance_m": 5100,
+    "ai_semiconductor_guidance_yoy_pct": 60,
+    "ebitda_margin_guidance_pct": 66,
+    "notes": "Q3 AI 半導體指引 51 億（QoQ +16%），管理層首度明言 FY2025 AI 成長率將延續至 FY2026"
+  },
+  "beat_miss": {
+    "revenue": "in-line",
+    "eps_nonGAAP": "beat",
+    "summary": "Revenue 幾乎符合預期；non-GAAP EPS $1.58 微幅 beat $1.57 估計；非 GAAP 毛利 79.4% 超出前期指引"
+  },
+  "management_highlights": [
+    "AI networking YoY +170%，以太網路 backend 替代 InfiniBand 趨勢加速",
+    "Hock Tan 首度明確宣稱 FY2025 AI 半導體成長率將延續至 FY2026",
+    "九季連續 AI 半導體收入成長，管理層點名 Q3 FY2025 將突破 50 億美元門檻",
+    "VMware 訂閱年化 ARR 穩健成長，軟體 EBITDA margin 接近 70%",
+    "毛利率 Q3 指引降 130bps 源於 XPU mix 效應，非需求疲軟，管理層主動說明"
+  ],
+  "custom_asic_update": {
+    "xpu_customers_known": ["Google (TPU)", "Meta (MTIA)"],
+    "xpu_key_development": "AI networking（Ethernet-based）YoY +170%，backend switch fabric 訂單急速升溫；XPU 出貨符合預期軌跡",
+    "ai_networking_note": "AI networking 佔 AI 總收入 40%，成長速度顯著高於 XPU 部分",
+    "inference_note": "管理層首度提到推論需求開始成為獨立成長驅動力"
+  },
+  "preliminary_inference": {
+    "strength_driver": "AI networking YoY +170% 是本季超預期亮點；整體 AI 半導體 YoY +46% 至 44 億美元；FCF margin 43% 強勁",
+    "guidance_signal": "Q3 AI 指引 51 億（QoQ +16%）+ FY2026 延續宣示，為罕見的雙層前瞻樂觀信號；歷史模式顯示實際值通常超出指引 5-10%",
+    "anomaly_flags": [
+      "Revenue beat 僅 0.03%，為 FY2025 四季最弱的 beat 幅度——但 AI segment beat 指引彌補整體印象",
+      "毛利率 Q3 指引環比降 130bps，為近年首次出現明確的季度毛利壓縮信號"
+    ]
+  }
+}

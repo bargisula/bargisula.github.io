@@ -1,0 +1,71 @@
+{
+  "ticker": "AVGO",
+  "company": "Broadcom Inc.",
+  "quarter": "Q1FY2025",
+  "fiscal_year_end": "October",
+  "period_end": "2025-02-02",
+  "report_date": "2025-03-06",
+  "analyzed_date": "2026-06-19",
+  "source": "SEC EDGAR 8-K (avgo-02022025x8kxex99.htm) + PR Newswire + Futurum Research",
+  "numbers": {
+    "revenue_m": 14916,
+    "revenue_yoy_pct": 25,
+    "revenue_beat_miss": "beat",
+    "revenue_estimate_m": 14607,
+    "revenue_beat_pct": 2.1,
+    "eps_nonGAAP_actual": 1.60,
+    "eps_nonGAAP_estimate": 1.50,
+    "eps_beat_pct": 6.7,
+    "eps_GAAP_actual": 1.14,
+    "gross_margin_nonGAAP_pct": null,
+    "gross_margin_GAAP_pct": 68,
+    "operating_margin_nonGAAP_pct": 65.9,
+    "ebitda_m": 10083,
+    "ebitda_margin_pct": 68,
+    "fcf_m": 6013,
+    "fcf_margin_pct": 40
+  },
+  "segment_breakdown": {
+    "semiconductor_solutions_m": 8214,
+    "semiconductor_solutions_yoy_pct": 11,
+    "infrastructure_software_m": 6702,
+    "infrastructure_software_yoy_pct": 47
+  },
+  "ai_revenue": {
+    "ai_semiconductor_m": 4100,
+    "ai_semiconductor_yoy_pct": 77,
+    "ai_networking_note": "AI networking included in $4.1B figure; XPU + networking combined",
+    "ai_pct_of_total_revenue": 27.5
+  },
+  "key_guidance": {
+    "next_quarter": "Q2 FY2025",
+    "revenue_guidance_m": 14900,
+    "ai_semiconductor_guidance_m": 4400,
+    "notes": "Q2 AI semiconductor expected ~$4.4B (+7% QoQ), signaling continued demand ramp"
+  },
+  "beat_miss": {
+    "revenue": "beat",
+    "eps_nonGAAP": "beat",
+    "summary": "Revenue beat consensus by 2.1%; non-GAAP EPS beat by 6.7%"
+  },
+  "management_highlights": [
+    "首款 2nm AI XPU（3.5D 封裝）進入量產，技術代差領先業界",
+    "AI 半導體收入連續 8 季成長，YoY +77% 至 41 億美元",
+    "VMware 訂閱轉換持續推進，軟體段 YoY +47% 至 67 億美元",
+    "Hock Tan 強調超大雲端客戶 XPU 需求能見度延伸至 FY2026",
+    "AI networking（Tomahawk/Jericho 系列）與 XPU 雙輪驅動，均呈加速態勢"
+  ],
+  "custom_asic_update": {
+    "xpu_customers_known": ["Google (TPU)", "Meta (MTIA)"],
+    "xpu_key_development": "業界首款 2nm AI XPU 配備 3.5D 封裝投入量產，代表從 3nm 的重大技術跨代",
+    "ai_networking_note": "Tomahawk 5 / Jericho3-AI 供貨持續，AI networking 佔 AI 收入比重顯著",
+    "fab_note": "台積電 2nm 製程首批 XPU 出貨"
+  },
+  "preliminary_inference": {
+    "strength_driver": "AI 半導體 YoY +77% 是核心驅動力（41 億美元），VMware 軟體段 YoY +47% 提供護底；兩者合計佔總收入 80%+ 並高速成長",
+    "guidance_signal": "Q2 AI 指引 44 億（+7% QoQ）顯示穩健但非加速的成長節奏，管理層刻意保守設定指引以確保超越",
+    "anomaly_flags": [
+      "半導體段 YoY 僅 +11%（非 AI 半導體部分拖累），顯示非 AI 半導體（儲存控制器、工業）仍疲軟"
+    ]
+  }
+}

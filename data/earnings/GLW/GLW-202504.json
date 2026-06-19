@@ -1,0 +1,64 @@
+{
+  "ticker": "GLW",
+  "period": "Q4FY2025",
+  "report_date": "2026-01-28",
+  "analyzed_date": "2026-06-19",
+  "source": "Corning IR press release + Motley Fool transcript (2026-01-28)",
+  "notes": {
+    "revenue_clarification": "Corning 報告 Core Sales $4.41B（非 GAAP）與 GAAP Sales $4.22B。分析師 consensus $4.37B 通常對應 Core Sales，故本檔以 Core 數字計算 beat/miss。部分資料來源以 GAAP $4.22B 對比 $4.37B 估值，顯示 miss 3.5%，口徑不同請留意。",
+    "eps_clarification": "Core EPS $0.72，GAAP EPS $0.62。consensus $0.70 對應 Core EPS。"
+  },
+  "numbers": {
+    "eps_actual": 0.72,
+    "eps_estimate": 0.70,
+    "eps_beat_pct": 2.86,
+    "revenue_actual_b": 4.41,
+    "revenue_estimate_b": 4.37,
+    "revenue_beat_pct": 0.92,
+    "gross_margin_pct": 38.1,
+    "operating_margin_pct": 20.2,
+    "fcf_b": 0.732,
+    "guidance_next_q_revenue_low_b": 4.2,
+    "guidance_next_q_revenue_high_b": 4.3,
+    "guidance_next_q_eps_low": 0.66,
+    "guidance_next_q_eps_high": 0.70,
+    "guidance_next_q_gross_margin_pct": null
+  },
+  "segment_q4": {
+    "optical_communications_revenue_m": 1701,
+    "optical_communications_net_income_m": 305,
+    "optical_communications_yoy_pct": 24,
+    "display_revenue_m": 955,
+    "display_net_income_m": 257,
+    "display_yoy_pct": -2,
+    "specialty_materials_revenue_m": 544,
+    "specialty_materials_net_income_m": 99,
+    "specialty_materials_yoy_pct": 6,
+    "automotive_revenue_m": 440,
+    "life_sciences_revenue_m": 246,
+    "hemlock_emerging_revenue_m": 526
+  },
+  "transcript": {
+    "core_narrative": "Corning 在 GenAI 驅動的光纖需求爆發下提前一年達成 SpringBoard 目標，並簽下 Meta 最高 60 億美元多年框架合約，將計畫升級為 2028 年累計新增年化營收 110 億美元。",
+    "guidance_explanation": "Q1 2026 guidance 上調至 42-43 億美元（+15% YoY），主因：(1) 光纖通訊需求持續超預期，(2) 多個超大規模客戶簽訂長期協議提供營收能見度，(3) 企業數據中心光纖業務全年成長 61%，超大規模機房部分成長近 120%。Q1 EPS guidance $0.66-$0.70 略低於 Q4 $0.72，反映季節性與資本支出爬升期（2026 CapEx ~17 億美元 vs 2025 ~10 億美元）。",
+    "top_analyst_questions": [
+      "Wamsi Mohan（BofA）：Meta 協議模式是否複製到其他超大規模客戶？光纖市場是否已出現供給瓶頸？",
+      "Joshua Spector（UBS）：Meta 佔超大規模業務比重多少？容量如何分配給其他客戶？",
+      "Steven Fox（Fox Advisors）：國際製造佈局計畫，以及光纖分部利潤率上升路徑"
+    ],
+    "avoided_topics": [],
+    "key_quotes": [
+      "We are concluding similar long-term agreements with other major customers to dedicate capacity for them as well. — Wendell Weeks（CEO）",
+      "Our enterprise business grew 61% for the year; the hyperscale data center portion grew almost double that rate. — Edward Schlesinger（CFO）"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "光纖通訊（Optical Communications）是絕對主引擎：Q4 營收 17.0 億美元（+24% YoY），淨利潤 3.05 億美元（+57% YoY），利潤率 18%。企業超大規模數據中心光纖需求全年翻近兩倍，Meta 60 億美元長約鎖定 2026+ 能見度。Display（-2%）與 Specialty Materials（+6%）均屬配角，不構成拖累。",
+    "guidance_signal": "Q1 2026 core sales $4.2-4.3B（+15%）高於歷史 Q4→Q1 季節性，顯示光纖訂單能見度強。EPS guidance $0.66-$0.70 較 Q4 $0.72 下滑，隱含 2026 CapEx 大幅提升（+70%，至約 17 億美元）正在壓縮短期現金轉換，屬管理層主動擴產投資，非需求轉弱。SpringBoard 計畫從 40 億升至 110 億累計增量，代表管理層對 2026-2028 需求持高度信心。",
+    "anomaly_flags": [
+      "Display 業務 Q4 營收 9.55 億美元（-2% YoY），連續下滑但幅度溫和；管理層未提供 2026 顯示業務成長路徑，值得追蹤。",
+      "GAAP EPS $0.62 vs Core EPS $0.72，差距 $0.10 來自非現金調整；GAAP 毛利率未揭露，需留意重組費用是否持續。",
+      "2026 CapEx 指引 ~17 億美元（+70% YoY），FCF 轉換率可能在擴產期明顯下降，需追蹤 Q1 2026 實際 FCF。"
+    ]
+  }
+}

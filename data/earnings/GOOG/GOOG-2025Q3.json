@@ -1,0 +1,53 @@
+{
+  "ticker": "GOOG",
+  "period": "Q3FY2025",
+  "report_date": "2025-10-29",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch + Motley Fool transcript (fool.com/earnings/call-transcripts/2025/10/30/alphabet-goog-q3-2025-earnings-call-transcript/)",
+  "numbers": {
+    "eps_actual": 2.87,
+    "eps_estimate": 2.29,
+    "eps_beat_pct": 25.3,
+    "revenue_actual_b": 102.3,
+    "revenue_estimate_b": 99.9,
+    "revenue_beat_pct": 2.4,
+    "gross_margin_pct": null,
+    "operating_margin_pct": 30.5,
+    "operating_margin_ex_ec_fine_pct": 33.9,
+    "operating_income_b": null,
+    "fcf_b": 24.5,
+    "capex_b": 24.0,
+    "segment_search_b": null,
+    "segment_cloud_b": 15.2,
+    "segment_youtube_b": null,
+    "one_time_item": "歐盟執委會罰款 3.5B 計入 Q3 營業費用",
+    "guidance_capex_full_year_2025_low_b": 91,
+    "guidance_capex_full_year_2025_high_b": 93,
+    "guidance_next_q_revenue_growth_pct_low": null,
+    "guidance_next_q_revenue_growth_pct_high": null,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null
+  },
+  "transcript": {
+    "core_narrative": "Alphabet 達成史上首個百億美元以上季度（102.3B，+16% YoY），Cloud 成長 34% 且 backlog 暴增 82% 至 155B，Gemini API 處理量 7B tokens/min，AI 基礎設施需求確認推動 CapEx 上調。",
+    "guidance_explanation": "2025 全年 Capex 從 85B 上調至 91-93B，理由是資料中心容量需求持續緊張；並預告 2026 Capex「顯著增加」；無具體營收指引，但 Cloud backlog 155B（前季 84B，+82%）提供未來訂單能見度。",
+    "top_analyst_questions": [
+      "Brian Nowak (Morgan Stanley)：代理商務與旅遊體驗規模化下的廣告商業化路徑，以及 Waymo 與 Gemini 整合時間表",
+      "Doug Anmuth (JPMorgan)：AI Overviews / AI Mode 驅動下的核心搜尋強度來源，以及基礎設施支出的成本效率對沖",
+      "Eric Sheridan (Goldman Sachs)：自研晶片（TPU）連續世代如何提升運營效率並創造外部商業化機會"
+    ],
+    "avoided_topics": [],
+    "key_quotes": [
+      "Pichai (CEO): 'Our first-party models like Gemini now process 7 billion tokens per minute via direct API use by our customers.'",
+      "Schindler (Chief Business Officer): 'AI Max and Search is already used by hundreds of thousands of advertisers, currently making it the fastest-growing AI-powered search ads product.'"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "Cloud +34% 加速（15.2B），EPS 25% 超預期主因為除 EC 罰款以外的常態盈利能力（還原後 operating margin 33.9%）；Cloud backlog 155B 季增 82% 是本季最強訊號，顯示企業 AI 採購週期已啟動。EC 罰款 3.5B 壓低了 GAAP 利潤率但屬一次性。",
+    "guidance_signal": "Capex 再度上調（85B→91-93B）且預告 2026 繼續增加，表明管理層對 AI 需求持續性有高度信心；Cloud backlog 翻倍式增長暗示未來 4-6 季的確定性收入成長已鎖定。",
+    "anomaly_flags": [
+      "EC 罰款 3.5B 使 GAAP operating margin 僅 30.5%，與還原後 33.9% 差距顯著，需觀察歐盟法規風險是否持續",
+      "EPS 大幅超預期（25%）可能反映分析師估計模型追不上 Cloud 成長加速度，而非一次性利得"
+    ]
+  }
+}

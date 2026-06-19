@@ -1,0 +1,56 @@
+{
+  "ticker": "GOOG",
+  "period": "Q1FY2026",
+  "report_date": "2026-04-29",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch + Motley Fool transcript (fool.com/earnings/call-transcripts/2026/04/29/alphabet-googl-q1-2026-earnings-call-transcript/)",
+  "numbers": {
+    "eps_actual": 5.11,
+    "eps_estimate": 2.63,
+    "eps_beat_pct": 94.3,
+    "revenue_actual_b": 109.9,
+    "revenue_estimate_b": 107.1,
+    "revenue_beat_pct": 2.6,
+    "gross_margin_pct": null,
+    "operating_margin_pct": 36.1,
+    "operating_income_b": 39.7,
+    "fcf_b": 10.1,
+    "capex_b": 35.7,
+    "segment_search_b": null,
+    "segment_cloud_b": 20.0,
+    "segment_youtube_b": 9.88,
+    "guidance_capex_full_year_low_b": 180,
+    "guidance_capex_full_year_high_b": 190,
+    "guidance_next_q_revenue_growth_pct_low": null,
+    "guidance_next_q_revenue_growth_pct_high": null,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null
+  },
+  "transcript": {
+    "core_narrative": "Alphabet 交出創紀錄營收 109.9B（+22% YoY），Google Cloud 加速成長 63% 至 20B，Cloud backlog 達 462B 接近前季兩倍，EPS 以 5.11 大幅超越市場預估的 2.63，差距達 94%。",
+    "guidance_explanation": "2026 全年 Capex 上調至 180-190B（含 Intersect 收購），2027 Capex 預計「顯著增加」；但管理層坦承近期受算力供給限制，Cloud 實際營收若無此瓶頸可更高；Q2 FX 順風約 1 個百分點（低於 Q1 的 3 個百分點）。",
+    "top_analyst_questions": [
+      "算力分配與稀缺性：在供給受限下如何跨 R&D、搜尋、YouTube、Cloud 優先排序",
+      "Cloud 利潤率擴張：AI 營收成長如何在高投資下維持或改善毛利率",
+      "搜尋商業化演進：訂閱制高階搜尋層以及代理商務對廣告定價與量的衝擊"
+    ],
+    "avoided_topics": [
+      "TPU 直銷定價策略（拒絕具體說明）",
+      "2027 Capex 具體金額（僅說「顯著增加」）",
+      "對 AWS、Azure 的競爭定位（未提及）"
+    ],
+    "key_quotes": [
+      "Pichai (CEO): 'We are compute constrained in the near term. And as an example, our cloud revenue would have been higher if you were able to meet the demand.'",
+      "Ashkenazi (CFO): 'The significant increase in our investment in technical infrastructure will continue to put pressure on the P&L in the form of higher depreciation expense and related data center operations costs such as energy.'"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "EPS 以 94% 超越市場預估，主因為 Google Cloud 加速至 63% 成長（前季 48%），搜尋廣告 +19% YoY 維持強勁，加上 Gemini API 使用量急升（7B tokens/min）；但 FCB 從前季大幅下滑至 10.1B，因 Capex 季增至 35.7B（YoY +107%）。",
+    "guidance_signal": "Capex 上調（175-185B→180-190B）傳達需求持續強勁訊號，但同時承認算力供給是短期瓶頸；FCF 壓縮為投資前置期特徵，Cloud backlog 462B（接近前季兩倍）支撐未來數季收入能見度。",
+    "anomaly_flags": [
+      "EPS 超越幅度異常大（94%），部分原因可能是一次性利得或估計模型失準，需核查報表細節",
+      "YouTube 廣告 9.88B 未達預期，在整體強勁表現中為唯一弱項",
+      "FCF 47% YoY 下滑顯示現金轉換率壓力，Capex 週期尚未反映在收入端"
+    ]
+  }
+}

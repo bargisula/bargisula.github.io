@@ -1,0 +1,46 @@
+{
+  "ticker": "GLW",
+  "period": "Q3FY2025",
+  "report_date": "2025-10-28",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch (Zacks/Nasdaq consensus data) + Motley Fool Q3 2025 transcript (2025-10-28)",
+  "numbers": {
+    "eps_actual": 0.67,
+    "eps_estimate": 0.66,
+    "eps_beat_pct": 1.52,
+    "revenue_actual_b": 4.27,
+    "revenue_estimate_b": 4.21,
+    "revenue_beat_pct": 1.42,
+    "gross_margin_pct": null,
+    "operating_margin_pct": 19.6,
+    "fcf_b": 0.535,
+    "guidance_next_q_revenue_low_b": 4.35,
+    "guidance_next_q_revenue_high_b": 4.35,
+    "guidance_next_q_eps_low": 0.68,
+    "guidance_next_q_eps_high": 0.72,
+    "guidance_next_q_gross_margin_pct": null
+  },
+  "transcript": {
+    "core_narrative": "Corning 的 Springboard 計畫提前達標：自 2023Q4 啟動以來累計銷售成長 31%、EPS 成長 72%，營業利益率 19.6% 提前一年逼近 20% 目標。",
+    "guidance_explanation": "Q4 預估營收 43.5 億美元（年增 12%），EPS 0.68–0.72；其中含 0.03 美元的太陽能廠商業化爬坡暫時性成本，剔除後表現更強；管理層明示 Q4 將達成 20% 營業利益率里程碑。",
+    "top_analyst_questions": [
+      "光纖業務銷售時序（UBS）：Q3 光學業務表現是否已反映正常化 run rate，相對其他光纖供應商的數據如何解讀",
+      "營業利益率上行空間（JPMorgan）：在持續增加產能與產品組合轉變下，邊際利潤還能如何進一步改善",
+      "供應瓶頸現狀（Wolfe Research）：光學玻璃供應是否仍為制約因素，產能擴充的時間軸"
+    ],
+    "avoided_topics": [],
+    "key_quotes": [
+      "We expect fourth quarter sales of $4.35 billion, which will add another $300 million to our annualized sales run rate. — Wendell Weeks (CEO)",
+      "We now anticipate achieving our Springboard operating margin of 20% in Q4 2025, a full year ahead of plan. — Edward Schlesinger (CFO)"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "本季強勢由 Optical Communications（+32.6% YoY，實際 16.5 億 vs 估計 16.6 億小幅落後）與 Specialty Materials（+13.3% YoY，實際 6.21 億 vs 估計 5.65 億，超出 10%）共同驅動；Enterprise 網路光纖需求年增 58%，AI 資料中心互連需求持續加速。Display 業務年減 7.5% 是唯一拖累項，但與預估大致吻合。",
+    "guidance_signal": "Q4 指引隱含持續加速（43.5 億，年增 12%），且管理層刻意點出太陽能爬坡 0.03 美元的暫時性衝擊，等於告訴市場核心業務 EPS 指引更接近上緣；提前一年達 20% 利潤率目標是明確的上行訊號，但 Q4 單點指引而非區間，顯示能見度高。",
+    "anomaly_flags": [
+      "毛利率數字在 press release 及 8-K 未能取得（403 Forbidden），gross_margin_pct 留 null 待補",
+      "股價財報後下跌 5.1%，與數字強勢形成背離，可能反映估值已充分定價 Springboard 計畫，或機構鎖利；管理層措辭無明顯迴避",
+      "Optical Communications 實際營收略低於估計（-0.4%），但利潤超出明顯（2.95 億 vs 估計 2.41 億），顯示產品組合改善而非純量成長"
+    ]
+  }
+}

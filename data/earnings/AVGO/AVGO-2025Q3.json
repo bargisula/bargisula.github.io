@@ -1,0 +1,117 @@
+{
+  "ticker": "AVGO",
+  "company": "Broadcom Inc.",
+  "quarter": "Q3FY2025",
+  "fiscal_year_end": "October",
+  "period_end": "2025-08-03",
+  "report_date": "2025-09-04",
+  "analyzed_date": "2026-06-19",
+  "source": "SEC EDGAR 8-K (avgo-08032025x8kxex99.htm) + CNBC + AlphaSpread earnings call + Futurum Research",
+  "numbers": {
+    "revenue_m": 15952,
+    "revenue_yoy_pct": 22,
+    "revenue_beat_miss": "beat",
+    "revenue_estimate_m": 15800,
+    "revenue_beat_pct": 0.96,
+    "eps_nonGAAP_actual": 1.69,
+    "eps_nonGAAP_estimate": 1.66,
+    "eps_beat_pct": 1.8,
+    "eps_GAAP_actual": null,
+    "gross_margin_nonGAAP_pct": 78.4,
+    "gross_margin_GAAP_pct": null,
+    "operating_margin_nonGAAP_pct": 65.5,
+    "ebitda_m": 10702,
+    "ebitda_margin_pct": 67,
+    "fcf_m": 7000,
+    "fcf_margin_pct": 43.9,
+    "fcf_yoy_pct": 47
+  },
+  "segment_breakdown": {
+    "semiconductor_solutions_m": 9200,
+    "semiconductor_solutions_yoy_pct": 26,
+    "infrastructure_software_m": 6800,
+    "infrastructure_software_yoy_pct": 17
+  },
+  "ai_revenue": {
+    "ai_semiconductor_m": 5200,
+    "ai_semiconductor_yoy_pct": 63,
+    "ai_pct_of_semiconductor_revenue": 56.5,
+    "ai_pct_of_total_revenue": 32.6,
+    "consecutive_quarters_growth": 10,
+    "beat_vs_guidance": "Q2 指引 $5.1B，actual $5.2B，超出約 2%"
+  },
+  "key_guidance": {
+    "next_quarter": "Q4 FY2025",
+    "revenue_guidance_m": 17400,
+    "revenue_yoy_guidance_pct": 24,
+    "ai_semiconductor_guidance_m": 6200,
+    "ai_semiconductor_guidance_yoy_pct": 66,
+    "notes": "Q4 AI 半導體指引 62 億（QoQ +19%），總收入指引 174 億超分析師預期；軟體段指引 67 億（YoY +15%）"
+  },
+  "beat_miss": {
+    "revenue": "beat",
+    "eps_nonGAAP": "beat",
+    "summary": "Revenue beat 約 1%（指引 158 億，實際 160 億）；non-GAAP EPS $1.69 beat 估計 1.81%；FCF 紀錄新高 70 億"
+  },
+  "legacy_numbers": {
+    "eps_actual": 1.69,
+    "eps_estimate": 1.68,
+    "eps_beat_pct": 0.60,
+    "revenue_actual_b": 15.952,
+    "revenue_estimate_b": 15.82,
+    "revenue_beat_pct": 0.83,
+    "adjusted_ebitda_b": 10.7,
+    "adjusted_ebitda_margin_pct": 67.0,
+    "ai_revenue_yoy_pct": 63,
+    "semiconductor_revenue_b": 9.2,
+    "semiconductor_revenue_yoy_pct": 26,
+    "infrastructure_software_revenue_b": 6.8,
+    "infrastructure_software_revenue_yoy_pct": 17,
+    "guidance_next_q_ai_revenue_b": 6.2,
+    "guidance_next_q_ai_revenue_yoy_pct": 66,
+    "guidance_next_q_revenue_yoy_pct": 24,
+    "gross_margin_pct": 78.4,
+    "operating_margin_pct": 65.5,
+    "fcf_b": 7.0,
+    "ai_revenue_b": 5.2,
+    "ai_revenue_pct_of_semi": null,
+    "guidance_next_q_revenue_b": 17.4,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null
+  },
+  "transcript": {
+    "core_narrative": "Broadcom 創下 Q3 營收紀錄 160 億美元（YoY +22%），AI 半導體連續第 10 季成長，XPU 自訂加速器佔 AI 營收 65%，網路基礎設施定位為 AI 叢集擴張的核心瓶頸解決者。",
+    "guidance_explanation": "Q4 指引 174 億美元（YoY +24%），AI 半導體預計達 62 億美元（YoY +66%）；非 AI 半導體預期低個位數 YoY 成長；基礎設施軟體（主要為 VMware）指引 67 億美元（YoY +15%）；毛利率因 XPU 與無線產品組合偏移預計環比壓縮 70bp。",
+    "top_analyst_questions": [
+      "Deutsche Bank：XPU 成長加速的驅動因素為何？現有三個客戶增量＋新第四個客戶（已簽 100 億美元訂單）貢獻。",
+      "JPMorgan：非 AI 半導體何時觸底回升？Hock Tan 描述為 U 型復甦，Q4 低個位數 YoY 成長，2026 年中後期才有更顯著回升。",
+      "Bank of America：FY2026 AI 成長率能否具體說明？Tan 表示成長率將加速但拒絕給出具體數字（依法說會政策）。"
+    ],
+    "vmware_adoption_note": "前 10,000 大企業帳戶中逾 90% 已採用 VMware Cloud Foundation；整體訂單積壓紀錄達 110 億美元",
+    "avoided_topics": [
+      "具體競爭對手命名",
+      "四個 XPU 客戶的具體身份",
+      "2026 年以後的精確財務預測",
+      "Post-2026 商業化時間軸"
+    ],
+    "key_quotes": [
+      "The network is the computer — Hock Tan，強調網路基礎設施在 AI 運算中的核心地位",
+      "We're seeing growth rate accelerate — Hock Tan，回應 2026 年 AI 成長率問題，拒絕提供具體指引但暗示加速"
+    ]
+  },
+  "custom_asic_update": {
+    "xpu_customers_known": ["Google (TPU)", "Meta (MTIA)", "第三家（未披露）", "第四家（新增，訂單 >100 億美元，FY2026H2 交貨）"],
+    "xpu_customer_4_note": "第四家客戶訂單超過 100 億美元，主要於 FY2026 下半年交付",
+    "google_tpu_note": "Google TPU 自 Q1 FY2025 起持續爬坡，Q3 加速出貨",
+    "xpu_use_shift_note": "客戶工作負載從純訓練轉向訓練+推論混合，延長 XPU 使用週期"
+  },
+  "preliminary_inference": {
+    "strength_driver": "AI 半導體 YoY +63% 至 52 億美元，加速趨勢持續（Q2 為 +46%）；第四 XPU 客戶落地；FCF 新高 70 億（YoY +47%）顯示規模效益兌現",
+    "guidance_signal": "Q4 AI 指引 62 億（QoQ +19%）+ 總收入指引 174 億均超市場預期；十一季連續 AI 成長軌跡無斷裂",
+    "anomaly_flags": [
+      "毛利率 Q4 預計環比壓縮 70bp（因 XPU/無線組合偏移），需關注是否持續惡化",
+      "ChartMill 與其他來源估值基準不同（前者稱 revenue miss），以 Broadcom IR 官方數字 15.952B 對比指引 15.8B 為準",
+      "XPU 客戶高度集中（四個大客戶），訂單能見度高但集中風險存在"
+    ]
+  }
+}

@@ -93,7 +93,7 @@
     "【K3監控】聯發科 AI ASIC 營收年化是否突破 50 億美元（規模擴張到威脅訓練端份額的門檻）",
     "【新】AVGO Q3 FY2026 AI 半導體實際營收是否超過 160 億指引（beat 指引慣例驗證，約 2026-09 財報）"
   ],
-  "last_updated": "2026-06-14",
+  "last_updated": "2026-06-19",
   "ad_as_exposure": {
     "AD_short": 0.7,
     "AD_mid": 0.6,
@@ -115,6 +115,11 @@
       "date": "2026-06-09",
       "thesis": "超大雲端客戶（Google、Meta、Anthropic、OpenAI 等 6 家）的 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭，走差異化客製路線；VMware 整合提供企業軟體現金流護底",
       "changed_because": "Q2 FY2026 財報論點檢核（財報觸發測試 2026-06-09）：AI 訂單積壓 300 億（book-to-bill 2.8x），Anthropic/OpenAI GW 級多年合約落地，Q3 指引 294 億超預期 3.1%，FCF margin 46%；論點顯著強化；C3（VMware）從弱化轉回觀察，Q3 實際兌現可升回成立"
+    },
+    {
+      "date": "2026-06-19",
+      "thesis": "超大雲端客戶（Google、Meta、Anthropic、OpenAI 等 6 家）的 AI ASIC 首選設計夥伴，不與 NVIDIA 正面競爭，走差異化客製路線；VMware 整合提供企業軟體現金流護底",
+      "changed_because": "跨季論點追蹤（senior-analyst 2026-06-19）：論點維持，偏向強化方向。盤後跌 15% 為情緒性期望落差（chips only 語義、全年指引未上調），非論點損傷。新增兩個結構性觀察點：OB-1「chips only」含義驗證、OB-2 毛利率底部確認（Q3 指引 74%，需觀察是否止跌）。Apollo/Blackstone 20GW 平台降低訂單取消尾部風險。FCF 102.6 億 YoY +60% 為最強基本面支撐。"
     }
   ]
 }

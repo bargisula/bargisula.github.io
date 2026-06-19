@@ -1,0 +1,82 @@
+{
+  "ticker": "AVGO",
+  "period": "FY2026Q2",
+  "report_date": "2026-06-03",
+  "analyzed_date": "2026-06-19",
+  "fiscal_quarter_end": "2026-05-03",
+  "source": "PR Newswire press release + Motley Fool earnings call transcript + CNBC + Futurum analysis",
+  "numbers": {
+    "eps_actual_gaap": 1.91,
+    "eps_actual_nongaap": 2.44,
+    "eps_estimate_nongaap": 2.40,
+    "eps_beat_pct": 1.67,
+    "revenue_actual_m": 22187,
+    "revenue_estimate_m": 22270,
+    "revenue_beat_pct": -0.37,
+    "revenue_yoy_pct": 48,
+    "gross_profit_m": 15415,
+    "gross_margin_pct": 69.5,
+    "non_gaap_gross_margin_pct": 77.1,
+    "operating_income_m": 10788,
+    "non_gaap_operating_income_m": 14900,
+    "non_gaap_operating_margin_pct": 67.0,
+    "net_income_gaap_m": 9310,
+    "net_income_nongaap_m": 12074,
+    "adjusted_ebitda_m": 15244,
+    "adjusted_ebitda_margin_pct": 69,
+    "operating_cash_flow_m": 10493,
+    "fcf_m": 10262,
+    "fcf_yoy_pct": 60,
+    "segment_semiconductor_m": 15009,
+    "segment_semiconductor_pct_of_total": 68,
+    "segment_software_m": 7178,
+    "segment_software_pct_of_total": 32,
+    "segment_software_yoy_pct": 9,
+    "segment_software_estimate_m": 7320,
+    "ai_revenue_m": 10800,
+    "ai_revenue_yoy_pct": 143,
+    "ai_revenue_pct_of_total": 49,
+    "guidance_q3_revenue_m": 29400,
+    "guidance_q3_revenue_yoy_pct": 84,
+    "guidance_q3_ai_revenue_m": 16000,
+    "guidance_q3_ai_revenue_yoy_pct_implied": 200,
+    "guidance_q3_nongaap_operating_margin_pct": 67,
+    "guidance_q3_adjusted_ebitda_pct": 68,
+    "guidance_fy2026_ai_revenue_m": 56000,
+    "guidance_fy2027_ai_revenue_m_plus": 100000
+  },
+  "transcript": {
+    "core_narrative": "Broadcom 以定製 XPU 晶片與 AI 網路晶片為核心，在超大規模雲端客戶的不可餓足需求下錄得 AI 半導體營收 108 億美元（YoY +143%），並以超過 300 億美元訂單積壓為基礎上調 Q3 至 294 億美元指引。",
+    "guidance_explanation": "Q3 指引 294 億美元（YoY +84%）反映 AI 半導體加速至 160 億美元；Hock Tan 表示 AI 訂單積壓超過 300 億美元，遠超 Q2 出貨 108 億，客戶提前大量下單，能見度延伸至 2028 年，因此大幅上調。Q3 軟體段可能持平。",
+    "top_analyst_questions": [
+      "JPMorgan（Harlan Sur）：如何協調全年 AI 指引 560 億美元與下半年 2 倍加速的可信度",
+      "Jefferies（Blayne Curtis）：Google 長期合約結構—是固定承諾還是彈性量",
+      "UBS（Timothy Arcuri）：晶圓供應鏈與 HBM 分配能否支撐激增需求"
+    ],
+    "avoided_topics": [
+      "ASIC 各產品線個別 ASP 趨勢與毛利侵蝕細節",
+      "Google/Meta 內製晶片競爭定位",
+      "Apollo 350 億美元 XPU 平台融資可持續性"
+    ],
+    "key_quotes": [
+      "Bookings for AI semiconductors were over $30 billion against the $10.8 billion we shipped. — Hock Tan",
+      "Our visibility runs all the way to 2028 right now. — Hock Tan"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "AI 半導體（XPU + 網路晶片）是本季絕對主軸，108 億美元佔總營收 49%，YoY +143%；FCF 102 億美元 YoY +60% 驗證營收品質。唯一弱點是基礎設施軟體（含 VMware）72 億美元略低於市場預估 73 億，YoY +9% 增速放緩，是股價盤後跌 15% 的直接觸媒。",
+    "guidance_signal": "Q3 指引 294 億美元（YoY +84%）遠超前季，屬於強上調。AI 半導體 160 億美元指引隱含 QoQ +48%，若兌現將是定製 ASIC 需求爆發的最強數據確認。全年 AI 指引維持 560 億但未上調——市場解讀為管理層保守或供應鏈不確定性，Hock Tan 未提升天花板是跌停觸媒。",
+    "anomaly_flags": [
+      "軟體段 YoY +9% 遠低於半導體段，VMware VCF 貨幣化進入穩定期還是增速觸頂需持續追蹤",
+      "非 GAAP 毛利率 77.1%（YoY -230bps）反映半導體佔比上升稀釋軟體高毛利，半導體 ASIC 毛利率約 70% vs 軟體 93%，組合效應值得長期監控",
+      "訂單積壓 300 億美元 vs 出貨 108 億（3x backlog-to-ship ratio）—數字異常大，若客戶取消或延後訂單下季會出現明顯缺口"
+    ]
+  },
+  "data_sources": [
+    "https://www.prnewswire.com/news-releases/broadcom-inc-announces-second-quarter-fiscal-year-2026-financial-results-and-quarterly-dividend-302790698.html",
+    "https://www.fool.com/earnings/call-transcripts/2026/06/03/broadcom-avgo-q2-2026-earnings-transcript/",
+    "https://www.cnbc.com/2026/06/03/broadcom-avgo-earnings-report-q2-2026.html",
+    "https://futurumgroup.com/insights/broadcom-q2-fy-2026-vmware-stability-supports-ai-led-semiconductor-expansion/"
+  ],
+  "analyst_note": "junior-analyst 初步觀察，不含估值。本季財報為事實整理，AI 半導體 108 億 YoY +143% 為核心數字，軟體低於預估為唯一負面缺口，Q3 指引 160 億 AI 半導體為下季關鍵驗證點。300 億訂單積壓真實性為最大未確認風險。"
+}

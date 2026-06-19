@@ -1,0 +1,59 @@
+{
+  "ticker": "AVGO",
+  "period": "Q1FY2026",
+  "report_date": "2026-03-04",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch + Investing.com transcript + prnewswire press release + CNBC earnings report",
+  "numbers": {
+    "eps_actual": 2.05,
+    "eps_estimate": 2.02,
+    "eps_beat_pct": 1.49,
+    "revenue_actual_b": 19.31,
+    "revenue_estimate_b": null,
+    "revenue_beat_pct": null,
+    "gross_margin_pct": 77.0,
+    "operating_margin_pct": 66.4,
+    "fcf_b": 8.01,
+    "ai_revenue_b": 8.4,
+    "ai_revenue_pct_of_semi": 67.2,
+    "semiconductor_solutions_b": 12.5,
+    "infrastructure_software_b": 6.8,
+    "adjusted_ebitda_b": 13.128,
+    "adjusted_ebitda_margin_pct": 68.0,
+    "guidance_next_q_revenue_b": 22.0,
+    "guidance_next_q_revenue_growth_pct": 47,
+    "guidance_next_q_ebitda_margin_pct": 68,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null,
+    "guidance_next_q_ai_revenue_b": 10.7,
+    "guidance_next_q_semi_revenue_b": 14.8,
+    "guidance_next_q_infra_software_b": 7.2
+  },
+  "transcript": {
+    "core_narrative": "Hock Tan 強調 Broadcom 是六大 AI 平台客戶不可替代的 XPU 夥伴，供應鏈已鎖定至 2028 年，AI 芯片收入路徑對 2027 年超過 1,000 億美元具有清晰能見度。",
+    "guidance_explanation": "Q2 指引 $22B 收入（YoY +47%）、AI 半導體收入 $10.7B（YoY +140%），大幅超出市場預期 $20.56B；上調驅動力為六大客戶 XPU 需求持續加速，以及 AI 網路收入同步成長。",
+    "top_analyst_questions": [
+      "J.P. Morgan：客戶自研 XPU（COT）是否威脅 Broadcom 市占？Tan 回應：競爭者缺乏矽設計、先進封裝、量產能力，威脅在數年內不成立。",
+      "Melius Research：如何確保供應鏈至 2028 年？Tan 說明靠早期供應商合作與客戶多年路線圖共享達成產能鎖定。",
+      "UBS：系統級銷售（rack）是否壓縮毛利？Tan 表示 AI 業務良率與成本結構使毛利與整體半導體業務一致。"
+    ],
+    "avoided_topics": [
+      "Anthropic rack 與芯片收入的個別拆分",
+      "超大規模客戶 ROI 回收期與需求懸崖情境"
+    ],
+    "key_quotes": [
+      "We only have 6 guys to work on...very strategic, not transactional — Hock Tan 談客戶關係與長期定位",
+      "XPUs will eventually be more the choice simply because flexibility in designs works with particular workloads — Hock Tan 談 XPU 架構優勢",
+      "Line of sight to achieve AI revenue from chips in excess of $100 billion in 2027 — Hock Tan 談 2027 年 AI 芯片收入能見度"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "AI 半導體收入 $8.4B（YoY +106%）是本季最大驅動力，佔半導體解決方案 $12.5B 約 67%；非 AI 半導體與 Infrastructure Software（$6.8B）貢獻穩定但非主要成長來源。EPS $2.05 小幅超估 $2.02（+1.5%），非爆發性 beat，但 Q2 收入指引 $22B 遠超市場預期 $20.56B（+7%）是本季最大正面驚喜。",
+    "guidance_signal": "Q2 收入指引 $22B（+47% YoY）搭配 AI 半導體 $10.7B（+140% YoY），代表管理層對 XPU 需求加速有高度確信；EBITDA margin 指引維持 68% 顯示規模擴大不犧牲獲利率。2027 年 $100B AI 芯片目標為多年複合成長率提供天花板錨定，若達成隱含 XPU+網路業務 2026-2027 年間再翻倍。",
+    "anomaly_flags": [
+      "AI 收入佔半導體解決方案比例已達 67%，非 AI 半導體與工業/廣播等傳統業務比重持續下降，集中度提升為潛在風險。",
+      "管理層刻意迴避 Anthropic rack 與純芯片收入拆分，系統級銷售定價透明度不足，難以獨立驗證毛利結構。",
+      "$73B backlog 細節未完整揭露（客戶別、年期分佈），能見度主張難以第三方驗證。"
+    ]
+  }
+}

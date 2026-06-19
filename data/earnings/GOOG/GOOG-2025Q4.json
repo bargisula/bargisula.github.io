@@ -1,0 +1,56 @@
+{
+  "ticker": "GOOG",
+  "period": "Q4FY2025",
+  "report_date": "2026-02-04",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch + Motley Fool transcript (fool.com/earnings/call-transcripts/2026/02/04/alphabet-googl-q4-2025-earnings-call-transcript/)",
+  "numbers": {
+    "eps_actual": 2.82,
+    "eps_estimate": 2.64,
+    "eps_beat_pct": 6.8,
+    "revenue_actual_b": 113.8,
+    "revenue_estimate_b": 111.3,
+    "revenue_beat_pct": 2.2,
+    "gross_margin_pct": 59.6,
+    "operating_margin_pct": 31.6,
+    "operating_income_b": 35.9,
+    "fcf_b": 24.55,
+    "capex_b": 27.85,
+    "segment_search_b": 63.07,
+    "segment_cloud_b": 17.66,
+    "segment_youtube_b": 11.38,
+    "guidance_capex_full_year_2026_low_b": 175,
+    "guidance_capex_full_year_2026_high_b": 185,
+    "guidance_next_q_revenue_growth_pct_low": null,
+    "guidance_next_q_revenue_growth_pct_high": null,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null
+  },
+  "transcript": {
+    "core_narrative": "Alphabet 以 113.8B 創季度記錄（+18% YoY），Cloud 加速 48% 至 17.66B，Gemini 服務成本全年下降 78%，並宣布 2026 Capex 指引 175-185B（幾乎是 2025 年 91.4B 的兩倍），押注 AI 基礎設施為下一成長飛輪。",
+    "guidance_explanation": "2026 Capex 175-185B，約 60% 用於伺服器，40% 用於資料中心與網路；管理層未提供具體營收指引，但強調 Cloud 需求持續供給受限（supply-constrained），且「擴張性時刻」（expansionary moment）用於描述 AI 搜尋，暗示廣告業務受 AI 擴大而非取代。",
+    "top_analyst_questions": [
+      "AI 競爭與模型領導力：Alphabet 如何在 LLM 快速迭代週期中維持 Gemini 競爭位置",
+      "搜尋商業化演進：AI Mode 與更長對話如何轉化為廣告營收，尤其對比傳統搜尋廣告",
+      "Capex 可持續性：巨額基礎設施投資與獲利之間的平衡，以及效率對沖空間"
+    ],
+    "avoided_topics": [
+      "DOJ 反壟斷訴訟幾乎未被提及",
+      "AI Mode 與 Gemini App 廣告商業化路徑未給具體時間表",
+      "競爭對手（OpenAI、Microsoft）未被點名"
+    ],
+    "key_quotes": [
+      "Pichai (CEO): 'We lowered Gemini serving unit costs by 78% over 2025 through model optimizations, efficiency, and utilization improvements.'",
+      "Ashkenazi (CFO): 'Significant increases in technical infrastructure will put pressure on P&L through higher depreciation and data center operations costs.'"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "Cloud +48% 為核心驅動力（17.66B vs 估計 16.29B，超出 8.5%），搜尋廣告 +2.9% 超預期（63.07B）；YouTube 11.38B 未達估計 11.83B（-3.8%）為唯一弱項，可能受假期廣告支出模式影響；毛利率 59.6%（+140bps YoY）顯示 Gemini 服務成本下降具體落地。",
+    "guidance_signal": "2026 Capex 指引幾乎翻倍（91B→175-185B）是強烈的需求信心訊號，且 60% 用於算力伺服器（即需求驅動，非只是預防性佈建）；FCF 24.55B 相對健康表示現金轉換尚未顯著惡化。",
+    "anomaly_flags": [
+      "YouTube 廣告連續兩季未達預期（Q3 Q4），需觀察是否為結構性問題還是季節性",
+      "管理層「擴張性時刻」措辭值得追蹤，若未來季度搜尋增速放緩則論述失效",
+      "2026 Capex 翻倍幅度遠超歷史慣例，執行風險（建設延誤、能源成本）需監控"
+    ]
+  }
+}

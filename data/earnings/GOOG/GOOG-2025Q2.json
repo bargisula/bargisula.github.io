@@ -1,0 +1,55 @@
+{
+  "ticker": "GOOG",
+  "period": "Q2FY2025",
+  "report_date": "2025-07-23",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch + Motley Fool transcript (fool.com/earnings/call-transcripts/2025/07/23/alphabet-googl-q2-2025-earnings-call-transcript/)",
+  "numbers": {
+    "eps_actual": 2.31,
+    "eps_estimate": 2.12,
+    "eps_beat_pct": 8.96,
+    "revenue_actual_b": 96.4,
+    "revenue_estimate_b": 93.9,
+    "revenue_beat_pct": 2.66,
+    "gross_margin_pct": null,
+    "operating_margin_pct": 32.4,
+    "operating_income_b": 31.3,
+    "fcf_b": null,
+    "capex_b": 22.4,
+    "segment_search_b": null,
+    "segment_cloud_b": 13.6,
+    "segment_youtube_b": 9.8,
+    "guidance_capex_full_year_2025_b": 85,
+    "guidance_note": "2025 全年 Capex 從 75B 上調至 85B；未提供具體 EPS 或營收指引",
+    "guidance_next_q_revenue_growth_pct_low": null,
+    "guidance_next_q_revenue_growth_pct_high": null,
+    "guidance_next_q_eps_low": null,
+    "guidance_next_q_eps_high": null
+  },
+  "transcript": {
+    "core_narrative": "Alphabet 交出 96.4B（+14% YoY）的穩健季度，Cloud +32% 至 13.6B 為核心驅動，管理層以 Capex 再度上調（75B→85B）暗示 AI 算力需求超越原有規劃，並首次宣告 2026 將成為代理 AI 體驗普及年。",
+    "guidance_explanation": "2025 Capex 從 75B 上調至 85B，理由為資料中心建設加速與伺服器交付時程提前；預告 2026 Capex 將進一步增加；H2 2025 面臨 YouTube 2024 年美國大選廣告的強比較基期挑戰；FX 順風可能在 Q3 有所貢獻。",
+    "top_analyst_questions": [
+      "算力投入與供給限制矛盾：Capex 提升 10B 但仍供給受限，管理層解釋為投資到產能有時間差",
+      "搜尋商業化演進：AI Overviews 與新廣告格式對點擊率基礎商業模式的影響，管理層稱追蹤類似貨幣化率",
+      "雙介面搜尋策略：為何同時維護 AI Mode 與 Gemini App，管理層稱早期階段需在用戶習慣形成處服務"
+    ],
+    "avoided_topics": [
+      "DOJ 反壟斷訴訟完全未被提及",
+      "競爭對手（OpenAI、Microsoft）未被直接提及",
+      "付費點擊指標（paid clicks）管理層主動淡化，提醒「不要過度解讀 4% YoY 點擊成長」"
+    ],
+    "key_quotes": [
+      "Pichai (CEO): 'I expect 2026 to be the year in which people use agent experiences more broadly.'",
+      "Ashkenazi (CFO): 'We expect to remain in a tight demand-supply environment going into 2026.'"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "Cloud +32%（13.6B）為最強驅動，搜尋廣告維持雙位數增長（Google Services +12%）；EPS 8.96% 超預期，operating margin 32.4% YoY 持平，顯示在 Capex 擴張下控費能力尚可。",
+    "guidance_signal": "Capex 第二季連續上調（Q1: 75B, Q2: 85B）傳達管理層對 AI 需求確定性的信心持續增加；主動淡化付費點擊指標可能預示搜尋廣告計量方式轉型，屬需持續追蹤的結構性訊號。",
+    "anomaly_flags": [
+      "管理層主動降低付費點擊指標的市場解讀重要性，屬防禦性語言，值得後續觀察是否為點擊率下滑先兆",
+      "YouTube 廣告 9.8B 面臨 H2 2024 選舉高基期，Q3 廣告指標需特別注意比較基期效應"
+    ]
+  }
+}

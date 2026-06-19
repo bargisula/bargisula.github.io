@@ -1,0 +1,47 @@
+{
+  "ticker": "GLW",
+  "period": "Q1FY2026",
+  "report_date": "2026-04-28",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch + Motley Fool transcript (fool.com/earnings/call-transcripts/2026/04/28/corning-glw-q1-2026-earnings-transcript/) + Investing.com earnings summary",
+  "numbers": {
+    "eps_actual": 0.70,
+    "eps_estimate": 0.69,
+    "eps_beat_pct": 1.45,
+    "revenue_actual_b": 4.35,
+    "revenue_estimate_b": 4.29,
+    "revenue_beat_pct": 1.40,
+    "gross_margin_pct": 39.1,
+    "operating_margin_pct": 20.2,
+    "fcf_b": 0.188,
+    "guidance_next_q_revenue_low_b": 4.6,
+    "guidance_next_q_revenue_high_b": 4.6,
+    "guidance_next_q_eps_low": 0.73,
+    "guidance_next_q_eps_high": 0.77,
+    "guidance_next_q_gross_margin_pct": null
+  },
+  "transcript": {
+    "core_narrative": "Corning 在 AI 基礎設施需求驅動下與三家超大規模雲端客戶（含 Meta）簽訂總計約 60 億美元多年期協議，光纖通訊業務爆發性成長成為本季主引擎。",
+    "guidance_explanation": "Q2 指引營收約 46 億美元（年增 14%）、EPS 0.73–0.77（年增 25%），管理層說明數字中已含太陽能晶圓廠設施維護停工的 3,000 萬美元額外費用（約影響 EPS 0.07 美元）；若排除此一次性項目，本業成長動能持續加速。",
+    "top_analyst_questions": [
+      "光纖產能擴張：三大超大規模協議是否需要大幅新增光纖拉絲產能？管理層確認正在全線光纖設施擴產，並以風險共擔合約結構分散資本支出風險。",
+      "太陽能業務時間表與獲利：分析師追問太陽能晶圓業務何時達到 20% 營業利益率目標，管理層預期逐季改善但拒絕給出精確時間點。",
+      "光纖部門利潤率天花板：投資人詢問光纖通訊利潤率能否超越玻璃顯示業務，管理層正面回應並強調投資回報率（ROIC）優於純毛利率的比較意義。"
+    ],
+    "avoided_topics": [
+      "Glass Innovations（顯示+特殊材料合併部門）的具體創新產品細節，管理層刻意留待 2026-05-06 投資人日再披露。"
+    ],
+    "key_quotes": [
+      "\"These agreements taken in total are driving so much growth...you're going to see expansion across all of our major optical operations, including expanding our fiber operations.\" — CEO Wendell Weeks",
+      "\"You have funding, you have guaranteed revenue, you can have price...all aimed at how do we appropriately share the risk.\" — Weeks on hyperscaler contract structures"
+    ]
+  },
+  "preliminary_inference": {
+    "strength_driver": "本季財報強勁的主因是光纖通訊（Optical Communications）業務爆發：營收年增 36% 至 18 億美元、淨利年增 93%，由 AI 資料中心互聯與光纖到府（FTTH）雙輪驅動；太陽能業務（Solar）年增 80% 為第二引擎，共同帶動整體毛利率升至 39.1%（年增 120bps）、營業利益率 20.2%（年增 220bps）。",
+    "guidance_signal": "Q2 指引隱含動能持續加速：營收繼續年增 14%、EPS 年增 25%，且指引中已納入 3,000 萬美元一次性太陽能廠停工費用，代表「剔除雜音後的本業」成長更強。三大超大規模客戶多年期協議提供收入能見度，管理層暗示全年資本支出可能超出原先 17 億美元指引，但由客戶共同出資，對自由現金流影響中性。",
+    "anomaly_flags": [
+      "Display 業務被合併入 Glass Innovations（與 Specialty Materials 合并），單獨拆分的顯示玻璃數字不再披露，需追蹤此結構調整是否遮蔽顯示業務的潛在衰退。",
+      "管理層明確提示記憶體成本上漲將「顯著衝擊 2026 年市場」，對 Specialty Materials（Gorilla Glass，主要客戶蘋果）形成潛在負面壓力，但未量化影響幅度。"
+    ]
+  }
+}

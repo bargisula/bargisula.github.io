@@ -1,0 +1,59 @@
+{
+  "ticker": "GLW",
+  "period": "Q2FY2025",
+  "report_date": "2025-07-29",
+  "analyzed_date": "2026-06-19",
+  "source": "WebSearch (Yahoo Finance, GuruFocus headline) + Motley Fool Q2 2025 earnings call transcript",
+  "notes": "EPS figures are non-GAAP (core EPS). GAAP EPS was $0.54 per GuruFocus headline. Revenue was in line with estimates (within rounding). Gross margin not disclosed in available sources; operating margin is core operating margin per management.",
+  "numbers": {
+    "eps_actual": 0.60,
+    "eps_estimate": 0.57,
+    "eps_beat_pct": 5.26,
+    "revenue_actual_b": 3.86,
+    "revenue_estimate_b": 3.87,
+    "revenue_beat_pct": -0.26,
+    "gross_margin_pct": null,
+    "operating_margin_pct": 19.0,
+    "operating_margin_prior_q_pct": 18.0,
+    "fcf_b": 0.451,
+    "guidance_next_q_revenue_low_b": 4.2,
+    "guidance_next_q_revenue_high_b": 4.2,
+    "guidance_next_q_eps_low": 0.63,
+    "guidance_next_q_eps_high": 0.67,
+    "guidance_next_q_gross_margin_pct": null
+  },
+  "transcript": {
+    "core_narrative": "Corning delivered record results driven by Gen AI data center infrastructure demand, with optical communications growing 41% YoY and enterprise optical up 81%, advancing its Springboard plan toward $4B incremental sales and 20% operating margins by end-2026.",
+    "guidance_explanation": "Q3 guidance of $4.2B revenue and $0.63–$0.67 EPS reflects continued optical and solar ramp; management flagged tariff headwind of $0.01–$0.02/share and temporary production ramp costs of $0.02–$0.03/share for new Gen AI and solar products, expected to dissipate as utilization scales through 2026.",
+    "top_analyst_questions": [
+      "Pull-forward risk: how much Specialty Materials and Display demand was pulled forward ahead of tariffs, and what does H2 normalization look like?",
+      "Scale-up opportunity: how should investors interpret customer announcements naming Corning as technology partner (Broadcom/NVIDIA examples)?",
+      "Solar capital intensity: breakdown of capex requirements across modules, wafers, and polysilicon segments"
+    ],
+    "avoided_topics": [
+      "Specific fiber market share by region (management said 'too soon')",
+      "Details of U.S. manufacturing negotiations (deferred to 'next few months')"
+    ],
+    "key_quotes": [
+      "We expect to add another $600 million to our annualized sales run rate in the third quarter. — Wendell P. Weeks (CEO)",
+      "We plan to build it into a $2.5 billion revenue stream by 2028. — Edward A. Schlesinger (CFO, on solar segment)"
+    ]
+  },
+  "segment_highlights": {
+    "optical_communications_revenue_b": 1.6,
+    "optical_communications_yoy_growth_pct": 41,
+    "enterprise_optical_yoy_growth_pct": 81,
+    "display_revenue_m": 898,
+    "display_sequential_change": "flat",
+    "specialty_materials_yoy_growth_pct": 9
+  },
+  "preliminary_inference": {
+    "strength_driver": "Optical Communications was the primary driver (+41% YoY, $1.6B), with enterprise optical segment up 81% YoY on Gen AI data center buildout demand; Specialty Materials contributed +9% YoY growth from Gorilla Glass premium mix; combined effect lifted core EPS 28% YoY and expanded operating margin 160bp to 19%.",
+    "guidance_signal": "Q3 guidance at $4.2B (+23.9% YoY) is 4.2% above prior analyst consensus, signaling management confidence in continued optical and solar ramp; the explicit callout of $0.03–$0.05 in transient cost headwinds (tariffs + ramp costs) is a transparency signal, not a warning—they are guiding through known friction.",
+    "anomaly_flags": [
+      "Specialty Materials and Display pull-forward purchasing acknowledged by management ahead of tariffs; H2 2025 volume normalization risk in these two segments",
+      "Revenue in line vs. estimates despite EPS beat—operating leverage rather than top-line surprise was the mechanism",
+      "Solar segment ($2.5B target by 2028) is a new growth vector not previously central to GLW narrative; capital intensity discussion was probed by analysts but management deflected specifics"
+    ]
+  }
+}
