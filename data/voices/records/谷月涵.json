@@ -1,0 +1,30 @@
+{
+  "person": "谷月涵",
+  "tier": "資深分析師",
+  "focus": ["台股", "半導體", "總體經濟", "市場評論"],
+  "records": [
+    {
+      "id": "谷月涵-台股末升段-20260604",
+      "date": "2026-06-04",
+      "analyzed_date": "2026-06-19",
+      "ticker": null,
+      "sector": "台股/總體",
+      "view_type": "宏觀",
+      "stance": "看空",
+      "target_price": null,
+      "rating": null,
+      "summary": "台股已進末升段，自曝零持股，呼籲不要賺最後一滴水",
+      "key_reason": [
+        "台股台積電等主流科技股已 price in，不宜追高",
+        "台股衝高後恐立即反轉，高位回檔風險大",
+        "操作建議：高現金水位搭配短線，回避全倉持有"
+      ],
+      "tickers_mentioned": [],
+      "source_url": "https://www.businesstoday.com.tw/article/category/183008/post/202606040001/",
+      "source_type": "媒體報導（今周刊）",
+      "prev_stance": null,
+      "stance_change": false,
+      "tags": ["末升段", "台股", "高現金水位", "防禦"]
+    }
+  ]
+}

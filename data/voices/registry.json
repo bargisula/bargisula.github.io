@@ -13,6 +13,19 @@
       "search_sources": ["technews.tw", "cnyes.com", "youtube.com"],
       "active": true,
       "record_file": "records/陸行之.json"
+    },
+    {
+      "id": "gu-yueh-han",
+      "name": "谷月涵",
+      "name_en": "Peter Kurz",
+      "institution": "自媒體 / 前摩根大通台灣研究主管",
+      "tier": "資深分析師",
+      "focus": ["台股", "半導體", "總體經濟", "市場評論"],
+      "search_terms": ["谷月涵", "Peter Kurz 台股"],
+      "channels": ["媒體專訪", "今周刊", "工商時報"],
+      "search_sources": ["udn.com", "businesstoday.com.tw", "cnyes.com"],
+      "active": true,
+      "record_file": "records/谷月涵.json"
     }
   ]
 }
