@@ -1,0 +1,18 @@
+{
+  "last_updated": "2026-06-19",
+  "voices": [
+    {
+      "id": "lu-xingzhi",
+      "name": "陸行之",
+      "name_en": "Lu Xingzhi",
+      "institution": "自媒體",
+      "tier": "個人分析師",
+      "focus": ["半導體", "AI", "台股", "美股科技"],
+      "search_terms": ["陸行之", "Lu Xingzhi 半導體"],
+      "channels": ["YouTube", "Facebook"],
+      "search_sources": ["technews.tw", "cnyes.com", "youtube.com"],
+      "active": true,
+      "record_file": "records/陸行之.json"
+    }
+  ]
+}

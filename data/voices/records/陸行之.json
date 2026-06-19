@@ -1,0 +1,30 @@
+{
+  "person": "陸行之",
+  "tier": "個人分析師",
+  "focus": ["半導體", "AI", "台股", "美股科技"],
+  "records": [
+    {
+      "id": "陸行之-AI架構-20260619",
+      "date": "2026-06-19",
+      "analyzed_date": "2026-06-19",
+      "ticker": null,
+      "sector": "半導體/AI架構",
+      "view_type": "產業",
+      "stance": "看多",
+      "target_price": null,
+      "rating": null,
+      "summary": "Agentic AI 需求爆發，AI 伺服器 CPU 配比嚴重不足，1CPU:4GPU 架構將被 1CPU:1~2GPU 取代，CPU 配比倍增是下一波台股半導體機會",
+      "key_reason": [
+        "Q1 2026 Agentic AI 爆發，CPU 負責邏輯判斷與資料搬移，舊架構嚴重不足",
+        "預期 AI 伺服器從 1CPU:4GPU 轉向 1CPU:1~2GPU，CPU 配比比重倍增",
+        "受惠：Intel、AMD、ARM-based CPU 廠；DDR5/6 DRAM 廠"
+      ],
+      "tickers_mentioned": ["嘉澤", "新唐", "祥碩", "譜瑞"],
+      "source_url": "https://www.taisounds.com/news/content/76/253781",
+      "source_type": "媒體報導（太報）",
+      "prev_stance": null,
+      "stance_change": false,
+      "tags": ["Agentic AI", "CPU", "AI架構", "台股半導體"]
+    }
+  ]
+}
