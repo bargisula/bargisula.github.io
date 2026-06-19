@@ -2,8 +2,6 @@
     "$schema": "https://json.schemastore.org/claude-code-settings.json",
     "permissions": {
         "deny": [
-            "Edit(src/components/Header.astro)",
-            "Write(src/components/Header.astro)",
             "Write(src/pages/*)"
         ]
     }
