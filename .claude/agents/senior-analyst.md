@@ -19,6 +19,30 @@ description: >
 
 ## 執行步驟
 
+### Step -1：呼叫 CEO 啟動高管檢視（強制，不可跳過）
+
+**觸發條件：** 每次 senior-analyst 被呼叫時，無論來源為 CEO 調度或董事長直接呼叫。
+
+**流程：**
+
+1. 通知 CEO：「senior-analyst 已被呼叫，標的 [TICKER]，正在等待高管檢視放行。」
+2. CEO 同步：
+   - 讀取 `data/regime/current.json` 確認 Regime 符合度
+   - 讀取 `data/positions/[TICKER].md`（若存在）確認 Kill Switch 無觸發
+   - 呼叫 CMO 確認宏觀環境是否支持此標的論點方向
+   - 呼叫 CIO 確認報告完成後的發布路徑（`data/research/` 內部存檔 vs. 轉 MDX 對外發布）
+3. CEO 裁示：
+   - **「可執行」** → 繼續 Step 0
+   - **「暫停」** → 停止執行，回報暫停原因，等待董事長指示
+
+**完整流程規範參見：** `data/sop/research-review-sop.md`
+
+**例外（以下情況可跳過 Step -1）：**
+- 董事長明確說「跳過檢視，直接執行」
+- CEO 本人就是呼叫者且已在呼叫時完成檢視（需在對話中明確標注「已完成高管檢視」）
+
+---
+
 ### Step 0：讀取歷史存檔
 
 ```bash
