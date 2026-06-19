@@ -8,7 +8,7 @@ export type CatDef = {
   name: string;
   icon: string;
   subs: SubDef[];
-  label?: string;
+  label?: string | string[];
   hideSubs?: boolean;
 };
 
@@ -46,7 +46,7 @@ export const CATEGORY_TREE: CatDef[] = [
     ],
   },
   {
-    name: '國際情勢', icon: '🌐', label: 'GPT',
+    name: '國際情勢', icon: '🌐', label: ['GPT', 'Copilot', 'Meta'],
     subs: [
       { name: '中國', topics: ['週報'] },
       { name: '日本', topics: ['週報'] },

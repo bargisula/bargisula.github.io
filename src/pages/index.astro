@@ -30,7 +30,7 @@ const categoryData = CATEGORY_TREE.map(cat => {
   return {
     name: cat.name,
     icon: cat.icon,
-    label: cat.label,
+    labels: Array.isArray(cat.label) ? cat.label : cat.label ? [cat.label] : [],
     ...style,
     count: catNotes.length,
     latest: catNotes[0],
@@ -55,6 +55,13 @@ const totalNotes = notes.length;
         <div class="hero-badge">個人知識庫</div>
         <h1>Alpha Notes</h1>
         <p class="hero-desc">關於投資策略、科技觀察與日常生活的記錄。<br />寫下思考，留住當下。</p>
+        <div class="hero-llm">
+          <span class="llm-tag gpt">GPT</span>
+          <span class="llm-tag claude">Claude</span>
+          <span class="llm-tag gemini">Gemini</span>
+          <span class="llm-tag copilot">Copilot</span>
+          <span class="llm-tag meta">Meta</span>
+        </div>
         <div class="hero-actions">
           <a href="/notes" class="btn-primary">進入知識庫</a>
           <a href="/about" class="btn-secondary">關於我</a>
@@ -80,10 +87,14 @@ const totalNotes = notes.length;
                   <span class="cat-icon">{cat.icon}</span>
                   <div class="cat-title-wrap">
                     <span class="cat-name">{cat.name}</span>
-                    {cat.label && (
-                      <span class="cat-label" style={`color:${cat.lColor}; background:${cat.lBg}; border:1px solid ${cat.lBorder}`}>
-                        {cat.label}
-                      </span>
+                    {cat.labels.length > 0 && (
+                      <div class="cat-labels">
+                        {cat.labels.map((lbl: string) => (
+                          <span class="cat-label" style={`color:${cat.lColor}; background:${cat.lBg}; border:1px solid ${cat.lBorder}`}>
+                            {lbl}
+                          </span>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </div>
@@ -153,6 +164,30 @@ const totalNotes = notes.length;
     margin: 0 auto 1.8em;
     max-width: 480px;
   }
+
+  .hero-llm {
+    display: flex;
+    gap: 0.45em;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.6em;
+  }
+
+  .llm-tag {
+    font-size: 0.72em;
+    font-weight: 600;
+    font-family: monospace;
+    letter-spacing: 0.04em;
+    padding: 0.2em 0.65em;
+    border-radius: 5px;
+    border: 1px solid;
+  }
+
+  .llm-tag.gpt     { color: #16a34a; background: #f0fdf4; border-color: #86efac; }
+  .llm-tag.claude  { color: #b45309; background: #fffbeb; border-color: #fcd34d; }
+  .llm-tag.gemini  { color: #2563eb; background: #eff6ff; border-color: #93c5fd; }
+  .llm-tag.copilot { color: #6d28d9; background: #f5f3ff; border-color: #c4b5fd; }
+  .llm-tag.meta    { color: #0891b2; background: #f0f9ff; border-color: #7dd3fc; }
 
   .hero-actions {
     display: flex;
@@ -271,6 +306,12 @@ const totalNotes = notes.length;
     font-size: 1.25em;
     font-weight: 700;
     color: rgb(var(--black));
+  }
+
+  .cat-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25em;
   }
 
   .cat-label {
