@@ -4,6 +4,30 @@
   "focus": ["半導體", "AI", "台股", "美股科技"],
   "records": [
     {
+      "id": "陸行之-Intel馬斯克Terafab-20260612",
+      "date": "2026-06-12",
+      "analyzed_date": "2026-06-19",
+      "ticker": "INTC",
+      "sector": "半導體/晶圓代工",
+      "view_type": "個股",
+      "stance": "看空",
+      "target_price": null,
+      "rating": null,
+      "summary": "英特爾若出資加入馬斯克 Terafab 合資廠，最壞劇本是決策權落馬斯克手、人才被挖、拖累轉型，恐死得更快",
+      "key_reason": [
+        "Intel 財務壓力仍大，共同建廠資本支出驚人（10萬~100萬片月產能），負擔不起",
+        "合資後決策權恐掌握在馬斯克手中，Intel 淪為出技術的小股東（估10~20%股權）",
+        "Terafab 若競爭不過台積電，壓力反彈回 Intel，加速衰亡而非轉機",
+        "建議 Intel 利用高股價籌資、集中資源在 14A 先進製程研發量產，才是穩健策略"
+      ],
+      "tickers_mentioned": ["INTC", "台積電", "TSM"],
+      "source_url": "https://www.chinatimes.com/realtimenews/20260612003295-260410",
+      "source_type": "媒體報導（中時新聞網）",
+      "prev_stance": null,
+      "stance_change": false,
+      "tags": ["Intel", "Terafab", "馬斯克", "台積電", "晶圓代工競爭"]
+    },
+    {
       "id": "陸行之-AI架構-20260619",
       "date": "2026-06-19",
       "analyzed_date": "2026-06-19",
