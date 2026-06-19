@@ -1,0 +1,439 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// 讀取 registry
+const registryPath = path.resolve('data/voices/registry.json');
+const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
+
+// 讀取每個人的紀錄
+const voices = registry.voices
+  .filter((v: any) => v.active)
+  .map((v: any) => {
+    const recordPath = path.resolve(`data/voices/${v.record_file}`);
+    const data = JSON.parse(fs.readFileSync(recordPath, 'utf-8'));
+    const records = [...data.records].sort(
+      (a: any, b: any) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+    );
+    return { ...v, records };
+  });
+
+// 收集所有 tags 供篩選
+const allTags = [...new Set(voices.flatMap((v: any) => v.records.flatMap((r: any) => r.tags ?? [])))].sort();
+
+const stanceColor: Record<string, string> = {
+  '看多': '#16a34a',
+  '看空': '#dc2626',
+  '中性': '#6b7280',
+  '轉向': '#d97706',
+};
+const stanceBg: Record<string, string> = {
+  '看多': '#f0fdf4',
+  '看空': '#fef2f2',
+  '中性': '#f9fafb',
+  '轉向': '#fffbeb',
+};
+const stanceBorder: Record<string, string> = {
+  '看多': '#86efac',
+  '看空': '#fca5a5',
+  '中性': '#e5e7eb',
+  '轉向': '#fcd34d',
+};
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <BaseHead title={`觀點資料庫 | ${SITE_TITLE}`} description="追蹤市場關鍵人物與機構的投資觀點，偵測立場轉折。" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="page-header">
+        <div class="header-meta">Xompass Research</div>
+        <h1>觀點資料庫</h1>
+        <p class="header-desc">追蹤市場關鍵分析師與機構的投資觀點，偵測立場轉折信號。</p>
+      </div>
+
+      <!-- 篩選列 -->
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="stance_change">⚠️ 立場轉向</button>
+        {allTags.map((tag: string) => (
+          <button class="filter-btn" data-filter={`tag:${tag}`}>{tag}</button>
+        ))}
+      </div>
+
+      <!-- 人物列表 -->
+      {voices.map((voice: any) => (
+        <section class="voice-section">
+          <div class="voice-meta">
+            <div class="voice-identity">
+              <span class="voice-name">{voice.name}</span>
+              <span class="voice-tier">{voice.tier}</span>
+              {voice.institution !== '自媒體' && (
+                <span class="voice-institution">{voice.institution}</span>
+              )}
+            </div>
+            <div class="voice-focus">
+              {voice.focus.map((f: string) => (
+                <span class="focus-tag">{f}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="records-list">
+            {voice.records.map((rec: any) => (
+              <article
+                class={`record-card ${rec.stance_change ? 'is-change' : ''}`}
+                data-stance-change={rec.stance_change}
+                data-tags={JSON.stringify(rec.tags ?? [])}
+              >
+                <div class="record-header">
+                  <div class="record-left">
+                    <span
+                      class="stance-badge"
+                      style={`color:${stanceColor[rec.stance] ?? '#6b7280'};background:${stanceBg[rec.stance] ?? '#f9fafb'};border:1px solid ${stanceBorder[rec.stance] ?? '#e5e7eb'}`}
+                    >
+                      {rec.stance_change && '⚠️ '}{rec.stance}
+                    </span>
+                    {rec.ticker && <span class="ticker-tag">{rec.ticker}</span>}
+                    <span class="sector-tag">{rec.sector}</span>
+                  </div>
+                  <time class="record-date">{rec.date}</time>
+                </div>
+
+                <p class="record-summary">{rec.summary}</p>
+
+                {rec.key_reason?.length > 0 && (
+                  <ul class="record-reasons">
+                    {rec.key_reason.map((r: string) => (
+                      <li>{r}</li>
+                    ))}
+                  </ul>
+                )}
+
+                {rec.tickers_mentioned?.length > 0 && (
+                  <div class="tickers-row">
+                    <span class="tickers-label">提到：</span>
+                    {rec.tickers_mentioned.map((t: string) => (
+                      <span class="mentioned-ticker">{t}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div class="record-footer">
+                  {rec.prev_stance && rec.stance_change && (
+                    <span class="stance-transition">
+                      {rec.prev_stance} → {rec.stance}
+                    </span>
+                  )}
+                  <a href={rec.source_url} target="_blank" rel="noopener" class="source-link">
+                    {rec.source_type} ↗
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<script>
+  const filterBar = document.getElementById('filterBar');
+  const cards = document.querySelectorAll<HTMLElement>('.record-card');
+
+  filterBar?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.filter-btn') as HTMLButtonElement | null;
+    if (!btn) return;
+
+    filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter ?? 'all';
+
+    cards.forEach(card => {
+      if (filter === 'all') {
+        card.style.display = '';
+      } else if (filter === 'stance_change') {
+        card.style.display = card.dataset.stanceChange === 'true' ? '' : 'none';
+      } else if (filter.startsWith('tag:')) {
+        const tag = filter.slice(4);
+        const tags: string[] = JSON.parse(card.dataset.tags ?? '[]');
+        card.style.display = tags.includes(tag) ? '' : 'none';
+      }
+    });
+  });
+</script>
+
+<style>
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.2em 4em;
+  }
+
+  .page-header {
+    padding: 3em 0 2em;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2em;
+  }
+
+  .header-meta {
+    font-size: 0.78em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+  }
+
+  .page-header h1 {
+    font-size: 2em;
+    margin: 0 0 0.4em;
+    color: rgb(var(--black));
+  }
+
+  .header-desc {
+    color: rgb(var(--gray));
+    margin: 0;
+    font-size: 1em;
+  }
+
+  /* 篩選列 */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-bottom: 2.5em;
+  }
+
+  .filter-btn {
+    font-size: 0.8em;
+    font-weight: 500;
+    padding: 0.3em 0.8em;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: white;
+    color: rgb(var(--gray-dark));
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* 人物區塊 */
+  .voice-section {
+    margin-bottom: 3em;
+  }
+
+  .voice-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    margin-bottom: 1.2em;
+    padding-bottom: 0.8em;
+    border-bottom: 2px solid var(--accent-light);
+  }
+
+  .voice-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+  }
+
+  .voice-name {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: rgb(var(--black));
+  }
+
+  .voice-tier {
+    font-size: 0.72em;
+    padding: 0.15em 0.55em;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .voice-institution {
+    font-size: 0.78em;
+    color: rgb(var(--gray));
+  }
+
+  .voice-focus {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3em;
+  }
+
+  .focus-tag {
+    font-size: 0.72em;
+    padding: 0.15em 0.5em;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: rgb(var(--gray));
+    background: #f9fafb;
+  }
+
+  /* 紀錄卡片 */
+  .records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .record-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2em 1.4em;
+    background: white;
+    transition: box-shadow 0.15s;
+  }
+
+  .record-card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  .record-card.is-change {
+    border-left: 3px solid #d97706;
+    background: #fffdf7;
+  }
+
+  .record-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8em;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .record-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+  }
+
+  .stance-badge {
+    font-size: 0.75em;
+    font-weight: 700;
+    padding: 0.2em 0.65em;
+    border-radius: 5px;
+    font-family: monospace;
+  }
+
+  .ticker-tag {
+    font-size: 0.75em;
+    font-weight: 700;
+    padding: 0.2em 0.55em;
+    background: #1e293b;
+    color: white;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+
+  .sector-tag {
+    font-size: 0.75em;
+    color: rgb(var(--gray));
+    padding: 0.2em 0.5em;
+    background: #f3f4f6;
+    border-radius: 4px;
+  }
+
+  .record-date {
+    font-size: 0.78em;
+    color: rgb(var(--gray));
+  }
+
+  .record-summary {
+    font-size: 0.92em;
+    color: rgb(var(--black));
+    font-weight: 500;
+    margin: 0 0 0.8em;
+    line-height: 1.6;
+  }
+
+  .record-reasons {
+    font-size: 0.84em;
+    color: rgb(var(--gray-dark));
+    margin: 0 0 0.8em;
+    padding-left: 1.2em;
+    line-height: 1.7;
+  }
+
+  .tickers-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35em;
+    margin-bottom: 0.8em;
+  }
+
+  .tickers-label {
+    font-size: 0.75em;
+    color: rgb(var(--gray));
+  }
+
+  .mentioned-ticker {
+    font-size: 0.73em;
+    padding: 0.1em 0.45em;
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .record-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    padding-top: 0.7em;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .stance-transition {
+    font-size: 0.78em;
+    font-weight: 600;
+    color: #d97706;
+    background: #fffbeb;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    border: 1px solid #fcd34d;
+  }
+
+  .source-link {
+    font-size: 0.78em;
+    color: var(--accent);
+    text-decoration: none;
+    margin-left: auto;
+  }
+
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .voice-meta { flex-direction: column; align-items: flex-start; }
+    .record-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
