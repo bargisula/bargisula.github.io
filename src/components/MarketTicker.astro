@@ -6,10 +6,12 @@ const { updated, indices } = marketData;
 // Format: "05/12"
 const dateLabel = updated ? updated.slice(5).replace('-', '/') : '--/--';
 
-function fmt(n: number): string {
+function fmt(n: number | null): string {
+  if (n == null || isNaN(n)) return '--';
   return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
-function fmtClose(n: number): string {
+function fmtClose(n: number | null): string {
+  if (n == null || isNaN(n)) return '--';
   return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 ---
@@ -22,10 +24,10 @@ function fmtClose(n: number): string {
       <span class="ticker-item">
         <span class="ticker-name">{idx.name}</span>
         <span class="ticker-close">{fmtClose(idx.close)}</span>
-        <span class={`ticker-change ${idx.change >= 0 ? 'up' : 'down'}`}>
-          {idx.change >= 0 ? '▲' : '▼'}
-          {fmt(Math.abs(idx.change))}
-          ({idx.change >= 0 ? '+' : ''}{idx.pct.toFixed(2)}%)
+        <span class={`ticker-change ${(idx.change ?? 0) >= 0 ? 'up' : 'down'}`}>
+          {(idx.change ?? 0) >= 0 ? '▲' : '▼'}
+          {idx.change != null ? fmt(Math.abs(idx.change)) : '--'}
+          ({(idx.change ?? 0) >= 0 ? '+' : ''}{idx.pct != null ? idx.pct.toFixed(2) : '--'}%)
         </span>
       </span>
       {i < indices.length - 1 && <span class="ticker-sep">·</span>}

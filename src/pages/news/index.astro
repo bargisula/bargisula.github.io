@@ -48,7 +48,8 @@ function topicLabel(note: any): string {
   return note.data.subcategory ?? '投資';
 }
 
-function fmt(n: number, dec = 2) {
+function fmt(n: number | null, dec = 2) {
+  if (n == null || isNaN(n)) return '--';
   return n.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 }
 const dateLabel = updated ? updated.slice(5).replace('-', '/') : '--/--';
@@ -82,8 +83,8 @@ function dayLabel(d: Date): string {
               <span class="market-item">
                 <span class="idx-name">{idx.name}</span>
                 <span class="idx-val">{idx.name === '道瓊' ? fmt(idx.close, 0) : fmt(idx.close, 2)}</span>
-                <span class={`idx-chg ${idx.change >= 0 ? 'up' : 'down'}`}>
-                  {idx.change >= 0 ? '▲' : '▼'}{fmt(Math.abs(idx.pct), 2)}%
+                <span class={`idx-chg ${(idx.change ?? 0) >= 0 ? 'up' : 'down'}`}>
+                  {(idx.change ?? 0) >= 0 ? '▲' : '▼'}{idx.pct != null ? fmt(Math.abs(idx.pct), 2) : '--'}%
                 </span>
               </span>
             ))}
