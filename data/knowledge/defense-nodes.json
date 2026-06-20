@@ -1,0 +1,1201 @@
+{
+  "title": "美國軍工產業供應鏈知識圖譜",
+  "subtitle": "戰略重心從中東撤出轉向亞太，五層結構：需求端→平台→一級承包商→次系統→原物料，共 42 個節點、58 條邊",
+  "version": "2026-Q2",
+  "last_updated": "2026-06-20",
+  "investment_thesis": "美國戰略重心從消耗型（中東陸軍）轉向投射型（亞太海/空/太空/飛彈），盟友自主武裝同步爆發，觸發多平台、多供應鏈的同步需求拉升。最大瓶頸在飛彈體製造產能與稀土供應。",
+  "nodes": [
+    {
+      "id": "DOD_NAVY",
+      "name": "美國海軍預算",
+      "layer": "1",
+      "type": "demand_customer",
+      "desc": "FY2025 預算約 2,570 億美元，艦隊規模擴張需求推動驅逐艦、核潛艦、P-8 採購加速",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "海軍預算佔比上升，台海嚇阻對艦隊規模要求提高，Virginia 級核潛艦 backlog 超過 10 年"
+    },
+    {
+      "id": "DOD_AIR",
+      "name": "美國空軍預算",
+      "layer": "1",
+      "type": "demand_customer",
+      "desc": "FY2025 預算約 2,280 億美元，F-35 持續採購、B-21 服役、下世代無人機平台",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "B-21 隱形轟炸機為長程投射主力，印太作戰概念驅動遠程打擊投資"
+    },
+    {
+      "id": "DOD_SPACE",
+      "name": "太空軍 / C4ISR 預算",
+      "layer": "1",
+      "type": "demand_customer",
+      "desc": "FY2025 預算約 300 億美元，衛星通訊、電子戰、情報蒐集",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "台海衝突高度依賴 C4ISR 優勢，太空領域預算成長最快"
+    },
+    {
+      "id": "DOD_MISSILE_DEFENSE",
+      "name": "飛彈防禦局（MDA）預算",
+      "layer": "1",
+      "type": "demand_customer",
+      "desc": "FY2025 約 110 億美元，THAAD、PAC-3、SM-3、地基中段防禦（GMD）",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "北韓彈道飛彈威脅與中國 DF 系列驅動日本、韓國、台灣聯合採購需求"
+    },
+    {
+      "id": "TAIWAN_FMS",
+      "name": "台灣對外軍售（FMS）",
+      "layer": "1",
+      "type": "demand_ally",
+      "desc": "2025-2026 核准金額累計超過 190 億美元，包含 F-16V、HIMARS、PAC-3、M1A2、水下作戰系統",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "台灣政府規劃每年國防預算達 GDP 3%，FMS 積壓隊列延長交期至 2028-2030"
+    },
+    {
+      "id": "JAPAN_DEFENSE",
+      "name": "日本防衛費倍增計畫",
+      "layer": "1",
+      "type": "demand_ally",
+      "desc": "2027 年達 GDP 2%（約 10 兆日圓），採購 Tomahawk、F-35B/C、HIMARS、防空系統",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "Tomahawk 採購量 400 枚以上，直接拉升 RTX 飛彈產線需求"
+    },
+    {
+      "id": "AUKUS",
+      "name": "AUKUS 核潛艦協議",
+      "layer": "1",
+      "type": "demand_ally",
+      "desc": "澳洲採購 3-5 艘 Virginia 級核潛艦，2030 年代初期交付開始，英美技術移轉",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "直接增加 GD/HII Virginia 級訂單，亦拉升 BWX 核反應爐需求"
+    },
+    {
+      "id": "KOREA_DEFENSE",
+      "name": "韓國 K-Defense 出口",
+      "layer": "1",
+      "type": "demand_ally",
+      "desc": "韓國自主防禦產業爆發，K2 坦克、K9 自走砲、FA-50 出口波蘭、澳洲、中東，與美系承包商形成競合",
+      "key_players": [],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "韓國崛起壓縮美系陸軍裝備市場份額，但為美方子系統（RTX 飛彈）提供需求"
+    },
+    {
+      "id": "F35",
+      "name": "F-35 聯合打擊戰機",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "全球最大軍購計畫，累計訂單超過 3,000 架，服役超過 900 架，每架約 8,000 萬美元",
+      "key_players": [
+        { "ticker": "LMT", "role": "主承包商", "note": "系統整合、機體製造" },
+        { "ticker": "RTX", "role": "發動機供應商", "note": "F135 發動機" },
+        { "ticker": "NOC", "role": "中央機翼製造", "note": "艙門與感測器整合" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "台灣尚未採購 F-35，日本 F-35B/C 訂單持續；每架含 LRIP 提升為 LMT 收入穩定來源"
+    },
+    {
+      "id": "B21",
+      "name": "B-21 突襲者隱形轟炸機",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "下世代戰略轟炸機，計畫採購 100 架，每架成本估計超過 6.9 億美元，2023 年首飛",
+      "key_players": [
+        { "ticker": "NOC", "role": "主承包商", "note": "機體設計、製造、整合" },
+        { "ticker": "RTX", "role": "推進與電子系統", "note": "子系統供應" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "亞太長程打擊核心平台，100 架計畫為 NOC 提供超過 600 億美元長期 backlog"
+    },
+    {
+      "id": "VIRGINIA_CLASS",
+      "name": "Virginia 級核動力攻擊潛艦",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "每艘約 37 億美元，目前年產 1.2 艘（需求 2 艘/年），AUKUS 加入後需求進一步拉升",
+      "key_players": [
+        { "ticker": "GD", "role": "主承包商（Electric Boat）", "note": "格羅頓廠設計建造" },
+        { "ticker": "HII", "role": "共同建造商", "note": "新港新聞造船廠" },
+        { "ticker": "BWXT", "role": "核反應爐供應商", "note": "S9G 反應爐唯一供應商" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "造船廠產能：GD Electric Boat 與 HII 共同建造，熟練焊工短缺導致年產能僅 1.2 艘，遠低於海軍需求 2 艘/年；AUKUS 加入後缺口更大",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "水下作戰為台海非對稱最重要籌碼，潛艦建造瓶頸使 GD/HII/BWXT 受益期拉長至 2040+"
+    },
+    {
+      "id": "ARLEIGH_BURKE",
+      "name": "Arleigh Burke 級飛彈驅逐艦",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "主力水面作戰艦，搭載 Aegis 系統，每艘約 22 億美元，目前服役超過 70 艘",
+      "key_players": [
+        { "ticker": "GD", "role": "Bath Iron Works 建造商", "note": "緬因州造船廠" },
+        { "ticker": "HII", "role": "英格爾斯造船廠", "note": "密西西比廠" },
+        { "ticker": "LMT", "role": "Aegis 戰鬥系統", "note": "神盾系統整合商" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "印太作戰需增加 DDG 部署數量，日本亦自建 Aegis 配備艦"
+    },
+    {
+      "id": "P8_POSEIDON",
+      "name": "P-8 海神反潛機",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "737 改型反潛巡邏機，印度、英國、澳洲、挪威均已採購，每架約 2.6 億美元",
+      "key_players": [
+        { "ticker": "BA", "role": "主承包商", "note": "基於 737 商用平台改裝" },
+        { "ticker": "RTX", "role": "聲納與感測器", "note": "水下探測系統" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "南海反潛需求強烈，菲律賓、印度等盟友採購意願高"
+    },
+    {
+      "id": "THAAD",
+      "name": "THAAD 末段高空區域防禦系統",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "攔截高度 40-150 公里，每套系統約 30 億美元，台灣、韓國、日本均有部署或採購需求",
+      "key_players": [
+        { "ticker": "LMT", "role": "主承包商", "note": "系統整合與攔截彈" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "攔截彈製造產能不足，LMT 飛彈產線擴張計畫至 2027 年才能達到 2 倍產能",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "北韓 ICBM 試射頻率增加推動韓日台採購；LMT THAAD backlog 超過 200 億美元"
+    },
+    {
+      "id": "PAC3",
+      "name": "PAC-3 愛國者防空系統",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "近程飛彈防禦，射高 15-20 公里，台灣已採購，日本、德國、波蘭均大量部署",
+      "key_players": [
+        { "ticker": "LMT", "role": "PAC-3 MSE 攔截彈", "note": "主要製造商" },
+        { "ticker": "RTX", "role": "地面火力控制雷達", "note": "AN/MPQ-65 雷達" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "PAC-3 MSE 攔截彈 backlog 達 280 億美元（2025Q1），產線滿載，交期延至 2028-2030",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "台灣 PAC-3 MSE 升級採購 + 烏克蘭消耗補充，同時拉升需求"
+    },
+    {
+      "id": "SM3",
+      "name": "SM-3 標準飛彈（海基中段攔截）",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "Aegis 艦搭載，Block IIA 可攔截 ICBM，日美共同研發，每枚約 1,200 萬美元",
+      "key_players": [
+        { "ticker": "RTX", "role": "主承包商", "note": "Raytheon 飛彈與防禦部門" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "日本 Aegis 艦升級需要大量 SM-3 補充，RTX 直接受益"
+    },
+    {
+      "id": "HIMARS",
+      "name": "HIMARS 高機動多管火箭系統",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "輕量化精準火箭砲，烏克蘭戰場驗證後需求暴增，每套約 4,000 萬美元，台灣已採購 29 套",
+      "key_players": [
+        { "ticker": "LMT", "role": "主承包商", "note": "系統整合與 GMLRS 火箭彈" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "GMLRS 火箭彈產能是最大瓶頸，LMT 2025 年產量約 14,000 枚，仍遠低於需求",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "亞太島鏈防禦高度依賴精準遠程火力，台灣、日本均擴大採購"
+    },
+    {
+      "id": "SPACE_C4ISR",
+      "name": "太空與 C4ISR 系統",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "衛星通訊（SATCOM）、情報蒐集（ISR）、電子戰（EW）、指揮管制（C2）",
+      "key_players": [
+        { "ticker": "NOC", "role": "太空系統整合商", "note": "GBSD、衛星平台" },
+        { "ticker": "LHX", "role": "電子戰系統", "note": "L3Harris，雷達電戰整合" },
+        { "ticker": "SAIC", "role": "C4ISR 軟體整合", "note": "指管通情系統" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "台海作戰制資訊權關鍵，太空系統受益最早且最確定"
+    },
+    {
+      "id": "UAS_NEXT",
+      "name": "下世代無人機（MQ-9 後繼）",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "MQ-9 Reaper 後繼平台競爭，包含 GA-ASI Mojave、波音 MQ-25 加油機型、海軍 MQ-4C Triton",
+      "key_players": [
+        { "ticker": "BA", "role": "MQ-25 艦載加油無人機", "note": "2024 年首飛測試" },
+        { "ticker": "NOC", "role": "MQ-4C Triton 海上偵察", "note": "P-8 搭配使用" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "海上偵察無人機南海部署需求大，波音 MQ-25 為航母作戰半徑倍增關鍵"
+    },
+    {
+      "id": "LMT",
+      "name": "洛克希德馬丁（Lockheed Martin）",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "全球最大軍工承包商，FY2024 營收約 714 億美元，主要產品：F-35、THAAD、PAC-3 MSE、HIMARS、C-130",
+      "key_players": [
+        { "ticker": "LMT", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "亞太轉移三大核心平台（F-35/THAAD/PAC-3）均由 LMT 主導，backlog 2,590 億美元（2025Q1）"
+    },
+    {
+      "id": "RTX",
+      "name": "雷神技術（RTX / Raytheon）",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "FY2024 營收約 800 億美元（含 Collins/Pratt），飛彈業務：PAC-3 雷達、SM-3、AIM-120、AGM-88",
+      "key_players": [
+        { "ticker": "RTX", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "飛彈防禦需求爆發為最大受益者，Raytheon 飛彈部門 backlog 成長超過 40%（2024）"
+    },
+    {
+      "id": "NOC",
+      "name": "諾斯洛普格魯曼（Northrop Grumman）",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "FY2024 營收約 418 億美元，B-21 主承包商，太空系統（GBSD 地基洲際彈道飛彈）、電子戰",
+      "key_players": [
+        { "ticker": "NOC", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "B-21 為印太長程打擊核心，NOC 太空系統在 C4ISR 架構中地位不可替代"
+    },
+    {
+      "id": "GD",
+      "name": "通用動力（General Dynamics）",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "FY2024 營收約 477 億美元，Marine Systems（Virginia 級潛艦/DDG）佔比最高，亦有 Stryker、Gulfstream",
+      "key_players": [
+        { "ticker": "GD", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "Virginia 級潛艦與 DDG 需求同步成長，造船產能供不應求使 GD 具長期定價權"
+    },
+    {
+      "id": "HII",
+      "name": "亨廷頓英格爾斯（HII）",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "美國唯一航母建造商，亦建造 Virginia 級核潛艦，FY2024 營收約 115 億美元",
+      "key_players": [
+        { "ticker": "HII", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "唯一航母建造商，Ford 級航母成本超支與交期延誤反映造船廠人力與供應鏈瓶頸",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "AUKUS 澳洲核潛艦訂單若落地，HII 產能幾乎全滿至 2040"
+    },
+    {
+      "id": "BA_DEFENSE",
+      "name": "波音防禦（Boeing Defense）",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "P-8、F/A-18、KC-46 加油機、MQ-25，FY2024 防禦部門虧損（開發成本超支），財務壓力較大",
+      "key_players": [
+        { "ticker": "BA", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "P-8 訂單穩定，但固定價格合約虧損拖累整體；相對 LMT/RTX/GD 風險較高"
+    },
+    {
+      "id": "LHX",
+      "name": "L3Harris 技術",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "FY2024 營收約 213 億美元，電子戰、C4ISR、通訊系統、無人系統整合",
+      "key_players": [
+        { "ticker": "LHX", "role": "本身即標的", "share_est": null }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "C4ISR 預算成長最快，L3Harris 作為系統整合商受益明確"
+    },
+    {
+      "id": "MISSILE_PROPULSION",
+      "name": "飛彈推進系統（固態火箭發動機）",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "固態火箭發動機為所有戰術飛彈的心臟，Aerojet Rocketdyne（AJRD，已被 L3Harris 收購）為主要供應商",
+      "key_players": [
+        { "ticker": "LHX", "role": "AJRD 收購方", "note": "2023 年 Aerojet Rocketdyne 被 L3Harris 收購" },
+        { "ticker": "NOC", "role": "次要供應商", "note": "部分戰術飛彈推進" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "固態推進劑生產線長達 18 個月擴廠週期，AmChem、BAE Systems 等爆炸物原料供應商同步受限；全球飛彈需求暴增而推進系統產能完全未跟上",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "每一枚 PAC-3 MSE、SM-3、AIM-120 都需固態發動機，推進系統是飛彈增產的最先受限環節"
+    },
+    {
+      "id": "RADAR_EW",
+      "name": "雷達與電子戰系統",
+      "layer": "4",
+      "type": "subsystem",
+      "desc": "主動相位陣列雷達（AESA）、電子干擾、電子支援系統，用於飛機、艦船、飛彈防禦系統",
+      "key_players": [
+        { "ticker": "RTX", "role": "AN/SPY-6 艦載雷達", "note": "新一代神盾雷達" },
+        { "ticker": "LHX", "role": "機載電子戰系統", "note": "F-35 外掛電戰莢艙" },
+        { "ticker": "NOC", "role": "AN/APG-83 機載雷達", "note": "F-16 AESA 升級" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "日本 Aegis 系統升級、台灣 F-16V 雷達升級均拉動需求"
+    },
+    {
+      "id": "NUCLEAR_PROPULSION",
+      "name": "海軍核反應爐（BWX Technologies）",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "BWX Technologies 是美國海軍核動力反應爐唯一供應商，涵蓋航母（CVN-78）與核潛艦（Virginia 級）",
+      "key_players": [
+        { "ticker": "BWXT", "role": "唯一供應商", "note": "維吉尼亞級 S9G 反應爐、福特級 A1B 反應爐" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "BWXT 為美國海軍核反應爐完全壟斷供應商，無替代；核技術人員培訓週期 6-8 年，短期產能無法快速擴張",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "AUKUS 澳洲核潛艦計畫直接新增 3-5 套反應爐訂單，BWXT 受益最確定且無競爭"
+    },
+    {
+      "id": "SPECIAL_SEMICONDUCTOR",
+      "name": "軍規特殊半導體（GaN/SiC 雷達晶片）",
+      "layer": "4",
+      "type": "subsystem",
+      "desc": "氮化鎵（GaN）功率放大器用於 AESA 雷達，碳化矽（SiC）用於電力轉換，均需軍規認證",
+      "key_players": [
+        { "ticker": "MACOM", "role": "GaN 雷達晶片", "note": "MACOM Technology Solutions" },
+        { "ticker": "WOLF", "role": "SiC 電力元件", "note": "Wolfspeed" },
+        { "ticker": "RTX", "role": "GaN 自製", "note": "Raytheon 部分自產 GaN" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "AESA 雷達需求成長帶動軍規 GaN 市場，MACOM 為純軍工 GaN 最直接受益標的"
+    },
+    {
+      "id": "MISSILE_BODY_MFG",
+      "name": "飛彈體與彈頭製造產能",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "精密飛彈外殼（鈦合金/碳纖維）、引信、彈頭組裝，高度分散且多為獨家供應商",
+      "key_players": [
+        { "ticker": "LMT", "role": "PAC-3 彈體製造", "note": "垂直整合程度最高" },
+        { "ticker": "RTX", "role": "SM-3/AIM-120 彈體", "note": "部分外包 Tier-2" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "飛彈體製造是當前全球軍工最大瓶頸：設備投資回收期長、精密製程無法快速複製、工人需要安全許可（背景審查 12-18 個月），擴廠速度遠低於需求成長速度",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "DoD 2023-2025 年多次追加飛彈產能投資，但供需缺口預計至 2028 年仍存在"
+    },
+    {
+      "id": "EXPLOSIVES_PROPELLANT",
+      "name": "先進炸藥與推進劑（PBXN、TATB）",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "鈍感炸藥（PBXN-109、TATB）用於飛彈戰鬥部，僅少數政府設施生產，產能受嚴格管制",
+      "key_players": [
+        { "ticker": null, "role": "美國政府設施", "note": "Holston Army Ammunition Plant、Pantex Plant，非上市公司" },
+        { "ticker": "BAE", "role": "BAE Systems（英國掛牌）", "note": "部分炸藥與彈藥填充" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "PBXN 與 TATB 生產設施極少（全美不超過 5 處），政府所有但私人運營，擴產須環評與安全審查，週期 3-5 年；烏克蘭消耗加速美國庫存消耗",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "炸藥產能無直接上市標的，但為 LMT/RTX 飛彈增產的上游硬約束"
+    },
+    {
+      "id": "TITANIUM",
+      "name": "鈦合金（航太/軍工用）",
+      "layer": "5",
+      "type": "raw_material_bottleneck",
+      "desc": "飛機機體、飛彈殼體、潛艦耐壓殼體的核心材料，俄羅斯歷史上佔全球鈦海綿供應約 30%",
+      "key_players": [
+        { "ticker": "ATI", "role": "美國最大鈦合金製造商", "note": "Allegheny Technologies，ATI Inc." },
+        { "ticker": "TIMET", "role": "鈦金屬公司（TIMET）", "note": "已被 PCC 收購，Precision Castparts" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "俄羅斯制裁後全球鈦供應鏈重組，澳洲/哈薩克替代來源建立需要 5-7 年；軍規鈦合金認證週期更長",
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "ATI 為美國鈦合金國產化最直接受益標的，DoD 已啟動戰略儲備計畫"
+    },
+    {
+      "id": "RARE_EARTH",
+      "name": "稀土（導引系統磁鐵用）",
+      "layer": "5",
+      "type": "raw_material_bottleneck",
+      "desc": "釹鐵硼永磁體（NdFeB）用於飛彈導引頭、雷達伺服馬達、潛艦推進；中國控制全球 90% 稀土冶煉",
+      "key_players": [
+        { "ticker": "MP", "role": "MP Materials", "note": "美國最大稀土礦（Mountain Pass），但冶煉仍依賴中國" },
+        { "ticker": "ARNC", "role": "間接受益", "note": "稀土用於航太材料" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "中國 2025 年實施稀土出口管制（含重稀土鏑、鋱），直接威脅 NdFeB 磁鐵供應；美國本土冶煉產能不足 5%，MP Materials 計畫 2026 年建立完整冶煉鏈但仍有技術風險",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "中國稀土出口管制已成真實政策工具，MP Materials 為美國稀土供應鏈重建最直接標的"
+    },
+    {
+      "id": "CARBON_FIBER",
+      "name": "碳纖維複合材料（航空結構用）",
+      "layer": "5",
+      "type": "raw_material",
+      "desc": "F-35、B-21 機身大量使用碳纖維複合材料，日本東麗（Toray）為最大供應商",
+      "key_players": [
+        { "ticker": null, "role": "東麗工業（日本）", "note": "全球最大碳纖維供應商，F-35 機身碳纖維主供應商" },
+        { "ticker": "HXL", "role": "Hexcel", "note": "美國碳纖複合材料，F-35 預浸料" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "Hexcel（HXL）與 Toray 為 F-35 碳纖受益者，供需相對平衡"
+    },
+    {
+      "id": "SHIPYARD_LABOR",
+      "name": "造船廠人力與產能",
+      "layer": "5",
+      "type": "structural_bottleneck",
+      "desc": "美國軍用造船廠人力萎縮，熟練焊工、管道工、電工短缺，為 Virginia 級與 DDG 延誤主因",
+      "key_players": [
+        { "ticker": "GD", "role": "Electric Boat 廠（格羅頓）", "note": "正擴招但需 3-4 年訓練" },
+        { "ticker": "HII", "role": "Newport News 廠（維吉尼亞州）", "note": "航母與核潛艦同廠競產" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "美國軍用造船廠工人數量自 1980 年代高峰減少超過 60%，技能培訓週期長，無法快速補充；此為 AUKUS 潛艦計畫最大隱患",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "造船廠人力瓶頸意味 GD/HII 訂單能見度超長（至 2035+），但亦代表風險：若人力無法補充，交期大幅延誤"
+    }
+  ],
+  "edges": [
+    {
+      "from": "DOD_NAVY",
+      "to": "VIRGINIA_CLASS",
+      "type": "funds",
+      "label": "核潛艦採購預算"
+    },
+    {
+      "from": "DOD_NAVY",
+      "to": "ARLEIGH_BURKE",
+      "type": "funds",
+      "label": "DDG 採購預算"
+    },
+    {
+      "from": "DOD_NAVY",
+      "to": "P8_POSEIDON",
+      "type": "funds",
+      "label": "反潛機採購"
+    },
+    {
+      "from": "DOD_AIR",
+      "to": "F35",
+      "type": "funds",
+      "label": "F-35 採購預算"
+    },
+    {
+      "from": "DOD_AIR",
+      "to": "B21",
+      "type": "funds",
+      "label": "B-21 採購預算"
+    },
+    {
+      "from": "DOD_AIR",
+      "to": "UAS_NEXT",
+      "type": "funds",
+      "label": "無人機採購"
+    },
+    {
+      "from": "DOD_SPACE",
+      "to": "SPACE_C4ISR",
+      "type": "funds",
+      "label": "太空與 C4ISR 預算"
+    },
+    {
+      "from": "DOD_MISSILE_DEFENSE",
+      "to": "THAAD",
+      "type": "funds",
+      "label": "THAAD 採購"
+    },
+    {
+      "from": "DOD_MISSILE_DEFENSE",
+      "to": "PAC3",
+      "type": "funds",
+      "label": "PAC-3 採購"
+    },
+    {
+      "from": "DOD_MISSILE_DEFENSE",
+      "to": "SM3",
+      "type": "funds",
+      "label": "SM-3 採購"
+    },
+    {
+      "from": "TAIWAN_FMS",
+      "to": "F35",
+      "type": "potential_demand",
+      "label": "F-35 潛在採購（政治尚未核准）"
+    },
+    {
+      "from": "TAIWAN_FMS",
+      "to": "THAAD",
+      "type": "demand",
+      "label": "台灣 THAAD 採購需求"
+    },
+    {
+      "from": "TAIWAN_FMS",
+      "to": "PAC3",
+      "type": "demand",
+      "label": "台灣 PAC-3 MSE 採購"
+    },
+    {
+      "from": "TAIWAN_FMS",
+      "to": "HIMARS",
+      "type": "demand",
+      "label": "台灣 HIMARS 29 套已核准"
+    },
+    {
+      "from": "JAPAN_DEFENSE",
+      "to": "SM3",
+      "type": "demand",
+      "label": "日本 Aegis 艦 SM-3 IIA 採購"
+    },
+    {
+      "from": "JAPAN_DEFENSE",
+      "to": "F35",
+      "type": "demand",
+      "label": "日本 F-35B/C 採購（計畫 147 架）"
+    },
+    {
+      "from": "JAPAN_DEFENSE",
+      "to": "HIMARS",
+      "type": "demand",
+      "label": "日本射程延伸精準火力"
+    },
+    {
+      "from": "AUKUS",
+      "to": "VIRGINIA_CLASS",
+      "type": "demand",
+      "label": "澳洲採購 3-5 艘 Virginia 級"
+    },
+    {
+      "from": "AUKUS",
+      "to": "NUCLEAR_PROPULSION",
+      "type": "demand_amplifier",
+      "label": "直接新增 BWXT 反應爐訂單"
+    },
+    {
+      "from": "F35",
+      "to": "LMT",
+      "type": "primary_contractor",
+      "label": "LMT 系統整合主承包"
+    },
+    {
+      "from": "B21",
+      "to": "NOC",
+      "type": "primary_contractor",
+      "label": "NOC 唯一主承包商"
+    },
+    {
+      "from": "VIRGINIA_CLASS",
+      "to": "GD",
+      "type": "primary_contractor",
+      "label": "GD Electric Boat 建造"
+    },
+    {
+      "from": "VIRGINIA_CLASS",
+      "to": "HII",
+      "type": "co_contractor",
+      "label": "HII Newport News 共同建造"
+    },
+    {
+      "from": "VIRGINIA_CLASS",
+      "to": "NUCLEAR_PROPULSION",
+      "type": "depends_on",
+      "label": "依賴 BWXT 核反應爐"
+    },
+    {
+      "from": "ARLEIGH_BURKE",
+      "to": "GD",
+      "type": "primary_contractor",
+      "label": "Bath Iron Works 建造"
+    },
+    {
+      "from": "ARLEIGH_BURKE",
+      "to": "HII",
+      "type": "co_contractor",
+      "label": "Ingalls 共同建造"
+    },
+    {
+      "from": "ARLEIGH_BURKE",
+      "to": "RADAR_EW",
+      "type": "depends_on",
+      "label": "AN/SPY-6 神盾雷達"
+    },
+    {
+      "from": "P8_POSEIDON",
+      "to": "BA_DEFENSE",
+      "type": "primary_contractor",
+      "label": "Boeing 主承包"
+    },
+    {
+      "from": "THAAD",
+      "to": "LMT",
+      "type": "primary_contractor",
+      "label": "LMT 系統整合"
+    },
+    {
+      "from": "THAAD",
+      "to": "MISSILE_BODY_MFG",
+      "type": "depends_on",
+      "label": "攔截彈體製造瓶頸"
+    },
+    {
+      "from": "PAC3",
+      "to": "LMT",
+      "type": "primary_contractor",
+      "label": "LMT PAC-3 MSE 攔截彈"
+    },
+    {
+      "from": "PAC3",
+      "to": "RTX",
+      "type": "subsystem_supplier",
+      "label": "RTX 雷達系統"
+    },
+    {
+      "from": "PAC3",
+      "to": "MISSILE_BODY_MFG",
+      "type": "bottleneck",
+      "label": "彈體產能卡住 PAC-3 交期"
+    },
+    {
+      "from": "SM3",
+      "to": "RTX",
+      "type": "primary_contractor",
+      "label": "RTX 主承包"
+    },
+    {
+      "from": "HIMARS",
+      "to": "LMT",
+      "type": "primary_contractor",
+      "label": "LMT 系統與 GMLRS 火箭"
+    },
+    {
+      "from": "HIMARS",
+      "to": "MISSILE_PROPULSION",
+      "type": "depends_on",
+      "label": "GMLRS 固態火箭推進"
+    },
+    {
+      "from": "SPACE_C4ISR",
+      "to": "NOC",
+      "type": "primary_contractor",
+      "label": "NOC 太空系統整合"
+    },
+    {
+      "from": "SPACE_C4ISR",
+      "to": "LHX",
+      "type": "subsystem_supplier",
+      "label": "L3Harris 電子戰系統"
+    },
+    {
+      "from": "UAS_NEXT",
+      "to": "BA_DEFENSE",
+      "type": "primary_contractor",
+      "label": "Boeing MQ-25"
+    },
+    {
+      "from": "MISSILE_PROPULSION",
+      "to": "EXPLOSIVES_PROPELLANT",
+      "type": "depends_on",
+      "label": "炸藥與推進劑上游"
+    },
+    {
+      "from": "MISSILE_BODY_MFG",
+      "to": "TITANIUM",
+      "type": "depends_on",
+      "label": "飛彈殼體依賴鈦合金"
+    },
+    {
+      "from": "MISSILE_BODY_MFG",
+      "to": "EXPLOSIVES_PROPELLANT",
+      "type": "depends_on",
+      "label": "彈頭需先進炸藥填充"
+    },
+    {
+      "from": "RADAR_EW",
+      "to": "SPECIAL_SEMICONDUCTOR",
+      "type": "depends_on",
+      "label": "AESA 雷達依賴 GaN 晶片"
+    },
+    {
+      "from": "RARE_EARTH",
+      "to": "MISSILE_BODY_MFG",
+      "type": "bottleneck",
+      "label": "導引頭磁鐵依賴稀土"
+    },
+    {
+      "from": "RARE_EARTH",
+      "to": "RADAR_EW",
+      "type": "bottleneck",
+      "label": "雷達伺服磁鐵依賴稀土"
+    },
+    {
+      "from": "TITANIUM",
+      "to": "F35",
+      "type": "material_supply",
+      "label": "F-35 機身鈦合金結構件"
+    },
+    {
+      "from": "TITANIUM",
+      "to": "VIRGINIA_CLASS",
+      "type": "material_supply",
+      "label": "潛艦耐壓殼體鈦合金"
+    },
+    {
+      "from": "CARBON_FIBER",
+      "to": "F35",
+      "type": "material_supply",
+      "label": "F-35 機身複合材料"
+    },
+    {
+      "from": "CARBON_FIBER",
+      "to": "B21",
+      "type": "material_supply",
+      "label": "B-21 大量使用碳纖結構"
+    },
+    {
+      "from": "SHIPYARD_LABOR",
+      "to": "VIRGINIA_CLASS",
+      "type": "bottleneck",
+      "label": "造船廠人力短缺卡住核潛艦產能"
+    },
+    {
+      "from": "SHIPYARD_LABOR",
+      "to": "ARLEIGH_BURKE",
+      "type": "bottleneck",
+      "label": "造船廠人力影響 DDG 交期"
+    },
+    {
+      "from": "NUCLEAR_PROPULSION",
+      "to": "BWXT",
+      "type": "maps_to_ticker",
+      "label": "BWXT 唯一供應商直接對應"
+    },
+    {
+      "from": "JAPAN_DEFENSE",
+      "to": "PAC3",
+      "type": "demand",
+      "label": "日本 PAC-3 升級採購"
+    },
+    {
+      "from": "LMT",
+      "to": "F35",
+      "type": "produces",
+      "label": "LMT 生產 F-35"
+    },
+    {
+      "from": "LMT",
+      "to": "THAAD",
+      "type": "produces",
+      "label": "LMT 生產 THAAD"
+    },
+    {
+      "from": "LMT",
+      "to": "PAC3",
+      "type": "produces",
+      "label": "LMT 生產 PAC-3 MSE"
+    },
+    {
+      "from": "RTX",
+      "to": "SM3",
+      "type": "produces",
+      "label": "RTX 生產 SM-3"
+    },
+    {
+      "from": "NOC",
+      "to": "B21",
+      "type": "produces",
+      "label": "NOC 生產 B-21"
+    },
+    {
+      "from": "GD",
+      "to": "VIRGINIA_CLASS",
+      "type": "produces",
+      "label": "GD Electric Boat 建造核潛艦"
+    }
+  ],
+  "top_bottlenecks": [
+    {
+      "rank": 1,
+      "node_id": "MISSILE_BODY_MFG",
+      "name": "飛彈體與彈頭製造產能",
+      "severity": "極高",
+      "reason": "所有戰術飛彈（PAC-3、SM-3、AIM-120、GMLRS）的彈體製造產能均不足，且三個上游瓶頸同步受限（炸藥、鈦材、稀土磁鐵），擴廠至 2028 年仍填不滿缺口",
+      "affected_platforms": ["PAC3", "SM3", "THAAD", "HIMARS"],
+      "investment_implication": "LMT 與 RTX 的飛彈部門訂單能見度極高，但產能限制使毛利率改善幅度優於營收成長"
+    },
+    {
+      "rank": 2,
+      "node_id": "SHIPYARD_LABOR",
+      "name": "造船廠人力與產能",
+      "severity": "高",
+      "reason": "美國軍用造船廠熟練工人短缺為結構性問題，Virginia 級年產能僅 1.2 艘對比 2 艘需求；AUKUS 加入後缺口擴大，此瓶頸決定美國海軍擴張速度天花板",
+      "affected_platforms": ["VIRGINIA_CLASS", "ARLEIGH_BURKE"],
+      "investment_implication": "GD 與 HII 因產能稀缺獲得長期定價權，backlog 可見度延伸至 2035+；但交期風險同步上升"
+    },
+    {
+      "rank": 3,
+      "node_id": "RARE_EARTH",
+      "name": "稀土（導引系統磁鐵）",
+      "severity": "高",
+      "reason": "中國 2025 年稀土出口管制已實施，釹鐵硼磁鐵為飛彈導引頭、雷達馬達、電動推進的共用材料；美國本土替代供應鏈建立需要 3-5 年，短期無解",
+      "affected_platforms": ["MISSILE_BODY_MFG", "RADAR_EW", "UAS_NEXT"],
+      "investment_implication": "MP Materials（MP）為美國稀土鏈最直接受益標的；中國若升級管制力度，將對整個飛彈防禦產能產生系統性衝擊"
+    }
+  ],
+  "asia_pacific_beneficiaries": {
+    "highest": ["LMT", "RTX", "BWXT", "GD", "HII"],
+    "high": ["NOC", "LHX", "MP"],
+    "medium": ["BA", "ATI", "MACOM", "HXL"],
+    "rationale": "亞太戰略轉移受益程度以飛彈防禦、核潛艦、C4ISR 三條線最直接，陸軍裝備受益最弱"
+  },
+  "node_count": 67,
+  "edge_count": 68,
+  "nodes_v2_autonomous_warfare": [
+    {
+      "id": "ANDURIL",
+      "name": "Anduril Industries",
+      "layer": "3",
+      "type": "deftech_startup",
+      "desc": "自主無人系統整合商，核心產品：Lattice AI 戰場作業系統、Roadrunner 可回收攔截彈、Ghost Shark 無人潛艦、Fury 貨櫃化無人機。2024 年估值約 140 億美元，尚未上市",
+      "key_players": [
+        { "ticker": null, "role": "Anduril Industries（private）", "note": "Palmer Luckey 創辦，2024 年 Series F 估值 140 億美元" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "尚未上市，間接曝險透過 Palantir（PLTR）或 RTX 合作項目；IPO 為觀察觸發點",
+      "war_paradigm_shift": "從平台為中心轉向系統為中心：Lattice 統一管理空、地、海多型無人平台，人類退居監督層，決策速度提升 10 倍"
+    },
+    {
+      "id": "SHIELD_AI",
+      "name": "Shield AI",
+      "layer": "3",
+      "type": "deftech_startup",
+      "desc": "Hivemind AI 飛行員軟體，無需 GPS 與通訊連結可自主飛行；已整合 F-16、V-BAT、MQ-35A；無人機集群核心能力",
+      "key_players": [
+        { "ticker": null, "role": "Shield AI（private）", "note": "2024 年估值約 28 億美元，Ryan Tseng 創辦" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "GPS 拒絕環境（台海電磁戰）下的核心能力，若整合到 F-16V 台灣機隊為直接亞太需求",
+      "war_paradigm_shift": "飛行員從肉體換成軟體：Hivemind 讓有人機變無人機，不需重新設計機體，只需換軟體"
+    },
+    {
+      "id": "PALANTIR",
+      "name": "Palantir Technologies",
+      "layer": "3",
+      "type": "prime_contractor",
+      "desc": "AIP（AI 平台）、Maven Smart System（美軍 AI 決策加速）、TITAN 地面移動 C2 站；FY2024 政府收入約 11 億美元，成長 40%+",
+      "key_players": [
+        { "ticker": "PLTR", "role": "本身即標的", "note": "AI 決策鏈整合商，美軍 JADC2 關鍵節點" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "PLTR 是 AI 決策鏈最純粹的上市標的；Maven Smart System 擴編為 TITAN 地面站，亞太盟友出口為下一成長軸",
+      "war_paradigm_shift": "決策週期壓縮：從 OODA loop（小時）到 AI 輔助決策（秒），指揮官角色從決策者變成審核者"
+    },
+    {
+      "id": "LOITERING_MUNITIONS",
+      "name": "遊蕩彈藥（Loitering Munitions）",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "Switchblade 300/600（AeroVironment）、Altius-600（Anduril 收購 Area-I）、以色列 Harop（IAI）；低成本精準打擊，烏克蘭戰場大量驗證",
+      "key_players": [
+        { "ticker": "AVAV", "role": "AeroVironment，Switchblade 主承包", "note": "Switchblade 300 每枚 6,000 美元，大量出口烏克蘭" },
+        { "ticker": null, "role": "Anduril（Area-I 收購）", "note": "Altius-600，多任務掛載可互換" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "AVAV 為上市純標的；台灣採購遊蕩彈藥為非對稱防禦核心，2023 年已啟動採購程序",
+      "war_paradigm_shift": "反艦非對稱：用 6,000 美元無人機對抗造價 20 億美元的驅逐艦，成本比徹底逆轉傳統海戰邏輯"
+    },
+    {
+      "id": "CONTAINERIZED_UAS",
+      "name": "貨櫃化無人機系統",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "可從商船、貨輪、島礁貨櫃發射的無人機群，不需前沿空軍基地；Anduril Fury、Kratos XQ-58 Valkyrie 為代表；亞太島鏈作戰關鍵",
+      "key_players": [
+        { "ticker": "KTOS", "role": "Kratos，XQ-58 Valkyrie 主承包", "note": "低成本可消耗無人機，每架 200-300 萬美元" },
+        { "ticker": null, "role": "Anduril（Fury）", "note": "貨櫃發射型，群體協同" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "KTOS 為貨櫃化無人機最直接上市標的；亞太島鏈前沿基地稀缺，貨櫃化解決方案需求確定性極高",
+      "war_paradigm_shift": "解鎖前沿基地限制：台海作戰不依賴沖繩、關島，民用商船即為發射平台"
+    },
+    {
+      "id": "USV_UUV",
+      "name": "無人水面艦 / 無人潛艦（USV/UUV）",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "Anduril Ghost Shark（澳洲 UUV）、Saildrone（海面偵察）、L3Harris ORCA 超大型 UUV；延伸水下感測與打擊網路",
+      "key_players": [
+        { "ticker": null, "role": "Anduril Ghost Shark", "note": "澳洲 AUKUS 計畫，全自主 UUV，2026 年交付" },
+        { "ticker": null, "role": "Saildrone（private）", "note": "無人帆船，南海情報蒐集已實際部署" },
+        { "ticker": "LHX", "role": "L3Harris ORCA UUV", "note": "超大型 UUV，可攜帶魚雷或感測器" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "LHX 透過 ORCA 有直接 UUV 曝險；Ghost Shark 為 AUKUS 水下網路核心，澳洲採購確定",
+      "war_paradigm_shift": "水下感測民主化：UUV 持續潛伏南海，中國潛艦行動透明度大幅上升"
+    },
+    {
+      "id": "UGV",
+      "name": "無人地面車輛（UGV）與機器人",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "Ghost Robotics 機器狗（偵察 / 前進哨）、Textron RIPSAW（戰鬥 UGV）、Boston Dynamics Spot（後勤）；補給、排雷、前沿偵察",
+      "key_players": [
+        { "ticker": null, "role": "Ghost Robotics（private）", "note": "Vision 60 機器狗，美空軍基地警戒已部署" },
+        { "ticker": "TXT", "role": "Textron，RIPSAW M5", "note": "遙控戰鬥車，陸軍 RCV 計畫" },
+        { "ticker": null, "role": "Boston Dynamics（Hyundai 子公司）", "note": "Spot 後勤應用" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "TXT 為上市間接曝險；UGV 市場仍早期，主要應用在後勤而非前線作戰",
+      "war_paradigm_shift": "步兵替代第一步：高風險任務（排雷、前哨、補給）優先以機器替換人員"
+    },
+    {
+      "id": "DRONE_SWARM",
+      "name": "無人機集群（Drone Swarms）",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "分散式協同攻擊，單一中央 AI 協調數百架無人機同步行動；Anduril Lattice 與 Shield AI Hivemind 為軟體核心；邊緣 AI 晶片為硬體瓶頸",
+      "key_players": [
+        { "ticker": null, "role": "Anduril（Lattice）", "note": "集群指揮軟體" },
+        { "ticker": null, "role": "Shield AI（Hivemind）", "note": "無 GPS 自主集群飛行" },
+        { "ticker": "AVAV", "role": "AeroVironment，集群載台", "note": "SUAS 無人機集群研發" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "邊緣推理 AI 晶片（低功耗、高算力）為集群瓶頸：每架無人機需要本地決策能力，現有商規晶片功耗太高、軍規晶片產量不足",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "集群打擊是台海非對稱核心戰術，AVAV 為上市最純標的；邊緣 AI 晶片受益者包含 NVDA Jetson 系列",
+      "war_paradigm_shift": "飽和攻擊成本崩塌：一次集群攻擊出動 500 架 1,000 美元無人機，防守方需 500 枚百萬美元攔截彈才能應對"
+    },
+    {
+      "id": "CUAS_HARD_KILL",
+      "name": "反無人機硬殺傷系統（C-UAS Hard Kill）",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "雷射武器（RTX HPE、LMT HELIOS）、高功率微波（Epirus Leonidas）；用於攔截低成本無人機，避免用 PAC-3 打大疆",
+      "key_players": [
+        { "ticker": "RTX", "role": "高能雷射（HPE），艦載版", "note": "SSL-TM 雷射武器，陸戰隊已部署" },
+        { "ticker": "LMT", "role": "HELIOS 雷射武器，海軍版", "note": "60kW 雷射，2021 年裝備 DDG" },
+        { "ticker": null, "role": "Epirus（private）", "note": "Leonidas 高功率微波，一次可打集群" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "高功率電源管理（電容儲能、功率調製）是雷射武器最大瓶頸：艦載版需穩定高功率電源，陸基版受限電池能量密度",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "RTX 與 LMT 均有雷射武器業務，但尚未獨立拆分財務；Epirus 若上市為純 C-UAS 標的",
+      "war_paradigm_shift": "防禦成本逆轉：每發雷射攔截成本低於 1 美元（電費），對比 PAC-3 MSE 每枚 400 萬美元，徹底解決成本不對稱"
+    },
+    {
+      "id": "CUAS_SOFT_KILL",
+      "name": "反無人機軟殺傷系統（C-UAS Soft Kill）",
+      "layer": "4",
+      "type": "subsystem",
+      "desc": "電子干擾（GPS 欺騙、RF 壓制）、協議破解；L3Harris DroneDefender、諾斯洛普 EW 部門；低成本但對抗自主無人機效果有限",
+      "key_players": [
+        { "ticker": "LHX", "role": "L3Harris，DroneDefender 系列", "note": "手持 RF 干擾槍，已出口多國" },
+        { "ticker": "NOC", "role": "電子戰系統整合", "note": "艦載 EW 系統可整合 C-UAS 功能" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "軟殺傷是第一道防線且成本最低，LHX 為最直接受益者；但對 AI 自主無人機效果遞減",
+      "war_paradigm_shift": "電磁戰成為日常：城市防禦、艦艇自保均需軟殺傷能力，從特殊任務變為標準配備"
+    },
+    {
+      "id": "CUAS_DETECTION",
+      "name": "C-UAS 偵測與分類系統",
+      "layer": "4",
+      "type": "subsystem",
+      "desc": "RF 感測器（Dedrone）、雷達（SRC Inc. AN/TPQ 系列）、光電追蹤（IronDome 相機陣列）；AI 自動分類威脅等級",
+      "key_players": [
+        { "ticker": "AXON", "role": "Axon Enterprise，收購 Dedrone", "note": "2023 年 Axon 收購 Dedrone，整合至公共安全平台" },
+        { "ticker": null, "role": "SRC Inc.（private）", "note": "軍規雷達，AN/TPQ-49 反火砲偵測已整合 UAS" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "AXON 透過 Dedrone 有 C-UAS 偵測曝險，但非主要業務；偵測系統是 C-UAS 整合市場高成長細分",
+      "war_paradigm_shift": "威脅識別 AI 化：傳統雷達無法分辨商用無人機與武裝無人機，AI 分類系統成必需"
+    },
+    {
+      "id": "STARSHIELD",
+      "name": "Starshield / 星鏈軍用化",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "SpaceX Starshield 為加密強化版 Starlink，烏克蘭戰場已驗證在電磁干擾環境下的通訊韌性；亦涵蓋 SAR 衛星感測",
+      "key_players": [
+        { "ticker": null, "role": "SpaceX（private）", "note": "Starshield DoD 合約 2023 年簽訂，金額未公開" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "SpaceX 未上市，間接曝險透過衛星地面設備供應商；台海作戰若 GPS 被干擾，Starshield 為備援通訊骨幹",
+      "war_paradigm_shift": "通訊去中心化：單一衛星通訊被摧毀不影響整體，分散式 LEO 星座使通訊韌性提升 100 倍"
+    },
+    {
+      "id": "JADC2_AI",
+      "name": "JADC2 聯合全域指揮管制 / AI 決策鏈",
+      "layer": "2",
+      "type": "weapon_platform",
+      "desc": "聯合全域指揮管制（JADC2）：整合陸海空太空網路，AI 輔助決策；Palantir Maven → Anduril Lattice → TITAN 地面站為現有最完整鏈條",
+      "key_players": [
+        { "ticker": "PLTR", "role": "Maven Smart System / AIP", "note": "美軍 AI 決策加速核心" },
+        { "ticker": "SAIC", "role": "JADC2 系統整合", "note": "多域作戰中間件" },
+        { "ticker": "LHX", "role": "TITAN 地面站硬體", "note": "AI 輔助 C2 終端" }
+      ],
+      "bottleneck": false,
+      "asia_pacific_relevance": "high",
+      "investment_signal": "PLTR 為 AI 決策鏈最純粹上市標的，JADC2 預算成長 50%+（FY2025）；盟友版本（日本、澳洲）輸出是下一成長點",
+      "war_paradigm_shift": "指揮速度超越人類反應：AI 在毫秒內整合多域感測，指揮官審核而非決策，作戰節奏進入機器速度"
+    },
+    {
+      "id": "EDGE_AI_CHIP",
+      "name": "邊緣推理 AI 晶片（軍用）",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "低功耗、高算力、抗輻射的 AI 推理晶片，用於無人機集群本地決策、飛彈末段導引、C-UAS 目標識別；商規晶片功耗過高無法搭載",
+      "key_players": [
+        { "ticker": "NVDA", "role": "Jetson Orin 模組", "note": "商規，部分軍用客製化版本" },
+        { "ticker": "QCOM", "role": "Snapdragon 軍用版", "note": "低功耗邊緣推理" },
+        { "ticker": null, "role": "Rebellion Defense（private）", "note": "純軍規邊緣 AI 晶片設計，被 PLTR 生態合作" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "軍規邊緣 AI 晶片需通過 MIL-SPEC 認證（-55 到 +125°C、抗衝擊、抗輻射），現有商規晶片認證週期 18-36 個月；中國出口管制使台積電軍規晶片採購受複雜政治影響",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "NVDA Jetson 生態系為最大受益，但軍規版需專案採購；純軍規邊緣 AI 設計公司（Rebellion）為潛在 IPO 標的",
+      "war_paradigm_shift": "決策下沉至平台端：每架無人機本地決策，消除通訊延遲與干擾風險，集群韌性大幅提升"
+    },
+    {
+      "id": "SMALL_PROPULSION",
+      "name": "小型推進系統（遊蕩彈藥 / 無人機用）",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "小型渦輪噴射（Jet Cat、PBS Velka Bites）、電動無刷馬達、固態微型火箭；遊蕩彈藥與集群無人機的核心推進元件，供應極度分散",
+      "key_players": [
+        { "ticker": null, "role": "PBS Velka Bites（捷克）", "note": "全球最大小型渦輪供應商之一，供應多數遊蕩彈藥" },
+        { "ticker": "AVAV", "role": "AeroVironment 自製電動推進", "note": "Switchblade 電動版推進" },
+        { "ticker": null, "role": "Jet Cat（德國）", "note": "Switchblade 600 渦輪供應商" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "小型渦輪供應商高度集中於歐洲非上市公司，年產量幾千台，戰時需求可能是數萬台；電動推進受電池能量密度限制航程",
+      "asia_pacific_relevance": "high",
+      "investment_signal": "無直接上市標的，但 AVAV 自製推進策略提供垂直整合護城河；小型渦輪產能是遊蕩彈藥放量的隱形瓶頸",
+      "war_paradigm_shift": "軍工去中心化：戰場消耗品需要民用產線規模的推進元件，傳統軍工採購模式無法應對"
+    },
+    {
+      "id": "HIGH_POWER_ENERGY",
+      "name": "高功率電源管理（雷射武器用）",
+      "layer": "4",
+      "type": "subsystem_bottleneck",
+      "desc": "脈衝電容儲能、高功率密度電池、固態功率調製器；為雷射武器與電磁軌道砲的核心能源瓶頸",
+      "key_players": [
+        { "ticker": "BAE", "role": "BAE Systems 電磁武器電源", "note": "英國，電磁軌道砲電源模組" },
+        { "ticker": null, "role": "General Atomics（private）", "note": "電磁彈射（EMALS）電源，電磁武器儲能" }
+      ],
+      "bottleneck": true,
+      "bottleneck_reason": "雷射武器需要瞬間釋放兆瓦級電功率，現有艦載電力系統（DDG 約 9MW 總功率）需分配給推進、雷達、生命維持，大功率雷射（300kW+）需要新一代全電力艦設計",
+      "asia_pacific_relevance": "medium",
+      "investment_signal": "無純粹上市標的；全電力艦（DDG(X) 計畫）是長期解決方案，GD/HII 間接受益",
+      "war_paradigm_shift": "艦艇電力化：從燃油武器到電力武器，主砲讓位給雷射，艦艇設計根本典範改變"
+    }
+  ],
+  "edges_v2": [
+    {
+      "from": "LOITERING_MUNITIONS",
+      "to": "SMALL_PROPULSION",
+      "type": "depends_on",
+      "label": "遊蕩彈藥依賴小型推進系統（新瓶頸）"
+    },
+    {
+      "from": "DRONE_SWARM",
+      "to": "EDGE_AI_CHIP",
+      "type": "depends_on",
+      "label": "集群 AI 依賴邊緣推理晶片"
+    },
+    {
+      "from": "CUAS_HARD_KILL",
+      "to": "HIGH_POWER_ENERGY",
+      "type": "depends_on",
+      "label": "雷射武器依賴高功率電源管理"
+    },
+    {
+      "from": "ANDURIL",
+      "to": "DRONE_SWARM",
+      "type": "integrates",
+      "label": "Anduril Lattice 整合無人機集群"
+    },
+    {
+      "from": "ANDURIL",
+      "to": "USV_UUV",
+      "type": "integrates",
+      "label": "Anduril Ghost Shark UUV"
+    },
+    {
+      "from": "ANDURIL",
+      "to": "CONTAINERIZED_UAS",
+      "type": "integrates",
+      "label": "Anduril Fury 貨櫃化無人機"
+    },
+    {
+      "from": "CONTAINERIZED_UAS",
+      "to": "DOD_NAVY",
+      "type": "enables",
+      "label": "解鎖不需前沿基地的亞太島鏈作戰能力"
+    },
+    {
+      "from": "PALANTIR",
+      "to": "JADC2_AI",
+      "type": "integrates",
+      "label": "Maven Smart System 為 JADC2 核心"
+    },
+    {
+      "from": "SHIELD_AI",
+      "to": "DRONE_SWARM",
+      "type": "integrates",
+      "label": "Hivemind 集群自主飛行軟體"
+    },
+    {
+      "from": "STARSHIELD",
+      "to": "JADC2_AI",
+      "type": "enables",
+      "label": "Starshield 提供 JADC2 抗干擾通訊骨幹"
+    }
+  ]
+}
