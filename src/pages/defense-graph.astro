@@ -1,0 +1,345 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import graphData from '../../data/knowledge/defense-nodes.json';
+
+const gd = graphData as any;
+const title       = gd.title;
+const subtitle    = gd.subtitle;
+const version     = gd.version;
+const last_updated = gd.last_updated;
+const thesis      = gd.investment_thesis;
+
+// 合併原始節點與 v2 自主作戰節點
+const allNodes: any[] = [...(gd.nodes || []), ...(gd.nodes_v2_autonomous_warfare || [])];
+const allEdges: any[] = [...(gd.edges || []), ...(gd.edges_v2 || [])];
+
+// ── 版面常數 ─────────────────────────────────────────────────────────────────
+const SVG_W = 2300;
+const SVG_H = 860;
+const NW    = 108;   // node width
+const NH    = 42;    // node height
+const NW2   = NW / 2;
+const NH2   = NH / 2;
+
+// 各層 cy（中心 y）
+const LAYER_CY: Record<string, number> = {
+  '1': 80,
+  '2': 210,
+  '3': 340,
+  '4': 470,
+  '5': 600,
+};
+
+// 各層 band（背景色帶）
+const LAYER_BAND = [
+  { layer: '1', y: 26,  h: 106, fill: '#eff6ff', stroke: '#bfdbfe', label: 'LAYER 1 — 需求端（美軍各軍種 + 亞太盟友）', lcolor: '#1d4ed8' },
+  { layer: '2', y: 150, h: 120, fill: '#f0fdf4', stroke: '#bbf7d0', label: 'LAYER 2 — 武器平台（傳統 + 新戰爭範式）',   lcolor: '#15803d' },
+  { layer: '3', y: 290, h: 100, fill: '#fff7ed', stroke: '#fed7aa', label: 'LAYER 3 — 一級承包商（傳統五大 + DefTech 新創）', lcolor: '#c2410c' },
+  { layer: '4', y: 410, h: 100, fill: '#fdf4ff', stroke: '#e9d5ff', label: 'LAYER 4 — 關鍵次系統 ／ 瓶頸',              lcolor: '#7e22ce' },
+  { layer: '5', y: 530, h: 100, fill: '#fef2f2', stroke: '#fecaca', label: 'LAYER 5 — 原物料 ／ 結構性瓶頸',             lcolor: '#b91c1c' },
+];
+
+// ── 節點位置（動態計算）────────────────────────────────────────────────────
+const nodesByLayer: Record<string, any[]> = {};
+for (const n of allNodes) {
+  const k = String(n.layer);
+  if (!nodesByLayer[k]) nodesByLayer[k] = [];
+  nodesByLayer[k].push(n);
+}
+
+const pos: Record<string, { cx: number; cy: number }> = {};
+for (const [layer, layerNodes] of Object.entries(nodesByLayer)) {
+  const cy = LAYER_CY[layer] ?? 80;
+  const count = layerNodes.length;
+  const slotW = SVG_W / count;
+  layerNodes.forEach((n, i) => {
+    pos[n.id] = { cx: slotW * (i + 0.5), cy };
+  });
+}
+
+// ── 節點顏色 ─────────────────────────────────────────────────────────────────
+function getNodeColor(n: any) {
+  if (n.type === 'deftech_startup')
+    return { fill: '#faf5ff', stroke: '#7c3aed', text: '#4c1d95' };
+  const map: Record<string, { fill: string; stroke: string; text: string }> = {
+    '1': { fill: '#eff6ff', stroke: '#2563eb', text: '#1e3a8a' },
+    '2': { fill: '#f0fdf4', stroke: '#16a34a', text: '#14532d' },
+    '3': { fill: '#fff7ed', stroke: '#ea580c', text: '#7c2d12' },
+    '4': { fill: '#fdf4ff', stroke: '#9333ea', text: '#581c87' },
+    '5': { fill: '#fef2f2', stroke: '#dc2626', text: '#7f1d1d' },
+  };
+  return map[String(n.layer)] ?? map['5'];
+}
+
+// ── 邊線樣式（只顯示關鍵類型）──────────────────────────────────────────────
+const SHOW_TYPES = new Set([
+  'bottleneck', 'funds', 'demand', 'demand_amplifier',
+  'primary_contractor', 'depends_on', 'integrates',
+]);
+
+const edgeStyle: Record<string, { stroke: string; width: number; dash: string }> = {
+  bottleneck:          { stroke: '#dc2626', width: 2.2, dash: '' },
+  funds:               { stroke: '#3b82f6', width: 1.2, dash: '' },
+  demand:              { stroke: '#3b82f6', width: 1.2, dash: '' },
+  demand_amplifier:    { stroke: '#f97316', width: 1.5, dash: '6 3' },
+  primary_contractor:  { stroke: '#16a34a', width: 1.5, dash: '' },
+  depends_on:          { stroke: '#9ca3af', width: 1,   dash: '4 2' },
+  integrates:          { stroke: '#9333ea', width: 1.2, dash: '4 2' },
+};
+
+const MARKER: Record<string, string> = {
+  bottleneck: 'url(#arr-red)',
+  funds: 'url(#arr-blue)',
+  demand: 'url(#arr-blue)',
+  demand_amplifier: 'url(#arr-orange)',
+  primary_contractor: 'url(#arr-green)',
+  depends_on: 'url(#arr-gray)',
+  integrates: 'url(#arr-purple)',
+};
+
+function edgePath(fromId: string, toId: string): string {
+  const s = pos[fromId];
+  const t = pos[toId];
+  if (!s || !t) return '';
+  const x1 = s.cx, y1 = s.cy + NH2;
+  const x2 = t.cx, y2 = t.cy - NH2;
+  if (y2 <= y1 + 10) {
+    // 同層或向上：畫弧線
+    const arc = Math.max(y1, y2) + 55;
+    return `M ${x1} ${y1} C ${x1} ${arc} ${x2} ${arc} ${x2} ${y2 + NH}`;
+  }
+  const dy = (y2 - y1) * 0.42;
+  return `M ${x1} ${y1} C ${x1} ${y1 + dy} ${x2} ${y2 - dy} ${x2} ${y2}`;
+}
+
+// ── 瓶頸節點集合 ─────────────────────────────────────────────────────────────
+const bottleneckIds = new Set(allNodes.filter((n: any) => n.bottleneck).map((n: any) => n.id));
+
+// ── 圖例 ─────────────────────────────────────────────────────────────────────
+const legendEdges = [
+  { color: '#dc2626', dash: false, label: '瓶頸關係（紅色警示）' },
+  { color: '#3b82f6', dash: false, label: '預算 / 採購資金流' },
+  { color: '#16a34a', dash: false, label: '一級承包商' },
+  { color: '#9ca3af', dash: true,  label: '系統依賴關係' },
+  { color: '#9333ea', dash: true,  label: 'DefTech 整合關係' },
+];
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <BaseHead title={`${title} — Xompass`} description={subtitle} />
+    <style>
+      body { background: #f9fafb; }
+      main { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+      .page-header { margin-bottom: 1.4rem; }
+      .page-header h1 { font-size: 1.55rem; font-weight: 800; color: #111827; margin: 0 0 0.3rem; letter-spacing: -0.03em; }
+      .subtitle { color: #6b7280; font-size: 0.88rem; margin: 0 0 0.6rem; }
+      .meta { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: #9ca3af; flex-wrap: wrap; }
+      .version { background: #fef9c3; color: #854d0e; padding: 0.15rem 0.5rem; border-radius: 20px; font-weight: 700; font-size: 0.72rem; }
+
+      .thesis-box {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-left: 4px solid #dc2626;
+        border-radius: 8px;
+        padding: 1rem 1.3rem;
+        margin-bottom: 1.3rem;
+        font-size: 0.875rem;
+        color: #374151;
+        line-height: 1.7;
+      }
+      .thesis-box strong { color: #dc2626; }
+
+      .graph-wrap {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 0.75rem;
+        overflow-x: auto;
+        box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      }
+      .graph-wrap svg { display: block; min-width: 900px; }
+
+      .legend {
+        display: flex; flex-wrap: wrap; gap: 1rem;
+        margin-top: 1.1rem; padding: 0.9rem 1.2rem;
+        background: #fff; border: 1px solid #e5e7eb;
+        border-radius: 10px; font-size: 0.8rem; color: #374151;
+      }
+      .legend-item { display: flex; align-items: center; gap: 0.45rem; }
+
+      .bottleneck-note {
+        margin-top: 1.1rem;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        padding: 0.85rem 1.2rem;
+        font-size: 0.82rem;
+        color: #7f1d1d;
+        line-height: 1.6;
+      }
+      .bottleneck-note strong { color: #dc2626; }
+
+      .note { margin-top: 0.9rem; font-size: 0.73rem; color: #9ca3af; text-align: right; }
+
+      @media (max-width: 640px) {
+        main { padding: 1rem 0.75rem 3rem; }
+        .page-header h1 { font-size: 1.15rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+
+      <div class="page-header">
+        <h1>🗺️ {title}</h1>
+        <p class="subtitle">{subtitle}</p>
+        <div class="meta">
+          <span class="version">{version}</span>
+          <span>·</span>
+          <span>更新日期 {last_updated}</span>
+          <span>·</span>
+          <span>Xompass Research</span>
+        </div>
+      </div>
+
+      <div class="thesis-box">
+        <strong>投資論點：</strong>{thesis}
+      </div>
+
+      <div class="graph-wrap">
+        <svg
+          viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label={title}
+          style="font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;"
+        >
+          <defs>
+            {['red','blue','green','gray','orange','purple'].map(c => {
+              const fill = c==='red'?'#dc2626':c==='blue'?'#3b82f6':c==='green'?'#16a34a':c==='gray'?'#9ca3af':c==='orange'?'#f97316':'#9333ea';
+              return (
+                <marker id={`arr-${c}`} viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+                  <path d="M0 0L10 4L0 8z" fill={fill}/>
+                </marker>
+              );
+            })}
+          </defs>
+
+          <!-- Layer 背景色帶 -->
+          {LAYER_BAND.map(b => (
+            <>
+              <rect x="8" y={b.y} width={SVG_W - 16} height={b.h} rx="10"
+                    fill={b.fill} stroke={b.stroke} stroke-width="1"/>
+              <text x="20" y={b.y + 18} font-size="8" fill={b.lcolor}
+                    font-weight="700" letter-spacing="0.08em">
+                {b.label}
+              </text>
+            </>
+          ))}
+
+          <!-- 邊線（先渲染，節點蓋上面）-->
+          {allEdges
+            .filter((e: any) => SHOW_TYPES.has(e.type))
+            .map((e: any) => {
+              const st = edgeStyle[e.type] ?? edgeStyle.depends_on;
+              const mk = MARKER[e.type] ?? 'url(#arr-gray)';
+              const d  = edgePath(e.from, e.to);
+              if (!d) return null;
+              return (
+                <path
+                  d={d}
+                  fill="none"
+                  stroke={st.stroke}
+                  stroke-width={st.width}
+                  stroke-dasharray={st.dash || undefined}
+                  marker-end={mk}
+                  opacity={e.type === 'bottleneck' ? 0.85 : 0.45}
+                />
+              );
+            })}
+
+          <!-- 節點 -->
+          {allNodes.map((n: any) => {
+            const p = pos[n.id];
+            if (!p) return null;
+            const c = getNodeColor(n);
+            const isBN = bottleneckIds.has(n.id);
+            const nx = p.cx - NW2;
+            const ny = p.cy - NH2;
+            // 名稱截斷（超過 9 字截斷加…）
+            const name = n.name.length > 10 ? n.name.slice(0, 9) + '…' : n.name;
+            // ticker（若有）
+            const players = n.key_players ?? [];
+            const ticker = players.find((kp: any) => kp.ticker)?.ticker ?? null;
+            return (
+              <g>
+                {/* 瓶頸節點外框 */}
+                {isBN && (
+                  <rect x={nx - 2} y={ny - 2} width={NW + 4} height={NH + 4} rx="9"
+                        fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 2" opacity="0.7"/>
+                )}
+                <rect x={nx} y={ny} width={NW} height={NH} rx="7"
+                      fill={c.fill} stroke={c.stroke} stroke-width="1.5"/>
+                <text x={p.cx} y={p.cy - (ticker ? 6 : 2)} text-anchor="middle"
+                      font-size="10.5" font-weight="700" fill={c.text}>
+                  {name}
+                </text>
+                {ticker && (
+                  <text x={p.cx} y={p.cy + 10} text-anchor="middle"
+                        font-size="9" fill={c.text} opacity="0.75">
+                    {ticker}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+
+          <!-- 浮水印 -->
+          <text x={SVG_W - 8} y={SVG_H - 8} text-anchor="end"
+                font-size="8" fill="#d1d5db" letter-spacing="0.05em">
+            © Xompass Research
+          </text>
+        </svg>
+      </div>
+
+      <!-- 圖例 -->
+      <div class="legend">
+        {legendEdges.map(item => (
+          <div class="legend-item">
+            <svg width="36" height="12" viewBox="0 0 36 12" fill="none">
+              {item.dash
+                ? <line x1="0" y1="6" x2="30" y2="6" stroke={item.color} stroke-width="2" stroke-dasharray="4 2"/>
+                : <line x1="0" y1="6" x2="30" y2="6" stroke={item.color} stroke-width="2"/>}
+              <polygon points="28,3 36,6 28,9" fill={item.color}/>
+            </svg>
+            <span>{item.label}</span>
+          </div>
+        ))}
+        <div class="legend-item">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="1" y="1" width="18" height="18" rx="4" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 2"/>
+          </svg>
+          <span>⚠️ 瓶頸節點（紅色虛線框）</span>
+        </div>
+      </div>
+
+      <!-- 三大瓶頸說明 -->
+      <div class="bottleneck-note">
+        <strong>三大結構瓶頸（投資含意最高）</strong><br/>
+        1. <strong>飛彈體製造產能</strong> — PAC-3、SM-3、THAAD、HIMARS 彈體共用同一套生產鏈，炸藥 + 鈦材 + 稀土磁鐵三重壓制，缺口預計延續至 2028 年。LMT、RTX 飛彈部門毛利持續改善。<br/>
+        2. <strong>造船廠人力</strong> — Virginia 級核潛艦年產能 1.2 艘 vs 需求 2 艘，AUKUS 再加壓。熟練焊工培訓需 3-4 年，GD／HII 受益期延長至 2035+。<br/>
+        3. <strong>稀土供應</strong> — 中國 2025 年出口管制已落地，飛彈導引頭磁鐵、雷達伺服馬達全面受影響。MP Materials（MP）為最直接受益上市標的。
+      </div>
+
+      <p class="note">每季更新 · 資料來源：公開財報、DoD 預算文件、產業研究 · 不構成投資建議</p>
+    </main>
+    <Footer />
+  </body>
+</html>
