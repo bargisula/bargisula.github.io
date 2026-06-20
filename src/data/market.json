@@ -1,15 +1,15 @@
-﻿{
+{
   "updated": "2026-06-20",
   "indices": [
     {
-      "name": "??",
+      "name": "道瓊",
       "symbol": "^DJI",
       "close": null,
       "change": null,
       "pct": null
     },
     {
-      "name": "????100",
+      "name": "那斯達克100",
       "symbol": "^NDX",
       "close": null,
       "change": null,
