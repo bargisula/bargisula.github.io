@@ -14,7 +14,7 @@
       "reviews": {
         "week1": { "due": "2026-06-12", "price": null, "direction": null, "thesis_status": null, "notes": "SpaceX IPO 掛牌日，觀察代理溢價收縮幅度" },
         "week2": { "due": "2026-06-19", "price": 102, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-17：FOMC 超鷹（升息機率 66%），≤$110 第二批條件已觸發（現價 $102）。CEO 裁定：設 3 日冷靜期，06/20 後重評。FOMC 是外部催化劑，非 RKLB 基本面改變，依情緒追高 feedback 規則暫停。等 10Y 方向確認後裁定執行。direction=neutral（外部環境變化，論點本身未改變）。" },
-        "week3": { "due": "2026-06-26", "price": null, "direction": null, "thesis_status": null, "notes": null }
+        "week3": { "due": "2026-06-26", "price": 106.2, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-22：RKLB 正式納入 Nasdaq-100（今日生效），觸發被動買盤，過去一個月大漲。但估值 P/S 53.4x 已嚴重透支，FOMC 鷹派（Warsh 升息路徑 confidence 0.80）對高 P/S 形成結構性壓力。CEO 裁定：暫停所有進場行動，需有基本面 good news 才重啟。觸發條件：Neutron 首飛時間表確認、Q2 backlog 維持成長、或政府合約重大進展。thesis_status=confirmed（論點未失效），但不在此環境下追高入指效應。" }
       },
       "final_verdict": null,
       "failure_mode": null,
@@ -32,7 +32,8 @@
       "reviews": {
         "week1": { "due": "2026-05-28", "price": 196.17, "direction": "correct", "thesis_status": "confirmed", "notes": "股價 $196（+4.3% vs 建倉日 $188）。NVIDIA 32億美元股權投資協議為新增錨定事件，論點升級。進場條件上修至 ≤$198 + 10Y ≤4.6%，現況已符合兩個條件。C2 玻璃基板仍待確認（2030量產），Kill Switch 均未觸發。" },
         "week2": { "due": "2026-06-04", "price": 200.76, "direction": "correct", "thesis_status": "confirmed", "notes": "股價 $200.76（+6.8% vs 建倉日 $188），已突破進場條件上限 $198。觸發事件：NVIDIA 長期合作夥伴關係公告（5/6）+ Jensen Huang Computex 發言（6/2）帶動單日跳漲 13%。Q1 光通訊分部年增 36%。論點強化：NVIDIA 股權投資＋美國產能 10 倍擴張確認錨定合約。現價已超進場條件，等回測 $198 以下再評估建倉。10Y 4.47%（符合 ≤4.6% 條件）。" },
-        "week3": { "due": "2026-06-18", "price": 180, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-17：首批已在 $180 建倉（6/15 裁定執行）。FOMC 後後續加碼計畫暫停。CEO 裁定：條件恢復 = 10Y 確認站穩 ≤4.5% + 股價 ≤$190。若 10Y 突破 4.6% 並維持一週，需重評整體進場假設（NVIDIA 錨定合約效應 vs 利率壓縮壓力）。GLW 論點本身未失效（CIEN +40% YoY 為上游需求確認），暫停是利率風險管理，非論點放棄。" }
+        "week3": { "due": "2026-06-18", "price": 180, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-17：首批已在 $180 建倉（6/15 裁定執行）。FOMC 後後續加碼計畫暫停。CEO 裁定：條件恢復 = 10Y 確認站穩 ≤4.5% + 股價 ≤$190。若 10Y 突破 4.6% 並維持一週，需重評整體進場假設（NVIDIA 錨定合約效應 vs 利率壓縮壓力）。GLW 論點本身未失效（CIEN +40% YoY 為上游需求確認），暫停是利率風險管理，非論點放棄。" },
+        "week4": { "due": "2026-06-22", "price": 195, "direction": "correct", "thesis_status": "confirmed", "notes": "2026-06-22：第二批建倉執行。觸發條件：10Y 4.46%（≤4.5% ✅）+ 開盤預估 $190.74（≤$190 邊界，董事長裁定執行）。GLW 6/18 大漲 11.17%（$175.41→$195）由 Amazon 多年光纖協議（6/8）+ AI capex 強勁確認驅動，CIEN Q2 +40% YoY 為上游需求旁證，Micron-Anthropic 記憶體合作再度確認 AI 基礎設施鏈條系統性鎖定趨勢。第二批以 $190-195 區間執行。下一觸發：GLW Q2 財報（2026-07-29），確認光通訊 backlog 能見度。" }
       },
       "final_verdict": null,
       "failure_mode": null,
@@ -46,7 +47,7 @@
     "mixed": 0,
     "pending": 2,
     "accuracy_rate": null,
-    "last_updated": "2026-06-13"
+    "last_updated": "2026-06-22"
   },
   "schema_notes": {
     "direction": "correct | incorrect | neutral（外部衝擊，非論點失誤）",
