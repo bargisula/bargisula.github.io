@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-01",
+  "last_updated": "2026-06-26",
   "picks": [
     {
       "id": "pick-2026-06-01-RKLB",
@@ -14,7 +14,8 @@
       "reviews": {
         "week1": { "due": "2026-06-12", "price": null, "direction": null, "thesis_status": null, "notes": "SpaceX IPO 掛牌日，觀察代理溢價收縮幅度" },
         "week2": { "due": "2026-06-19", "price": 102, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-17：FOMC 超鷹（升息機率 66%），≤$110 第二批條件已觸發（現價 $102）。CEO 裁定：設 3 日冷靜期，06/20 後重評。FOMC 是外部催化劑，非 RKLB 基本面改變，依情緒追高 feedback 規則暫停。等 10Y 方向確認後裁定執行。direction=neutral（外部環境變化，論點本身未改變）。" },
-        "week3": { "due": "2026-06-26", "price": 106.2, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-22：RKLB 正式納入 Nasdaq-100（今日生效），觸發被動買盤，過去一個月大漲。但估值 P/S 53.4x 已嚴重透支，FOMC 鷹派（Warsh 升息路徑 confidence 0.80）對高 P/S 形成結構性壓力。CEO 裁定：暫停所有進場行動，需有基本面 good news 才重啟。觸發條件：Neutron 首飛時間表確認、Q2 backlog 維持成長、或政府合約重大進展。thesis_status=confirmed（論點未失效），但不在此環境下追高入指效應。" }
+        "week3": { "due": "2026-06-26", "price": 106.2, "direction": "neutral", "thesis_status": "confirmed", "notes": "2026-06-22：RKLB 正式納入 Nasdaq-100（今日生效），觸發被動買盤，過去一個月大漲。但估值 P/S 53.4x 已嚴重透支，FOMC 鷹派（Warsh 升息路徑 confidence 0.80）對高 P/S 形成結構性壓力。CEO 裁定：暫停所有進場行動，需有基本面 good news 才重啟。觸發條件：Neutron 首飛時間表確認、Q2 backlog 維持成長、或政府合約重大進展。thesis_status=confirmed（論點未失效），但不在此環境下追高入指效應。" },
+        "week4": { "due": "2026-06-26", "price": 84.74, "direction": "correct", "thesis_status": "confirmed", "notes": "2026-06-26：【技術面進場】董事長裁定技術面已觸底，執行進場。基本面無新觸發事件（NASA PolSIR+TSIS-2 合約為常規 Electron 業務，非 Neutron 里程碑）。本次進場依據：技術面判斷，非原設基本面觸發條件。Kill Switch 沿用原設定（Neutron 取消 / Q2 backlog 萎縮 / 稀釋 >10%）。SpaceX 軍事合作夥伴關係（06/24）為額外論點支撐，列入觀察。" }
       },
       "final_verdict": null,
       "failure_mode": null,
