@@ -1,26 +1,26 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "indices": [
     {
       "name": "道瓊",
       "symbol": "^DJI",
-      "close": 51966.03,
-      "change": -36.38,
-      "pct": -0.07
+      "close": 52495.88,
+      "change": 529.85,
+      "pct": 1.02
     },
     {
       "name": "那斯達克100",
       "symbol": "^NDX",
-      "close": 29529.34,
-      "change": 341.79,
-      "pct": 1.17
+      "close": 29490.28,
+      "change": -39.07,
+      "pct": -0.13
     },
     {
       "name": "S&P 500",
       "symbol": "^GSPC",
-      "close": 7690.73,
-      "change": 31.29,
-      "pct": 0.41
+      "close": 7712.57,
+      "change": 21.84,
+      "pct": 0.28
     }
   ]
 }
